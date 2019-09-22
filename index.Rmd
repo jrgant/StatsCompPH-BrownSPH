@@ -27,13 +27,16 @@ While teaching oneself is an indispensable part of the process, new researchers 
 
 - **Install R (plus RStudio) and SAS**
     - Include R packages that will be helpful to download as the tutorials progress
+
 - **Understand the different data types in both SAS and R**
+
 - **Understand how each language handles:**
     - Variable names
     - Value formats
     - Misssing data
     - Objects
     - Environments (as applicable)
+
 - **Be able to conduct the following tasks in both SAS and R:**
     - Import/export data from and to common filetypes
         - Use common machine-readable filetypes when possible (i.e., CSV, tab-delimited .txt)
@@ -47,20 +50,23 @@ While teaching oneself is an indispensable part of the process, new researchers 
             - Linear
             - Logistic (exponentiate in SAS for OR)
             - Relative risk (log-binomial, Poisson, quasi-Poisson)
-            - Proportional hazards (exp command for HR) —> reference levels in
+            - Proportional hazards
     - Simulate data
     - Write simple loops
     - Write simple functions/macros
+
 - **Produce publication-quality plots**
     - Export data from SAS
     - Review image formats (JPG, PNG, EPS, WMF, EMF, PDF)
     - Know where to find information on principles of data visualization (e.g., Kieran Healy's dataviz book, 50 visualizations in R)
+
 - **Consider the benefits and drawbacks of each language**
     - With flexibility comes complexity → the power of R is worth the cost, IMO, but SAS might be easier for newcomers to learn (R tidyverse may bridge this gap)
     - For reproducibility, R leads the pack among statistical programming languages
         - Options exist for SAS but are more limited (LateX/Sweave macro)
         - SAS is not open source, whereas R is open source
     - Cost... R is free and always will be
+
 - **Resource library**
     - A repository of excellent, and mostly free, resources on programming in R, SAS, and/or data visualization
 
@@ -72,9 +78,11 @@ While teaching oneself is an indispensable part of the process, new researchers 
     - Parameteric *g*-formula
     - Multiple imputation (don't have experience with this myself)
     - Propensity score matching (don't have experience with this myself)
+
 - **Get comfortable with implementing multiple strategies for the same task**
     - R: base R vs. `data.table` vs. `tidyverse`
     - SAS: merging with PROC SORT and MERGE DATA step vs. using hash objects
+
 - **Understand the benefits of competing strategies in prior bulletpoint**
     - Working with large datasets
         - Processing speed
@@ -87,7 +95,7 @@ While teaching oneself is an indispensable part of the process, new researchers 
         - Do Not Repeat Yourself
 
 ```{r, out.width = "30%", fig.align = "center", out.extra = 'style="padding-top:50px;"', echo = FALSE}
-library(SASMarkdown)
+library(SASmarkdown)
 knitr::include_graphics("assets/brown_logo.svg")
 ```
 

@@ -1,0 +1,15 @@
+# Getting Started {#startup}
+
+## Getting Started with R
+
+Download and install the appropriate [version of R](https://www.r-project.org/).
+
+Rather than using the default R interface, we recommend downloading [RStudio](https://www.rstudio.com/products/rstudio/download/). RStudio is an integrated development environment (IDE) built specifically to make a range of tasks easier in R.
+
+## Getting Started with SAS
+
+Brown University students can download the most recent version of SAS from [Brown's software catalogue](https://www.brown.edu/information-technology/software/catalog/sas-1). You must log in to your student account to download the necessary software.
+
+Windows and Linux users should download the SAS 9.4 version that corresponds to their machine as well as SAS Enterprise Guide. While SAS comes with an interface, Enterprise Guide serves a similar purpose for SAS as RStudio does for R.
+
+Unfortunately, Mac users will need to use a server-based service called SAS University, as local downloads of SAS 9.4 and SAS Enterprise Guide **are not** available for Mac.
