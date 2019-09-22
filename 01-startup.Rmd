@@ -12,4 +12,6 @@ Brown University students can download the most recent version of SAS from [Brow
 
 Windows and Linux users should download the SAS 9.4 version that corresponds to their machine as well as SAS Enterprise Guide. While SAS comes with an interface, Enterprise Guide serves a similar purpose for SAS as RStudio does for R.
 
-Unfortunately, Mac users will need to use a server-based service called SAS University, as local downloads of SAS 9.4 and SAS Enterprise Guide **are not** available for Mac.
+Unfortunately, Mac users will need to use the server-based version of SAS University, as local downloads of SAS 9.4 and SAS Enterprise Guide **are not** available for Mac.
+
+**Consider providing instructions to download a virtual machine, install Linux (Mint or Ubuntu), and then install SAS 9.4 for Linux.**
