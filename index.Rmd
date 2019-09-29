@@ -33,7 +33,7 @@ While teaching oneself is an indispensable part of the process, new researchers 
 - **Understand how each language handles:**
     - Variable names
     - Value formats
-    - Misssing data
+    - Missing data
     - Objects
     - Environments (as applicable)
 
@@ -94,7 +94,7 @@ While teaching oneself is an indispensable part of the process, new researchers 
         - Code maintenance
         - Do Not Repeat Yourself
 
-```{r, out.width = "30%", fig.align = "center", out.extra = 'style="padding-top:50px;"', echo = FALSE}
+```{r, out.width = "30%", fig.align = "center", out.extra = 'style="padding-top:50px;"', echo = FALSE, message = FALSE}
 library(SASmarkdown)
 knitr::include_graphics("assets/brown_logo.svg")
 ```
