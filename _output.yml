@@ -2,7 +2,7 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Public Health Computing</a></li>
+        <li><a href="./" class="title-slug">Public Health Computing</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
     edit: https://github.com/rstudio/bookdown-demo/edit/master/%s
