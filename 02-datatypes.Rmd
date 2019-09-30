@@ -10,15 +10,34 @@ R and SAS are very different beasts.
 
 R is what's known as a functional language, meaning it is built around the general principle that we create objects (e.g., a dataset) feed them to functions that perform particular operations on the input object and return some sort of output.
 
-As a simple example, let's take the object `iris`, a dataset provided by default in every R installation, and feed it to a function that returns the first five rows:
+As a simple example, let's take the object `iris`, a dataset provided by default in every R installation, and feed it to a function that returns the first 6 rows:
 
-```{r datatypes-iris}
+```{r datatypes-iris-1}
 head(datasets::iris)
+```
+
+We can also provide directions to the function in the form of arguments. For instance, let's have a look at the first 10 rows instead by setting the `n` argument accordingly:
+
+```{r datatypes-iris-2}
+head(datasets::iris, n = 10)
 ```
 
 We'll talk about some other ways to work with various objects, but for now, it suffices to understand this general principle about functional programming.
 
-SAS, on the other hand, requires most manipulations to be done within what's called the DATA step.^[SAS does provide a matrix language via `PROC IML`, which is beyond the scope of this guide.] More on that later.
+The syntax for SAS is very different. An example should suffice to illustrate. Let's take a look at the `iris` dataset again, performing the same two operations as we did in R:
+
+```{sas datatypes-iris-3-datastep, collectcode = TRUE}
+proc import datafile="data/iris.csv"
+  out=iris
+  dbms=csv
+  replace;
+run;
+
+proc print data=iris(obs=6); run;
+proc print data=iris(obs=10); run;
+```
+
+SAS is built around **datasteps** and **procedures** (the `proc` statements we wrote in the code above). As we continue on, we will see how different these languages are, and we'll discuss some strengths and weaknesses of both.
 
 ## R: Value Types
 

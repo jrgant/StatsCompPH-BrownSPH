@@ -17,6 +17,16 @@ description: "Resources and tutorials for R and SAS analysis geared toward publi
 
 ```{r book_setup, include = FALSE}
 pacman::p_load(tidyverse, data.table, SASMarkdown)
+
+saspath <- "C:/Program Files/SASHome/SASFoundation/9.4/sas.exe"
+sasopts <- "-nosplash -ls 75"
+
+knitr::opts_chunk$set(
+  engine.path = list(sas = saspath, saslog = saspath),
+  engine.opts = list(sas = sasopts, saslog = sasopts),
+  comment = NA
+)
+
 ```
 
 # Motivation
