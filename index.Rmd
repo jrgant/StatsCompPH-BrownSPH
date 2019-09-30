@@ -98,7 +98,7 @@ While teaching oneself is an indispensable part of the process, new researchers 
         - Code maintenance
         - Do Not Repeat Yourself
 
-```{r, out.width = "30%", fig.align = "center", out.extra = 'style="padding-top:50px;"', echo = FALSE, message = FALSE}
+```{r, out.width = "30%", fig.align = "center", out.extra = 'style="padding-top:50px; display:block; margin:0 auto;"', echo = FALSE, message = FALSE}
 knitr::include_graphics("assets/brown_logo.svg")
 ```
 
