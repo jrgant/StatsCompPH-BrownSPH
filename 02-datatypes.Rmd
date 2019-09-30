@@ -1,0 +1,25 @@
+# Data Types
+
+Using any programming language effectively requires the user to learn how that language handles and stores data. For our purposes, we will be most interested in getting comfortable with the major value, variable, and dataset formats offered by SAS and R.
+
+This guide will make a special effort to describe common pitfalls peculiar to each language. These pitfalls can be unintuitive and have been known to cause new programmers plenty of headaches. With a bit of luck, we'll learn how to avoid them so we can concentrate on what matters most: conducting a sound analysis.
+
+## Major Differences Between R and SAS
+
+R and SAS are very different beasts.
+
+R is what's known as a functional language, meaning it is built around the general principle that we create objects (e.g., a dataset) feed them to functions that perform particular operations on the input object and return some sort of output.
+
+As a simple example, let's take the object `iris`, a dataset provided by default in every R installation, and feed it to a function that returns the first five rows:
+
+```{r datatypes-iris}
+head(datasets::iris)
+```
+
+We'll talk about some other ways to work with various objects, but for now, it suffices to understand this general principle about functional programming.
+
+SAS, on the other hand, requires most manipulations to be done within what's called the DATA step.^[SAS does provide a matrix language via `PROC IML`, which is beyond the scope of this guide.] More on that later.
+
+## R: Value Types
+
+## SAS: Value Types
