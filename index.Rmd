@@ -15,6 +15,10 @@ github-repo: jrgant/StatsCompPH-BrownSPH
 description: "Resources and tutorials for R and SAS analysis geared toward public health students."
 ---
 
+```{r book_setup, include = FALSE}
+pacman::p_load(tidyverse, data.table, SASMarkdown)
+```
+
 # Motivation
 
 Statistical computing is an essential activity for modern researchers, but students tend to be left to their own devices to develop their programming abilities.
@@ -95,7 +99,6 @@ While teaching oneself is an indispensable part of the process, new researchers 
         - Do Not Repeat Yourself
 
 ```{r, out.width = "30%", fig.align = "center", out.extra = 'style="padding-top:50px;"', echo = FALSE, message = FALSE}
-library(SASmarkdown)
 knitr::include_graphics("assets/brown_logo.svg")
 ```
 
