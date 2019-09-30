@@ -15,3 +15,5 @@ Windows and Linux users should download the SAS 9.4 version that corresponds to 
 Unfortunately, Mac users will need to use the server-based version of SAS University, as local downloads of SAS 9.4 and SAS Enterprise Guide **are not** available for Mac.
 
 <dev-note>Consider providing instructions to download a virtual machine, install Linux (Mint or Ubuntu), and then install SAS 9.4 for Linux.</dev-note>
+
+<dev-note>Should also provide a glossary or quick tutorial on getting acquainted with the interfaces. For instance, what's a console, source file, etc.</dev-note>
