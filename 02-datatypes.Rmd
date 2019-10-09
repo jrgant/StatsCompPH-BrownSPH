@@ -8,7 +8,7 @@ This guide will make a special effort to describe common pitfalls peculiar to ea
 
 R and SAS are very different beasts.
 
-R is what's known as a functional language, meaning it is built around the general principle that we create objects (e.g., a dataset) feed them to functions that perform particular operations on the input object and return some sort of output.
+R is what's known as a functional language, meaning it is built around the general principle that we create objects (e.g., a dataset) and feed them to functions that perform particular operations on the input object and return some sort of output.
 
 As a simple example, let's take the object `iris`, a dataset provided by default in every R installation, and feed it to a function that returns the first 6 rows:
 
@@ -24,7 +24,9 @@ head(datasets::iris, n = 10)
 
 We'll talk about some other ways to work with various objects, but for now, it suffices to understand this general principle about functional programming.
 
-The syntax for SAS is very different. An example should suffice to illustrate. Let's take a look at the `iris` dataset again, performing the same two operations as we did in R:
+The syntax for SAS is very different.
+
+An example should suffice to illustrate. Let's take a look at the `iris` dataset again, performing the same two operations as we did in R:
 
 ```{sas datatypes-iris-3-datastep, collectcode = TRUE}
 proc import datafile="data/iris.csv"
@@ -39,6 +41,65 @@ proc print data=iris(obs=10); run;
 
 SAS is built around **datasteps** and **procedures** (the `proc` statements we wrote in the code above). As we continue on, we will see how different these languages are, and we'll discuss some strengths and weaknesses of both.
 
-## R: Value Types
+## R: Object and Value Classes
 
-## SAS: Value Types
+As statistical programmers, we will need to have a good handle on the major classes (types), including which are appropriate based on the goals of our analyses. Here we will focus on two sets of entities---values and objects---and their respective classes.
+
+```{r value-class-table, echo = FALSE}
+tibble::tribble(
+  ~`Value Class`,
+  ~Description,
+  ~Examples,
+
+  "numeric",
+  "A numeric value, which might include floats, doubles, or integers",
+  "400, 3.1415, 0.07",
+
+  "boolean",
+  "True/False",
+  "TRUE",
+
+  "character",
+  "A value that contains a string of alphanumeric characters",
+  "php2200, systolbp, hiv_pos",
+
+  "factor",
+  "A variable usually used to denote a categorical variable. Groups can be ordered or unordered, but each is assigned an invisible numeric value.",
+  "Ordered: High, Medium, Low; Unordered: Red, Blue, Green",
+
+  "date",
+  "Tend to be somewhat difficult to work with and come in many formats. Later, we will focus specifically on manipulating, analyzing, and displaying dates.",
+  "2005-09-01; 09012005; September 1, 2005",
+
+  "missing",
+  "Missing values in R are usually stored as NA. In certain cases, it may be advisable to specify the class of the missing value.",
+  "Standard: NA; Class-specific: _NA_character, _NA_numeric"
+) %>%
+  knitr::kable(caption = "Major data types (value classes) in R")
+```
+
+To conduct a statistical analysis, usually we will need to store values in various types of _objects_. These objects can be tailored toward specific data type or may enable the user to store multiple data types.
+
+
+```{r, object-class-table, echo = FALSE}
+tibble::tribble(
+  ~`Object Class`,
+  ~Description,
+
+  "vector",
+  "A one-dimensional data structure capable of storing a series of values regardless of class.",
+
+  "matrix",
+  "A data structure with rows and columns that can extend into _n_ dimensions. Matrices are able to store only one data type at a time. For example, all stored values in a numeric matrix would be numeric.",
+
+  "list",
+  "An _n_-dimensional structure capable of storing multiple data types and objects in complex ways.",
+
+  "data.frame",
+  "A special type of list capable of storing mixed data types in rectangular format. In other words, data.frames are what we probably think of when imagining a dataset from a trial or observational study. We will have a look at some subtypes of data.frames such as data.tables and tibbles later in the guide."
+
+) %>%
+  knitr::kable(caption = "Major object classes in R")
+```
+
+## SAS: Value Formats
