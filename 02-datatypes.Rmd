@@ -52,7 +52,7 @@ tibble::tribble(
   ~Examples,
 
   "numeric",
-  "A numeric value, which might include floats, doubles, or integers",
+  "A numeric value, which might be an integer or decimal",
   "400, 3.1415, 0.07",
 
   "boolean",
@@ -78,7 +78,7 @@ tibble::tribble(
   knitr::kable(caption = "Major data types (value classes) in R")
 ```
 
-To conduct a statistical analysis, usually we will need to store values in various types of _objects_. These objects can be tailored toward specific data type or may enable the user to store multiple data types.
+To conduct a statistical analysis, usually we will need to store values in various types of _objects_. These objects can be tailored toward a specific data type or may enable the user to store multiple data types.
 
 
 ```{r, object-class-table, echo = FALSE}
@@ -96,10 +96,14 @@ tibble::tribble(
   "An _n_-dimensional structure capable of storing multiple data types and objects in complex ways.",
 
   "data.frame",
-  "A special type of list capable of storing mixed data types in rectangular format. In other words, data.frames are what we probably think of when imagining a dataset from a trial or observational study. We will have a look at some subtypes of data.frames such as data.tables and tibbles later in the guide."
+  "A special type of list capable of storing mixed data types in rectangular format. Data.frames are what we probably think of when imagining a dataset from a trial or observational study. We will have a look at some subtypes of data.frames such as data.tables and tibbles later in the guide."
 
 ) %>%
   knitr::kable(caption = "Major object classes in R")
 ```
 
 ## SAS: Value Formats
+
+We will spend a little less time reviewing SAS value formats because the first of the mandatory introductory SAS training modules covers these in a fair amount of detail.
+
+<dev-note>Select major datatypes and refer readers to the comprehensive datatype dictionary in the SAS 9.4 documentation</dev-note>
