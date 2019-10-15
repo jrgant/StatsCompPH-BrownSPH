@@ -10,6 +10,10 @@
 
 1. Wickham H. [Advanced R](http://adv-r.had.co.nz/). http://adv-r.had.co.nz. Accessed 2019-10-15.
 
+1. Tidyverse. [https://www.tidyverse.org/]().
+
+1. [Introduction to data.table](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html). Updated 2019-10-02. Accessed 2019-10-15.
+
 ### Data Visualization
 
 1. Prabhakaran S. [Top 50 ggplot2 Visualizations - The Master List (with Full R Code)](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html). http://r-statistics.co. Accessed 2019-10-15.
@@ -19,6 +23,8 @@
 1. Allen M, Poggiali D, Whitaker K, et al. [Raincloud plots: a multi-platform tool for robust data visualization](https://wellcomeopenresearch.org/articles/4-63/v1). _Wellcome Open Research_ 2019;4:63, doi: 10.12688/wellcomeopenres.15191.1
 
 1. Wilke CO. [Introduction to ggridges](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html). Updated 2018-09-27. Accessed 2019-10-15.
+
+1. [r2d3: R Interface to D3 Visualizations](https://rstudio.github.io/r2d3/articles/introduction.html). Accessed 2019-10-15.
 
 ### Reproducible Research and Version Control
 
