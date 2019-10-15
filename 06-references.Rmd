@@ -1,3 +1,26 @@
-`r if (knitr:::is_html_output()) '
-# References {-}
-'`
+# Resources
+
+## R
+
+### Core Documentation
+
+1. The R Development Core Team, eds. [The R Manuals](https://cran.r-project.org/manuals.html).
+
+### Programming
+
+1. Wickham H. [Advanced R](http://adv-r.had.co.nz/). http://adv-r.had.co.nz
+
+### Data Visualization
+
+1. Prabhakaran S. [Top 50 ggplot2 Visualizations - The Master List (with Full R Code)](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html). http://r-statistics.co.
+
+2. Healy K. [Data Visualization: A Practical Introduction](https://socviz.co/). Princeton University Press, 2018-04-25 draft.
+
+3. Allen M, Poggiali D, Whitaker K, et al. [Raincloud plots: a multi-platform tool for robust data visualization](https://wellcomeopenresearch.org/articles/4-63/v1). _Wellcome Open Research_ 2019;4:63, doi: 10.12688/wellcomeopenres.15191.1
+
+
+## SAS
+
+### Programming
+
+### Data Visualization
