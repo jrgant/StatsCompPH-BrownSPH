@@ -4,23 +4,41 @@
 
 ### Core Documentation
 
-1. The R Development Core Team, eds. [The R Manuals](https://cran.r-project.org/manuals.html).
+1. The R Development Core Team, eds. [The R Manuals](https://cran.r-project.org/manuals.html). Accessed 2019-10-15.
 
 ### Programming
 
-1. Wickham H. [Advanced R](http://adv-r.had.co.nz/). http://adv-r.had.co.nz
+1. Wickham H. [Advanced R](http://adv-r.had.co.nz/). http://adv-r.had.co.nz. Accessed 2019-10-15.
 
 ### Data Visualization
 
-1. Prabhakaran S. [Top 50 ggplot2 Visualizations - The Master List (with Full R Code)](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html). http://r-statistics.co.
+1. Prabhakaran S. [Top 50 ggplot2 Visualizations - The Master List (with Full R Code)](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html). http://r-statistics.co. Accessed 2019-10-15.
 
-2. Healy K. [Data Visualization: A Practical Introduction](https://socviz.co/). Princeton University Press, 2018-04-25 draft.
+1. Healy K. [Data Visualization: A Practical Introduction](https://socviz.co/). Princeton University Press, 2018-04-25 draft. Accessed 2019-10-15.
 
-3. Allen M, Poggiali D, Whitaker K, et al. [Raincloud plots: a multi-platform tool for robust data visualization](https://wellcomeopenresearch.org/articles/4-63/v1). _Wellcome Open Research_ 2019;4:63, doi: 10.12688/wellcomeopenres.15191.1
+1. Allen M, Poggiali D, Whitaker K, et al. [Raincloud plots: a multi-platform tool for robust data visualization](https://wellcomeopenresearch.org/articles/4-63/v1). _Wellcome Open Research_ 2019;4:63, doi: 10.12688/wellcomeopenres.15191.1
+
+1. Wilke CO. [Introduction to ggridges](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html). Updated 2018-09-27. Accessed 2019-10-15.
+
+### Reproducible Research and Version Control
+
+1. Xie Y, Allaire JJ, Grolemund G. [RMarkdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/). Updated 2019-09-23. Accessed 2019-10-15.
+
+1. Bryan J. [Happy Git and GitHub for the useR](https://happygitwithr.com/). Accessed 2019-10-15.
+
+1. Xie Y. [bookdown: Authoring Books and Technical Documents with RMarkdown](https://bookdown.org/yihui/bookdown/). Updated 2019-09-13. Accessed 2019-10-15.
 
 
 ## SAS
 
-### Programming
+### Programming and Core Documentation
 
-### Data Visualization
+1. SAS Institute Inc. [SAS&copy; 9.4 and SAS&copy; Viya 3.4 Programming Documentation](https://go.documentation.sas.com/?cdcId=pgmsascdc&cdcVersion=9.4_3.4&docsetId=pgmsashome&docsetTarget=home.htm&locale=en). Accessed 2019-10-15.
+
+### Reproducible Research
+
+1. Arnold T, Kuhfeld WF. [Using SAS&copy; and LaTeX to Create Documents with Reproducible Results](https://support.sas.com/rnd/app/stat/papers/abstracts/324-2012.html). SAS Global Forum, 2012: Paper 324-2012.
+
+1. Hemken D. [SAS Using R Markdown](https://www.ssc.wisc.edu/~hemken/SASworkshops/Markdown/SASmarkdown.html).
+
+1. Allen C. [Using SAS in RMarkdown](https://carter-allen.github.io/SASmarkdown.html). Updated 2018-01-11. Accessed 2019-10-15.
