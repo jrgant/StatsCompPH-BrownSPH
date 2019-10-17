@@ -1,0 +1,78 @@
+# Getting Data In and Out
+
+Data comes in many formats. Some formats are universal and easily imported into most statistical programs, while others are proprietary and tailored to a specific program.
+
+While incompatibility between datafile formats and various programs used to be a considerable annoyance, most programs have made it rather easy to import data formats regardless of the format's origin. However, in some cases, features available in one language will be unavailable in another or might require additional formatting.
+
+The table below provides a brief summary of formats commonly used to store datasets.
+
+```{r, dataset-format-table, echo = FALSE}
+tibble::tribble(
+  ~Format,
+  ~`Created In`,
+  ~Description,
+
+  "CSV",
+  "Almost all spreadsheet programs, plain text editors, and programs for statistical analysis.",
+  "CSV is a good universal format in which to store data. Any statistical program should have a built-in method by which to import CSV files. If you're used to using text formatting in Excel (e.g., bold, italics, multiple worksheets), note that CSV **does not** preserve these features. If you have multiple sheets in an Excel file, you should make sure to save each to a separate CSV file.",
+
+  "TXT",
+  "Almost all spreadsheet programs, plain text editors, and programs for statistical analysis.",
+  "Like CSV files, TXT files can be read by almost all statistical programs across different operating systems. Note that TXT files can use a number of different types of delimiters (column separators), including commas, spaces, and tabs.",
+
+  "Rdata, RDS",
+  "R",
+  "We'll get into the distinctions between these filetypes in a little bit. Both are specific to R, and if you want to transition smoothly between programs you plan to use for different tasks with the same dataset, it may be best to use CSV or TXT.",
+
+  "sas7bdat",
+  "SAS",
+  "Probably the most commonly used SAS-based dataset format, sas7bdat is capable of storing datasets with native SAS labeling and other features. If you find yourself moving between R and SAS, R has a number of packages available capable of importing and writing to the sas7bdat format, though important SAS variable labels requires an additional step or two.",
+
+  "DTA",
+  "Stata",
+  "While this format is native to Stata, both SAS and R can import the format easily.",
+
+  "XLS, XLSX",
+  "Microsoft Excel",
+  "It is **highly recommended** that datasets not be saved in Excel format. Use a plain-text format like CSV or TXT or, alternatively, a statistical program's native export format whenever possible."
+) %>%
+  knitr::kable(caption = "Common dataset formats")
+```
+
+## R: Reading and Writing Data
+
+Before we begin, you'll want to install two R packages:
+
+```{r install-data-import, eval = FALSE}
+# if you've already installed the tidyverse package, you should have readr
+pkgs <- c("readr", "haven")
+install.packages(pkgs)
+```
+
+## Reading Data
+
+```{r import-examples, message = FALSE}
+library(readr)
+library(haven)
+
+# import a standard CSV file
+iris_csv <- readr::read_csv("data/iris.csv")
+
+# import a tab-delimited TXT file, we specify the tab delimiter as \t
+iris_txt <- readr::read_delim("data/iris.txt", delim = "\t")
+
+# import a sas7bdat file
+iris_sas <- haven::read_sas("data/iris.sas7bdat")
+```
+
+Let's check the results for each imported version of the `iris` dataset from R.
+
+```{r check-imports}
+head(iris_csv)
+head(iris_txt)
+head(iris_sas)
+```
+
+Notice that the variable names from the SAS import are slightly different because periods are not permissible characters in SAS variable names.
+
+## SAS: Reading and Writing Data
