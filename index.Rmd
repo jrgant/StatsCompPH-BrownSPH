@@ -53,18 +53,20 @@ While teaching oneself is an indispensable part of the process, new researchers 
 
 - **Be able to conduct the following tasks in both SAS and R:**
     - Import/export data from and to common filetypes
-        - Use common machine-readable filetypes when possible (i.e., CSV, tab-delimited .txt)
+        - Use common machine-readable filetypes
     - Manipulate variables
         - Assign variable names and value formats
         - Change variable names and value formats
         - Create new or derived variables
     - Statistical analysis
         - Generate contingency tables and conduct appropriate statistical tests on them
-        - Implement basic regression analysis
+        - Implement basic regression analyses
             - Linear
-            - Logistic (exponentiate in SAS for OR)
+            - Logistic
             - Relative risk (log-binomial, Poisson, quasi-Poisson)
             - Proportional hazards
+            - Complex survey methods
+            - Generalized estimating equations
     - Simulate data
     - Write simple loops
     - Write simple functions/macros
@@ -72,14 +74,14 @@ While teaching oneself is an indispensable part of the process, new researchers 
 - **Produce publication-quality plots**
     - Export data from SAS
     - Review image formats (JPG, PNG, EPS, WMF, EMF, PDF)
-    - Know where to find information on principles of data visualization (e.g., Kieran Healy's dataviz book, 50 visualizations in R)
+    - Know where to find information on principles of data visualization
 
 - **Consider the benefits and drawbacks of each language**
-    - With flexibility comes complexity → the power of R is worth the cost, IMO, but SAS might be easier for newcomers to learn (R tidyverse may bridge this gap)
+    - With flexibility comes complexity: find the appropriate tradeoff for you.
     - For reproducibility, R leads the pack among statistical programming languages
-        - Options exist for SAS but are more limited (LateX/Sweave macro)
-        - SAS is not open source, whereas R is open source
-    - Cost... R is free and always will be
+        - Options exist but are limited for SAS
+        - Open source (R) vs. closed source (SAS)
+    - Free (R) vs. paid (SAS)
 
 - **Resource library**
     - A repository of excellent, and mostly free, resources on programming in R, SAS, and/or data visualization
