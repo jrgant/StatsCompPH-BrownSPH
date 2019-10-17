@@ -49,7 +49,7 @@ pkgs <- c("readr", "haven")
 install.packages(pkgs)
 ```
 
-## Reading Data
+### Reading Data
 
 ```{r import-examples, message = FALSE}
 library(readr)
@@ -73,6 +73,21 @@ head(iris_txt)
 head(iris_sas)
 ```
 
-Notice that the variable names from the SAS import are slightly different because periods are not permissible characters in SAS variable names.
+Looking good, but we should notice that the variable names from the SAS import are slightly different because periods are not permissible characters in SAS variable names.
+
+### Writing Data
+
+When writing data, we use the `write` function for the desired output format. Typically, you'll tell the function which `data.frame` you want to save and give it the desired path and filename.
+
+```{r export-examples, eval = FALSE}
+readr::write_csv(iris_csv, "data/iris2.csv")
+readr::write_delim(iris_txt, "data/iris2.txt", delim = "\t")
+readr::write_delim(iris_txt, "data/iris3.txt", delim = ",")
+haven::write_sas(iris_sas, "data/iris2.sas")
+```
+
+Note that we could have passed any of the data.frames we created into any of the functions. For instance, we could have passed `iris_csv` to `haven::write_sas()` in order to save it as sas7bdat.
+
+
 
 ## SAS: Reading and Writing Data
