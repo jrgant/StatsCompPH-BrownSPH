@@ -1,3 +1,13 @@
+/* Brown University Colors */
+
+@br-red: #ed1c24;
+@br-yellow: #ffc72c;
+@br-brown: #4e3629;
+@br-gray: #98a4ae;
+
+
+/* Code Field Overrides */
+
 p.caption {
   color: #777;
   margin-top: 10px;
@@ -12,13 +22,12 @@ pre {
 pre code {
   white-space: inherit;
 }
-
-/* Brown University Colors */
-
-@br-red: #ed1c24;
-@br-yellow: #ffc72c;
-@br-brown: #4e3629;
-@br-gray: #98a4ae;
+pre.sas {
+  border-left: 3px solid @br-red !important;
+}
+pre.r {
+  border-left: 3px solid @br-yellow !important;
+}
 
 /* Font Overrides */
 
