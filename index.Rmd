@@ -26,86 +26,94 @@ knitr::opts_chunk$set(
 
 ```
 
-# Motivation
+# Learning Objectives
 
 Statistical computing is an essential activity for modern researchers, but students tend to be left to their own devices to develop their programming abilities.
 
 While teaching oneself is an indispensable part of the process, new researchers may be better prepared to do so provide a base from which to develop those skills. This book is intended to serve as such a resource for incoming graduate students in the School of Public Health.
 
-## Learning Objectives
+## Main objectives
 
-### Main objectives
+Install R (plus RStudio) and SAS
 
-- **Install R (plus RStudio) and SAS**
-    - Include R packages that will be helpful to download as the tutorials progress
+  - Include R packages that will be helpful to download as the tutorials progress
 
-- **Understand the different data types in both SAS and R**
+Understand the different data types in both SAS and R
 
-- **Understand how each language handles:**
-    - Variable names
-    - Value formats
-    - Missing data
-    - Objects
-    - Environments (as applicable)
+Understand how each language handles:
 
-- **Be able to conduct the following tasks in both SAS and R:**
-    - Import/export data from and to common filetypes
-        - Use common machine-readable filetypes
-    - Manipulate variables
-        - Assign variable names and value formats
-        - Change variable names and value formats
-        - Create new or derived variables
-    - Statistical analysis
-        - Generate contingency tables and conduct appropriate statistical tests on them
-        - Implement basic regression analyses
-            - Linear
-            - Logistic
-            - Relative risk (log-binomial, Poisson, quasi-Poisson)
-            - Proportional hazards
-            - Complex survey methods
-            - Generalized estimating equations
-    - Simulate data
-    - Write simple loops
-    - Write simple functions/macros
+  - Variable names
+  - Value formats
+  - Missing data
+  - Objects
+  - Environments (as applicable)
 
-- **Produce publication-quality plots**
-    - Export data from SAS
-    - Review image formats (JPG, PNG, EPS, WMF, EMF, PDF)
-    - Know where to find information on principles of data visualization
+Be able to conduct the following tasks in both SAS and R:
 
-- **Consider the benefits and drawbacks of each language**
-    - With flexibility comes complexity: find the appropriate tradeoff for you.
-    - For reproducibility, R leads the pack among statistical programming languages
-        - Options exist but are limited for SAS
-        - Open source (R) vs. closed source (SAS)
-    - Free (R) vs. paid (SAS)
+  - Import/export data from and to common filetypes
+      - Use common machine-readable filetypes
+  - Manipulate variables
+      - Assign variable names and value formats
+      - Change variable names and value formats
+      - Create new or derived variables
+  - Statistical analysis
+      - Generate contingency tables and conduct appropriate statistical tests on them
+      - Implement basic regression analyses
+          - Linear
+          - Logistic
+          - Relative risk (log-binomial, Poisson, quasi-Poisson)
+          - Proportional hazards
+          - Complex survey methods
+          - Generalized estimating equations
+  - Simulate data
+  - Write simple loops
+  - Write simple functions/macros
 
-- **Resource library**
-    - A repository of excellent, and mostly free, resources on programming in R, SAS, and/or data visualization
+Produce publication-quality plots
 
-### Secondary objectives
+  - Export data from SAS
+  - Review image formats (JPG, PNG, EPS, WMF, EMF, PDF)
+  - Know where to find information on principles of data visualization
 
-- **Get a feel for how to conduct more advanced analysis**
-    - Propensity scoring
-    - Inverse probability weighting
-    - Parameteric *g*-formula
-    - Multiple imputation (don't have experience with this myself)
-    - Propensity score matching (don't have experience with this myself)
+Consider the benefits and drawbacks of each language
 
-- **Get comfortable with implementing multiple strategies for the same task**
-    - R: base R vs. `data.table` vs. `tidyverse`
-    - SAS: merging with PROC SORT and MERGE DATA step vs. using hash objects
+  - With flexibility comes complexity: find the appropriate tradeoff for you.
+  - For reproducibility, R leads the pack among statistical programming languages
+      - Options exist but are limited for SAS
+      - Open source (R) vs. closed source (SAS)
+  - Free (R) vs. paid (SAS)
 
-- **Understand the benefits of competing strategies in prior bulletpoint**
-    - Working with large datasets
-        - Processing speed
-        - Memory management
-    - Code readability vs. parsimony
-        - Documentation and reproducibility
-        - Literate programming
-        - Macros and functions
-        - Code maintenance
-        - Do Not Repeat Yourself
+Resource repository
+
+  - Excellent and, mostly, free resources on programming and data visualization
+
+## Secondary objectives
+
+Get a feel for how to conduct more advanced analysis
+
+  - Propensity scoring
+  - Inverse probability weighting
+  - Parameteric *g*-formula
+  - Multiple imputation (don't have experience with this myself)
+  - Propensity score matching (don't have experience with this myself)
+
+Get comfortable with implementing multiple strategies for the same task
+
+  - R: base R vs. `data.table` vs. `tidyverse`
+  - SAS: merging with PROC SORT and MERGE DATA step vs. using hash objects
+
+Understand the benefits of competing strategies in prior bulletpoint
+
+  - Working with large datasets
+      - Processing speed
+      - Memory management
+
+  - Code readability vs. parsimony
+      - Documentation and reproducibility
+      - Literate programming
+      - Macros and functions
+      - Code maintenance
+      - Don't Repeat Yourself (DRY Principle)
 
 ```{r, out.width = "30%", fig.align = "center", out.extra = 'style="padding-top:50px; display:block; margin:0 auto;"', echo = FALSE, message = FALSE}
 knitr::include_graphics("assets/brown_logo.svg")

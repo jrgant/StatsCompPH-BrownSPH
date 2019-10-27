@@ -33,6 +33,14 @@ div.row:first-of-type > .col-sm-12 {
 div.row:last-of-type {
   width: 70%;
 }
+
+
+/* ## LEARNING OBJECTIVES ----------------------------------------------------*/
+
+#learning-objectives .section.level2 p {
+  font-weight: bold;
+}
+
 /* ## LINK DEFAULTS ----------------------------------------------------------*/
 
 a:link {
@@ -95,13 +103,15 @@ h1 {
   font-size: 4.5rem;
   padding-bottom: 3rem;
   margin-top: 3rem;
-  border-bottom: 2px solid @br-gray-a;
+}
+h2, h3 {
+  font-size: 2.2rem;
 }
 h2 {
   margin-top: 3rem;
 }
 h3 {
-  font-size: 1.3rem;
+  font-style: italic;
 }
 #header {
   margin-top: 2rem;
@@ -121,11 +131,9 @@ h3 {
 /* ## CODE STYLES ------------------------------------------------------------*/
 
 pre {
-  padding: 10px;
-  padding-right: 0;
-  border-left: 5px solid @br-gray-a;
+  padding: 10px 0px 20px 10px;
   background: @br-gray-t10;
-  width: 66%;
+  width: 99%;
 }
 pre.r, pre.sas, .sourceCode + pre, .sas + pre {
   border-radius: 5px;
@@ -137,15 +145,14 @@ pre.r, pre.sas, .sourceCode + pre, .sas + pre {
 pre.r:before, pre.sas:before, .sourceCode + pre:before, .sas + pre:before {
   color: white;
   display: inline-block;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: bold;
   font-variant: all-small-caps;
   margin-bottom: 15px;
   border-radius: 3px;
-  padding: 2px 4px;
+  padding: 0px 7px 3px 7px;
 }
 pre.r {
-  border-left: 5px solid @br-gold;
   background: @br-gold-t10;
 }
 pre.r:before {
@@ -153,14 +160,13 @@ pre.r:before {
   background: @br-gold;
 }
 pre.sas {
-  border-left: 5px solid @br-red;
   background: @br-red-t10;
 }
 pre.sas:before {
   content: "SAS";
   background: @br-red;
 }
-p code {
+p code, li code {
   display: inline;
   padding: 2px;
   color: @br-gray-t10;
@@ -197,6 +203,8 @@ dev-note {
   padding: 4px;
   display: block;
 }
+/*
 div.row {
   border-right: 1px dashed @br-gray-t55;
 }
+*/
