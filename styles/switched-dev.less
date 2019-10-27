@@ -17,8 +17,10 @@ body {
 p, ol, ul {
   fonti-size: 1.2rem;
 }
+p, ul, ol, footer, table, hr {
+  width: 65%;
+}
 div.row {
-  border: 1px dashed @br-gray-t55;
   padding-left: 35px;
 }
 div.row:first-of-type {
@@ -31,8 +33,7 @@ div.row:first-of-type > .col-sm-12 {
 div.row:last-of-type {
   width: 70%;
 }
-
-/* ## DEFAULTS ---------------------------------------------------------------*/
+/* ## LINK DEFAULTS ----------------------------------------------------------*/
 
 a:link {
   text-decoration: none;
@@ -42,9 +43,6 @@ a:link {
 a:visited {
   color: white;
 }
-ul {
-  width: 55%;
-}
 
 
 /* ## BROWN UNIVERSITY COLORS ------------------------------------------------*/
@@ -52,17 +50,17 @@ ul {
 @br-red: #ed1c24;
 @br-red-t10: #fde8e9;    /* unofficial color, br-red tint 10% */
 @br-gold: #ffc72c;
-@br-gold-t20: #fff4d5;   /* unofficial color, br-gold tint 20% */
+@br-gold-t10: #fff9ea;   /* unofficial color, br-gold tint 10% */
 @br-brown: #4e3629;
 @br-gray-a: #98a4ae;
 @br-gray-t55: #c6cdd2;   /* official color, br-gray-a tint 55% */
-@br-gray-t20: #eaedef;   /* unofficial color, bry-gray-a tint 20% */
+@br-gray-t10: #f5f6f7;   /* unofficial color, bry-gray-a tint 10% */
 
 
 /* TABLE OF CONTENTS ---------------------------------------------------------*/
 
 #TOC {
-  background: @br-gray-t55;
+  background: @br-gray-t10;
   padding: 10px;
 }
 #TOC a {
@@ -89,16 +87,34 @@ ul {
 
 /* ## HEADINGS ---------------------------------------------------------------*/
 
-h1, h2, h3 {
+h1, h2 {
   font-weight: bold;
+  font-style: normal;
+}
+h1 {
+  font-size: 4.5rem;
+  padding-bottom: 3rem;
+  margin-top: 3rem;
+  border-bottom: 2px solid @br-gray-a;
+}
+h2 {
+  margin-top: 3rem;
 }
 h3 {
   font-size: 1.3rem;
 }
 #header {
+  margin-top: 2rem;
   margin-bottom: 8rem;
   border-top: 3px solid;
   border-bottom: 3px solid;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+#header h1 {
+  margin-top: 0;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 
@@ -106,20 +122,59 @@ h3 {
 
 pre {
   padding: 10px;
-  border-left: 3px solid @br-gray-a;
-  background: @br-gray-t20;
+  padding-right: 0;
+  border-left: 5px solid @br-gray-a;
+  background: @br-gray-t10;
+  width: 66%;
 }
-pre.sas {
-  border-left: 3px solid @br-red;
-  background: @br-red-t10;
+pre.r, pre.sas, .sourceCode + pre, .sas + pre {
+  border-radius: 5px;
+}
+.sourceCode + pre:before, .sas + pre:before {
+  content: "OUTPUT";
+  background: @br-gray-a;
+}
+pre.r:before, pre.sas:before, .sourceCode + pre:before, .sas + pre:before {
+  color: white;
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: bold;
+  font-variant: all-small-caps;
+  margin-bottom: 15px;
+  border-radius: 3px;
+  padding: 2px 4px;
 }
 pre.r {
-  border-left: 3px solid @br-gold;
-  background: @br-gold-t20;
+  border-left: 5px solid @br-gold;
+  background: @br-gold-t10;
+}
+pre.r:before {
+  content: "R";
+  background: @br-gold;
+}
+pre.sas {
+  border-left: 5px solid @br-red;
+  background: @br-red-t10;
+}
+pre.sas:before {
+  content: "SAS";
+  background: @br-red;
+}
+p code {
+  display: inline;
+  padding: 2px;
+  color: @br-gray-t10;
+  background: @br-gray-t55;
+  border-radius: 3px;
+}
+code {
+  padding-left: 10px;
+  display: block;
 }
 code.sourceCode span.co {
   color: @br-gray-a;
 }
+
 
 /* ## FLOURISHES -------------------------------------------------------------*/
 
@@ -130,6 +185,8 @@ span.deg {
 
 /* ## DEVELOPMENT ------------------------------------------------------------*/
 
+/* comment out or delete this whole section when finished */
+
 dev-note {
   color: white;
   font-weight: bold;
@@ -139,4 +196,7 @@ dev-note {
   border-radius: 4px;
   padding: 4px;
   display: block;
+}
+div.row {
+  border-right: 1px dashed @br-gray-t55;
 }
