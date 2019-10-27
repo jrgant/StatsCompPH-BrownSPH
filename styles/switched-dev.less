@@ -1,0 +1,136 @@
+@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700&display=swap';
+
+/* ## PAGE -------------------------------------------------------------------*/
+
+html {
+  font-size: 13px;
+}
+body {
+  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+  width: 90%;
+  margin: 0;
+  display: flex;
+  padding-left: 0;
+  padding-right: 0;
+  justify-content: space-between;
+}
+p, ol, ul {
+  fonti-size: 1.2rem;
+}
+div.row {
+  border: 1px dashed @br-gray-t55;
+  padding-left: 35px;
+}
+div.row:first-of-type {
+  width: 20%;
+}
+div.row:first-of-type > .col-sm-12 {
+  position: sticky;
+  top: 0;
+}
+div.row:last-of-type {
+  width: 70%;
+}
+
+/* ## DEFAULTS ---------------------------------------------------------------*/
+
+a:link {
+  text-decoration: none;
+  text-shadow: none;
+  background: none;
+}
+a:visited {
+  color: white;
+}
+ul {
+  width: 55%;
+}
+
+
+/* ## BROWN UNIVERSITY COLORS ------------------------------------------------*/
+
+@br-red: #ed1c24;
+@br-red-t10: #fde8e9;    /* unofficial color, br-red tint 10% */
+@br-gold: #ffc72c;
+@br-gold-t20: #fff4d5;   /* unofficial color, br-gold tint 20% */
+@br-brown: #4e3629;
+@br-gray-a: #98a4ae;
+@br-gray-t55: #c6cdd2;   /* official color, br-gray-a tint 55% */
+@br-gray-t20: #eaedef;   /* unofficial color, bry-gray-a tint 20% */
+
+
+/* TABLE OF CONTENTS ---------------------------------------------------------*/
+
+#TOC {
+  background: @br-gray-t55;
+  padding: 10px;
+}
+#TOC a {
+  color: black;
+  font-size: 0.8em;
+}
+#TOC ul {
+  list-style-type: none;
+  font-weight: bold;
+}
+#TOC li {
+  padding: 0.1rem;
+}
+#TOC li ul {
+  font-weight: normal;
+}
+.fullwidth-table {
+  width: 100%;
+}
+.fullwidth-table table {
+  width: 100%;
+}
+
+
+/* ## HEADINGS ---------------------------------------------------------------*/
+
+h1, h2, h3 {
+  font-weight: bold;
+}
+h3 {
+  font-size: 1.3rem;
+}
+#header {
+  margin-bottom: 8rem;
+  border-top: 3px solid;
+  border-bottom: 3px solid;
+}
+
+
+/* ## CODE STYLES ------------------------------------------------------------*/
+
+pre {
+  padding: 10px;
+  border-left: 3px solid @br-gray-a;
+  background: @br-gray-t20;
+}
+pre.sas {
+  border-left: 3px solid @br-red;
+  background: @br-red-t10;
+}
+pre.r {
+  border-left: 3px solid @br-gold;
+  background: @br-gold-t20;
+}
+code.sourceCode span.co {
+  color: @br-gray-a;
+}
+
+
+/* ## DEVELOPMENT ------------------------------------------------------------*/
+
+dev-note {
+  color: white;
+  font-weight: bold;
+  background: @br-red;
+  opacity: 0.8;
+  border: 7px solid black;
+  border-radius: 4px;
+  padding: 4px;
+  display: block;
+}
