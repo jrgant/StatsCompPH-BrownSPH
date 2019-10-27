@@ -1,7 +1,12 @@
-bookdown::gitbook:
-  config:
-    toc:
-      before: |
-        <li><a href="./" class="title-slug">Public Health Computing</a></li>
-      after: |
-        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+# bookdown::gitbook:
+#   config:
+#     toc:
+#       before: |
+#         <li><a href="./" class="title-slug">Public Health Computing</a></li>
+#       after: |
+#         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+bookdown::tufte_html_book:
+  split_by: chapter
+  includes:
+    in_header: include-styles.html

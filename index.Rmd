@@ -3,10 +3,6 @@ title: "Computing Concepts for Public Health Researchers"
 author: "Jason Gantenberg, MPH"
 date: "Last Compiled: `r Sys.Date()`"
 site: bookdown::bookdown_site
-output:
-  bookdown::gitbook:
-    includes:
-      in_header: include-styles.html
 documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
@@ -24,7 +20,8 @@ sasopts <- "-nosplash -ls 75"
 knitr::opts_chunk$set(
   engine.path = list(sas = saspath, saslog = saspath),
   engine.opts = list(sas = sasopts, saslog = sasopts),
-  comment = NA
+  comment = NA,
+  dev = "svg"
 )
 
 ```
@@ -33,7 +30,7 @@ knitr::opts_chunk$set(
 
 Statistical computing is an essential activity for modern researchers, but students tend to be left to their own devices to develop their programming abilities.
 
-While teaching oneself is an indispensable part of the process, new researchers may be better prepared to do so provide a base from which to develop those skills. This book is intended to serve as such a resource for incoming graduate students in the School of Public Health.  
+While teaching oneself is an indispensable part of the process, new researchers may be better prepared to do so provide a base from which to develop those skills. This book is intended to serve as such a resource for incoming graduate students in the School of Public Health.
 
 ## Learning Objectives
 
