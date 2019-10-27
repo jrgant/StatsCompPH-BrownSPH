@@ -1,6 +1,6 @@
 ---
 title: "Computing Concepts for Public Health Researchers"
-author: "Jason Gantenberg, MPH"
+author: "Jason Gantenberg, <span class='deg'>MPH</span>"
 date: "Last Compiled: `r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
