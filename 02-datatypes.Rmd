@@ -51,27 +51,27 @@ tibble::tribble(
   ~Description,
   ~Examples,
 
-  "numeric",
+  "Numeric",
   "A numeric value, which might be an integer or decimal",
   "400, 3.1415, 0.07",
 
-  "boolean",
+  "Boolean",
   "True/False",
   "TRUE",
 
-  "character",
+  "Character",
   "A value that contains a string of alphanumeric characters",
   "php2200, systolbp, hiv_pos",
 
-  "factor",
+  "Factor",
   "A variable usually used to denote a categorical variable. Groups can be ordered or unordered, but each is assigned an invisible numeric value.",
   "Ordered: High, Medium, Low; Unordered: Red, Blue, Green",
 
-  "date",
+  "Date",
   "Tend to be somewhat difficult to work with and come in many formats. Later, we will focus specifically on manipulating, analyzing, and displaying dates.",
   "2005-09-01; 09012005; September 1, 2005",
 
-  "missing",
+  "Missing",
   "Missing values in R are usually stored as NA. In certain cases, it may be advisable to specify the class of the missing value.",
   "Standard: NA; Class-specific: _NA_character, _NA_numeric"
 ) %>%
@@ -86,16 +86,16 @@ tibble::tribble(
   ~`Object Class`,
   ~Description,
 
-  "vector",
+  "Vector",
   "A one-dimensional data structure capable of storing a series of values regardless of class.",
 
-  "matrix",
+  "Matrix",
   "A data structure with rows and columns that can extend into _n_ dimensions. Matrices are able to store only one data type at a time. For example, all stored values in a numeric matrix would be numeric.",
 
-  "list",
+  "List",
   "An _n_-dimensional structure capable of storing multiple data types and objects in complex ways.",
 
-  "data.frame",
+  "Data frame",
   "A special type of list capable of storing mixed data types in rectangular format. Data.frames are what we probably think of when imagining a dataset from a trial or observational study. We will have a look at some subtypes of data.frames such as data.tables and tibbles later in the guide."
 
 ) %>%
