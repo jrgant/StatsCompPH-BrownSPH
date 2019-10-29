@@ -6,6 +6,8 @@ Download and install the appropriate [version of R](https://www.r-project.org/).
 
 Rather than using the default R interface, we recommend downloading [RStudio](https://www.rstudio.com/products/rstudio/download/). RStudio is an integrated development environment (IDE) built specifically to make a range of tasks easier in R.
 
+If you aren't yet familiar with RStudio, take a minute to [familiarize yourself with the interface](https://www.r-bloggers.com/a-tour-of-rstudio/). You should be comfortable with each pane and its functions, as well as understand the difference between writing code in R scripts versus entering code into the console.
+
 ## Getting Started with SAS
 
 Brown University students can download the most recent version of SAS from [Brown's software catalogue](https://www.brown.edu/information-technology/software/catalog/sas-1). You must log in to your student account to download the necessary software.
