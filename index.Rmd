@@ -99,7 +99,7 @@ Get a feel for how to conduct more advanced analysis
 
 Get comfortable with implementing multiple strategies for the same task
 
-  - R: base R vs. `data.table` vs. `tidyverse`
+  - R: `base` vs. `data.table` vs. `tidyverse`
   - SAS: merging with PROC SORT and MERGE DATA step vs. using hash objects
 
 Understand the benefits of competing strategies in prior bulletpoint
