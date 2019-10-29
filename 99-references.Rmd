@@ -14,6 +14,8 @@
 
 1. [Introduction to data.table](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html). Updated 2019-10-02. Accessed 2019-10-15.
 
+1. [R and RStudio Cheatsheets](https://rstudio.com/resources/cheatsheets/). Accessed 2019-10-28.
+
 ### Data Visualization
 
 1. Prabhakaran S. [Top 50 ggplot2 Visualizations - The Master List (with Full R Code)](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html). http://r-statistics.co. Accessed 2019-10-15.
