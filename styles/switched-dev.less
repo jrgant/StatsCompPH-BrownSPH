@@ -42,22 +42,18 @@ div.row:last-of-type {
   font-weight: bold;
 }
 
+
 /* ## LINKS IN BODY ----------------------------------------------------------*/
 
-a:link {
+a:link, a:visited {
   text-decoration: none;
   text-shadow: none;
   background: none;
-}
-a:visited {
-  color: white;
-}
-
-#resources a {
   color: @br-red;
-  font-weight: bold;
 }
-
+a:hover {
+  text-decoration: underline;
+}
 
 /* ## BROWN UNIVERSITY COLORS ------------------------------------------------*/
 
@@ -219,7 +215,6 @@ td {
   border: none;
   border-radius: 5px;
   background: none;
-  font-weight: bold;
   font-family: 'Source Code Pro', 'Roboto Mono', Consolas, monospace;
   transition: 0.25s background, 0.25s color;
 }
@@ -252,12 +247,15 @@ td {
   margin-left: 10px;
   transition: margin-left 0.5s;
 }
+
+
 /* ## FLOURISHES -------------------------------------------------------------*/
 
 span.deg {
   font-size: 1.6rem;
   font-variant: all-small-caps;
 }
+
 
 /* ## DEVELOPMENT ------------------------------------------------------------*/
 
