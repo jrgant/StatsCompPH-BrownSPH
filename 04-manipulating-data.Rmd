@@ -1,0 +1,62 @@
+# Working with Data
+
+## Object Assignment in R
+
+The first thing to keep in mind when working in R is that, by default, all objects are stored in the global environment when you assign them. An object stored to the global environment will be accessible from anywhere in a project once assigned.
+
+These objects can be any of the data types or structures we saw a couple of sections ago.
+
+<span class="marginnote">Note that we can also assign objects as so: `y = 10`. However, using the equal sign is generally not preferred because it is used to assign values to function arguments, too.</span>
+
+To begin, though, we'll assign single values to several variables using the `<-`, known as the assignment operator.
+
+<span class="marginnote">Can you name the datatypes for each object we just assigned? Write 3 more lines and wrap each object name in a `class()` function.</span>
+
+```{r assign}
+x1 <- 10
+x2 <- "Welcome to Brown!"
+x3 <- TRUE
+```
+
+To view what's stored in those variables, we print them to the console.
+
+```{r print}
+# note that in some cases, you may want use the print() function
+x1
+x2
+x3
+```
+We can also perform manipulations with them:
+
+```{r manipulate}
+x1 * 10
+paste(x2, "There are many things we can do with the paste() function!")
+```
+
+With `x3`, we can do a couple of things because Booleans are also be treated as numerics, in a sense, where `TRUE` equals 1 and `FALSE` equals 0.
+
+```{r boolean.var}
+# test whether x3 is TRUE
+isTRUE(x3)
+
+# test whether x3 is FALSE
+isFALSE(x3)
+
+# multiply TRUE (1) times 5
+x3 * 5
+```
+These are very simple examples, of course, but hopefully they provide some inkling as to how the different datatypes can be combined and manipulated to achieve various ends. Checking variable values and classes will be a regular task when manipulating data and debugging code.
+
+For instance, if we needed to confirm that `x1` was a numeric variable, we could check it:
+
+```{r check.num.class}
+is.numeric(x1)
+```
+
+Or we could make sure it took the value we expected:
+
+```{r check.num.value}
+x1 == 10
+```
+
+Note, that to avoid reassigning `x1`, we used `==`, which is known as the comparison operator. This is the primary operator we use to check for equality.
