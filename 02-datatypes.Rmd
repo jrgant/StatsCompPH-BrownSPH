@@ -1,4 +1,4 @@
-# Data Types
+# Data Structures
 
 Using any programming language effectively requires the user to learn how that language handles and stores data. For our purposes, we will be most interested in getting comfortable with the major value, variable, and dataset formats offered by SAS and R.
 
