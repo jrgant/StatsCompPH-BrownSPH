@@ -34,7 +34,9 @@ div.row:first-of-type > .col-sm-12 {
 div.row:last-of-type {
   width: 70%;
 }
-
+p + .sourceCode, p + pre, pre + p {
+  margin-top: 3em !important;
+}
 
 /* ## LEARNING OBJECTIVES ----------------------------------------------------*/
 
@@ -141,22 +143,25 @@ pre {
 }
 pre.r, pre.sas, .sourceCode + pre, .sas + pre {
   border-radius: 5px;
+  border: 0px solid black;
+  box-shadow: 0 0 5px @br-gray-a inset;
 }
 .sourceCode + pre:before, .sas + pre:before {
   content: "OUTPUT";
   background: @br-gray-a;
 }
 pre.r:before, pre.sas:before, .sourceCode + pre:before, .sas + pre:before {
-  color: white;
   display: inline-block;
+  color: white;
   font-family: 'Source Code Pro', 'Roboto Mono', Consolas, monospace;
   font-size: 1.3rem;
-  font-weight: bold;
+  font-weight: normal;
   font-variant: all-small-caps;
   margin-bottom: 15px;
   border-radius: 3px;
+  border: 1px solid black;
   padding: 0px 7px 3px 7px;
-  opacity: 0.7;
+  letter-spacing: 0.1rem;
 }
 pre.r {
   background: @br-gold-t10;
@@ -164,6 +169,7 @@ pre.r {
 pre.r:before {
   content: "R";
   background: @br-gold;
+  color: black;
 }
 pre.sas {
   background: @br-red-t10;
@@ -175,7 +181,7 @@ pre.sas:before {
 p code, li code {
   display: inline;
   padding: 2px 5px;
-  background: @br-gray-t55;
+  background: @br-gray-t10;
   border-radius: 3px;
 }
 code {
