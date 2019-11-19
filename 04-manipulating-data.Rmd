@@ -1,6 +1,12 @@
+```{r page-librarys, include=FALSE}
+# Load page libraries to enable preview_chapter()
+library(magrittr)
+```
+
+
 # Working with Data
 
-## Object Assignment in R
+## Objects in R
 
 The first thing to keep in mind when working in R is that, by default, all objects are stored in the global environment when you assign them. An object stored to the global environment will be accessible from anywhere in a project once assigned.
 
@@ -8,7 +14,7 @@ These objects can be any of the data types or structures we saw a couple of sect
 
 <span class="marginnote">Note that we can also assign objects as so: `y = 10`. However, using the equal sign is generally not preferred because it is used to assign values to function arguments, too.</span>
 
-To begin, though, we'll assign single values to several variables using the `<-`, known as the assignment operator.
+To begin, though, we'll assign single values to several variables using `<-`, known as the assignment operator. One important thing to keep in mind when working in R is that all names are **case-sensitive**, meaning that R considers `myvariable` and `myVariable` to be two different objects.
 
 <span class="marginnote">Can you name the datatypes for each object we just assigned? Write 3 more lines and wrap each object name in a `class()` function.</span>
 
@@ -30,10 +36,12 @@ We can also perform manipulations with them:
 
 ```{r manipulate}
 x1 * 10
-paste(x2, "There are many things we can do with the paste() function!")
+paste(x2, "We can do many things with the paste() function!")
 ```
 
 With `x3`, we can do a couple of things because Booleans are also be treated as numerics, in a sense, where `TRUE` equals 1 and `FALSE` equals 0.
+
+<span class="marginnote">Recall the prior <a href="data-structures.html#major-differences-between-r-and-sas">discussion</a> of R as a functional language. Here, we pass the object `x3` to the function `isTRUE`.</span>
 
 ```{r boolean.var}
 # test whether x3 is TRUE
@@ -59,4 +67,319 @@ Or we could make sure it took the value we expected:
 x1 == 10
 ```
 
-Note, that to avoid reassigning `x1`, we used `==`, which is known as the comparison operator. This is the primary operator we use to check for equality.
+Note, that to avoid reassigning `x1`, we used `==`, which is a logical, or comparison, operator.
+
+We'll revisit logical operations in a bit after we review how to manipulate and work with some different types of objects.
+
+## More Complex Objects
+
+When we reviewed datatypes previously, we saw that R is capable of handling objects such as vectors, matrices, lists, and data frames. Let's have a look at each of these objects in turn, and get a feel for how we can work with them.
+
+### Vectors
+
+You can think of a vector as a sequence of values. In fact, the objects we assigned in the prior section were simply vectors with a length of one.
+
+Creating longer vectors is straightforward but requires a concatenation function called `c()`. As we did last time, let's create a few vectors.
+
+```{r vector.examples}
+x1_vec <- c(50, 21, 455, 89, 09)
+x2_vec <- c("Hi!", "Welcome", "to", "Brown", "SPH")
+x3_vec <- c(TRUE, TRUE, FALSE, FALSE, FALSE)
+
+x1_vec
+x2_vec
+x3_vec
+```
+
+Now we have 3 more vectors for which we can retrieve some information. Let's figure out the classes and lengths for each vector.
+
+<span class="marginnote">Much of the code in these blocks is included to make the output display a little neater. Ignore most of it for now, and simply recognize that we've passed each of the objects above into the `class()` and `length()` functions.</span>
+
+```{r inspect-vectors}
+cat("x1_vec attributes",
+    paste0(rep("-", 30), collapse = ""),
+    paste("class:", class(x1_vec)),
+    paste("length:", length(x1_vec)),
+    sep = "\n"
+  )
+
+cat("x2_vec attributes",
+    paste0(rep("-", 30), collapse = ""),
+    paste("class:", class(x2_vec)),
+    paste("length:", length(x2_vec)),
+    sep = "\n"
+  )
+
+cat("x3_vec attributes",
+    paste0(rep("-", 30), collapse = ""),
+    paste("class:", class(x3_vec)),
+    paste("length:", length(x3_vec)),
+    sep = "\n"
+  )
+```
+
+However, a single vector can contain values of only one class. In fact, if we try to mix classes, R will convert all elements of the vector into a single class. In the example below, R converts the numerical value 5 into a character because it doesn't know how to convert the string we provided into a number.
+
+This process of changing value classes is known as **coercion**.
+
+```{r mixed.class.vector}
+x4_vec <- c(5, "So-called 'Arthur King'!")
+
+# R coerces the numeric value into a character
+c("class" = class(x4_vec[1]),
+  "numeric?" = is.numeric(x4_vec[1]))
+```
+
+<span class="marginnote">You can check specific class types with a large number of functions. A few examples to demonstrate their general form: `is.numeric()`, `is.character()`, `is.logical()`, `is.vector()`.</span>
+
+We see the vector's class is `character`. If we print the first element of the vector, we'll see R has wrapped it in quotation marks, indicating that the number 5 has been saved as a string (a series of characters).
+
+```{r coerced.value}
+x4_vec[1]
+```
+
+The implication here is important. Say you wanted to perform a logical or arithmetic operation on the first element. What would be the result?
+
+```{r coerced.operation, error=TRUE}
+
+# arithmetic operation
+x4_vec[1] + 5
+
+# equivalence with another numeric
+x4_vec[1] == 5
+
+# equivalence with another string
+x4_vec[1] == "5"
+```
+
+Something interesting happened... the arithmetic operation failed because the first element of `x4_vec` was a character string, but the other two operations succeeded!
+
+In the latter case, we might not be all that surprised: after all, we compared two strings we knew were identical. However, in the second example R implicitly coerced our character "5" into a numeric value and was able to compare it successfully to the numeric value we proposed.
+
+Familiarize yourself with how R (or any programming lanuage you happen to be using) handles different classes and objects. All languages have their quirks in this regard, and recognizing these special cases early on will save you a lot of grief in the future.
+
+
+### Matrices
+
+In most epidemiologic data analysis, you might not end up dealing with matrices all that often. Because most of the data sets epidemiologists use contain mixtures of numeric, string, and other variable formats, we tend to use data frames.
+
+However, you should still be familiar with matrices as, depending on your line of work, they may come in handy.
+
+<span class="marginnote">For instance, you might actually need to do linear algebra, in which case, you may need to use a matrix. In addition, for very computationally demanding tasks, R can operate on matrices much faster than on data frames. We'll largely ignore these issues for now, but we'll look at a couple of instances in which matrices can be used to generate nice figure layouts for [data visualization](/data-visualization.html).</span>
+
+Matrices can be multidimensional, but for the sake of our emotional stability, we'll consider matrices in up to three dimensions.
+
+A two-dimensional matrix is essentially a vector:
+
+```{r matrix-2d-1}
+mat1 <- as.matrix(c(6, 7, 8))
+mat1
+```
+
+However, because the elements are now indexed by both row and colum, we need to refer to each element by its specific coordinates.
+
+For example, if we want to retrieve 7 from the matrix, we need to tell R that we want the element in row 2, column 1, which we can do as follows:
+
+```{r matrix-2d-2}
+mat1[2, 1]
+```
+
+If we wanted the third row:
+
+```{r matrix-2d-3}
+mat1[3, ]
+```
+
+If we wanted the first colum:
+
+```{r matrix2d-4}
+mat1[, 1]
+```
+
+With such a small matrix, these operations might seem a bit daft, so let's consider a larger numerical matrix.
+
+```{r matrix-nd-1}
+n1 <- 1:100
+n2 <- 901:1000
+
+mat2 <- matrix(c(n1, n2), nrow = 100)
+
+# show the first 10 rows of the matrix
+mat2[1:10, ]
+
+# print total number of rows and columns
+dim(mat2)
+```
+
+Be careful with matrices, though:
+
+```{r matrix-nd-2}
+mat3 <- matrix(c(n1, n2), nrow = 50)
+
+mat3[1:10, ]
+dim(mat3)
+```
+
+Because we told R we wanted a matrix with 50 rows, the first vector we specified was distributed across the first two columns, while the second vector was distributed across the third and fourth columns.
+
+That's fine if it's what we wanted, but let's say we wanted matrix with 50 rows and 4 columns, but we wanted it filled out row-by-row:
+
+```{r matrix-nd-3}
+mat4 <- matrix(c(n1, n2), nrow = 50, ncol = 4, byrow = TRUE)
+mat4[1:10, ]
+
+# NOTE
+# Here, we return rows 41-50 from mat4, but the output will label them 1-10.
+# That's because R returns our request to us as its own matrix.
+mat4[41:50, ]
+```
+
+Say we wanted to get the column and row sums for this matrix. Easy!
+
+```{r matrix-nd-4}
+colSums(mat4)
+rowSums(mat4)
+```
+
+Say we wanted to multiply every number in the matrix by 123456. Easy!
+
+```{r}
+mat4 * 123456
+```
+
+
+### Lists
+
+### Data Frames
+
+### Other Object Classes
+
+Various subfields of epidemiology and statistics provide an array of object classes that are beyond the scope of this tutorial. For instance, an object with the class "graph" describes the compnents and structures of a graph. The information stored in this object would typically allow one to manipulate, analyze, and visualize the graph.
+
+## Conducting Operations on Objects
+
+### Arithmetic Operations
+
+It may come as no surprise that you'll be doing a fair bit of arithmetic while coding, whether you're doing quick calculations in the console or creating variables derived from some arithmetic combination of other variables.
+
+R respects grouping operations and handles mathematical operations as one might expect.
+
+For instance, we can do some quick scratch calculations and print them directly to the console.
+
+<span class="marginnote">In fact, R can be a handy calculator if you run it from the command line!</span>
+
+```{r scratch-math}
+5 + 10
+0.25 * 9 + 0.75 * 3
+(5 ^ 2 + 10 ^ 3) / 50
+8 %% 3
+8 %/% 3
+```
+
+```{r arithmetic.operators, echo = FALSE}
+tibble::tribble(
+  ~Operator,
+  ~Function,
+
+  "+",
+  "Add",
+
+  "-",
+  "Subtract",
+
+  "^",
+  "Power",
+
+  "*",
+  "Multiply",
+
+  "/",
+  "Divide",
+
+  "%%",
+  "Modulus (remainder)",
+
+  "%/%",
+  "Modulus (remainder)",
+
+  "%*%",
+  "Matrix multiplication"
+) %>%
+  knitr::kable(caption = "Arithmetic operators")
+```
+
+For more information, refer to [R's documentation on arithmetic operators](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Arithmetic.html).
+
+### Logical Operations
+
+We already saw one example of a logical operation, when we checked to see if `x1` was equal to 10. Statistical and epidemiologic analysis relies heavily on implementing logical operations and checks for truth, and so it is a good idea to master these operators early---and to use them often.
+
+```{r logical.operators, echo = FALSE}
+tibble::tribble(
+  ~Operator,
+  ~Function,
+
+  "==",
+  "Check equality of two values",
+
+  "<",
+  "Less than",
+
+  "<=",
+  "Less than or equal to",
+
+  ">",
+  "Greater than",
+
+  ">=",
+  "Greater than or equal to",
+
+  "& (or &&)",
+  "AND",
+
+  "| (or ||)",
+  "OR"
+) %>%
+  knitr::kable(caption = "Logical operators")
+```
+
+When combining various operators, some will take [precedence](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Syntax.html) over others, and it's important to get a feel for this hierarchy to avoid unexpected results while programming.
+
+### Recycling
+
+Recycling is a _very_ important concept in R. First, recycling can make your code more efficient. Second, if you forget that R recycles, you might unwittingly perform an operation that spits out a bunch of wrong answers.
+
+In short, **recycling** refers to the reuse of an input object (or objects) to produce an output.
+
+That's a pretty abstract description, so let's look at a few examples to develop our intuition a bit.
+
+First, recall the operators we covered in the the prior two sections, as well as vectors.
+
+Say we wanted to add 5 to each of 3 numbers. Rather than specifying the arithmetic operation separately for each number, we could store those numbers to a vector and tell R to add 5 to the vector:
+
+```{r vector-recycle}
+numvec <- c(10, 40, 50)
+numvec + 5
+```
+
+See what happened? R added 5 to each vector element separately.
+
+If we wanted to perform separate additions on each number, we could do so easily, [as long as the longer vector's length is a multiple of the shorter vector's length](https://www.oreilly.com/library/view/the-art-of/9781593273842/ch02s03.html):
+
+```{r vector-recycle2}
+numvec + c(5, 10, 90)
+```
+
+Did you notice the difference, though? Because the vector lengths were equal, R _did not_ recycle 5, 10, and 90 to add each to each item in `numvec`. Rather, it added 5 to `numvec[1]`, 10 to `numvec[2]`, and 90 to `numvec[3]`
+
+However, attempting to execute the following operation results in a warning, because 3 cannot be divided evenly by 2:
+
+```{r vector-recycle3}
+numvec + c(5, 10)
+```
+
+Notice, however, that the second, unnamed vector _was_ recycled in this case. Looking at the output, we can see that R executed the following operations: 5 + 5, 40 + 10, and 50 + 5. In other words, R recycled the shorter vector until it was finished operating on `numvec`.
+
+You might imagine this result was not really what we were looking for if we wanted R to add 5 to each element in `numvec` and then add 10 to each element in `numvec` and return the results for both sets of operations.
+
+When we get to **for loops** and **functions**, we'll see how we can get R to do these sorts of tasks for us.
