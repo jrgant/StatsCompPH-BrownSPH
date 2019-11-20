@@ -222,7 +222,7 @@ dim(mat3)
 
 Because we told R we wanted a matrix with 50 rows, the first vector we specified was distributed across the first two columns, while the second vector was distributed across the third and fourth columns.
 
-That's fine if it's what we wanted, but let's say we wanted matrix with 50 rows and 4 columns, but we wanted it filled out row-by-row:
+That's fine if it's what we wanted. Let's say, though, that we wanted a matrix with 50 rows and 4 columns but wanted it filled out row-by-row:
 
 ```{r matrix-nd-3}
 mat4 <- matrix(c(n1, n2), nrow = 50, ncol = 4, byrow = TRUE)
@@ -233,6 +233,8 @@ mat4[1:10, ]
 # That's because R returns our request to us as its own matrix.
 mat4[41:50, ]
 ```
+
+In general, specifying the features you want in as much detail as possible will be the safest route, and may save you a good deal of grief in the future.
 
 Say we wanted to get the column and row sums for this matrix. Easy!
 
