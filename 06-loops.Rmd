@@ -1,1 +1,168 @@
-# Getting Comfortable with Loops
+# Getting Comfortable with Loops and Logic
+
+Loops are important and powerful tools in statistical programming and, when combined with logical operations, provide you with a means to develop sophisticated, flexible code bases.
+
+In this chapter, we'll focus on some simple implementations of loops, focusing separately on self-written loops and **vectorized loops** in R. We'll also take a look at a couple of looping procedures in SAS.
+
+## Why Loop?
+
+Looping often arises as a practical solution to repeat some task on a series of objects.
+
+Let's say we had a list of numbers and wanted to multiple each of them by 10. Pretending we don't know about R's [recycling capabilities](working-with-data.html#recycling), we might write a loop to conduct this task.
+
+```{r for-loop-example1}
+
+# generate a list of arbitrary numbers to operate upon
+numlist <- seq(from = 10, to = 100, by = 10)
+
+# first, we need to create an empty object in which to store our results
+results <- vector()
+
+# loop
+for (i in 1:length(numlist)) {
+  results[i] <- numlist[i] * 10
+}
+
+print(results)
+```
+
+<span class="marginnote">To gain a little intuition, run the following loops and observe the results: `for (i in 1:3) print(i)`, `for (i in 32:60) print(i)`.
+</span>
+
+The `i` referred to in the `for` statement is a variable R creates to keep track of the current iteration of the loop. For instance, if R is processing the first iteration, `i` is stored as the number we've initialized after the `in` statement---in this case, we initialized the loop at 1. When R is on the third iteration, `i` is stored in the background as 3.
+
+Therefore, based on what we've already learned in prior chapters, we can break down the steps as follows:
+
+1. Create a sequence of numbers increasing from 10 to 100 by 10, and store it to the object `numlist`. (What kind of object is `numlist`?)
+
+2. Create the empty vector `results`.
+
+3. For each iteration `i` in the range 1--10, do the following:
+
+   1. Multiply the <em>i</em>th element in `numlist` by 10 and store the result in the <em>i</em>th element of `results`.
+
+4. Print the vector of results.
+
+### Curly Braces
+
+Note that we don't always have to use curly braces in our loops. Because our loop above is quite short, we could have written it as:
+
+```{r curly-braces, eval = FALSE}
+for (i in 1:length(numlist)) results[i] <- numlist[i] * 10
+```
+
+However, the syntax above requires that all the code be written in a single line. Moving forward, we'll almost always use curly braces when using procedures that allow them. These include not only `for` loops but `if`/`else` statements and `function` definitions.
+
+
+## Nested Loops, Conditional Logic, and Reinventing Wheels
+
+Usually, we'll be using loops to conduct more complicated operations. Let's pretend R doesn't have all these nifty built-in tools to summarize our data or create new variables.
+
+Imagine instead that we're tasked with developing summary statistics for both categorical and continuous variables. To do so, we'll have to do the following:
+
+1. Loop through a list of variables
+2. Check to see if the variable is categorical or continuous
+3. Calculate summary statistics appropriate to the variable type
+
+```{r nested-loop-setup, echo = FALSE, message = FALSE}
+library(dplyr)
+nhefs <- readr::read_csv("data/nhefs.csv")
+
+nh <- nhefs %>%
+  select(seqn, death, sex, age, race, smokeyrs, smokeintensity, marital)
+
+nhl <- lapply(nh, function(x) x)
+```
+
+I've selected a handful of variables from the NHEFS dataset we've already worked with.
+
+```{r peak-nhefs-df}
+head(nh)
+```
+
+However, instead of storing the data in a data frame, I've stored it in a list  for the purposes of the current examples.
+
+```{r nhefs-list}
+head(nhl)
+```
+<span class="marginnote">[Chapter 6](statistical-analysis.html) might have some hints on a quick way to do so.</span>
+
+None of these variables has any missing data, but if you don't trust me, check for yourself!
+
+First, though, take a minute to look through the list object and make note of a few things. All we've done is taken each variable from the `nh` dataframe and stored it as a separate vector in the list called `nhl`.
+
+No observations have been reordered, so if we took the 7th value from each vector stored in `nhl`, we should be able to reproduce the 7th row of `nh`.
+
+```{r nhefs-compare-row}
+list7 <- unlist(lapply(nhl, function(x) x[7]))
+df7 <- unlist(nh[7, ])
+
+cbind(list7, df7)
+```
+
+So far, so good.
+
+Before we start writing up our code to generate some descriptive statistics for these variables, we should list the tasks we'll need to execute in order to do so.
+
+You may have noticed in the header of `nh` that all of the variables are labeled as `dbl`, meaning they are numeric. However, we know that some of them should (or could) be treated as categorical.
+
+Just to be safe, we can check to make sure the variables were saved as numeric in the list as well.
+
+```{r list-var-classes}
+cbind(unlist(lapply(nhl, class)))
+```
+
+With each variable class established, we might decide we need to complete the following list of tasks:
+
+1. Inspect each variable and calculate the appropriate descriptive statistics. For the current example, we'll just say we want a frequency table for categorical variables and a five-number summary for continuous variables.
+
+2. Label each variable according to how we treated it. As an arbitrary rule, we'll consider variables with more than 6 unique values to be categorical and all others to be continuous.
+
+3. Store the results.
+
+Considering this problem will allow us to introduce a couple of looping approaches we might consider. The first is a self-written loop similar to the one we already wrote. The next couple of approaches will used _vectorized_ loops, either with functions provided as part of the standard R installation or with some newer functions provided via the `purrr` package.
+
+### Standard Loop
+
+To begin, we're going to create a new list `nhl_sum` in which each of its elements is itself a list storing the original variable vector, the variable's class type, and the summary statistics we calculate.
+
+```{r std-loop}
+nhl_sum <- list()
+
+for (i in 1:length(nhl)) {
+
+  # reinitialize an empty temporary list at the beginning of each iteration
+  templist <- list()
+
+  # test the number of unique values in the ith element of nhl
+  if (length(unique(nhl[[i]])) <= 6) {
+
+    templist[["type"]]  <- "categorical"
+    templist[["stats"]] <- table(nhl[[i]])
+
+  } else {
+
+    templist[["type"]]  <- "continuous"
+    templist[["stats"]] <- summary(nhl[[i]])
+
+  }
+
+  # save the list we created into the ith element of our final holding object
+  nhl_sum[[i]] <- templist
+
+  # name the list element
+  names(nhl_sum)[i] <- names(nhl)[i]
+}
+
+print(nhl_sum)
+```
+
+<span class="marginnote">Note that we included `seqn`, which is the recipient ID. We could have written the loop to omit that variable, or we could have dropped its summary from `nhl_sum`.</span>
+
+If we just want to peak at the `smokeintensity` statistics, for instance, we can access them directly from `nhl_sum`:
+
+```{r}
+nhl_sum$smokeintensity
+```
+
+<dev-note>Address the same use case with lapply and purrr::map. Also, show an example that uses a nested loop.</dev-note>
