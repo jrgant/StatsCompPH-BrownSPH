@@ -150,11 +150,12 @@ pre.r, pre.sas, .sourceCode + pre, .sas + pre {
 .sourceCode + pre {
   width: 55%;
   margin-left: 10%;
+  max-height: 250px;
 }
-.sourceCode + pre:before, .sas + pre:before {
+/* .sourceCode + pre:before, .sas + pre:before {
   content: "OUTPUT";
   background: @br-gray-t55;
-}
+} */
 pre.r:before, pre.sas:before, .sourceCode + pre:before, .sas + pre:before {
   display: inline-block;
   float: right;
@@ -194,7 +195,6 @@ code {
   display: block;
   font-family: "Source Code Pro", Consolas, monospace;
   font-weight: 500;
-  max-height: 250px;
 }
 code.sourceCode span.co {
   color: @br-gray-a;
