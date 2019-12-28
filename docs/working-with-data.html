@@ -64,7 +64,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -219,39 +219,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="marginnote">Note that we can also assign objects as so: <code>y = 10</code>. However, using the equal sign is generally not preferred because it is used to assign values to function arguments, too.</span></p>
 <p>To begin, though, we’ll assign single values to several variables using <code>&lt;-</code>, known as the assignment operator. One important thing to keep in mind when working in R is that all names are <strong>case-sensitive</strong>, meaning that R considers <code>myvariable</code> and <code>myVariable</code> to be two different objects.</p>
 <p><span class="marginnote">Can you name the datatypes for each object we just assigned? Write 3 more lines and wrap each object name in a <code>class()</code> function.</span></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">x1 &lt;-<span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2">x2 &lt;-<span class="st"> &quot;Welcome to Brown!&quot;</span></a>
-<a class="sourceLine" id="cb16-3" data-line-number="3">x3 &lt;-<span class="st"> </span><span class="ot">TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">x1 &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb16-2" title="2">x2 &lt;-<span class="st"> &quot;Welcome to Brown!&quot;</span></a>
+<a class="sourceLine" id="cb16-3" title="3">x3 &lt;-<span class="st"> </span><span class="ot">TRUE</span></a></code></pre></div>
 <p>To view what’s stored in those variables, we print them to the console.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># note that in some cases, you may want use the print() function</span></a>
-<a class="sourceLine" id="cb17-2" data-line-number="2">x1</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="co"># note that in some cases, you may want use the print() function</span></a>
+<a class="sourceLine" id="cb17-2" title="2">x1</a></code></pre></div>
 <pre><code>[1] 10</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">x2</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1">x2</a></code></pre></div>
 <pre><code>[1] &quot;Welcome to Brown!&quot;</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">x3</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">x3</a></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
 <p>We can also perform manipulations with them:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">x1 <span class="op">*</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">x1 <span class="op">*</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
 <pre><code>[1] 100</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">paste</span>(x2, <span class="st">&quot;We can do many things with the paste() function!&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">paste</span>(x2, <span class="st">&quot;We can do many things with the paste() function!&quot;</span>)</a></code></pre></div>
 <pre><code>[1] &quot;Welcome to Brown! We can do many things with the paste() function!&quot;</code></pre>
 <p>With <code>x3</code>, we can do a couple of things because Booleans are also be treated as numerics, in a sense, where <code>TRUE</code> equals 1 and <code>FALSE</code> equals 0.</p>
 <p><span class="marginnote">Recall the prior <a href="data-structures.html#major-differences-between-r-and-sas">discussion</a> of R as a functional language. Here, we pass the object <code>x3</code> to the function <code>isTRUE</code>.</span></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># test whether x3 is TRUE</span></a>
-<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">isTRUE</span>(x3)</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="co"># test whether x3 is TRUE</span></a>
+<a class="sourceLine" id="cb27-2" title="2"><span class="kw">isTRUE</span>(x3)</a></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="co"># test whether x3 is FALSE</span></a>
-<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw">isFALSE</span>(x3)</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="co"># test whether x3 is FALSE</span></a>
+<a class="sourceLine" id="cb29-2" title="2"><span class="kw">isFALSE</span>(x3)</a></code></pre></div>
 <pre><code>[1] FALSE</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># multiply TRUE (1) times 5</span></a>
-<a class="sourceLine" id="cb31-2" data-line-number="2">x3 <span class="op">*</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="co"># multiply TRUE (1) times 5</span></a>
+<a class="sourceLine" id="cb31-2" title="2">x3 <span class="op">*</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
 <pre><code>[1] 5</code></pre>
 <p>These are very simple examples, of course, but hopefully they provide some inkling as to how the different datatypes can be combined and manipulated to achieve various ends. Checking variable values and classes will be a regular task when manipulating data and debugging code.</p>
 <p>For instance, if we needed to confirm that <code>x1</code> was a numeric variable, we could check it:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">is.numeric</span>(x1)</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="kw">is.numeric</span>(x1)</a></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
 <p>Or we could make sure it took the value we expected:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">x1 <span class="op">==</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1">x1 <span class="op">==</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
 <p>Note, that to avoid reassigning <code>x1</code>, we used <code>==</code>, which is a logical, or comparison, operator.</p>
 <p>We’ll revisit logical operations in a bit after we review how to manipulate and work with some different types of objects.</p>
@@ -263,70 +263,70 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">5.2.1</span> Vectors</h3>
 <p>You can think of a vector as a sequence of values. In fact, the objects we assigned in the prior section were simply vectors with a length of one.</p>
 <p>Creating longer vectors is straightforward but requires a concatenation function called <code>c()</code>. As we did last time, let’s create a few vectors.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">x1_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">21</span>, <span class="dv">455</span>, <span class="dv">89</span>, <span class="dv">09</span>)</a>
-<a class="sourceLine" id="cb37-2" data-line-number="2">x2_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Hi!&quot;</span>, <span class="st">&quot;Welcome&quot;</span>, <span class="st">&quot;to&quot;</span>, <span class="st">&quot;Brown&quot;</span>, <span class="st">&quot;SPH&quot;</span>)</a>
-<a class="sourceLine" id="cb37-3" data-line-number="3">x3_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb37-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb37-5" data-line-number="5">x1_vec</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1">x1_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">21</span>, <span class="dv">455</span>, <span class="dv">89</span>, <span class="dv">09</span>)</a>
+<a class="sourceLine" id="cb37-2" title="2">x2_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Hi!&quot;</span>, <span class="st">&quot;Welcome&quot;</span>, <span class="st">&quot;to&quot;</span>, <span class="st">&quot;Brown&quot;</span>, <span class="st">&quot;SPH&quot;</span>)</a>
+<a class="sourceLine" id="cb37-3" title="3">x3_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb37-4" title="4"></a>
+<a class="sourceLine" id="cb37-5" title="5">x1_vec</a></code></pre></div>
 <pre><code>[1]  50  21 455  89   9</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">x2_vec</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1">x2_vec</a></code></pre></div>
 <pre><code>[1] &quot;Hi!&quot;     &quot;Welcome&quot; &quot;to&quot;      &quot;Brown&quot;   &quot;SPH&quot;    </code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">x3_vec</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1">x3_vec</a></code></pre></div>
 <pre><code>[1]  TRUE  TRUE FALSE FALSE FALSE</code></pre>
 <p>Now we have 3 more vectors for which we can retrieve some information. Let’s figure out the classes and lengths for each vector.</p>
 <p><span class="marginnote">Much of the code in these blocks is included to make the output display a little neater. Ignore most of it for now, and simply recognize that we’ve passed each of the objects above into the <code>class()</code> and <code>length()</code> functions.</span></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">cat</span>(<span class="st">&quot;x1_vec attributes&quot;</span>,</a>
-<a class="sourceLine" id="cb43-2" data-line-number="2">    <span class="kw">paste0</span>(<span class="kw">rep</span>(<span class="st">&quot;-&quot;</span>, <span class="dv">30</span>), <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>),</a>
-<a class="sourceLine" id="cb43-3" data-line-number="3">    <span class="kw">paste</span>(<span class="st">&quot;class:&quot;</span>, <span class="kw">class</span>(x1_vec)),</a>
-<a class="sourceLine" id="cb43-4" data-line-number="4">    <span class="kw">paste</span>(<span class="st">&quot;length:&quot;</span>, <span class="kw">length</span>(x1_vec)),</a>
-<a class="sourceLine" id="cb43-5" data-line-number="5">    <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span></a>
-<a class="sourceLine" id="cb43-6" data-line-number="6">  )</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="kw">cat</span>(<span class="st">&quot;x1_vec attributes&quot;</span>,</a>
+<a class="sourceLine" id="cb43-2" title="2">    <span class="kw">paste0</span>(<span class="kw">rep</span>(<span class="st">&quot;-&quot;</span>, <span class="dv">30</span>), <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>),</a>
+<a class="sourceLine" id="cb43-3" title="3">    <span class="kw">paste</span>(<span class="st">&quot;class:&quot;</span>, <span class="kw">class</span>(x1_vec)),</a>
+<a class="sourceLine" id="cb43-4" title="4">    <span class="kw">paste</span>(<span class="st">&quot;length:&quot;</span>, <span class="kw">length</span>(x1_vec)),</a>
+<a class="sourceLine" id="cb43-5" title="5">    <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb43-6" title="6">  )</a></code></pre></div>
 <pre><code>x1_vec attributes
 ------------------------------
 class: numeric
 length: 5</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">cat</span>(<span class="st">&quot;x2_vec attributes&quot;</span>,</a>
-<a class="sourceLine" id="cb45-2" data-line-number="2">    <span class="kw">paste0</span>(<span class="kw">rep</span>(<span class="st">&quot;-&quot;</span>, <span class="dv">30</span>), <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>),</a>
-<a class="sourceLine" id="cb45-3" data-line-number="3">    <span class="kw">paste</span>(<span class="st">&quot;class:&quot;</span>, <span class="kw">class</span>(x2_vec)),</a>
-<a class="sourceLine" id="cb45-4" data-line-number="4">    <span class="kw">paste</span>(<span class="st">&quot;length:&quot;</span>, <span class="kw">length</span>(x2_vec)),</a>
-<a class="sourceLine" id="cb45-5" data-line-number="5">    <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span></a>
-<a class="sourceLine" id="cb45-6" data-line-number="6">  )</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="kw">cat</span>(<span class="st">&quot;x2_vec attributes&quot;</span>,</a>
+<a class="sourceLine" id="cb45-2" title="2">    <span class="kw">paste0</span>(<span class="kw">rep</span>(<span class="st">&quot;-&quot;</span>, <span class="dv">30</span>), <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>),</a>
+<a class="sourceLine" id="cb45-3" title="3">    <span class="kw">paste</span>(<span class="st">&quot;class:&quot;</span>, <span class="kw">class</span>(x2_vec)),</a>
+<a class="sourceLine" id="cb45-4" title="4">    <span class="kw">paste</span>(<span class="st">&quot;length:&quot;</span>, <span class="kw">length</span>(x2_vec)),</a>
+<a class="sourceLine" id="cb45-5" title="5">    <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb45-6" title="6">  )</a></code></pre></div>
 <pre><code>x2_vec attributes
 ------------------------------
 class: character
 length: 5</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">cat</span>(<span class="st">&quot;x3_vec attributes&quot;</span>,</a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">    <span class="kw">paste0</span>(<span class="kw">rep</span>(<span class="st">&quot;-&quot;</span>, <span class="dv">30</span>), <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>),</a>
-<a class="sourceLine" id="cb47-3" data-line-number="3">    <span class="kw">paste</span>(<span class="st">&quot;class:&quot;</span>, <span class="kw">class</span>(x3_vec)),</a>
-<a class="sourceLine" id="cb47-4" data-line-number="4">    <span class="kw">paste</span>(<span class="st">&quot;length:&quot;</span>, <span class="kw">length</span>(x3_vec)),</a>
-<a class="sourceLine" id="cb47-5" data-line-number="5">    <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span></a>
-<a class="sourceLine" id="cb47-6" data-line-number="6">  )</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1"><span class="kw">cat</span>(<span class="st">&quot;x3_vec attributes&quot;</span>,</a>
+<a class="sourceLine" id="cb47-2" title="2">    <span class="kw">paste0</span>(<span class="kw">rep</span>(<span class="st">&quot;-&quot;</span>, <span class="dv">30</span>), <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>),</a>
+<a class="sourceLine" id="cb47-3" title="3">    <span class="kw">paste</span>(<span class="st">&quot;class:&quot;</span>, <span class="kw">class</span>(x3_vec)),</a>
+<a class="sourceLine" id="cb47-4" title="4">    <span class="kw">paste</span>(<span class="st">&quot;length:&quot;</span>, <span class="kw">length</span>(x3_vec)),</a>
+<a class="sourceLine" id="cb47-5" title="5">    <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb47-6" title="6">  )</a></code></pre></div>
 <pre><code>x3_vec attributes
 ------------------------------
 class: logical
 length: 5</code></pre>
 <p>However, a single vector can contain values of only one class. In fact, if we try to mix classes, R will convert all elements of the vector into a single class. In the example below, R converts the numerical value 5 into a character because it doesn’t know how to convert the string we provided into a number.</p>
 <p>This process of changing value classes is known as <strong>coercion</strong>.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">x4_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="st">&quot;So-called &#39;Arthur King&#39;!&quot;</span>)</a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb49-3" data-line-number="3"><span class="co"># R coerces the numeric value into a character</span></a>
-<a class="sourceLine" id="cb49-4" data-line-number="4"><span class="kw">c</span>(<span class="st">&quot;class&quot;</span> =<span class="st"> </span><span class="kw">class</span>(x4_vec[<span class="dv">1</span>]),</a>
-<a class="sourceLine" id="cb49-5" data-line-number="5">  <span class="st">&quot;numeric?&quot;</span> =<span class="st"> </span><span class="kw">is.numeric</span>(x4_vec[<span class="dv">1</span>]))</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1">x4_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="st">&quot;So-called &#39;Arthur King&#39;!&quot;</span>)</a>
+<a class="sourceLine" id="cb49-2" title="2"></a>
+<a class="sourceLine" id="cb49-3" title="3"><span class="co"># R coerces the numeric value into a character</span></a>
+<a class="sourceLine" id="cb49-4" title="4"><span class="kw">c</span>(<span class="st">&quot;class&quot;</span> =<span class="st"> </span><span class="kw">class</span>(x4_vec[<span class="dv">1</span>]),</a>
+<a class="sourceLine" id="cb49-5" title="5">  <span class="st">&quot;numeric?&quot;</span> =<span class="st"> </span><span class="kw">is.numeric</span>(x4_vec[<span class="dv">1</span>]))</a></code></pre></div>
 <pre><code>      class    numeric? 
 &quot;character&quot;     &quot;FALSE&quot; </code></pre>
 <p><span class="marginnote">You can check specific class types with a large number of functions. A few examples to demonstrate their general form: <code>is.numeric()</code>, <code>is.character()</code>, <code>is.logical()</code>, <code>is.vector()</code>.</span></p>
 <p>We see the vector’s class is <code>character</code>. If we print the first element of the vector, we’ll see R has wrapped it in quotation marks, indicating that the number 5 has been saved as a string (a series of characters).</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">x4_vec[<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1">x4_vec[<span class="dv">1</span>]</a></code></pre></div>
 <pre><code>[1] &quot;5&quot;</code></pre>
 <p>The implication here is important. Say you wanted to perform a logical or arithmetic operation on the first element. What would be the result?</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="co"># arithmetic operation</span></a>
-<a class="sourceLine" id="cb53-2" data-line-number="2">x4_vec[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1"><span class="co"># arithmetic operation</span></a>
+<a class="sourceLine" id="cb53-2" title="2">x4_vec[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
 <pre><code>Error in x4_vec[1] + 5: non-numeric argument to binary operator</code></pre>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="co"># equivalence with another numeric</span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2">x4_vec[<span class="dv">1</span>] <span class="op">==</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1"><span class="co"># equivalence with another numeric</span></a>
+<a class="sourceLine" id="cb55-2" title="2">x4_vec[<span class="dv">1</span>] <span class="op">==</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="co"># equivalence with another string</span></a>
-<a class="sourceLine" id="cb57-2" data-line-number="2">x4_vec[<span class="dv">1</span>] <span class="op">==</span><span class="st"> &quot;5&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1"><span class="co"># equivalence with another string</span></a>
+<a class="sourceLine" id="cb57-2" title="2">x4_vec[<span class="dv">1</span>] <span class="op">==</span><span class="st"> &quot;5&quot;</span></a></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
 <p>Something interesting happened… the arithmetic operation failed because the first element of <code>x4_vec</code> was a character string, but the other two operations succeeded!</p>
 <p>In the latter case, we might not be all that surprised: after all, we compared two strings we knew were identical. However, in the second example R implicitly coerced our character “5” into a numeric value and was able to compare it successfully to the numeric value we proposed.</p>
@@ -339,30 +339,30 @@ length: 5</code></pre>
 <p><span class="marginnote">For instance, you might actually need to do linear algebra, in which case, you may need to use a matrix. In addition, for very computationally demanding tasks, R can operate on matrices much faster than on data frames. We’ll largely ignore these issues for now, but we’ll look at a couple of instances in which matrices can be used to generate nice figure layouts for <a href="/data-visualization.html">data visualization</a>.</span></p>
 <p>Matrices can be multidimensional, but for the sake of our emotional stability, we’ll consider matrices in up to three dimensions.</p>
 <p>A two-dimensional matrix is essentially a vector:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">mat1 &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>))</a>
-<a class="sourceLine" id="cb59-2" data-line-number="2">mat1</a></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1">mat1 &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>))</a>
+<a class="sourceLine" id="cb59-2" title="2">mat1</a></code></pre></div>
 <pre><code>     [,1]
 [1,]    6
 [2,]    7
 [3,]    8</code></pre>
 <p>However, because the elements are now indexed by both row and colum, we need to refer to each element by its specific coordinates.</p>
 <p>For example, if we want to retrieve 7 from the matrix, we need to tell R that we want the element in row 2, column 1, which we can do as follows:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">mat1[<span class="dv">2</span>, <span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1">mat1[<span class="dv">2</span>, <span class="dv">1</span>]</a></code></pre></div>
 <pre><code>[1] 7</code></pre>
 <p>If we wanted the third row:</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">mat1[<span class="dv">3</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1">mat1[<span class="dv">3</span>, ]</a></code></pre></div>
 <pre><code>[1] 8</code></pre>
 <p>If we wanted the first colum:</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">mat1[, <span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1">mat1[, <span class="dv">1</span>]</a></code></pre></div>
 <pre><code>[1] 6 7 8</code></pre>
 <p>With such a small matrix, these operations might seem a bit daft, so let’s consider a larger numerical matrix.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">n1 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></a>
-<a class="sourceLine" id="cb67-2" data-line-number="2">n2 &lt;-<span class="st"> </span><span class="dv">901</span><span class="op">:</span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb67-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb67-4" data-line-number="4">mat2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(n1, n2), <span class="dt">nrow =</span> <span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb67-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb67-6" data-line-number="6"><span class="co"># show the first 10 rows of the matrix</span></a>
-<a class="sourceLine" id="cb67-7" data-line-number="7">mat2[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1">n1 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb67-2" title="2">n2 &lt;-<span class="st"> </span><span class="dv">901</span><span class="op">:</span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb67-3" title="3"></a>
+<a class="sourceLine" id="cb67-4" title="4">mat2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(n1, n2), <span class="dt">nrow =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb67-5" title="5"></a>
+<a class="sourceLine" id="cb67-6" title="6"><span class="co"># show the first 10 rows of the matrix</span></a>
+<a class="sourceLine" id="cb67-7" title="7">mat2[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</a></code></pre></div>
 <pre><code>      [,1] [,2]
  [1,]    1  901
  [2,]    2  902
@@ -374,13 +374,13 @@ length: 5</code></pre>
  [8,]    8  908
  [9,]    9  909
 [10,]   10  910</code></pre>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="co"># print total number of rows and columns</span></a>
-<a class="sourceLine" id="cb69-2" data-line-number="2"><span class="kw">dim</span>(mat2)</a></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="co"># print total number of rows and columns</span></a>
+<a class="sourceLine" id="cb69-2" title="2"><span class="kw">dim</span>(mat2)</a></code></pre></div>
 <pre><code>[1] 100   2</code></pre>
 <p>Be careful with matrices, though:</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">mat3 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(n1, n2), <span class="dt">nrow =</span> <span class="dv">50</span>)</a>
-<a class="sourceLine" id="cb71-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb71-3" data-line-number="3">mat3[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1">mat3 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(n1, n2), <span class="dt">nrow =</span> <span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb71-2" title="2"></a>
+<a class="sourceLine" id="cb71-3" title="3">mat3[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</a></code></pre></div>
 <pre><code>      [,1] [,2] [,3] [,4]
  [1,]    1   51  901  951
  [2,]    2   52  902  952
@@ -392,12 +392,12 @@ length: 5</code></pre>
  [8,]    8   58  908  958
  [9,]    9   59  909  959
 [10,]   10   60  910  960</code></pre>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw">dim</span>(mat3)</a></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1"><span class="kw">dim</span>(mat3)</a></code></pre></div>
 <pre><code>[1] 50  4</code></pre>
 <p>Because we told R we wanted a matrix with 50 rows, the first vector we specified was distributed across the first two columns, while the second vector was distributed across the third and fourth columns.</p>
 <p>That’s fine if it’s what we wanted. Let’s say, though, that we wanted a matrix with 50 rows and 4 columns but wanted it filled out row-by-row:</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">mat4 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(n1, n2), <span class="dt">nrow =</span> <span class="dv">50</span>, <span class="dt">ncol =</span> <span class="dv">4</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb75-2" data-line-number="2">mat4[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1">mat4 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(n1, n2), <span class="dt">nrow =</span> <span class="dv">50</span>, <span class="dt">ncol =</span> <span class="dv">4</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb75-2" title="2">mat4[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</a></code></pre></div>
 <pre><code>      [,1] [,2] [,3] [,4]
  [1,]    1    2    3    4
  [2,]    5    6    7    8
@@ -409,10 +409,10 @@ length: 5</code></pre>
  [8,]   29   30   31   32
  [9,]   33   34   35   36
 [10,]   37   38   39   40</code></pre>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1"><span class="co"># </span><span class="al">NOTE</span></a>
-<a class="sourceLine" id="cb77-2" data-line-number="2"><span class="co"># Here, we return rows 41-50 from mat4, but the output will label them 1-10.</span></a>
-<a class="sourceLine" id="cb77-3" data-line-number="3"><span class="co"># That&#39;s because R returns our request to us as its own matrix.</span></a>
-<a class="sourceLine" id="cb77-4" data-line-number="4">mat4[<span class="dv">41</span><span class="op">:</span><span class="dv">50</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" title="1"><span class="co"># </span><span class="al">NOTE</span></a>
+<a class="sourceLine" id="cb77-2" title="2"><span class="co"># Here, we return rows 41-50 from mat4, but the output will label them 1-10.</span></a>
+<a class="sourceLine" id="cb77-3" title="3"><span class="co"># That&#39;s because R returns our request to us as its own matrix.</span></a>
+<a class="sourceLine" id="cb77-4" title="4">mat4[<span class="dv">41</span><span class="op">:</span><span class="dv">50</span>, ]</a></code></pre></div>
 <pre><code>      [,1] [,2] [,3] [,4]
  [1,]  961  962  963  964
  [2,]  965  966  967  968
@@ -426,15 +426,15 @@ length: 5</code></pre>
 [10,]  997  998  999 1000</code></pre>
 <p>In general, specifying the features you want in as much detail as possible will be the safest route, and may save you a good deal of grief in the future.</p>
 <p>Say we wanted to get the column and row sums for this matrix. Easy!</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="kw">colSums</span>(mat4)</a></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" title="1"><span class="kw">colSums</span>(mat4)</a></code></pre></div>
 <pre><code>[1] 24950 25000 25050 25100</code></pre>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1"><span class="kw">rowSums</span>(mat4)</a></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1"><span class="kw">rowSums</span>(mat4)</a></code></pre></div>
 <pre><code> [1]   10   26   42   58   74   90  106  122  138  154  170  186  202  218  234
 [16]  250  266  282  298  314  330  346  362  378  394 3610 3626 3642 3658 3674
 [31] 3690 3706 3722 3738 3754 3770 3786 3802 3818 3834 3850 3866 3882 3898 3914
 [46] 3930 3946 3962 3978 3994</code></pre>
 <p>Say we wanted to multiply every number in the matrix by 123456. Easy!</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1">mat4 <span class="op">*</span><span class="st"> </span><span class="dv">123456</span></a></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" title="1">mat4 <span class="op">*</span><span class="st"> </span><span class="dv">123456</span></a></code></pre></div>
 <pre><code>           [,1]      [,2]      [,3]      [,4]
  [1,]    123456    246912    370368    493824
  [2,]    617280    740736    864192    987648
@@ -506,15 +506,15 @@ length: 5</code></pre>
 <p>R respects grouping operations and handles mathematical operations as one might expect.</p>
 <p>For instance, we can do some quick scratch calculations and print them directly to the console.</p>
 <p><span class="marginnote">In fact, R can be a handy calculator if you run it from the command line!</span></p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
 <pre><code>[1] 15</code></pre>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="fl">0.25</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.75</span> <span class="op">*</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="fl">0.25</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.75</span> <span class="op">*</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
 <pre><code>[1] 4.5</code></pre>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">(<span class="dv">5</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span><span class="dv">3</span>) <span class="op">/</span><span class="st"> </span><span class="dv">50</span></a></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1">(<span class="dv">5</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span><span class="dv">3</span>) <span class="op">/</span><span class="st"> </span><span class="dv">50</span></a></code></pre></div>
 <pre><code>[1] 20.5</code></pre>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="dv">8</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="dv">8</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
 <pre><code>[1] 2</code></pre>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="dv">8</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1"><span class="dv">8</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
 <pre><code>[1] 2</code></pre>
 <p><!--
 <caption>--><span class="marginnote shownote">(#tab:arithmetic.operators)Arithmetic operators</span><!--</caption>--></p>
@@ -614,16 +614,16 @@ length: 5</code></pre>
 <p>That’s a pretty abstract description, so let’s look at a few examples to develop our intuition a bit.</p>
 <p>First, recall the operators we covered in the the prior two sections, as well as vectors.</p>
 <p>Say we wanted to add 5 to each of 3 numbers. Rather than specifying the arithmetic operation separately for each number, we could store those numbers to a vector and tell R to add 5 to the vector:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1">numvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">40</span>, <span class="dv">50</span>)</a>
-<a class="sourceLine" id="cb95-2" data-line-number="2">numvec <span class="op">+</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" title="1">numvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">40</span>, <span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb95-2" title="2">numvec <span class="op">+</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
 <pre><code>[1] 15 45 55</code></pre>
 <p>See what happened? R added 5 to each vector element separately.</p>
 <p>If we wanted to perform separate additions on each number, we could do so easily, <a href="https://www.oreilly.com/library/view/the-art-of/9781593273842/ch02s03.html">as long as the longer vector’s length is a multiple of the shorter vector’s length</a>:</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1">numvec <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">90</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1">numvec <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">90</span>)</a></code></pre></div>
 <pre><code>[1]  15  50 140</code></pre>
 <p>Did you notice the difference, though? Because the vector lengths were equal, R <em>did not</em> recycle 5, 10, and 90 to add each to each item in <code>numvec</code>. Rather, it added 5 to <code>numvec[1]</code>, 10 to <code>numvec[2]</code>, and 90 to <code>numvec[3]</code></p>
 <p>However, attempting to execute the following operation results in a warning, because 3 cannot be divided evenly by 2:</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1">numvec <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1">numvec <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>)</a></code></pre></div>
 <pre><code>Warning in numvec + c(5, 10): longer object length is not a multiple of shorter
 object length</code></pre>
 <pre><code>[1] 15 50 55</code></pre>

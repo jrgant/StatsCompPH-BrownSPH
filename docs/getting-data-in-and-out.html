@@ -64,7 +64,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -261,24 +261,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="r-reading-and-writing-data" class="section level2">
 <h2><span class="header-section-number">4.1</span> R: Reading and Writing Data</h2>
 <p>Before we begin, you’ll want to install two R packages:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># if you&#39;ve already installed the tidyverse package, you should have readr</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">pkgs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;readr&quot;</span>, <span class="st">&quot;haven&quot;</span>)</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">install.packages</span>(pkgs)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># if you&#39;ve already installed the tidyverse package, you should have readr</span></a>
+<a class="sourceLine" id="cb7-2" title="2">pkgs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;readr&quot;</span>, <span class="st">&quot;haven&quot;</span>)</a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="kw">install.packages</span>(pkgs)</a></code></pre></div>
 <div id="reading-data" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> Reading Data</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">library</span>(readr)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">library</span>(haven)</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co"># import a standard CSV file</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">iris_csv &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;data/iris.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co"># import a tab-delimited TXT file, we specify the tab delimiter as \t</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8">iris_txt &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_delim</span>(<span class="st">&quot;data/iris.txt&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co"># import a sas7bdat file</span></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11">iris_sas &lt;-<span class="st"> </span>haven<span class="op">::</span><span class="kw">read_sas</span>(<span class="st">&quot;data/iris.sas7bdat&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">library</span>(readr)</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw">library</span>(haven)</a>
+<a class="sourceLine" id="cb8-3" title="3"></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="co"># import a standard CSV file</span></a>
+<a class="sourceLine" id="cb8-5" title="5">iris_csv &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;data/iris.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb8-6" title="6"></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="co"># import a tab-delimited TXT file, we specify the tab delimiter as \t</span></a>
+<a class="sourceLine" id="cb8-8" title="8">iris_txt &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_delim</span>(<span class="st">&quot;data/iris.txt&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb8-9" title="9"></a>
+<a class="sourceLine" id="cb8-10" title="10"><span class="co"># import a sas7bdat file</span></a>
+<a class="sourceLine" id="cb8-11" title="11">iris_sas &lt;-<span class="st"> </span>haven<span class="op">::</span><span class="kw">read_sas</span>(<span class="st">&quot;data/iris.sas7bdat&quot;</span>)</a></code></pre></div>
 <p>Let’s check the results for each imported version of the <code>iris</code> dataset from R.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">head</span>(iris_csv)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">head</span>(iris_csv)</a></code></pre></div>
 <pre><code># A tibble: 6 x 5
   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
@@ -288,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 4          4.6         3.1          1.5         0.2 setosa 
 5          5           3.6          1.4         0.2 setosa 
 6          5.4         3.9          1.7         0.4 setosa </code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">head</span>(iris_txt)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">head</span>(iris_txt)</a></code></pre></div>
 <pre><code># A tibble: 6 x 5
   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
@@ -298,7 +298,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 4          4.6         3.1          1.5         0.2 setosa 
 5          5           3.6          1.4         0.2 setosa 
 6          5.4         3.9          1.7         0.4 setosa </code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">head</span>(iris_sas)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">head</span>(iris_sas)</a></code></pre></div>
 <pre><code># A tibble: 6 x 5
   Sepal_Length Sepal_Width Petal_Length Petal_Width Species
          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
@@ -313,10 +313,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="writing-data" class="section level3">
 <h3><span class="header-section-number">4.1.2</span> Writing Data</h3>
 <p>When writing data, we use the <code>write</code> function for the desired output format. Typically, you’ll tell the function which <code>data.frame</code> you want to save and give it the desired path and filename.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">readr<span class="op">::</span><span class="kw">write_csv</span>(iris_csv, <span class="st">&quot;data/iris2.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">readr<span class="op">::</span><span class="kw">write_delim</span>(iris_txt, <span class="st">&quot;data/iris2.txt&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb15-3" data-line-number="3">readr<span class="op">::</span><span class="kw">write_delim</span>(iris_txt, <span class="st">&quot;data/iris3.txt&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;,&quot;</span>)</a>
-<a class="sourceLine" id="cb15-4" data-line-number="4">haven<span class="op">::</span><span class="kw">write_sas</span>(iris_sas, <span class="st">&quot;data/iris2.sas&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">readr<span class="op">::</span><span class="kw">write_csv</span>(iris_csv, <span class="st">&quot;data/iris2.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb15-2" title="2">readr<span class="op">::</span><span class="kw">write_delim</span>(iris_txt, <span class="st">&quot;data/iris2.txt&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb15-3" title="3">readr<span class="op">::</span><span class="kw">write_delim</span>(iris_txt, <span class="st">&quot;data/iris3.txt&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;,&quot;</span>)</a>
+<a class="sourceLine" id="cb15-4" title="4">haven<span class="op">::</span><span class="kw">write_sas</span>(iris_sas, <span class="st">&quot;data/iris2.sas&quot;</span>)</a></code></pre></div>
 <p>Note that we could have passed any of the data.frames we created into any of the functions. For instance, we could have passed <code>iris_csv</code> to <code>haven::write_sas()</code> in order to save it as sas7bdat.</p>
 </div>
 </div>
