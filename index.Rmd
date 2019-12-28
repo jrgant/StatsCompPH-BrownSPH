@@ -115,9 +115,11 @@ Understand the benefits of competing strategies in prior bulletpoint
       - Code maintenance
       - Don't Repeat Yourself (DRY Principle)
 
+<!--
 ```{r, out.width = "30%", fig.align = "center", out.extra = 'style="padding-top:50px; display:block; margin:0 auto;"', echo = FALSE, message = FALSE}
 knitr::include_graphics("assets/brown_logo.svg")
 ```
+-->
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
