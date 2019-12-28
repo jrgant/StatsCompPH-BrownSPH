@@ -1,0 +1,296 @@
+@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700|Source+Code+Pro:400,400i,500,500i&display=swap';
+
+/* ## PAGE -------------------------------------------------------------------*/
+
+html {
+  font-size: 13px;
+}
+body {
+  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+  width: 90%;
+  margin: 0;
+  display: flex;
+  padding-left: 0;
+  padding-right: 0;
+  justify-content: space-between;
+  background: white;
+}
+p {
+  line-height: 2.4rem;
+}
+p, ol, ul {
+  font-size: 1.5rem;
+}
+p, ul, ol, footer, table, hr {
+  width: 65%;
+}
+div.row {
+  padding-left: 35px;
+}
+div.row:first-of-type {
+  width: 20%;
+}
+div.row:first-of-type > .col-sm-12 {
+  position: sticky;
+  top: 0;
+}
+div.row:last-of-type {
+  width: 70%;
+}
+p + .sourceCode, p + pre, pre + p {
+  margin-top: 3em !important;
+}
+
+/* ## LEARNING OBJECTIVES ----------------------------------------------------*/
+
+#learning-objectives .section.level2 p {
+  font-weight: bold;
+}
+
+
+/* ## LINKS IN BODY ----------------------------------------------------------*/
+
+a:link, a:visited {
+  text-decoration: none;
+  text-shadow: none;
+  background: none;
+  color: @br-red;
+}
+a:hover {
+  text-decoration: underline;
+  transition: 0.3s text-decoration;
+}
+
+
+/* ## BROWN UNIVERSITY COLORS ------------------------------------------------*/
+
+@br-red: #ed1c24;
+@br-red-t10: #fde8e9;    /* unofficial color, br-red tint 10% */
+@br-gold: #ffc72c;
+@br-gold-t10: #fff9ea;   /* unofficial color, br-gold tint 10% */
+@br-brown: #4e3629;
+@br-gray-a: #98a4ae;
+@br-gray-t55: #c6cdd2;   /* official color, br-gray-a tint 55% */
+@br-gray-t10: #f5f6f7;   /* unofficial color, bry-gray-a tint 10% */
+
+
+/* TABLE OF CONTENTS ---------------------------------------------------------*/
+
+#TOC {
+  background: @br-gray-t10;
+  padding: 10px;
+}
+#TOC a {
+  color: black;
+  font-size: 0.7em;
+}
+#TOC ul {
+  list-style-type: none;
+  font-weight: bold;
+}
+#TOC li {
+  padding: 0.1rem;
+}
+#TOC li ul {
+  font-weight: normal;
+}
+.fullwidth-table {
+  width: 100%;
+}
+.fullwidth-table table {
+  width: 100%;
+}
+
+
+/* ## HEADINGS ---------------------------------------------------------------*/
+
+h1, h2 {
+  font-weight: bold;
+  font-style: normal;
+}
+h1 {
+  font-size: 4.5rem;
+  padding-bottom: 3rem;
+  margin-top: 3rem;
+}
+h2, h3 {
+  font-size: 2.2rem;
+}
+h2 {
+  margin-top: 3rem;
+}
+h3 {
+  font-style: italic;
+}
+#header {
+  margin-top: 2rem;
+  margin-bottom: 8rem;
+  border-top: 3px solid;
+  border-bottom: 3px solid;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+#header h1 {
+  margin-top: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+
+/* ## CODE STYLES ------------------------------------------------------------*/
+
+pre {
+  padding: 10px 0px 20px 10px;
+  background: @br-gray-t10;
+  width: 65%;
+}
+pre.r, pre.sas, .sourceCode + pre, .sas + pre {
+  border-radius: 5px;
+}
+.sourceCode + pre, .sas + pre {
+  width: 55%;
+  margin-left: 10%;
+  max-height: 250px;
+}
+/* .sourceCode + pre:before, .sas + pre:before {
+  content: "OUTPUT";
+  background: @br-gray-t55;
+} */
+pre.r:before, pre.sas:before, .sourceCode + pre:before, .sas + pre:before {
+  display: inline-block;
+  float: right;
+  color: white;
+  font-family: 'Source Code Pro', 'Roboto Mono', Consolas, monospace;
+  font-size: 1.3rem;
+  font-weight: normal;
+  font-variant: all-small-caps;
+  margin-bottom: 15px;
+  border-radius: 3px 0 0 3px;
+  padding: 0px 7px 3px 7px;
+  letter-spacing: 0.1rem;
+}
+pre.r {
+  background: @br-gold-t10;
+}
+pre.r:before {
+  content: "R";
+  background: @br-gold;
+  color: black;
+}
+pre.sas {
+  background: @br-red-t10;
+}
+pre.sas:before {
+  content: "SAS";
+  background: @br-red;
+}
+p code, li code {
+  display: inline;
+  padding: 2px 5px;
+  background: @br-gray-t10;
+  border-radius: 3px;
+}
+code {
+  padding-left: 10px;
+  display: block;
+  font-family: "Source Code Pro", Consolas, monospace;
+  font-weight: 500;
+}
+code.sourceCode span.co {
+  color: @br-gray-a;
+}
+
+
+/* ## TABLES -----------------------------------------------------------------*/
+
+table {
+  width: 100%;
+  font-size: 1.1rem;
+}
+td, th {
+  padding: 5px 10px;
+  vertical-align: top;
+}
+td {
+  font-family: 'Source Code Pro', 'Roboto Mono', monospace;
+}
+
+
+/* ## PAGE NAVIGATION --------------------------------------------------------*/
+
+.section.level1 + p {
+  display: flex;
+  justify-content: space-between;
+}
+.section.level1 + p button {
+  flex-direction: row;
+  padding: 15px;
+  color: @br-gray-a;
+  border: none;
+  border-radius: 5px;
+  background: none;
+  font-family: 'Source Code Pro', 'Roboto Mono', Consolas, monospace;
+  transition: 0.25s background, 0.25s color;
+}
+#learning-objectives.section.level1 + p {
+  flex-direction: row-reverse;
+}
+#learning-objectives.section.level1 + p button:before {
+  content: "";
+}
+.section.level1 + p button:hover {
+  color: white;
+  background: @br-red;
+  transition: background 0.5s, color 0.5s;
+}
+.section.level1 + p a:first-child button:before {
+  content: "\000AB";
+  margin-right: 5px;
+  transition: 0.25s margin-right;
+}
+.section.level1 + p a:last-child button:after {
+  content: "\000BB";
+  margin-left: 5px;
+  transition: 0.25s margin-left;
+}
+.section.level1 + p a:first-child button:hover:before {
+  margin-right: 10px;
+  transition: margin-right 0.5s;
+}
+.section.level1 + p a:last-child button:hover:after {
+  margin-left: 10px;
+  transition: margin-left 0.5s;
+}
+
+
+/* ## FLOURISHES -------------------------------------------------------------*/
+
+span.deg {
+  font-size: 1.6rem;
+  font-variant: all-small-caps;
+}
+
+
+/* ## DEVELOPMENT ------------------------------------------------------------*/
+
+/* comment out or delete this whole section when finished */
+
+dev-note {
+  border: 3px dashed black;
+  border-radius: 4px;
+  padding: 10px;
+  display: block;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 1.3rem;
+}
+dev-note:before {
+  content: "To do:";
+  padding: 5px;
+  background: @br-red;
+  font-variant: all-small-caps;
+  font-weight: bold;
+  color: white;
+  display: block;
+  margin-bottom: 10px;
+  font-size: 2rem;
+}

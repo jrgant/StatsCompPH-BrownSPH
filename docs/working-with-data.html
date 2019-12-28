@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Chapter 5 Working with Data | Computing Concepts for Public Health Researchers" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="Resources and tutorials for R and SAS analysis geared toward public health students." />
+<meta name="github-repo" content="jrgant/StatsCompPH-BrownSPH" />
+
+<meta name="author" content="Jason Gantenberg, MPH" />
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
+<meta name="description" content="Resources and tutorials for R and SAS analysis geared toward public health students.">
+
+<title>Chapter 5 Working with Data | Computing Concepts for Public Health Researchers</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-italics.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/viz-0.3/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.1/grViz.js"></script>
+<!-- Import LESS library -->
+<link rel="stylesheet/less" type="text/css" href="styles/switched-dev.less" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+
+<!-- Import custom element definitions -->
+<script src="styles/custom-elements.js"></script>
+
+<!-- <link rel="stylesheet" href="styles/switched-dev.css" /> -->
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li class="has-sub"><a href="index.html#learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a><ul>
+<li><a href="index.html#main-objectives"><span class="toc-section-number">1.1</span> Main objectives</a></li>
+<li><a href="index.html#secondary-objectives"><span class="toc-section-number">1.2</span> Secondary objectives</a></li>
+</ul></li>
+<li class="has-sub"><a href="startup.html#startup"><span class="toc-section-number">2</span> Getting Started</a><ul>
+<li><a href="startup.html#getting-started-with-r"><span class="toc-section-number">2.1</span> Getting Started with R</a></li>
+<li><a href="startup.html#getting-started-with-sas"><span class="toc-section-number">2.2</span> Getting Started with SAS</a></li>
+</ul></li>
+<li class="has-sub"><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a><ul>
+<li><a href="data-structures.html#major-differences-between-r-and-sas"><span class="toc-section-number">3.1</span> Major Differences Between R and SAS</a></li>
+<li><a href="data-structures.html#r-object-and-value-classes"><span class="toc-section-number">3.2</span> R: Object and Value Classes</a></li>
+<li><a href="data-structures.html#sas-value-formats"><span class="toc-section-number">3.3</span> SAS: Value Formats</a></li>
+</ul></li>
+<li class="has-sub"><a href="getting-data-in-and-out.html#getting-data-in-and-out"><span class="toc-section-number">4</span> Getting Data In and Out</a><ul>
+<li class="has-sub"><a href="getting-data-in-and-out.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a><ul>
+<li><a href="getting-data-in-and-out.html#reading-data"><span class="toc-section-number">4.1.1</span> Reading Data</a></li>
+<li><a href="getting-data-in-and-out.html#writing-data"><span class="toc-section-number">4.1.2</span> Writing Data</a></li>
+</ul></li>
+<li><a href="getting-data-in-and-out.html#sas-reading-and-writing-data"><span class="toc-section-number">4.2</span> SAS: Reading and Writing Data</a></li>
+</ul></li>
+<li class="has-sub"><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a><ul>
+<li><a href="working-with-data.html#objects-in-r"><span class="toc-section-number">5.1</span> Objects in R</a></li>
+<li class="has-sub"><a href="working-with-data.html#more-complex-objects"><span class="toc-section-number">5.2</span> More Complex Objects</a><ul>
+<li><a href="working-with-data.html#vectors"><span class="toc-section-number">5.2.1</span> Vectors</a></li>
+<li><a href="working-with-data.html#matrices"><span class="toc-section-number">5.2.2</span> Matrices</a></li>
+<li><a href="working-with-data.html#lists"><span class="toc-section-number">5.2.3</span> Lists</a></li>
+<li><a href="working-with-data.html#data-frames"><span class="toc-section-number">5.2.4</span> Data Frames</a></li>
+<li><a href="working-with-data.html#other-object-classes"><span class="toc-section-number">5.2.5</span> Other Object Classes</a></li>
+</ul></li>
+<li class="has-sub"><a href="working-with-data.html#conducting-operations-on-objects"><span class="toc-section-number">5.3</span> Conducting Operations on Objects</a><ul>
+<li><a href="working-with-data.html#arithmetic-operations"><span class="toc-section-number">5.3.1</span> Arithmetic Operations</a></li>
+<li><a href="working-with-data.html#logical-operations"><span class="toc-section-number">5.3.2</span> Logical Operations</a></li>
+<li><a href="working-with-data.html#recycling"><span class="toc-section-number">5.3.3</span> Recycling</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="statistical-analysis.html#statistical-analysis"><span class="toc-section-number">6</span> Statistical Analysis</a><ul>
+<li class="has-sub"><a href="statistical-analysis.html#setup"><span class="toc-section-number">6.1</span> Setup</a><ul>
+<li><a href="statistical-analysis.html#data"><span class="toc-section-number">6.1.1</span> Data</a></li>
+<li><a href="statistical-analysis.html#nhefs-codebook"><span class="toc-section-number">6.1.2</span> NHEFS Codebook</a></li>
+</ul></li>
+<li><a href="statistical-analysis.html#exploratory-data-analysis"><span class="toc-section-number">6.2</span> Exploratory Data Analysis</a></li>
+<li><a href="statistical-analysis.html#tabular-analysis"><span class="toc-section-number">6.3</span> Tabular Analysis</a></li>
+<li><a href="statistical-analysis.html#regression-models"><span class="toc-section-number">6.4</span> Regression Models</a></li>
+</ul></li>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a><ul>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#why-loop"><span class="toc-section-number">7.1</span> Why Loop?</a><ul>
+<li><a href="getting-comfortable-with-loops-and-logic.html#curly-braces"><span class="toc-section-number">7.1.1</span> Curly Braces</a></li>
+</ul></li>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">7.2</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a><ul>
+<li><a href="getting-comfortable-with-loops-and-logic.html#standard-loop"><span class="toc-section-number">7.2.1</span> Standard Loop</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="functionalizing-code.html#functionalizing-code"><span class="toc-section-number">8</span> Functionalizing Code</a><ul>
+<li class="has-sub"><a href="functionalizing-code.html#simulate-data"><span class="toc-section-number">8.1</span> Simulate Data</a><ul>
+<li><a href="functionalizing-code.html#what-did-we-simulate"><span class="toc-section-number">8.1.1</span> What Did We Simulate?</a></li>
+</ul></li>
+<li><a href="functionalizing-code.html#the-old-way"><span class="toc-section-number">8.2</span> The Old Way</a></li>
+<li><a href="functionalizing-code.html#a-new-way-part-1"><span class="toc-section-number">8.3</span> A New Way, Part 1</a></li>
+<li class="has-sub"><a href="functionalizing-code.html#a-new-way-part-2"><span class="toc-section-number">8.4</span> A New Way, Part 2</a><ul>
+<li><a href="functionalizing-code.html#loop-method-1"><span class="toc-section-number">8.4.1</span> Loop Method 1</a></li>
+<li><a href="functionalizing-code.html#loop-method-2"><span class="toc-section-number">8.4.2</span> Loop Method 2</a></li>
+<li><a href="functionalizing-code.html#add-a-new-analysis"><span class="toc-section-number">8.4.3</span> Add a New Analysis</a></li>
+</ul></li>
+<li><a href="functionalizing-code.html#a-new-way-part-3"><span class="toc-section-number">8.5</span> A New Way, Part 3</a></li>
+<li class="has-sub"><a href="functionalizing-code.html#approximate-in-sas"><span class="toc-section-number">8.6</span> Approximate in SAS</a><ul>
+<li><a href="functionalizing-code.html#simulate-data-1"><span class="toc-section-number">8.6.1</span> Simulate Data</a></li>
+</ul></li>
+</ul></li>
+<li><a href="data-visualization.html#data-visualization"><span class="toc-section-number">9</span> Data Visualization</a></li>
+<li><a href="programming-concepts.html#programming-concepts"><span class="toc-section-number">10</span> Programming Concepts</a></li>
+<li class="has-sub"><a href="resources.html#resources"><span class="toc-section-number">11</span> Resources</a><ul>
+<li class="has-sub"><a href="resources.html#r"><span class="toc-section-number">11.1</span> R</a><ul>
+<li><a href="resources.html#core-documentation"><span class="toc-section-number">11.1.1</span> Core Documentation</a></li>
+<li><a href="resources.html#programming"><span class="toc-section-number">11.1.2</span> Programming</a></li>
+<li><a href="resources.html#data-visualization-1"><span class="toc-section-number">11.1.3</span> Data Visualization</a></li>
+<li><a href="resources.html#reproducible-research-and-version-control"><span class="toc-section-number">11.1.4</span> Reproducible Research and Version Control</a></li>
+</ul></li>
+<li class="has-sub"><a href="resources.html#sas"><span class="toc-section-number">11.2</span> SAS</a><ul>
+<li><a href="resources.html#programming-and-core-documentation"><span class="toc-section-number">11.2.1</span> Programming and Core Documentation</a></li>
+<li><a href="resources.html#reproducible-research"><span class="toc-section-number">11.2.2</span> Reproducible Research</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="working-with-data" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Working with Data</h1>
+<div id="objects-in-r" class="section level2">
+<h2><span class="header-section-number">5.1</span> Objects in R</h2>
+<p>The first thing to keep in mind when working in R is that, by default, all objects are stored in the global environment when you assign them. An object stored to the global environment will be accessible from anywhere in a project once assigned.</p>
+<p>These objects can be any of the data types or structures we saw a couple of sections ago.</p>
+<p><span class="marginnote">Note that we can also assign objects as so: <code>y = 10</code>. However, using the equal sign is generally not preferred because it is used to assign values to function arguments, too.</span></p>
+<p>To begin, though, we’ll assign single values to several variables using <code>&lt;-</code>, known as the assignment operator. One important thing to keep in mind when working in R is that all names are <strong>case-sensitive</strong>, meaning that R considers <code>myvariable</code> and <code>myVariable</code> to be two different objects.</p>
+<p><span class="marginnote">Can you name the datatypes for each object we just assigned? Write 3 more lines and wrap each object name in a <code>class()</code> function.</span></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">x1 &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">x2 &lt;-<span class="st"> &quot;Welcome to Brown!&quot;</span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3">x3 &lt;-<span class="st"> </span><span class="ot">TRUE</span></a></code></pre></div>
+<p>To view what’s stored in those variables, we print them to the console.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># note that in some cases, you may want use the print() function</span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">x1</a></code></pre></div>
+<pre><code>[1] 10</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">x2</a></code></pre></div>
+<pre><code>[1] &quot;Welcome to Brown!&quot;</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">x3</a></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<p>We can also perform manipulations with them:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">x1 <span class="op">*</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
+<pre><code>[1] 100</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">paste</span>(x2, <span class="st">&quot;We can do many things with the paste() function!&quot;</span>)</a></code></pre></div>
+<pre><code>[1] &quot;Welcome to Brown! We can do many things with the paste() function!&quot;</code></pre>
+<p>With <code>x3</code>, we can do a couple of things because Booleans are also be treated as numerics, in a sense, where <code>TRUE</code> equals 1 and <code>FALSE</code> equals 0.</p>
+<p><span class="marginnote">Recall the prior <a href="data-structures.html#major-differences-between-r-and-sas">discussion</a> of R as a functional language. Here, we pass the object <code>x3</code> to the function <code>isTRUE</code>.</span></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># test whether x3 is TRUE</span></a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">isTRUE</span>(x3)</a></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="co"># test whether x3 is FALSE</span></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw">isFALSE</span>(x3)</a></code></pre></div>
+<pre><code>[1] FALSE</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># multiply TRUE (1) times 5</span></a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">x3 <span class="op">*</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<pre><code>[1] 5</code></pre>
+<p>These are very simple examples, of course, but hopefully they provide some inkling as to how the different datatypes can be combined and manipulated to achieve various ends. Checking variable values and classes will be a regular task when manipulating data and debugging code.</p>
+<p>For instance, if we needed to confirm that <code>x1</code> was a numeric variable, we could check it:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">is.numeric</span>(x1)</a></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<p>Or we could make sure it took the value we expected:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">x1 <span class="op">==</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<p>Note, that to avoid reassigning <code>x1</code>, we used <code>==</code>, which is a logical, or comparison, operator.</p>
+<p>We’ll revisit logical operations in a bit after we review how to manipulate and work with some different types of objects.</p>
+</div>
+<div id="more-complex-objects" class="section level2">
+<h2><span class="header-section-number">5.2</span> More Complex Objects</h2>
+<p>When we reviewed datatypes previously, we saw that R is capable of handling objects such as vectors, matrices, lists, and data frames. Let’s have a look at each of these objects in turn, and get a feel for how we can work with them.</p>
+<div id="vectors" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Vectors</h3>
+<p>You can think of a vector as a sequence of values. In fact, the objects we assigned in the prior section were simply vectors with a length of one.</p>
+<p>Creating longer vectors is straightforward but requires a concatenation function called <code>c()</code>. As we did last time, let’s create a few vectors.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">x1_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">21</span>, <span class="dv">455</span>, <span class="dv">89</span>, <span class="dv">09</span>)</a>
+<a class="sourceLine" id="cb37-2" data-line-number="2">x2_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Hi!&quot;</span>, <span class="st">&quot;Welcome&quot;</span>, <span class="st">&quot;to&quot;</span>, <span class="st">&quot;Brown&quot;</span>, <span class="st">&quot;SPH&quot;</span>)</a>
+<a class="sourceLine" id="cb37-3" data-line-number="3">x3_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb37-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb37-5" data-line-number="5">x1_vec</a></code></pre></div>
+<pre><code>[1]  50  21 455  89   9</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">x2_vec</a></code></pre></div>
+<pre><code>[1] &quot;Hi!&quot;     &quot;Welcome&quot; &quot;to&quot;      &quot;Brown&quot;   &quot;SPH&quot;    </code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">x3_vec</a></code></pre></div>
+<pre><code>[1]  TRUE  TRUE FALSE FALSE FALSE</code></pre>
+<p>Now we have 3 more vectors for which we can retrieve some information. Let’s figure out the classes and lengths for each vector.</p>
+<p><span class="marginnote">Much of the code in these blocks is included to make the output display a little neater. Ignore most of it for now, and simply recognize that we’ve passed each of the objects above into the <code>class()</code> and <code>length()</code> functions.</span></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">cat</span>(<span class="st">&quot;x1_vec attributes&quot;</span>,</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2">    <span class="kw">paste0</span>(<span class="kw">rep</span>(<span class="st">&quot;-&quot;</span>, <span class="dv">30</span>), <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>),</a>
+<a class="sourceLine" id="cb43-3" data-line-number="3">    <span class="kw">paste</span>(<span class="st">&quot;class:&quot;</span>, <span class="kw">class</span>(x1_vec)),</a>
+<a class="sourceLine" id="cb43-4" data-line-number="4">    <span class="kw">paste</span>(<span class="st">&quot;length:&quot;</span>, <span class="kw">length</span>(x1_vec)),</a>
+<a class="sourceLine" id="cb43-5" data-line-number="5">    <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb43-6" data-line-number="6">  )</a></code></pre></div>
+<pre><code>x1_vec attributes
+------------------------------
+class: numeric
+length: 5</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">cat</span>(<span class="st">&quot;x2_vec attributes&quot;</span>,</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2">    <span class="kw">paste0</span>(<span class="kw">rep</span>(<span class="st">&quot;-&quot;</span>, <span class="dv">30</span>), <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>),</a>
+<a class="sourceLine" id="cb45-3" data-line-number="3">    <span class="kw">paste</span>(<span class="st">&quot;class:&quot;</span>, <span class="kw">class</span>(x2_vec)),</a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">    <span class="kw">paste</span>(<span class="st">&quot;length:&quot;</span>, <span class="kw">length</span>(x2_vec)),</a>
+<a class="sourceLine" id="cb45-5" data-line-number="5">    <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb45-6" data-line-number="6">  )</a></code></pre></div>
+<pre><code>x2_vec attributes
+------------------------------
+class: character
+length: 5</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">cat</span>(<span class="st">&quot;x3_vec attributes&quot;</span>,</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">    <span class="kw">paste0</span>(<span class="kw">rep</span>(<span class="st">&quot;-&quot;</span>, <span class="dv">30</span>), <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>),</a>
+<a class="sourceLine" id="cb47-3" data-line-number="3">    <span class="kw">paste</span>(<span class="st">&quot;class:&quot;</span>, <span class="kw">class</span>(x3_vec)),</a>
+<a class="sourceLine" id="cb47-4" data-line-number="4">    <span class="kw">paste</span>(<span class="st">&quot;length:&quot;</span>, <span class="kw">length</span>(x3_vec)),</a>
+<a class="sourceLine" id="cb47-5" data-line-number="5">    <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb47-6" data-line-number="6">  )</a></code></pre></div>
+<pre><code>x3_vec attributes
+------------------------------
+class: logical
+length: 5</code></pre>
+<p>However, a single vector can contain values of only one class. In fact, if we try to mix classes, R will convert all elements of the vector into a single class. In the example below, R converts the numerical value 5 into a character because it doesn’t know how to convert the string we provided into a number.</p>
+<p>This process of changing value classes is known as <strong>coercion</strong>.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">x4_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="st">&quot;So-called &#39;Arthur King&#39;!&quot;</span>)</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb49-3" data-line-number="3"><span class="co"># R coerces the numeric value into a character</span></a>
+<a class="sourceLine" id="cb49-4" data-line-number="4"><span class="kw">c</span>(<span class="st">&quot;class&quot;</span> =<span class="st"> </span><span class="kw">class</span>(x4_vec[<span class="dv">1</span>]),</a>
+<a class="sourceLine" id="cb49-5" data-line-number="5">  <span class="st">&quot;numeric?&quot;</span> =<span class="st"> </span><span class="kw">is.numeric</span>(x4_vec[<span class="dv">1</span>]))</a></code></pre></div>
+<pre><code>      class    numeric? 
+&quot;character&quot;     &quot;FALSE&quot; </code></pre>
+<p><span class="marginnote">You can check specific class types with a large number of functions. A few examples to demonstrate their general form: <code>is.numeric()</code>, <code>is.character()</code>, <code>is.logical()</code>, <code>is.vector()</code>.</span></p>
+<p>We see the vector’s class is <code>character</code>. If we print the first element of the vector, we’ll see R has wrapped it in quotation marks, indicating that the number 5 has been saved as a string (a series of characters).</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">x4_vec[<span class="dv">1</span>]</a></code></pre></div>
+<pre><code>[1] &quot;5&quot;</code></pre>
+<p>The implication here is important. Say you wanted to perform a logical or arithmetic operation on the first element. What would be the result?</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="co"># arithmetic operation</span></a>
+<a class="sourceLine" id="cb53-2" data-line-number="2">x4_vec[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<pre><code>Error in x4_vec[1] + 5: non-numeric argument to binary operator</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="co"># equivalence with another numeric</span></a>
+<a class="sourceLine" id="cb55-2" data-line-number="2">x4_vec[<span class="dv">1</span>] <span class="op">==</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="co"># equivalence with another string</span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2">x4_vec[<span class="dv">1</span>] <span class="op">==</span><span class="st"> &quot;5&quot;</span></a></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<p>Something interesting happened… the arithmetic operation failed because the first element of <code>x4_vec</code> was a character string, but the other two operations succeeded!</p>
+<p>In the latter case, we might not be all that surprised: after all, we compared two strings we knew were identical. However, in the second example R implicitly coerced our character “5” into a numeric value and was able to compare it successfully to the numeric value we proposed.</p>
+<p>Familiarize yourself with how R (or any programming lanuage you happen to be using) handles different classes and objects. All languages have their quirks in this regard, and recognizing these special cases early on will save you a lot of grief in the future.</p>
+</div>
+<div id="matrices" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Matrices</h3>
+<p>In most epidemiologic data analysis, you might not end up dealing with matrices all that often. Because most of the data sets epidemiologists use contain mixtures of numeric, string, and other variable formats, we tend to use data frames.</p>
+<p>However, you should still be familiar with matrices as, depending on your line of work, they may come in handy.</p>
+<p><span class="marginnote">For instance, you might actually need to do linear algebra, in which case, you may need to use a matrix. In addition, for very computationally demanding tasks, R can operate on matrices much faster than on data frames. We’ll largely ignore these issues for now, but we’ll look at a couple of instances in which matrices can be used to generate nice figure layouts for <a href="/data-visualization.html">data visualization</a>.</span></p>
+<p>Matrices can be multidimensional, but for the sake of our emotional stability, we’ll consider matrices in up to three dimensions.</p>
+<p>A two-dimensional matrix is essentially a vector:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">mat1 &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>))</a>
+<a class="sourceLine" id="cb59-2" data-line-number="2">mat1</a></code></pre></div>
+<pre><code>     [,1]
+[1,]    6
+[2,]    7
+[3,]    8</code></pre>
+<p>However, because the elements are now indexed by both row and colum, we need to refer to each element by its specific coordinates.</p>
+<p>For example, if we want to retrieve 7 from the matrix, we need to tell R that we want the element in row 2, column 1, which we can do as follows:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">mat1[<span class="dv">2</span>, <span class="dv">1</span>]</a></code></pre></div>
+<pre><code>[1] 7</code></pre>
+<p>If we wanted the third row:</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">mat1[<span class="dv">3</span>, ]</a></code></pre></div>
+<pre><code>[1] 8</code></pre>
+<p>If we wanted the first colum:</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">mat1[, <span class="dv">1</span>]</a></code></pre></div>
+<pre><code>[1] 6 7 8</code></pre>
+<p>With such a small matrix, these operations might seem a bit daft, so let’s consider a larger numerical matrix.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">n1 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb67-2" data-line-number="2">n2 &lt;-<span class="st"> </span><span class="dv">901</span><span class="op">:</span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb67-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb67-4" data-line-number="4">mat2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(n1, n2), <span class="dt">nrow =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb67-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb67-6" data-line-number="6"><span class="co"># show the first 10 rows of the matrix</span></a>
+<a class="sourceLine" id="cb67-7" data-line-number="7">mat2[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</a></code></pre></div>
+<pre><code>      [,1] [,2]
+ [1,]    1  901
+ [2,]    2  902
+ [3,]    3  903
+ [4,]    4  904
+ [5,]    5  905
+ [6,]    6  906
+ [7,]    7  907
+ [8,]    8  908
+ [9,]    9  909
+[10,]   10  910</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="co"># print total number of rows and columns</span></a>
+<a class="sourceLine" id="cb69-2" data-line-number="2"><span class="kw">dim</span>(mat2)</a></code></pre></div>
+<pre><code>[1] 100   2</code></pre>
+<p>Be careful with matrices, though:</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">mat3 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(n1, n2), <span class="dt">nrow =</span> <span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb71-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb71-3" data-line-number="3">mat3[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</a></code></pre></div>
+<pre><code>      [,1] [,2] [,3] [,4]
+ [1,]    1   51  901  951
+ [2,]    2   52  902  952
+ [3,]    3   53  903  953
+ [4,]    4   54  904  954
+ [5,]    5   55  905  955
+ [6,]    6   56  906  956
+ [7,]    7   57  907  957
+ [8,]    8   58  908  958
+ [9,]    9   59  909  959
+[10,]   10   60  910  960</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw">dim</span>(mat3)</a></code></pre></div>
+<pre><code>[1] 50  4</code></pre>
+<p>Because we told R we wanted a matrix with 50 rows, the first vector we specified was distributed across the first two columns, while the second vector was distributed across the third and fourth columns.</p>
+<p>That’s fine if it’s what we wanted. Let’s say, though, that we wanted a matrix with 50 rows and 4 columns but wanted it filled out row-by-row:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">mat4 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(n1, n2), <span class="dt">nrow =</span> <span class="dv">50</span>, <span class="dt">ncol =</span> <span class="dv">4</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb75-2" data-line-number="2">mat4[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</a></code></pre></div>
+<pre><code>      [,1] [,2] [,3] [,4]
+ [1,]    1    2    3    4
+ [2,]    5    6    7    8
+ [3,]    9   10   11   12
+ [4,]   13   14   15   16
+ [5,]   17   18   19   20
+ [6,]   21   22   23   24
+ [7,]   25   26   27   28
+ [8,]   29   30   31   32
+ [9,]   33   34   35   36
+[10,]   37   38   39   40</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1"><span class="co"># </span><span class="al">NOTE</span></a>
+<a class="sourceLine" id="cb77-2" data-line-number="2"><span class="co"># Here, we return rows 41-50 from mat4, but the output will label them 1-10.</span></a>
+<a class="sourceLine" id="cb77-3" data-line-number="3"><span class="co"># That&#39;s because R returns our request to us as its own matrix.</span></a>
+<a class="sourceLine" id="cb77-4" data-line-number="4">mat4[<span class="dv">41</span><span class="op">:</span><span class="dv">50</span>, ]</a></code></pre></div>
+<pre><code>      [,1] [,2] [,3] [,4]
+ [1,]  961  962  963  964
+ [2,]  965  966  967  968
+ [3,]  969  970  971  972
+ [4,]  973  974  975  976
+ [5,]  977  978  979  980
+ [6,]  981  982  983  984
+ [7,]  985  986  987  988
+ [8,]  989  990  991  992
+ [9,]  993  994  995  996
+[10,]  997  998  999 1000</code></pre>
+<p>In general, specifying the features you want in as much detail as possible will be the safest route, and may save you a good deal of grief in the future.</p>
+<p>Say we wanted to get the column and row sums for this matrix. Easy!</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="kw">colSums</span>(mat4)</a></code></pre></div>
+<pre><code>[1] 24950 25000 25050 25100</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1"><span class="kw">rowSums</span>(mat4)</a></code></pre></div>
+<pre><code> [1]   10   26   42   58   74   90  106  122  138  154  170  186  202  218  234
+[16]  250  266  282  298  314  330  346  362  378  394 3610 3626 3642 3658 3674
+[31] 3690 3706 3722 3738 3754 3770 3786 3802 3818 3834 3850 3866 3882 3898 3914
+[46] 3930 3946 3962 3978 3994</code></pre>
+<p>Say we wanted to multiply every number in the matrix by 123456. Easy!</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1">mat4 <span class="op">*</span><span class="st"> </span><span class="dv">123456</span></a></code></pre></div>
+<pre><code>           [,1]      [,2]      [,3]      [,4]
+ [1,]    123456    246912    370368    493824
+ [2,]    617280    740736    864192    987648
+ [3,]   1111104   1234560   1358016   1481472
+ [4,]   1604928   1728384   1851840   1975296
+ [5,]   2098752   2222208   2345664   2469120
+ [6,]   2592576   2716032   2839488   2962944
+ [7,]   3086400   3209856   3333312   3456768
+ [8,]   3580224   3703680   3827136   3950592
+ [9,]   4074048   4197504   4320960   4444416
+[10,]   4567872   4691328   4814784   4938240
+[11,]   5061696   5185152   5308608   5432064
+[12,]   5555520   5678976   5802432   5925888
+[13,]   6049344   6172800   6296256   6419712
+[14,]   6543168   6666624   6790080   6913536
+[15,]   7036992   7160448   7283904   7407360
+[16,]   7530816   7654272   7777728   7901184
+[17,]   8024640   8148096   8271552   8395008
+[18,]   8518464   8641920   8765376   8888832
+[19,]   9012288   9135744   9259200   9382656
+[20,]   9506112   9629568   9753024   9876480
+[21,]   9999936  10123392  10246848  10370304
+[22,]  10493760  10617216  10740672  10864128
+[23,]  10987584  11111040  11234496  11357952
+[24,]  11481408  11604864  11728320  11851776
+[25,]  11975232  12098688  12222144  12345600
+[26,] 111233856 111357312 111480768 111604224
+[27,] 111727680 111851136 111974592 112098048
+[28,] 112221504 112344960 112468416 112591872
+[29,] 112715328 112838784 112962240 113085696
+[30,] 113209152 113332608 113456064 113579520
+[31,] 113702976 113826432 113949888 114073344
+[32,] 114196800 114320256 114443712 114567168
+[33,] 114690624 114814080 114937536 115060992
+[34,] 115184448 115307904 115431360 115554816
+[35,] 115678272 115801728 115925184 116048640
+[36,] 116172096 116295552 116419008 116542464
+[37,] 116665920 116789376 116912832 117036288
+[38,] 117159744 117283200 117406656 117530112
+[39,] 117653568 117777024 117900480 118023936
+[40,] 118147392 118270848 118394304 118517760
+[41,] 118641216 118764672 118888128 119011584
+[42,] 119135040 119258496 119381952 119505408
+[43,] 119628864 119752320 119875776 119999232
+[44,] 120122688 120246144 120369600 120493056
+[45,] 120616512 120739968 120863424 120986880
+[46,] 121110336 121233792 121357248 121480704
+[47,] 121604160 121727616 121851072 121974528
+[48,] 122097984 122221440 122344896 122468352
+[49,] 122591808 122715264 122838720 122962176
+[50,] 123085632 123209088 123332544 123456000</code></pre>
+</div>
+<div id="lists" class="section level3">
+<h3><span class="header-section-number">5.2.3</span> Lists</h3>
+</div>
+<div id="data-frames" class="section level3">
+<h3><span class="header-section-number">5.2.4</span> Data Frames</h3>
+</div>
+<div id="other-object-classes" class="section level3">
+<h3><span class="header-section-number">5.2.5</span> Other Object Classes</h3>
+<p>Various subfields of epidemiology and statistics provide an array of object classes that are beyond the scope of this tutorial. For instance, an object with the class “graph” describes the compnents and structures of a graph. The information stored in this object would typically allow one to manipulate, analyze, and visualize the graph.</p>
+</div>
+</div>
+<div id="conducting-operations-on-objects" class="section level2">
+<h2><span class="header-section-number">5.3</span> Conducting Operations on Objects</h2>
+<div id="arithmetic-operations" class="section level3">
+<h3><span class="header-section-number">5.3.1</span> Arithmetic Operations</h3>
+<p>It may come as no surprise that you’ll be doing a fair bit of arithmetic while coding, whether you’re doing quick calculations in the console or creating variables derived from some arithmetic combination of other variables.</p>
+<p>R respects grouping operations and handles mathematical operations as one might expect.</p>
+<p>For instance, we can do some quick scratch calculations and print them directly to the console.</p>
+<p><span class="marginnote">In fact, R can be a handy calculator if you run it from the command line!</span></p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
+<pre><code>[1] 15</code></pre>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="fl">0.25</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.75</span> <span class="op">*</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<pre><code>[1] 4.5</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">(<span class="dv">5</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span><span class="dv">3</span>) <span class="op">/</span><span class="st"> </span><span class="dv">50</span></a></code></pre></div>
+<pre><code>[1] 20.5</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="dv">8</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<pre><code>[1] 2</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="dv">8</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<pre><code>[1] 2</code></pre>
+<p><!--
+<caption>--><span class="marginnote shownote">(#tab:arithmetic.operators)Arithmetic operators</span><!--</caption>--></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Operator</th>
+<th align="left">Function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">+</td>
+<td align="left">Add</td>
+</tr>
+<tr class="even">
+<td align="left">-</td>
+<td align="left">Subtract</td>
+</tr>
+<tr class="odd">
+<td align="left">^</td>
+<td align="left">Power</td>
+</tr>
+<tr class="even">
+<td align="left">*</td>
+<td align="left">Multiply</td>
+</tr>
+<tr class="odd">
+<td align="left">/</td>
+<td align="left">Divide</td>
+</tr>
+<tr class="even">
+<td align="left">%%</td>
+<td align="left">Modulus (remainder)</td>
+</tr>
+<tr class="odd">
+<td align="left">%/%</td>
+<td align="left">Modulus (remainder)</td>
+</tr>
+<tr class="even">
+<td align="left">%*%</td>
+<td align="left">Matrix multiplication</td>
+</tr>
+</tbody>
+</table>
+<p>For more information, refer to <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Arithmetic.html">R’s documentation on arithmetic operators</a>.</p>
+</div>
+<div id="logical-operations" class="section level3">
+<h3><span class="header-section-number">5.3.2</span> Logical Operations</h3>
+<p>We already saw one example of a logical operation, when we checked to see if <code>x1</code> was equal to 10. Statistical and epidemiologic analysis relies heavily on implementing logical operations and checks for truth, and so it is a good idea to master these operators early—and to use them often.</p>
+<p><!--
+<caption>--><span class="marginnote shownote">(#tab:logical.operators)Logical operators</span><!--</caption>--></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Operator</th>
+<th align="left">Function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">==</td>
+<td align="left">Check equality of two values</td>
+</tr>
+<tr class="even">
+<td align="left">&lt;</td>
+<td align="left">Less than</td>
+</tr>
+<tr class="odd">
+<td align="left">&lt;=</td>
+<td align="left">Less than or equal to</td>
+</tr>
+<tr class="even">
+<td align="left">&gt;</td>
+<td align="left">Greater than</td>
+</tr>
+<tr class="odd">
+<td align="left">&gt;=</td>
+<td align="left">Greater than or equal to</td>
+</tr>
+<tr class="even">
+<td align="left">&amp; (or &amp;&amp;)</td>
+<td align="left">AND</td>
+</tr>
+<tr class="odd">
+<td align="left">| (or ||)</td>
+<td align="left">OR</td>
+</tr>
+</tbody>
+</table>
+<p>When combining various operators, some will take <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Syntax.html">precedence</a> over others, and it’s important to get a feel for this hierarchy to avoid unexpected results while programming.</p>
+</div>
+<div id="recycling" class="section level3">
+<h3><span class="header-section-number">5.3.3</span> Recycling</h3>
+<p>Recycling is a <em>very</em> important concept in R. First, recycling can make your code more efficient. Second, if you forget that R recycles, you might unwittingly perform an operation that spits out a bunch of wrong answers.</p>
+<p>In short, <strong>recycling</strong> refers to the reuse of an input object (or objects) to produce an output.</p>
+<p>That’s a pretty abstract description, so let’s look at a few examples to develop our intuition a bit.</p>
+<p>First, recall the operators we covered in the the prior two sections, as well as vectors.</p>
+<p>Say we wanted to add 5 to each of 3 numbers. Rather than specifying the arithmetic operation separately for each number, we could store those numbers to a vector and tell R to add 5 to the vector:</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1">numvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">40</span>, <span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb95-2" data-line-number="2">numvec <span class="op">+</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<pre><code>[1] 15 45 55</code></pre>
+<p>See what happened? R added 5 to each vector element separately.</p>
+<p>If we wanted to perform separate additions on each number, we could do so easily, <a href="https://www.oreilly.com/library/view/the-art-of/9781593273842/ch02s03.html">as long as the longer vector’s length is a multiple of the shorter vector’s length</a>:</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1">numvec <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">90</span>)</a></code></pre></div>
+<pre><code>[1]  15  50 140</code></pre>
+<p>Did you notice the difference, though? Because the vector lengths were equal, R <em>did not</em> recycle 5, 10, and 90 to add each to each item in <code>numvec</code>. Rather, it added 5 to <code>numvec[1]</code>, 10 to <code>numvec[2]</code>, and 90 to <code>numvec[3]</code></p>
+<p>However, attempting to execute the following operation results in a warning, because 3 cannot be divided evenly by 2:</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1">numvec <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>)</a></code></pre></div>
+<pre><code>Warning in numvec + c(5, 10): longer object length is not a multiple of shorter
+object length</code></pre>
+<pre><code>[1] 15 50 55</code></pre>
+<p>Notice, however, that the second, unnamed vector <em>was</em> recycled in this case. Looking at the output, we can see that R executed the following operations: 5 + 5, 40 + 10, and 50 + 5. In other words, R recycled the shorter vector until it was finished operating on <code>numvec</code>.</p>
+<p>You might imagine this result was not really what we were looking for if we wanted R to add 5 to each element in <code>numvec</code> and then add 10 to each element in <code>numvec</code> and return the results for both sets of operations.</p>
+<p>When we get to <strong>for loops</strong> and <strong>functions</strong>, we’ll see how we can get R to do these sorts of tasks for us.</p>
+
+</div>
+</div>
+</div>
+<p style="text-align: center;">
+<a href="getting-data-in-and-out.html"><button class="btn btn-default">Previous</button></a>
+<a href="statistical-analysis.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>
