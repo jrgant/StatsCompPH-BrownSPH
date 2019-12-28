@@ -81,7 +81,7 @@ tibble::tribble(
 To conduct a statistical analysis, usually we will need to store values in various types of _objects_. These objects can be tailored toward a specific data type or may enable the user to store multiple data types.
 
 
-```{r, object-class-table, echo = FALSE}
+```{r object-class-table, echo = FALSE}
 tibble::tribble(
   ~`Object Class`,
   ~Description,
