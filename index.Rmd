@@ -122,5 +122,5 @@ knitr::include_graphics("assets/brown_logo.svg")
 ```{r include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'), 'packages.bib')
+  .packages(), "bookdown", "knitr", "rmarkdown"), "packages.bib")
 ```
