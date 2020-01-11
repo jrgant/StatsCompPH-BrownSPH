@@ -117,7 +117,7 @@ Understand the benefits of competing strategies in prior bulletpoint
 
 ## Acknowledgements
 
-I'd like to thank Prof. Alison Field for the opportunity to develop this resource and Brown University School of Public Health for providing the resources with which to do so. In addition, I'd like to thank the following individuals, who provided valuable feedback during development: Dr. Adam Sullivan, Rachel Yorlets.
+<p style="font-weight:normal;">I'd like to thank Prof. Alison Field for the opportunity to develop this resource and Brown University School of Public Health for providing the resources with which to do so. In addition, I'd like to thank the following individuals, who provided valuable feedback during development: Dr. Adam Sullivan, Rachel Yorlets.</p>
 
 
 ```{r include=FALSE}

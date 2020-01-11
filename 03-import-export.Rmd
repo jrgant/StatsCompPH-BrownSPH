@@ -1,6 +1,6 @@
-# Getting Data In and Out
+# Importing and Exporting Data
 
-Data comes in many formats. Some formats are universal and easily imported into most statistical programs, while others are proprietary and tailored to a specific program.
+Data come in many formats. Some formats are universal and easily imported into most statistical programs, while others are proprietary and tailored to a specific program.
 
 While incompatibility between datafile formats and various programs used to be a considerable annoyance, most programs have made it rather easy to import data formats regardless of the format's origin. However, in some cases, features available in one language will be unavailable in another or might require additional formatting.
 
@@ -45,13 +45,21 @@ Before we begin, you'll want to install two R packages:
 
 ```{r install-data-import, eval = FALSE}
 # if you've already installed the tidyverse package, you should have readr
-pkgs <- c("readr", "haven")
-install.packages(pkgs)
+install.packages("readr")
+install.packages("haven")
+
+# We could also do the following to avoid having to use install.packages()
+# multiple times:
+
+# pkgs <- c("readr", "haven")
+# install.packages(pkgs)
 ```
 
 ### Reading Data
 
 ```{r import-examples, message = FALSE}
+
+# load packages
 library(readr)
 library(haven)
 
@@ -63,7 +71,9 @@ iris_txt <- readr::read_delim("data/iris.txt", delim = "\t")
 
 # import a sas7bdat file
 iris_sas <- haven::read_sas("data/iris.sas7bdat")
+
 ```
+<span class="marginnote">Note that we've called our various read functions by telling R which package includes each one. Because we've already called `library()` to load the readr and haven packages, we don't need to use `package::function()`. However, for clarity, we'll use them from time to time to mark which package hosts a particular function. Furthermore, calling functions in this way can be done _without loading the package_, which can come in handy if you want to avoid loading a large package that takes up memory.</span>
 
 Let's check the results for each imported version of the `iris` dataset from R.
 
