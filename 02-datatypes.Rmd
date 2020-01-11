@@ -10,13 +10,28 @@ R and SAS are very different beasts.
 
 R is what's known as a functional language, meaning it is built around the general principle that we create objects (e.g., a dataset) and feed them to functions that perform particular operations on the input object and return some sort of output.
 
-As a simple example, let's take the object `iris`, a dataset provided by default in every R installation, and feed it to a function that returns the first 6 rows:
+<span class="marginnote definition">
+**Object**
+Any entity stored in an R environment. Can be a variety of types, including vector, matrix, data.frame, function, and many others.
+</span>
+
+<span class="marginnote definition">
+**Function**
+A particular type of object that takes other objects and arguments as inputs, performs a set of procedures, and returns an output.
+</span>
+
+As a simple example, let's take the object `iris`, a dataset provided by default in every R installation. Below, we feed it to a function, `head()` that inspects the `iris` dataset and returns the first 6 rows:
 
 ```{r datatypes-iris-1}
 head(datasets::iris)
 ```
 
-We can also provide directions to the function in the form of arguments. For instance, let's have a look at the first 10 rows instead by setting the `n` argument accordingly:
+We can also provide directions to functions in the form of **arguments**. For instance, let's instead have a look at the first 10 rows by setting the `n` argument in the `head()` function:
+
+<span class="marginnote definition">
+**Argument**
+A component of a function that allows the user to set a variety of options governing the function's behavior or output.
+</span>
 
 ```{r datatypes-iris-2}
 head(datasets::iris, n = 10)
