@@ -81,7 +81,7 @@ That's better. We've discarded `r nrow(nhefs) - nrow(nhefs3)` rows and focused o
 
 Look back at the output we got from `glimpse()`. Are the variables in the formats we expect/need? I see one that we may need to update, depending on how we plan to use it. (Hint: Look back at the codebook for the variable summaries)
 
-It seems that `alcoholfreq` is current being treated as a numeric variables, but really, it's a factor with 5 discreet levels. Furthermore, level 5 is Unknown, which we should probably treat as missing. We'll also use a factor format for `alcoholfreq`.
+It seems that `alcoholfreq` is current being treated as a numeric variables, but really, it's a factor with 5 discrete levels. Furthermore, level 5 is Unknown, which we should probably treat as missing. We'll also use a factor format for `alcoholfreq`.
 
 <span class="marginnote">We could leave `alcoholfreq` as a numeric variable and wrap it in the `factor()` function only when we needed to. In some cases, that approach might be preferable, in some cases not.</span>
 
