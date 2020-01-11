@@ -213,13 +213,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="col-sm-12">
 <div id="data-structures" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> Data Structures</h1>
-<p>Using any programming language effectively requires the user to learn how that language handles and stores data. For our purposes, we will be most interested in getting comfortable with the major value, variable, and dataset formats offered by SAS and R.</p>
+<p>Using any programming language effectively requires that the user learn how the language handles and stores data. For our purposes, we will be most interested in getting comfortable with the major value, variable, and dataset formats offered by R and, to a lesser extent, SAS.</p>
 <p>This guide will make a special effort to describe common pitfalls peculiar to each language. These pitfalls can be unintuitive and have been known to cause new programmers plenty of headaches. With a bit of luck, we’ll learn how to avoid them so we can concentrate on what matters most: conducting a sound analysis.</p>
 <div id="major-differences-between-r-and-sas" class="section level2">
 <h2><span class="header-section-number">3.1</span> Major Differences Between R and SAS</h2>
 <p>R and SAS are very different beasts.</p>
-<p>R is what’s known as a functional language, meaning it is built around the general principle that we create objects (e.g., a dataset) and feed them to functions that perform particular operations on the input object and return some sort of output.</p>
-<p>As a simple example, let’s take the object <code>iris</code>, a dataset provided by default in every R installation, and feed it to a function that returns the first 6 rows:</p>
+<p>R is what’s known as a functional language, meaning it is built around the general principle that we create <strong>objects</strong> (e.g., a dataset) and “feed” them to <strong>functions</strong> that perform particular operations on the input object and return some sort of output.</p>
+<p><span class="marginnote definition">
+<strong>Object</strong>
+Any entity stored in an R environment. Can be a variety of types, including vector, matrix, data.frame, function, and many others.
+</span></p>
+<p><span class="marginnote definition">
+<strong>Function</strong>
+A particular type of object that takes other objects and arguments as inputs, performs a set of procedures, and returns an output.
+</span></p>
+<p>As a simple example, let’s take the object <code>iris</code>, a dataset provided by default in every R installation. Below, we feed it to a function, <code>head()</code> that inspects the <code>iris</code> dataset and returns the first 6 rows:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">head</span>(datasets<span class="op">::</span>iris)</a></code></pre></div>
 <pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1          5.1         3.5          1.4         0.2  setosa
@@ -228,7 +236,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 4          4.6         3.1          1.5         0.2  setosa
 5          5.0         3.6          1.4         0.2  setosa
 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<p>We can also provide directions to the function in the form of arguments. For instance, let’s have a look at the first 10 rows instead by setting the <code>n</code> argument accordingly:</p>
+<p>We can also provide directions to functions in the form of <strong>arguments</strong>. For instance, let’s instead have a look at the first 10 rows by setting the <code>n</code> argument in the <code>head()</code> function:</p>
+<p><span class="marginnote definition">
+<strong>Argument</strong>
+A component of a function that allows the user to set a variety of options governing the function’s behavior or output.
+</span></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">head</span>(datasets<span class="op">::</span>iris, <span class="dt">n =</span> <span class="dv">10</span>)</a></code></pre></div>
 <pre><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1           5.1         3.5          1.4         0.2  setosa
@@ -242,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 9           4.4         2.9          1.4         0.2  setosa
 10          4.9         3.1          1.5         0.1  setosa</code></pre>
 <p>We’ll talk about some other ways to work with various objects, but for now, it suffices to understand this general principle about functional programming.</p>
-<p>The syntax for SAS is very different.</p>
+<p>SAS’s syntax is very different.</p>
 <p>An example should suffice to illustrate. Let’s take a look at the <code>iris</code> dataset again, performing the same two operations as we did in R:</p>
 <pre class="sas"><code>proc import datafile=&quot;data/iris.csv&quot;
   out=iris
@@ -323,7 +335,7 @@ Obs   Sepal_Length    Sepal_Width   Petal_Length    Petal_Width   Species
 </tr>
 </tbody>
 </table>
-<p>To conduct a statistical analysis, usually we will need to store values in various types of <em>objects</em>. These objects can be tailored toward a specific data type or may enable the user to store multiple data types.</p>
+<p>To conduct a statistical analysis, usually we will need to store values in various types of objects. These objects can be tailored toward a specific data type or may enable the user to store multiple data types.</p>
 <p><!--
 <caption>--><span class="marginnote shownote"><span id="tab:object-class-table">Table 3.2: </span>Major object classes in R</span><!--</caption>--></p>
 <table>

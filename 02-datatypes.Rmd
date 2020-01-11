@@ -1,6 +1,6 @@
 # Data Structures
 
-Using any programming language effectively requires the user to learn how that language handles and stores data. For our purposes, we will be most interested in getting comfortable with the major value, variable, and dataset formats offered by SAS and R.
+Using any programming language effectively requires that the user learn how the language handles and stores data. For our purposes, we will be most interested in getting comfortable with the major value, variable, and dataset formats offered by R and, to a lesser extent, SAS.
 
 This guide will make a special effort to describe common pitfalls peculiar to each language. These pitfalls can be unintuitive and have been known to cause new programmers plenty of headaches. With a bit of luck, we'll learn how to avoid them so we can concentrate on what matters most: conducting a sound analysis.
 
@@ -8,7 +8,7 @@ This guide will make a special effort to describe common pitfalls peculiar to ea
 
 R and SAS are very different beasts.
 
-R is what's known as a functional language, meaning it is built around the general principle that we create objects (e.g., a dataset) and feed them to functions that perform particular operations on the input object and return some sort of output.
+R is what's known as a functional language, meaning it is built around the general principle that we create **objects** (e.g., a dataset) and "feed" them to **functions** that perform particular operations on the input object and return some sort of output.
 
 <span class="marginnote definition">
 **Object**
@@ -39,7 +39,7 @@ head(datasets::iris, n = 10)
 
 We'll talk about some other ways to work with various objects, but for now, it suffices to understand this general principle about functional programming.
 
-The syntax for SAS is very different.
+SAS's syntax is very different.
 
 An example should suffice to illustrate. Let's take a look at the `iris` dataset again, performing the same two operations as we did in R:
 
@@ -93,7 +93,7 @@ tibble::tribble(
   knitr::kable(caption = "Major data types (value classes) in R")
 ```
 
-To conduct a statistical analysis, usually we will need to store values in various types of _objects_. These objects can be tailored toward a specific data type or may enable the user to store multiple data types.
+To conduct a statistical analysis, usually we will need to store values in various types of objects. These objects can be tailored toward a specific data type or may enable the user to store multiple data types.
 
 
 ```{r object-class-table, echo = FALSE}
