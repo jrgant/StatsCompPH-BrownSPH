@@ -145,6 +145,8 @@ nhefs4 %>%
   theme_clean()
 ```
 
+Don't worry just now about the plot code. We'll be looking in some detail at the ggplot2 package later.
+
 ## Tabular Analysis
 
 
