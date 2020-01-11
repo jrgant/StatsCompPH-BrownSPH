@@ -16,7 +16,7 @@ These objects can be any of the data types or structures we saw a couple of sect
 
 To begin, though, we'll assign single values to several variables using `<-`, known as the assignment operator. One important thing to keep in mind when working in R is that all names are **case-sensitive**, meaning that R considers `myvariable` and `myVariable` to be two different objects.
 
-<span class="marginnote">Can you name the datatypes for each object we just assigned? Write 3 more lines and wrap each object name in a `class()` function.</span>
+<span class="marginnote">Can you name the data types for each object we just assigned? Write 3 more lines and wrap each object name in a `class()` function.</span>
 
 ```{r assign}
 x1 <- 10
@@ -53,7 +53,7 @@ isFALSE(x3)
 # multiply TRUE (1) times 5
 x3 * 5
 ```
-These are very simple examples, of course, but hopefully they provide some inkling as to how the different datatypes can be combined and manipulated to achieve various ends. Checking variable values and classes will be a regular task when manipulating data and debugging code.
+These are very simple examples, of course, but hopefully they provide some inkling as to how the different data types can be combined and manipulated to achieve various ends. Checking variable values and classes will be a regular task when manipulating data and debugging code.
 
 For instance, if we needed to confirm that `x1` was a numeric variable, we could check it:
 
@@ -73,13 +73,15 @@ We'll revisit logical operations in a bit after we review how to manipulate and 
 
 ## More Complex Objects
 
-When we reviewed datatypes previously, we saw that R is capable of handling objects such as vectors, matrices, lists, and data frames. Let's have a look at each of these objects in turn, and get a feel for how we can work with them.
+When we reviewed data types previously, we saw that R is capable of handling objects such as vectors, matrices, lists, and data frames. Let's have a look at each of these objects in turn, and get a feel for how we can work with them.
 
 ### Vectors
 
 You can think of a vector as a sequence of values. In fact, the objects we assigned in the prior section were simply vectors with a length of one.
 
-Creating longer vectors is straightforward but requires a concatenation function called `c()`. As we did last time, let's create a few vectors.
+Creating longer vectors is straightforward but requires a **concatenation** function called `c()`. As we did last time, let's create a few vectors.
+
+<span class="marginnote definition">**Concatenation** Merging or joining multiple objects into one.</span>
 
 ```{r vector.examples}
 x1_vec <- c(50, 21, 455, 89, 09)
@@ -256,7 +258,7 @@ mat4 * 123456
 
 ### Other Object Classes
 
-Various subfields of epidemiology and statistics provide an array of object classes that are beyond the scope of this tutorial. For instance, an object with the class "graph" describes the compnents and structures of a graph. The information stored in this object would typically allow one to manipulate, analyze, and visualize the graph.
+Various subfields of epidemiology and statistics provide an array of object classes that are beyond the scope of this tutorial. For instance, an object with the class "graph" describes the components and structures of a graph. The information stored in this object would typically allow one to manipulate, analyze, and visualize the graph.
 
 ## Conducting Operations on Objects
 
@@ -349,9 +351,9 @@ When combining various operators, some will take [precedence](https://stat.ethz.
 
 ### Recycling
 
-Recycling is a _very_ important concept in R. First, recycling can make your code more efficient. Second, if you forget that R recycles, you might unwittingly perform an operation that spits out a bunch of wrong answers.
-
 In short, **recycling** refers to the reuse of an input object (or objects) to produce an output.
+
+Recycling is a _very_ important concept in R. First, recycling can make your code more efficient. Second, if you forget that R recycles, you might unwittingly perform an operation that spits out a bunch of wrong answers.
 
 That's a pretty abstract description, so let's look at a few examples to develop our intuition a bit.
 

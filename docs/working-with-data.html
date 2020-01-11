@@ -219,7 +219,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>These objects can be any of the data types or structures we saw a couple of sections ago.</p>
 <p><span class="marginnote">Note that we can also assign objects as so: <code>y = 10</code>. However, using the equal sign is generally not preferred because it is used to assign values to function arguments, too.</span></p>
 <p>To begin, though, we’ll assign single values to several variables using <code>&lt;-</code>, known as the assignment operator. One important thing to keep in mind when working in R is that all names are <strong>case-sensitive</strong>, meaning that R considers <code>myvariable</code> and <code>myVariable</code> to be two different objects.</p>
-<p><span class="marginnote">Can you name the datatypes for each object we just assigned? Write 3 more lines and wrap each object name in a <code>class()</code> function.</span></p>
+<p><span class="marginnote">Can you name the data types for each object we just assigned? Write 3 more lines and wrap each object name in a <code>class()</code> function.</span></p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">x1 &lt;-<span class="st"> </span><span class="dv">10</span></a>
 <a class="sourceLine" id="cb16-2" data-line-number="2">x2 &lt;-<span class="st"> &quot;Welcome to Brown!&quot;</span></a>
 <a class="sourceLine" id="cb16-3" data-line-number="3">x3 &lt;-<span class="st"> </span><span class="ot">TRUE</span></a></code></pre></div>
@@ -247,7 +247,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># multiply TRUE (1) times 5</span></a>
 <a class="sourceLine" id="cb31-2" data-line-number="2">x3 <span class="op">*</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
 <pre><code>[1] 5</code></pre>
-<p>These are very simple examples, of course, but hopefully they provide some inkling as to how the different datatypes can be combined and manipulated to achieve various ends. Checking variable values and classes will be a regular task when manipulating data and debugging code.</p>
+<p>These are very simple examples, of course, but hopefully they provide some inkling as to how the different data types can be combined and manipulated to achieve various ends. Checking variable values and classes will be a regular task when manipulating data and debugging code.</p>
 <p>For instance, if we needed to confirm that <code>x1</code> was a numeric variable, we could check it:</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">is.numeric</span>(x1)</a></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
@@ -259,11 +259,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="more-complex-objects" class="section level2">
 <h2><span class="header-section-number">5.2</span> More Complex Objects</h2>
-<p>When we reviewed datatypes previously, we saw that R is capable of handling objects such as vectors, matrices, lists, and data frames. Let’s have a look at each of these objects in turn, and get a feel for how we can work with them.</p>
+<p>When we reviewed data types previously, we saw that R is capable of handling objects such as vectors, matrices, lists, and data frames. Let’s have a look at each of these objects in turn, and get a feel for how we can work with them.</p>
 <div id="vectors" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> Vectors</h3>
 <p>You can think of a vector as a sequence of values. In fact, the objects we assigned in the prior section were simply vectors with a length of one.</p>
-<p>Creating longer vectors is straightforward but requires a concatenation function called <code>c()</code>. As we did last time, let’s create a few vectors.</p>
+<p>Creating longer vectors is straightforward but requires a <strong>concatenation</strong> function called <code>c()</code>. As we did last time, let’s create a few vectors.</p>
+<p><span class="marginnote definition"><strong>Concatenation</strong> Merging or joining multiple objects into one.</span></p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">x1_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">21</span>, <span class="dv">455</span>, <span class="dv">89</span>, <span class="dv">09</span>)</a>
 <a class="sourceLine" id="cb37-2" data-line-number="2">x2_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Hi!&quot;</span>, <span class="st">&quot;Welcome&quot;</span>, <span class="st">&quot;to&quot;</span>, <span class="st">&quot;Brown&quot;</span>, <span class="st">&quot;SPH&quot;</span>)</a>
 <a class="sourceLine" id="cb37-3" data-line-number="3">x3_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>)</a>

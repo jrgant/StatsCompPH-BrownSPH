@@ -213,7 +213,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="col-sm-12">
 <div id="importing-and-exporting-data" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Importing and Exporting Data</h1>
-<p>Data comes in many formats. Some formats are universal and easily imported into most statistical programs, while others are proprietary and tailored to a specific program.</p>
+<p>Data come in many formats. Some formats are universal and easily imported into most statistical programs, while others are proprietary and tailored to a specific program.</p>
 <p>While incompatibility between datafile formats and various programs used to be a considerable annoyance, most programs have made it rather easy to import data formats regardless of the format’s origin. However, in some cases, features available in one language will be unavailable in another or might require additional formatting.</p>
 <p>The table below provides a brief summary of formats commonly used to store datasets.</p>
 <p><!--
@@ -285,7 +285,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb8-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co"># import a sas7bdat file</span></a>
 <a class="sourceLine" id="cb8-12" data-line-number="12">iris_sas &lt;-<span class="st"> </span>haven<span class="op">::</span><span class="kw">read_sas</span>(<span class="st">&quot;data/iris.sas7bdat&quot;</span>)</a></code></pre></div>
-<p><span class="marginnote">Note that we’ve called our various read functions by telling R which package includes each one. Because we’ve already called <code>library()</code> to load the readr and haven packages, we don’t need to use <code>package::function()</code>. However, for clarity, we’ll use them from time to time to make clear which packages hosts a particular function. Furthermore, calling functions in this way can be done <em>without loading the package</em>, which can come in handy if you want to avoid loading a large package that takes up memory.</span></p>
+<p><span class="marginnote">Note that we’ve called our various read functions by telling R which package includes each one. Because we’ve already called <code>library()</code> to load the readr and haven packages, we don’t need to use <code>package::function()</code>. However, for clarity, we’ll use them from time to time to mark which package hosts a particular function. Furthermore, calling functions in this way can be done <em>without loading the package</em>, which can come in handy if you want to avoid loading a large package that takes up memory.</span></p>
 <p>Let’s check the results for each imported version of the <code>iris</code> dataset from R.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">head</span>(iris_csv)</a></code></pre></div>
 <pre><code># A tibble: 6 x 5
