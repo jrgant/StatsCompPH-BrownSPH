@@ -254,11 +254,219 @@ mat4 * 123456
 
 ### Lists
 
+Lists are very flexible objects in R. Think of them like chest of drawers into which we can store basically any other type of object. This feature of lists makes them useful for storing all sorts of data. In fact, when we get to fitting regression models, we'll see that the fitted model objects R returns to us are essentially stored as lists containing the estimated models, the data used to fit the model, regression diagnostics, and more.
+
+A quick demonstration of storing multiple objects in a list:
+
+```{r list-example}
+# Object 1: Vector
+my_vector <- 4:10
+
+# Object 2: Matrix
+my_matrix <- matrix(1:20, ncol = 4, byrow = T)
+
+# Object 3: Dataframe (first 15 rows of iris)
+my_df <- datasets::iris[1:15, ]
+
+# Object 4: List
+my_list <- list(vector = my_vector,
+                matrix = my_matrix,
+                dataframe = my_df)
+
+my_list
+```
+
+Now, let's interrogate the list so we can get familiar with its features.
+
+First, we saved each of the three objects into their own space within the list. _The objects are still separate from one other. In other words, we have not merged them._ Each of these spaces possesses a name, which we assigned in the code above.
+
+```{r list-ex-names}
+names(my_list)
+```
+
+We can query each of the objects individually:
+
+```{r list-ex-extract}
+
+my_list$vector
+my_list$matrix
+head(my_list$dataframe)
+
+```
+
+Alternatively, we could have accessed each object using a few different methods, each with slightly different effects. Let's focus on the dataframe to demonstrate.
+
+Access using single brackets and name of the list element:
+
+```{r list-ex-extract-1brackstring}
+my_list["dataframe"]
+```
+
+Access using double brackets and name of the list element:
+
+```{r list-ex-extract-2brackstring}
+my_list[["dataframe"]]
+```
+
+The difference between what each of these calls returned is subtle but important. Recall the chest of drawers metaphor we applied to lists.
+
+The list is the chest, each element is a drawer, and each drawer is filled with particular contents.
+
+1. When we use single brackets, we pull the drawer out of the chest. However, we _do not access the contents of the drawer directly_.
+
+2. When we use double brackets, we pull the contents out of the drawer, which means we can access them directly and act upon them as if they were not in the list at all.
+
+To see the implications of how we query the list, we can try to perform some operations on the dataframe using each method of accessing it.
+
+```{r}
+# access the list element (pull out the drawer)
+head(my_list["dataframe"])
+
+# access the dataframe itself (pull out the contents of the drawer)
+head(my_list[["dataframe"]])
+```
+
+In the first case, R did not apply the `head()`
+
+The same bracket principle applies if we access elements and their contents using the numerical index of the list.
+
+```{r list-ex-extract-1bracknum}
+head(my_list[3])
+```
+
+```{r list-ex-extract-2bracknum}
+head(my_list[[3]])
+```
+
+```{r list-access-table, echo = F}
+tibble::tribble(
+    ~ `Access method`,
+    ~ Example,
+    ~ Returns,
+
+    'list["elementName"]',
+    'my_list["dataframe"]',
+    'Element',
+
+    'list[elementIndex]',
+    'my_list[3]',
+    'Element',
+
+    'list[["elementName"]]',
+    'my_list[["dataframe"]]',
+    'Element contents',
+
+    'list[[elementIndex]]',
+    'my_list[[3]]',
+    'Element contents',
+
+    'list$elementName',
+    'my_list$dataframe',
+    'Element contents'
+  ) %>%
+  knitr::kable(caption = "List access summary")
+```
+
+In addition, we can place chests between drawers: in other words, we can **nest** lists within lists.
+
+```{r nested-lists}
+
+# select first n rows from each example dataset
+n1 <- 15
+n2 <- 30
+n3 <- 50
+
+# create a subset of each dataset
+iris_sub  <- datasets::iris[1:n1, ]
+airq_sub  <- datasets::airquality[1:n2, ]
+quake_sub <- datasets::quakes[1:n3, ]
+
+# store some info about the iris dataset
+# info: ?datasets::iris
+nl1 <- list(data = iris_sub,
+            nrows = nrow(iris_sub),
+            ncols = length(iris_sub))
+
+# store some info about the airquality dataset
+# info: ?datasets::airquality
+nl2 <- list(data = airq_sub,
+            nrows = nrow(airq_sub),
+            ncols = length(airq_sub))
+
+# store some info about the precip dataset
+# info: ?datasets::quakes
+nl3 <- list(data = quake_sub,
+            nrows = nrow(quake_sub),
+            ncols = length(quake_sub))
+
+# store dataset summaries to list
+datasummary_list <- list(irisdata = nl1,
+                         airquality_data = nl2,
+                         quake_data = nl3)
+```
+
+Before we look at `datasummary_list`, sit with the code above for a minute and think about what you expect `datasummary_list` to look like...
+
+We saved three lists, each containing a dataset along with some basic information about that dataset.
+
+Next, we took these three lists and put them all into another list.
+
+```{r nested-lists-output}
+datasummary_list
+```
+
+There's the whole thing, but we'll take a minute to pick apart the elements of `datasummary_list`.
+
+First, we named each of its elements:
+
+```{r nested-list-names}
+names(datasummary_list)
+```
+
+We can look at the first element, in which we stored a subset of the `iris` data:
+
+```{r iris-nested-list-names}
+names(datasummary_list$irisdata)
+```
+
+<span class="marginnote">Did we have to access this list directly? Have a look back at the list access table above.<span>
+
+If we wanted to see the `iris` data and the information we saved about it:
+
+```{r}
+datasummary_list$irisdata$data
+datasummary_list$irisdata$nrows
+datasummary_list$irisdata$ncols
+```
+
+Note, too, that you can mix access methods, depending on your needs:
+
+<span class="marginnote">Which dataset are we accessing?</span>
+
+```{r}
+head(datasummary_list[[3]]$data)
+```
+
+We'll see some lists later on in a few worked examples, as we've only scratched the surface. But even with what we've learned so far, hopefully your brain is starting to think about different ways me might use lists to store, manipulate, and analyze data. Data analysis and programming is in part an act of creativity!
+
+```{r fun-list}
+s1 <- "Okay"
+s2 <- "that's all about lists"
+s3 <- "for now!"
+
+totally_unnecessary_list <- list(firstbit = s1,
+                                 secondbit = list(s2, s3))
+
+cat(paste0(totally_unnecessary_list[[1]], ","),
+           totally_unnecessary_list[[2]][[1]],
+           totally_unnecessary_list[[2]][[2]], sep = " ")
+```
+
 ### Data Frames
 
 ### Other Object Classes
 
-Various subfields of epidemiology and statistics provide an array of object classes that are beyond the scope of this tutorial. For instance, an object with the class "graph" describes the components and structures of a graph. The information stored in this object would typically allow one to manipulate, analyze, and visualize the graph.
+Various subfields of epidemiology and statistics provide an array of object classes that are beyond the scope of this tutorial. For instance, an object with the class "graph" describes the components and structures of a [graph](http://mathworld.wolfram.com/Graph.html). The information stored in this object would typically allow one to manipulate, analyze, and visualize the graph.
 
 ## Conducting Operations on Objects
 

@@ -491,13 +491,434 @@ length: 5</code></pre>
 </div>
 <div id="lists" class="section level3">
 <h3><span class="header-section-number">5.2.3</span> Lists</h3>
+<p>Lists are very flexible objects in R. Think of them like chest of drawers into which we can store basically any other type of object. This feature of lists makes them useful for storing all sorts of data. In fact, when we get to fitting regression models, we’ll see that the fitted model objects R returns to us are essentially stored as lists containing the estimated models, the data used to fit the model, regression diagnostics, and more.</p>
+<p>A quick demonstration of storing multiple objects in a list:</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="co"># Object 1: Vector</span></a>
+<a class="sourceLine" id="cb85-2" data-line-number="2">my_vector &lt;-<span class="st"> </span><span class="dv">4</span><span class="op">:</span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb85-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb85-4" data-line-number="4"><span class="co"># Object 2: Matrix</span></a>
+<a class="sourceLine" id="cb85-5" data-line-number="5">my_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">ncol =</span> <span class="dv">4</span>, <span class="dt">byrow =</span> T)</a>
+<a class="sourceLine" id="cb85-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb85-7" data-line-number="7"><span class="co"># Object 3: Dataframe (first 15 rows of iris)</span></a>
+<a class="sourceLine" id="cb85-8" data-line-number="8">my_df &lt;-<span class="st"> </span>datasets<span class="op">::</span>iris[<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>, ]</a>
+<a class="sourceLine" id="cb85-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb85-10" data-line-number="10"><span class="co"># Object 4: List</span></a>
+<a class="sourceLine" id="cb85-11" data-line-number="11">my_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">vector =</span> my_vector,</a>
+<a class="sourceLine" id="cb85-12" data-line-number="12">                <span class="dt">matrix =</span> my_matrix,</a>
+<a class="sourceLine" id="cb85-13" data-line-number="13">                <span class="dt">dataframe =</span> my_df)</a>
+<a class="sourceLine" id="cb85-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb85-15" data-line-number="15">my_list</a></code></pre></div>
+<pre><code>$vector
+[1]  4  5  6  7  8  9 10
+
+$matrix
+     [,1] [,2] [,3] [,4]
+[1,]    1    2    3    4
+[2,]    5    6    7    8
+[3,]    9   10   11   12
+[4,]   13   14   15   16
+[5,]   17   18   19   20
+
+$dataframe
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1           5.1         3.5          1.4         0.2  setosa
+2           4.9         3.0          1.4         0.2  setosa
+3           4.7         3.2          1.3         0.2  setosa
+4           4.6         3.1          1.5         0.2  setosa
+5           5.0         3.6          1.4         0.2  setosa
+6           5.4         3.9          1.7         0.4  setosa
+7           4.6         3.4          1.4         0.3  setosa
+8           5.0         3.4          1.5         0.2  setosa
+9           4.4         2.9          1.4         0.2  setosa
+10          4.9         3.1          1.5         0.1  setosa
+11          5.4         3.7          1.5         0.2  setosa
+12          4.8         3.4          1.6         0.2  setosa
+13          4.8         3.0          1.4         0.1  setosa
+14          4.3         3.0          1.1         0.1  setosa
+15          5.8         4.0          1.2         0.2  setosa</code></pre>
+<p>Now, let’s interrogate the list so we can get familiar with its features.</p>
+<p>First, we saved each of the three objects into their own space within the list. <em>The objects are still separate from one other. In other words, we have not merged them.</em> Each of these spaces possesses a name, which we assigned in the code above.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="kw">names</span>(my_list)</a></code></pre></div>
+<pre><code>[1] &quot;vector&quot;    &quot;matrix&quot;    &quot;dataframe&quot;</code></pre>
+<p>We can query each of the objects individually:</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">my_list<span class="op">$</span>vector</a></code></pre></div>
+<pre><code>[1]  4  5  6  7  8  9 10</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1">my_list<span class="op">$</span>matrix</a></code></pre></div>
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    1    2    3    4
+[2,]    5    6    7    8
+[3,]    9   10   11   12
+[4,]   13   14   15   16
+[5,]   17   18   19   20</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="kw">head</span>(my_list<span class="op">$</span>dataframe)</a></code></pre></div>
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<p>Alternatively, we could have accessed each object using a few different methods, each with slightly different effects. Let’s focus on the dataframe to demonstrate.</p>
+<p>Access using single brackets and name of the list element:</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1">my_list[<span class="st">&quot;dataframe&quot;</span>]</a></code></pre></div>
+<pre><code>$dataframe
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1           5.1         3.5          1.4         0.2  setosa
+2           4.9         3.0          1.4         0.2  setosa
+3           4.7         3.2          1.3         0.2  setosa
+4           4.6         3.1          1.5         0.2  setosa
+5           5.0         3.6          1.4         0.2  setosa
+6           5.4         3.9          1.7         0.4  setosa
+7           4.6         3.4          1.4         0.3  setosa
+8           5.0         3.4          1.5         0.2  setosa
+9           4.4         2.9          1.4         0.2  setosa
+10          4.9         3.1          1.5         0.1  setosa
+11          5.4         3.7          1.5         0.2  setosa
+12          4.8         3.4          1.6         0.2  setosa
+13          4.8         3.0          1.4         0.1  setosa
+14          4.3         3.0          1.1         0.1  setosa
+15          5.8         4.0          1.2         0.2  setosa</code></pre>
+<p>Access using double brackets and name of the list element:</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1">my_list[[<span class="st">&quot;dataframe&quot;</span>]]</a></code></pre></div>
+<pre><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1           5.1         3.5          1.4         0.2  setosa
+2           4.9         3.0          1.4         0.2  setosa
+3           4.7         3.2          1.3         0.2  setosa
+4           4.6         3.1          1.5         0.2  setosa
+5           5.0         3.6          1.4         0.2  setosa
+6           5.4         3.9          1.7         0.4  setosa
+7           4.6         3.4          1.4         0.3  setosa
+8           5.0         3.4          1.5         0.2  setosa
+9           4.4         2.9          1.4         0.2  setosa
+10          4.9         3.1          1.5         0.1  setosa
+11          5.4         3.7          1.5         0.2  setosa
+12          4.8         3.4          1.6         0.2  setosa
+13          4.8         3.0          1.4         0.1  setosa
+14          4.3         3.0          1.1         0.1  setosa
+15          5.8         4.0          1.2         0.2  setosa</code></pre>
+<p>The difference between what each of these calls returned is subtle but important. Recall the chest of drawers metaphor we applied to lists.</p>
+<p>The list is the chest, each element is a drawer, and each drawer is filled with particular contents.</p>
+<ol style="list-style-type: decimal">
+<li><p>When we use single brackets, we pull the drawer out of the chest. However, we <em>do not access the contents of the drawer directly</em>.</p></li>
+<li><p>When we use double brackets, we pull the contents out of the drawer, which means we can access them directly and act upon them as if they were not in the list at all.</p></li>
+</ol>
+<p>To see the implications of how we query the list, we can try to perform some operations on the dataframe using each method of accessing it.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1"><span class="co"># access the list element (pull out the drawer)</span></a>
+<a class="sourceLine" id="cb99-2" data-line-number="2"><span class="kw">head</span>(my_list[<span class="st">&quot;dataframe&quot;</span>])</a></code></pre></div>
+<pre><code>$dataframe
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1           5.1         3.5          1.4         0.2  setosa
+2           4.9         3.0          1.4         0.2  setosa
+3           4.7         3.2          1.3         0.2  setosa
+4           4.6         3.1          1.5         0.2  setosa
+5           5.0         3.6          1.4         0.2  setosa
+6           5.4         3.9          1.7         0.4  setosa
+7           4.6         3.4          1.4         0.3  setosa
+8           5.0         3.4          1.5         0.2  setosa
+9           4.4         2.9          1.4         0.2  setosa
+10          4.9         3.1          1.5         0.1  setosa
+11          5.4         3.7          1.5         0.2  setosa
+12          4.8         3.4          1.6         0.2  setosa
+13          4.8         3.0          1.4         0.1  setosa
+14          4.3         3.0          1.1         0.1  setosa
+15          5.8         4.0          1.2         0.2  setosa</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1"><span class="co"># access the dataframe itself (pull out the contents of the drawer)</span></a>
+<a class="sourceLine" id="cb101-2" data-line-number="2"><span class="kw">head</span>(my_list[[<span class="st">&quot;dataframe&quot;</span>]])</a></code></pre></div>
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<p>In the first case, R did not apply the <code>head()</code></p>
+<p>The same bracket principle applies if we access elements and their contents using the numerical index of the list.</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1"><span class="kw">head</span>(my_list[<span class="dv">3</span>])</a></code></pre></div>
+<pre><code>$dataframe
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1           5.1         3.5          1.4         0.2  setosa
+2           4.9         3.0          1.4         0.2  setosa
+3           4.7         3.2          1.3         0.2  setosa
+4           4.6         3.1          1.5         0.2  setosa
+5           5.0         3.6          1.4         0.2  setosa
+6           5.4         3.9          1.7         0.4  setosa
+7           4.6         3.4          1.4         0.3  setosa
+8           5.0         3.4          1.5         0.2  setosa
+9           4.4         2.9          1.4         0.2  setosa
+10          4.9         3.1          1.5         0.1  setosa
+11          5.4         3.7          1.5         0.2  setosa
+12          4.8         3.4          1.6         0.2  setosa
+13          4.8         3.0          1.4         0.1  setosa
+14          4.3         3.0          1.1         0.1  setosa
+15          5.8         4.0          1.2         0.2  setosa</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="kw">head</span>(my_list[[<span class="dv">3</span>]])</a></code></pre></div>
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<p><!--
+<caption>--><span class="marginnote shownote"><span id="tab:list-access-table">Table 5.1: </span>List access summary</span><!--</caption>--></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Access method</th>
+<th align="left">Example</th>
+<th align="left">Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">list[“elementName”]</td>
+<td align="left">my_list[“dataframe”]</td>
+<td align="left">Element</td>
+</tr>
+<tr class="even">
+<td align="left">list[elementIndex]</td>
+<td align="left">my_list[3]</td>
+<td align="left">Element</td>
+</tr>
+<tr class="odd">
+<td align="left">list[[“elementName”]]</td>
+<td align="left">my_list[[“dataframe”]]</td>
+<td align="left">Element contents</td>
+</tr>
+<tr class="even">
+<td align="left">list[[elementIndex]]</td>
+<td align="left">my_list[[3]]</td>
+<td align="left">Element contents</td>
+</tr>
+<tr class="odd">
+<td align="left">list$elementName</td>
+<td align="left">my_list$dataframe</td>
+<td align="left">Element contents</td>
+</tr>
+</tbody>
+</table>
+<p>In addition, we can place chests between drawers: in other words, we can <strong>nest</strong> lists within lists.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1"><span class="co"># select first n rows from each example dataset</span></a>
+<a class="sourceLine" id="cb107-2" data-line-number="2">n1 &lt;-<span class="st"> </span><span class="dv">15</span></a>
+<a class="sourceLine" id="cb107-3" data-line-number="3">n2 &lt;-<span class="st"> </span><span class="dv">30</span></a>
+<a class="sourceLine" id="cb107-4" data-line-number="4">n3 &lt;-<span class="st"> </span><span class="dv">50</span></a>
+<a class="sourceLine" id="cb107-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb107-6" data-line-number="6"><span class="co"># create a subset of each dataset</span></a>
+<a class="sourceLine" id="cb107-7" data-line-number="7">iris_sub  &lt;-<span class="st"> </span>datasets<span class="op">::</span>iris[<span class="dv">1</span><span class="op">:</span>n1, ]</a>
+<a class="sourceLine" id="cb107-8" data-line-number="8">airq_sub  &lt;-<span class="st"> </span>datasets<span class="op">::</span>airquality[<span class="dv">1</span><span class="op">:</span>n2, ]</a>
+<a class="sourceLine" id="cb107-9" data-line-number="9">quake_sub &lt;-<span class="st"> </span>datasets<span class="op">::</span>quakes[<span class="dv">1</span><span class="op">:</span>n3, ]</a>
+<a class="sourceLine" id="cb107-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb107-11" data-line-number="11"><span class="co"># store some info about the iris dataset</span></a>
+<a class="sourceLine" id="cb107-12" data-line-number="12"><span class="co"># info: ?datasets::iris</span></a>
+<a class="sourceLine" id="cb107-13" data-line-number="13">nl1 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">data =</span> iris_sub,</a>
+<a class="sourceLine" id="cb107-14" data-line-number="14">            <span class="dt">nrows =</span> <span class="kw">nrow</span>(iris_sub),</a>
+<a class="sourceLine" id="cb107-15" data-line-number="15">            <span class="dt">ncols =</span> <span class="kw">length</span>(iris_sub))</a>
+<a class="sourceLine" id="cb107-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb107-17" data-line-number="17"><span class="co"># store some info about the airquality dataset</span></a>
+<a class="sourceLine" id="cb107-18" data-line-number="18"><span class="co"># info: ?datasets::airquality</span></a>
+<a class="sourceLine" id="cb107-19" data-line-number="19">nl2 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">data =</span> airq_sub,</a>
+<a class="sourceLine" id="cb107-20" data-line-number="20">            <span class="dt">nrows =</span> <span class="kw">nrow</span>(airq_sub),</a>
+<a class="sourceLine" id="cb107-21" data-line-number="21">            <span class="dt">ncols =</span> <span class="kw">length</span>(airq_sub))</a>
+<a class="sourceLine" id="cb107-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb107-23" data-line-number="23"><span class="co"># store some info about the precip dataset</span></a>
+<a class="sourceLine" id="cb107-24" data-line-number="24"><span class="co"># info: ?datasets::quakes</span></a>
+<a class="sourceLine" id="cb107-25" data-line-number="25">nl3 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">data =</span> quake_sub,</a>
+<a class="sourceLine" id="cb107-26" data-line-number="26">            <span class="dt">nrows =</span> <span class="kw">nrow</span>(quake_sub),</a>
+<a class="sourceLine" id="cb107-27" data-line-number="27">            <span class="dt">ncols =</span> <span class="kw">length</span>(quake_sub))</a>
+<a class="sourceLine" id="cb107-28" data-line-number="28"></a>
+<a class="sourceLine" id="cb107-29" data-line-number="29"><span class="co"># store dataset summaries to list</span></a>
+<a class="sourceLine" id="cb107-30" data-line-number="30">datasummary_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">irisdata =</span> nl1,</a>
+<a class="sourceLine" id="cb107-31" data-line-number="31">                         <span class="dt">airquality_data =</span> nl2,</a>
+<a class="sourceLine" id="cb107-32" data-line-number="32">                         <span class="dt">quake_data =</span> nl3)</a></code></pre></div>
+<p>Before we look at <code>datasummary_list</code>, sit with the code above for a minute and think about what you expect <code>datasummary_list</code> to look like…</p>
+<p>We saved three lists, each containing a dataset along with some basic information about that dataset.</p>
+<p>Next, we took these three lists and put them all into another list.</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1">datasummary_list</a></code></pre></div>
+<pre><code>$irisdata
+$irisdata$data
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1           5.1         3.5          1.4         0.2  setosa
+2           4.9         3.0          1.4         0.2  setosa
+3           4.7         3.2          1.3         0.2  setosa
+4           4.6         3.1          1.5         0.2  setosa
+5           5.0         3.6          1.4         0.2  setosa
+6           5.4         3.9          1.7         0.4  setosa
+7           4.6         3.4          1.4         0.3  setosa
+8           5.0         3.4          1.5         0.2  setosa
+9           4.4         2.9          1.4         0.2  setosa
+10          4.9         3.1          1.5         0.1  setosa
+11          5.4         3.7          1.5         0.2  setosa
+12          4.8         3.4          1.6         0.2  setosa
+13          4.8         3.0          1.4         0.1  setosa
+14          4.3         3.0          1.1         0.1  setosa
+15          5.8         4.0          1.2         0.2  setosa
+
+$irisdata$nrows
+[1] 15
+
+$irisdata$ncols
+[1] 5
+
+
+$airquality_data
+$airquality_data$data
+   Ozone Solar.R Wind Temp Month Day
+1     41     190  7.4   67     5   1
+2     36     118  8.0   72     5   2
+3     12     149 12.6   74     5   3
+4     18     313 11.5   62     5   4
+5     NA      NA 14.3   56     5   5
+6     28      NA 14.9   66     5   6
+7     23     299  8.6   65     5   7
+8     19      99 13.8   59     5   8
+9      8      19 20.1   61     5   9
+10    NA     194  8.6   69     5  10
+11     7      NA  6.9   74     5  11
+12    16     256  9.7   69     5  12
+13    11     290  9.2   66     5  13
+14    14     274 10.9   68     5  14
+15    18      65 13.2   58     5  15
+16    14     334 11.5   64     5  16
+17    34     307 12.0   66     5  17
+18     6      78 18.4   57     5  18
+19    30     322 11.5   68     5  19
+20    11      44  9.7   62     5  20
+21     1       8  9.7   59     5  21
+22    11     320 16.6   73     5  22
+23     4      25  9.7   61     5  23
+24    32      92 12.0   61     5  24
+25    NA      66 16.6   57     5  25
+26    NA     266 14.9   58     5  26
+27    NA      NA  8.0   57     5  27
+28    23      13 12.0   67     5  28
+29    45     252 14.9   81     5  29
+30   115     223  5.7   79     5  30
+
+$airquality_data$nrows
+[1] 30
+
+$airquality_data$ncols
+[1] 6
+
+
+$quake_data
+$quake_data$data
+      lat   long depth mag stations
+1  -20.42 181.62   562 4.8       41
+2  -20.62 181.03   650 4.2       15
+3  -26.00 184.10    42 5.4       43
+4  -17.97 181.66   626 4.1       19
+5  -20.42 181.96   649 4.0       11
+6  -19.68 184.31   195 4.0       12
+7  -11.70 166.10    82 4.8       43
+8  -28.11 181.93   194 4.4       15
+9  -28.74 181.74   211 4.7       35
+10 -17.47 179.59   622 4.3       19
+11 -21.44 180.69   583 4.4       13
+12 -12.26 167.00   249 4.6       16
+13 -18.54 182.11   554 4.4       19
+14 -21.00 181.66   600 4.4       10
+15 -20.70 169.92   139 6.1       94
+16 -15.94 184.95   306 4.3       11
+17 -13.64 165.96    50 6.0       83
+18 -17.83 181.50   590 4.5       21
+19 -23.50 179.78   570 4.4       13
+20 -22.63 180.31   598 4.4       18
+21 -20.84 181.16   576 4.5       17
+22 -10.98 166.32   211 4.2       12
+23 -23.30 180.16   512 4.4       18
+24 -30.20 182.00   125 4.7       22
+25 -19.66 180.28   431 5.4       57
+26 -17.94 181.49   537 4.0       15
+27 -14.72 167.51   155 4.6       18
+28 -16.46 180.79   498 5.2       79
+29 -20.97 181.47   582 4.5       25
+30 -19.84 182.37   328 4.4       17
+31 -22.58 179.24   553 4.6       21
+32 -16.32 166.74    50 4.7       30
+33 -15.55 185.05   292 4.8       42
+34 -23.55 180.80   349 4.0       10
+35 -16.30 186.00    48 4.5       10
+36 -25.82 179.33   600 4.3       13
+37 -18.73 169.23   206 4.5       17
+38 -17.64 181.28   574 4.6       17
+39 -17.66 181.40   585 4.1       17
+40 -18.82 169.33   230 4.4       11
+41 -37.37 176.78   263 4.7       34
+42 -15.31 186.10    96 4.6       32
+43 -24.97 179.82   511 4.4       23
+44 -15.49 186.04    94 4.3       26
+45 -19.23 169.41   246 4.6       27
+46 -30.10 182.30    56 4.9       34
+47 -26.40 181.70   329 4.5       24
+48 -11.77 166.32    70 4.4       18
+49 -24.12 180.08   493 4.3       21
+50 -18.97 185.25   129 5.1       73
+
+$quake_data$nrows
+[1] 50
+
+$quake_data$ncols
+[1] 5</code></pre>
+<p>There’s the whole thing, but we’ll take a minute to pick apart the elements of <code>datasummary_list</code>.</p>
+<p>First, we named each of its elements:</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1"><span class="kw">names</span>(datasummary_list)</a></code></pre></div>
+<pre><code>[1] &quot;irisdata&quot;        &quot;airquality_data&quot; &quot;quake_data&quot;     </code></pre>
+<p>We can look at the first element, in which we stored a subset of the <code>iris</code> data:</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1"><span class="kw">names</span>(datasummary_list<span class="op">$</span>irisdata)</a></code></pre></div>
+<pre><code>[1] &quot;data&quot;  &quot;nrows&quot; &quot;ncols&quot;</code></pre>
+<p><span class="marginnote">Did we have to access this list directly? Have a look back at the list access table above.<span></p>
+<p>If we wanted to see the <code>iris</code> data and the information we saved about it:</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" data-line-number="1">datasummary_list<span class="op">$</span>irisdata<span class="op">$</span>data</a></code></pre></div>
+<pre><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1           5.1         3.5          1.4         0.2  setosa
+2           4.9         3.0          1.4         0.2  setosa
+3           4.7         3.2          1.3         0.2  setosa
+4           4.6         3.1          1.5         0.2  setosa
+5           5.0         3.6          1.4         0.2  setosa
+6           5.4         3.9          1.7         0.4  setosa
+7           4.6         3.4          1.4         0.3  setosa
+8           5.0         3.4          1.5         0.2  setosa
+9           4.4         2.9          1.4         0.2  setosa
+10          4.9         3.1          1.5         0.1  setosa
+11          5.4         3.7          1.5         0.2  setosa
+12          4.8         3.4          1.6         0.2  setosa
+13          4.8         3.0          1.4         0.1  setosa
+14          4.3         3.0          1.1         0.1  setosa
+15          5.8         4.0          1.2         0.2  setosa</code></pre>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" data-line-number="1">datasummary_list<span class="op">$</span>irisdata<span class="op">$</span>nrows</a></code></pre></div>
+<pre><code>[1] 15</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" data-line-number="1">datasummary_list<span class="op">$</span>irisdata<span class="op">$</span>ncols</a></code></pre></div>
+<pre><code>[1] 5</code></pre>
+<p>Note, too, that you can mix access methods, depending on your needs:</p>
+<p><span class="marginnote">Which dataset are we accessing?</span></p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" data-line-number="1"><span class="kw">head</span>(datasummary_list[[<span class="dv">3</span>]]<span class="op">$</span>data)</a></code></pre></div>
+<pre><code>     lat   long depth mag stations
+1 -20.42 181.62   562 4.8       41
+2 -20.62 181.03   650 4.2       15
+3 -26.00 184.10    42 5.4       43
+4 -17.97 181.66   626 4.1       19
+5 -20.42 181.96   649 4.0       11
+6 -19.68 184.31   195 4.0       12</code></pre>
+<p>We’ll see some lists later on in a few worked examples, as we’ve only scratched the surface. But even with what we’ve learned so far, hopefully your brain is starting to think about different ways me might use lists to store, manipulate, and analyze data. Data analysis and programming is in part an act of creativity!</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" data-line-number="1">s1 &lt;-<span class="st"> &quot;Okay&quot;</span></a>
+<a class="sourceLine" id="cb122-2" data-line-number="2">s2 &lt;-<span class="st"> &quot;that&#39;s all about lists&quot;</span></a>
+<a class="sourceLine" id="cb122-3" data-line-number="3">s3 &lt;-<span class="st"> &quot;for now!&quot;</span></a>
+<a class="sourceLine" id="cb122-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb122-5" data-line-number="5">totally_unnecessary_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">firstbit =</span> s1,</a>
+<a class="sourceLine" id="cb122-6" data-line-number="6">                                 <span class="dt">secondbit =</span> <span class="kw">list</span>(s2, s3))</a>
+<a class="sourceLine" id="cb122-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb122-8" data-line-number="8"><span class="kw">cat</span>(<span class="kw">paste0</span>(totally_unnecessary_list[[<span class="dv">1</span>]], <span class="st">&quot;,&quot;</span>),</a>
+<a class="sourceLine" id="cb122-9" data-line-number="9">           totally_unnecessary_list[[<span class="dv">2</span>]][[<span class="dv">1</span>]],</a>
+<a class="sourceLine" id="cb122-10" data-line-number="10">           totally_unnecessary_list[[<span class="dv">2</span>]][[<span class="dv">2</span>]], <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)</a></code></pre></div>
+<pre><code>Okay, that&#39;s all about lists for now!</code></pre>
 </div>
 <div id="data-frames" class="section level3">
 <h3><span class="header-section-number">5.2.4</span> Data Frames</h3>
 </div>
 <div id="other-object-classes" class="section level3">
 <h3><span class="header-section-number">5.2.5</span> Other Object Classes</h3>
-<p>Various subfields of epidemiology and statistics provide an array of object classes that are beyond the scope of this tutorial. For instance, an object with the class “graph” describes the components and structures of a graph. The information stored in this object would typically allow one to manipulate, analyze, and visualize the graph.</p>
+<p>Various subfields of epidemiology and statistics provide an array of object classes that are beyond the scope of this tutorial. For instance, an object with the class “graph” describes the components and structures of a <a href="http://mathworld.wolfram.com/Graph.html">graph</a>. The information stored in this object would typically allow one to manipulate, analyze, and visualize the graph.</p>
 </div>
 </div>
 <div id="conducting-operations-on-objects" class="section level2">
@@ -508,15 +929,15 @@ length: 5</code></pre>
 <p>R respects grouping operations and handles mathematical operations as one might expect.</p>
 <p>For instance, we can do some quick scratch calculations and print them directly to the console.</p>
 <p><span class="marginnote">In fact, R can be a handy calculator if you run it from the command line!</span></p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" data-line-number="1"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
 <pre><code>[1] 15</code></pre>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="fl">0.25</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.75</span> <span class="op">*</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" data-line-number="1"><span class="fl">0.25</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.75</span> <span class="op">*</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
 <pre><code>[1] 4.5</code></pre>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">(<span class="dv">5</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span><span class="dv">3</span>) <span class="op">/</span><span class="st"> </span><span class="dv">50</span></a></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" data-line-number="1">(<span class="dv">5</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span><span class="dv">3</span>) <span class="op">/</span><span class="st"> </span><span class="dv">50</span></a></code></pre></div>
 <pre><code>[1] 20.5</code></pre>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="dv">8</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" data-line-number="1"><span class="dv">8</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
 <pre><code>[1] 2</code></pre>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="dv">8</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" data-line-number="1"><span class="dv">8</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
 <pre><code>[1] 2</code></pre>
 <p><!--
 <caption>--><span class="marginnote shownote">(#tab:arithmetic.operators)Arithmetic operators</span><!--</caption>--></p>
@@ -616,16 +1037,16 @@ length: 5</code></pre>
 <p>That’s a pretty abstract description, so let’s look at a few examples to develop our intuition a bit.</p>
 <p>First, recall the operators we covered in the the prior two sections, as well as vectors.</p>
 <p>Say we wanted to add 5 to each of 3 numbers. Rather than specifying the arithmetic operation separately for each number, we could store those numbers to a vector and tell R to add 5 to the vector:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1">numvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">40</span>, <span class="dv">50</span>)</a>
-<a class="sourceLine" id="cb95-2" data-line-number="2">numvec <span class="op">+</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" data-line-number="1">numvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">40</span>, <span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb134-2" data-line-number="2">numvec <span class="op">+</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
 <pre><code>[1] 15 45 55</code></pre>
 <p>See what happened? R added 5 to each vector element separately.</p>
 <p>If we wanted to perform separate additions on each number, we could do so easily, <a href="https://www.oreilly.com/library/view/the-art-of/9781593273842/ch02s03.html">as long as the longer vector’s length is a multiple of the shorter vector’s length</a>:</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1">numvec <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">90</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" data-line-number="1">numvec <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">90</span>)</a></code></pre></div>
 <pre><code>[1]  15  50 140</code></pre>
 <p>Did you notice the difference, though? Because the vector lengths were equal, R <em>did not</em> recycle 5, 10, and 90 to add each to each item in <code>numvec</code>. Rather, it added 5 to <code>numvec[1]</code>, 10 to <code>numvec[2]</code>, and 90 to <code>numvec[3]</code></p>
 <p>However, attempting to execute the following operation results in a warning, because 3 cannot be divided evenly by 2:</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1">numvec <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1">numvec <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>)</a></code></pre></div>
 <pre><code>Warning in numvec + c(5, 10): longer object length is not a multiple of shorter
 object length</code></pre>
 <pre><code>[1] 15 50 55</code></pre>

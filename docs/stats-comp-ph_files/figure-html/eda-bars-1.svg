@@ -154,7 +154,7 @@
   <path d="M 286.515625 5.976563 L 498.023438 5.976563 L 498.023438 24.433594 L 286.515625 24.433594 Z M 286.515625 5.976563 "/>
 </clipPath>
 </defs>
-<g id="surface254">
+<g id="surface334">
 <rect x="0" y="0" width="504" height="360" style="fill:rgb(100%,100%,100%);fill-opacity:1;stroke:none;"/>
 <rect x="0" y="0" width="504" height="360" style="fill:rgb(100%,100%,100%);fill-opacity:1;stroke:none;"/>
 <path style="fill:none;stroke-width:1.163976;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0 360 L 504 360 L 504 0 L 0 0 Z M 0 360 "/>

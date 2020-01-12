@@ -219,18 +219,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">7.1</span> Why Loop?</h2>
 <p>Looping often arises as a practical solution to repeat some task on a series of objects.</p>
 <p>Let’s say we had a list of numbers and wanted to multiple each of them by 10. Pretending we don’t know about R’s <a href="working-with-data.html#recycling">recycling capabilities</a>, we might write a loop to conduct this task.</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" data-line-number="1"><span class="co"># generate a list of arbitrary numbers to operate upon</span></a>
-<a class="sourceLine" id="cb126-2" data-line-number="2">numlist &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">10</span>, <span class="dt">to =</span> <span class="dv">100</span>, <span class="dt">by =</span> <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb126-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb126-4" data-line-number="4"><span class="co"># first, we need to create an empty object in which to store our results</span></a>
-<a class="sourceLine" id="cb126-5" data-line-number="5">results &lt;-<span class="st"> </span><span class="kw">vector</span>()</a>
-<a class="sourceLine" id="cb126-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb126-7" data-line-number="7"><span class="co"># loop</span></a>
-<a class="sourceLine" id="cb126-8" data-line-number="8"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(numlist)) {</a>
-<a class="sourceLine" id="cb126-9" data-line-number="9">  results[i] &lt;-<span class="st"> </span>numlist[i] <span class="op">*</span><span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb126-10" data-line-number="10">}</a>
-<a class="sourceLine" id="cb126-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb126-12" data-line-number="12"><span class="kw">print</span>(results)</a></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1"><span class="co"># generate a list of arbitrary numbers to operate upon</span></a>
+<a class="sourceLine" id="cb165-2" data-line-number="2">numlist &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">10</span>, <span class="dt">to =</span> <span class="dv">100</span>, <span class="dt">by =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb165-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb165-4" data-line-number="4"><span class="co"># first, we need to create an empty object in which to store our results</span></a>
+<a class="sourceLine" id="cb165-5" data-line-number="5">results &lt;-<span class="st"> </span><span class="kw">vector</span>()</a>
+<a class="sourceLine" id="cb165-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb165-7" data-line-number="7"><span class="co"># loop</span></a>
+<a class="sourceLine" id="cb165-8" data-line-number="8"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(numlist)) {</a>
+<a class="sourceLine" id="cb165-9" data-line-number="9">  results[i] &lt;-<span class="st"> </span>numlist[i] <span class="op">*</span><span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb165-10" data-line-number="10">}</a>
+<a class="sourceLine" id="cb165-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb165-12" data-line-number="12"><span class="kw">print</span>(results)</a></code></pre></div>
 <pre><code> [1]  100  200  300  400  500  600  700  800  900 1000</code></pre>
 <p><span class="marginnote">To gain a little intuition, run the following loops and observe the results: <code>for (i in 1:3) print(i)</code>, <code>for (i in 32:60) print(i)</code>.
 </span></p>
@@ -248,7 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="curly-braces" class="section level3">
 <h3><span class="header-section-number">7.1.1</span> Curly Braces</h3>
 <p>Note that we don’t always have to use curly braces in our loops. Because our loop above is quite short, we could have written it as:</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" data-line-number="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(numlist)) results[i] &lt;-<span class="st"> </span>numlist[i] <span class="op">*</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(numlist)) results[i] &lt;-<span class="st"> </span>numlist[i] <span class="op">*</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
 <p>However, the syntax above requires that all the code be written in a single line. Moving forward, we’ll almost always use curly braces when using procedures that allow them. These include not only <code>for</code> loops but <code>if</code>/<code>else</code> statements and <code>function</code> definitions.</p>
 </div>
 </div>
@@ -262,7 +262,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Calculate summary statistics appropriate to the variable type</li>
 </ol>
 <p>I’ve selected a handful of variables from the NHEFS dataset we’ve already worked with.</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" data-line-number="1"><span class="kw">head</span>(nh)</a></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1"><span class="kw">head</span>(nh)</a></code></pre></div>
 <pre><code># A tibble: 6 x 8
    seqn death   sex   age  race smokeyrs smokeintensity marital
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;          &lt;dbl&gt;   &lt;dbl&gt;
@@ -273,7 +273,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 5   252     0     0    40     0       19             20       2
 6   257     0     1    43     1       21             10       4</code></pre>
 <p>However, instead of storing the data in a data frame, I’ve stored it in a list for the purposes of the current examples.</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" data-line-number="1"><span class="kw">head</span>(nhl)</a></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" data-line-number="1"><span class="kw">head</span>(nhl)</a></code></pre></div>
 <pre><code>$seqn
    [1]   233   235   244   245   252   257   262   266   419   420   428   431
   [13]   434   443   446   455   457   596   603   604   605   616   618   619
@@ -696,10 +696,10 @@ $smokeyrs
 <p>None of these variables has any missing data, but if you don’t trust me, check for yourself!</p>
 <p>First, though, take a minute to look through the list object and make note of a few things. All we’ve done is taken each variable from the <code>nh</code> dataframe and stored it as a separate vector in the list called <code>nhl</code>.</p>
 <p>No observations have been reordered, so if we took the 7th value from each vector stored in <code>nhl</code>, we should be able to reproduce the 7th row of <code>nh</code>.</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" data-line-number="1">list7 &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">lapply</span>(nhl, <span class="cf">function</span>(x) x[<span class="dv">7</span>]))</a>
-<a class="sourceLine" id="cb133-2" data-line-number="2">df7 &lt;-<span class="st"> </span><span class="kw">unlist</span>(nh[<span class="dv">7</span>, ])</a>
-<a class="sourceLine" id="cb133-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb133-4" data-line-number="4"><span class="kw">cbind</span>(list7, df7)</a></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" data-line-number="1">list7 &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">lapply</span>(nhl, <span class="cf">function</span>(x) x[<span class="dv">7</span>]))</a>
+<a class="sourceLine" id="cb172-2" data-line-number="2">df7 &lt;-<span class="st"> </span><span class="kw">unlist</span>(nh[<span class="dv">7</span>, ])</a>
+<a class="sourceLine" id="cb172-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb172-4" data-line-number="4"><span class="kw">cbind</span>(list7, df7)</a></code></pre></div>
 <pre><code>               list7 df7
 seqn             262 262
 death              0   0
@@ -713,7 +713,7 @@ marital            2   2</code></pre>
 <p>Before we start writing up our code to generate some descriptive statistics for these variables, we should list the tasks we’ll need to execute in order to do so.</p>
 <p>You may have noticed in the header of <code>nh</code> that all of the variables are labeled as <code>dbl</code>, meaning they are numeric. However, we know that some of them should (or could) be treated as categorical.</p>
 <p>Just to be safe, we can check to make sure the variables were saved as numeric in the list as well.</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" data-line-number="1"><span class="kw">cbind</span>(<span class="kw">unlist</span>(<span class="kw">lapply</span>(nhl, class)))</a></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" data-line-number="1"><span class="kw">cbind</span>(<span class="kw">unlist</span>(<span class="kw">lapply</span>(nhl, class)))</a></code></pre></div>
 <pre><code>               [,1]     
 seqn           &quot;numeric&quot;
 death          &quot;numeric&quot;
@@ -733,34 +733,34 @@ marital        &quot;numeric&quot;</code></pre>
 <div id="standard-loop" class="section level3">
 <h3><span class="header-section-number">7.2.1</span> Standard Loop</h3>
 <p>To begin, we’re going to create a new list <code>nhl_sum</code> in which each of its elements is itself a list storing the original variable vector, the variable’s class type, and the summary statistics we calculate.</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" data-line-number="1">nhl_sum &lt;-<span class="st"> </span><span class="kw">list</span>()</a>
-<a class="sourceLine" id="cb137-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb137-3" data-line-number="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(nhl)) {</a>
-<a class="sourceLine" id="cb137-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb137-5" data-line-number="5">  <span class="co"># reinitialize an empty temporary list at the beginning of each iteration</span></a>
-<a class="sourceLine" id="cb137-6" data-line-number="6">  templist &lt;-<span class="st"> </span><span class="kw">list</span>()</a>
-<a class="sourceLine" id="cb137-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb137-8" data-line-number="8">  <span class="co"># test the number of unique values in the ith element of nhl</span></a>
-<a class="sourceLine" id="cb137-9" data-line-number="9">  <span class="cf">if</span> (<span class="kw">length</span>(<span class="kw">unique</span>(nhl[[i]])) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">6</span>) {</a>
-<a class="sourceLine" id="cb137-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb137-11" data-line-number="11">    templist[[<span class="st">&quot;type&quot;</span>]]  &lt;-<span class="st"> &quot;categorical&quot;</span></a>
-<a class="sourceLine" id="cb137-12" data-line-number="12">    templist[[<span class="st">&quot;stats&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">table</span>(nhl[[i]])</a>
-<a class="sourceLine" id="cb137-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb137-14" data-line-number="14">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb137-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb137-16" data-line-number="16">    templist[[<span class="st">&quot;type&quot;</span>]]  &lt;-<span class="st"> &quot;continuous&quot;</span></a>
-<a class="sourceLine" id="cb137-17" data-line-number="17">    templist[[<span class="st">&quot;stats&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">summary</span>(nhl[[i]])</a>
-<a class="sourceLine" id="cb137-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb137-19" data-line-number="19">  }</a>
-<a class="sourceLine" id="cb137-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb137-21" data-line-number="21">  <span class="co"># save the list we created into the ith element of our final holding object</span></a>
-<a class="sourceLine" id="cb137-22" data-line-number="22">  nhl_sum[[i]] &lt;-<span class="st"> </span>templist</a>
-<a class="sourceLine" id="cb137-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb137-24" data-line-number="24">  <span class="co"># name the list element</span></a>
-<a class="sourceLine" id="cb137-25" data-line-number="25">  <span class="kw">names</span>(nhl_sum)[i] &lt;-<span class="st"> </span><span class="kw">names</span>(nhl)[i]</a>
-<a class="sourceLine" id="cb137-26" data-line-number="26">}</a>
-<a class="sourceLine" id="cb137-27" data-line-number="27"></a>
-<a class="sourceLine" id="cb137-28" data-line-number="28"><span class="kw">print</span>(nhl_sum)</a></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" data-line-number="1">nhl_sum &lt;-<span class="st"> </span><span class="kw">list</span>()</a>
+<a class="sourceLine" id="cb176-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb176-3" data-line-number="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(nhl)) {</a>
+<a class="sourceLine" id="cb176-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb176-5" data-line-number="5">  <span class="co"># reinitialize an empty temporary list at the beginning of each iteration</span></a>
+<a class="sourceLine" id="cb176-6" data-line-number="6">  templist &lt;-<span class="st"> </span><span class="kw">list</span>()</a>
+<a class="sourceLine" id="cb176-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb176-8" data-line-number="8">  <span class="co"># test the number of unique values in the ith element of nhl</span></a>
+<a class="sourceLine" id="cb176-9" data-line-number="9">  <span class="cf">if</span> (<span class="kw">length</span>(<span class="kw">unique</span>(nhl[[i]])) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">6</span>) {</a>
+<a class="sourceLine" id="cb176-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb176-11" data-line-number="11">    templist[[<span class="st">&quot;type&quot;</span>]]  &lt;-<span class="st"> &quot;categorical&quot;</span></a>
+<a class="sourceLine" id="cb176-12" data-line-number="12">    templist[[<span class="st">&quot;stats&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">table</span>(nhl[[i]])</a>
+<a class="sourceLine" id="cb176-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb176-14" data-line-number="14">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb176-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb176-16" data-line-number="16">    templist[[<span class="st">&quot;type&quot;</span>]]  &lt;-<span class="st"> &quot;continuous&quot;</span></a>
+<a class="sourceLine" id="cb176-17" data-line-number="17">    templist[[<span class="st">&quot;stats&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">summary</span>(nhl[[i]])</a>
+<a class="sourceLine" id="cb176-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb176-19" data-line-number="19">  }</a>
+<a class="sourceLine" id="cb176-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb176-21" data-line-number="21">  <span class="co"># save the list we created into the ith element of our final holding object</span></a>
+<a class="sourceLine" id="cb176-22" data-line-number="22">  nhl_sum[[i]] &lt;-<span class="st"> </span>templist</a>
+<a class="sourceLine" id="cb176-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb176-24" data-line-number="24">  <span class="co"># name the list element</span></a>
+<a class="sourceLine" id="cb176-25" data-line-number="25">  <span class="kw">names</span>(nhl_sum)[i] &lt;-<span class="st"> </span><span class="kw">names</span>(nhl)[i]</a>
+<a class="sourceLine" id="cb176-26" data-line-number="26">}</a>
+<a class="sourceLine" id="cb176-27" data-line-number="27"></a>
+<a class="sourceLine" id="cb176-28" data-line-number="28"><span class="kw">print</span>(nhl_sum)</a></code></pre></div>
 <pre><code>$seqn
 $seqn$type
 [1] &quot;continuous&quot;
@@ -837,7 +837,7 @@ $marital$stats
 1279   97   96   99   57    1 </code></pre>
 <p><span class="marginnote">Note that we included <code>seqn</code>, which is the recipient ID. We could have written the loop to omit that variable, or we could have dropped its summary from <code>nhl_sum</code>.</span></p>
 <p>If we just want to peak at the <code>smokeintensity</code> statistics, for instance, we can access them directly from <code>nhl_sum</code>:</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" data-line-number="1">nhl_sum<span class="op">$</span>smokeintensity</a></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" data-line-number="1">nhl_sum<span class="op">$</span>smokeintensity</a></code></pre></div>
 <pre><code>$type
 [1] &quot;continuous&quot;
 
