@@ -369,6 +369,13 @@ tibble::tribble(
 
 In addition, we can place chests between drawers: in other words, we can **nest** lists within lists.
 
+<span class="marginnote definition">
+**Nesting** Placing objects of the same or similar type within one another. [More info](https://en.wikipedia.org/wiki/Nesting_(computing)).
+
+```{r matryoshka-doll, echo = F, fig.margin = T, fig.cap = "Think of [Matryoshka (Russian nesting) dolls](https://en.wikipedia.org/wiki/Matryoshka_doll). &copy; BrokenSphere / [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Floral_matryoshka_set_2_smallest_doll_nested.JPG) (cropped)"}
+knitr::include_graphics("images/matryoshka-doll_BrokenSphere_Wikimedia-Cropped.jpg")
+```
+
 ```{r nested-lists}
 
 # select first n rows from each example dataset
