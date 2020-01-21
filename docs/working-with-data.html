@@ -704,7 +704,7 @@ $dataframe
 <span class="marginnote shownote">
 <!--
 <div class="figure">--><span id="fig:matryoshka-doll"></span>
-<img src="images/matryoshka-doll_BrokenSphere_Wikimedia-Cropped.jpg" alt="Think of [Matryoshka (Russian nesting) dolls](https://en.wikipedia.org/wiki/Matryoshka_doll). &amp;copy; BrokenSphere / [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Floral_matryoshka_set_2_smallest_doll_nested.JPG) (cropped)"  />
+<img src="images/matryoshka-doll_BrokenSphere_Wikimedia-Cropped.jpg" alt="Think of [Matryoshka (Russian nesting) dolls](https://en.wikipedia.org/wiki/Matryoshka_doll). &amp;copy; BrokenSphere / [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Floral_matryoshka_set_2_smallest_doll_nested.JPG) (cropped)" width="674"  />
 <!--
 <p class="caption marginnote">-->Figure 5.1: Think of <a href="https://en.wikipedia.org/wiki/Matryoshka_doll">Matryoshka (Russian nesting) dolls</a>. © BrokenSphere / <a href="https://commons.wikimedia.org/wiki/File:Floral_matryoshka_set_2_smallest_doll_nested.JPG">Wikimedia Commons</a> (cropped)<!--</p>-->
 <!--</div>--></span>
@@ -926,7 +926,133 @@ $quake_data$ncols
 </div>
 <div id="data-frames" class="section level3">
 <h3><span class="header-section-number">5.2.4</span> Data Frames</h3>
-<p>As public health researchers using R, you may be spending most of your time working with data.frames.</p>
+<p>As public health researchers using R, you may be spending most of your time working with data frames.</p>
+<p>Data are a <a href="https://www.oreilly.com/library/view/practical-statistics-for/9781491952955/ch01.html">rectangular data format</a>, that is, a format which generally stores data with a series of labeled columns (variables) and observations (rows).</p>
+<p>We’ve already seen a couple of data frames. Here are a few more that R contains by default.</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" data-line-number="1"><span class="kw">class</span>(chickwts)</a></code></pre></div>
+<pre><code>[1] &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" data-line-number="1"><span class="kw">head</span>(chickwts)</a></code></pre></div>
+<pre><code>  weight      feed
+1    179 horsebean
+2    160 horsebean
+3    136 horsebean
+4    227 horsebean
+5    217 horsebean
+6    168 horsebean</code></pre>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" data-line-number="1"><span class="kw">class</span>(mtcars)</a></code></pre></div>
+<pre><code>[1] &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" data-line-number="1"><span class="kw">head</span>(mtcars)</a></code></pre></div>
+<pre><code>                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<p>Data frames lend themselves well to common epidemiologic analyses, but first, we should get a feel for how they behave.</p>
+<p>We’ve seen that <code>head(dataframe)</code> will return the first handful of rows in the data frame (as a data frame, it turns out).</p>
+<p>We might also want to inspect some other properties of a dataset.</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" data-line-number="1"><span class="kw">str</span>(mtcars)</a></code></pre></div>
+<pre><code>&#39;data.frame&#39;:   32 obs. of  11 variables:
+ $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+ $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+ $ disp: num  160 160 108 258 360 ...
+ $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+ $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+ $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+ $ qsec: num  16.5 17 18.6 19.4 17 ...
+ $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+ $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+ $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+ $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
+<p>The <code>str()</code> function gives us a nice, concise report on the number of rows and variables, in addition to the value class of each variable.</p>
+<p>Sometimes, we may want to query some of these attributes directly:</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" data-line-number="1"><span class="kw">nrow</span>(mtcars)</a></code></pre></div>
+<pre><code>[1] 32</code></pre>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" data-line-number="1"><span class="kw">length</span>(mtcars)</a></code></pre></div>
+<pre><code>[1] 11</code></pre>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1"><span class="kw">names</span>(mtcars)</a></code></pre></div>
+<pre><code> [1] &quot;mpg&quot;  &quot;cyl&quot;  &quot;disp&quot; &quot;hp&quot;   &quot;drat&quot; &quot;wt&quot;   &quot;qsec&quot; &quot;vs&quot;   &quot;am&quot;   &quot;gear&quot;
+[11] &quot;carb&quot;</code></pre>
+<p>The outputs from <code>nrow()</code> and <code>length()</code> returned to us the number of rows and columns, respectively, while <code>names()</code> returned the column names for us.</p>
+<p>We can extract columns from the dataset as vectors if we want to operate on them directly:</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" data-line-number="1"><span class="kw">class</span>(mtcars<span class="op">$</span>qsec)</a></code></pre></div>
+<pre><code>[1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" data-line-number="1"><span class="kw">summary</span>(mtcars<span class="op">$</span>qsec)</a></code></pre></div>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  14.50   16.89   17.71   17.85   18.90   22.90 </code></pre>
+<p>We could also summarize all the variables at the same time, simply by passing the data frame to <code>summary()</code>.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" data-line-number="1"><span class="kw">summary</span>(mtcars)</a></code></pre></div>
+<pre><code>      mpg             cyl             disp             hp       
+ Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  
+ 1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  
+ Median :19.20   Median :6.000   Median :196.3   Median :123.0  
+ Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7  
+ 3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0  
+ Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0  
+      drat             wt             qsec             vs        
+ Min.   :2.760   Min.   :1.513   Min.   :14.50   Min.   :0.0000  
+ 1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89   1st Qu.:0.0000  
+ Median :3.695   Median :3.325   Median :17.71   Median :0.0000  
+ Mean   :3.597   Mean   :3.217   Mean   :17.85   Mean   :0.4375  
+ 3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90   3rd Qu.:1.0000  
+ Max.   :4.930   Max.   :5.424   Max.   :22.90   Max.   :1.0000  
+       am              gear            carb      
+ Min.   :0.0000   Min.   :3.000   Min.   :1.000  
+ 1st Qu.:0.0000   1st Qu.:3.000   1st Qu.:2.000  
+ Median :0.0000   Median :4.000   Median :2.000  
+ Mean   :0.4062   Mean   :3.688   Mean   :2.812  
+ 3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000  
+ Max.   :1.0000   Max.   :5.000   Max.   :8.000  </code></pre>
+<p>Look carefully at the output from our summary. Does anything look off?</p>
+<p>I would say we should take a look at a few of the variables, which, despite having been stored as numeric, appear to be categorical variables.</p>
+<p>Let’s check the number of unique values stored in each variable:</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" data-line-number="1"><span class="kw">sapply</span>(mtcars, <span class="cf">function</span>(x) <span class="kw">length</span>(<span class="kw">unique</span>(x)))</a></code></pre></div>
+<pre><code> mpg  cyl disp   hp drat   wt qsec   vs   am gear carb 
+  25    3   27   22   22   29   30    2    2    3    6 </code></pre>
+<p>It looks like we might want to treat <code>cyl</code>, <code>vs</code>, <code>am</code>, <code>gear</code>, and <code>carb</code> as categorical.</p>
+<p><span class="marginnote">To view more information about the <code>mtcars</code> dataset, type <code>?mtcars</code> into the console.</span></p>
+<p>Specifically, we’ll treat <code>cyl</code>, <code>gear</code>, and <code>carb</code> as ordinal, and we’ll treat <code>vs</code> and <code>am</code> as binary.</p>
+<p><span class="marginnote">Remember, categorical variables assign an observation to a particular group. For example, if we had a column for the car’s manufacturer, we might have categories such as Chevy, Honda, or Ford. Ordinal variables are special cases of categorical variables in which the levels have some sort of natural ordering. For example, finishing place in a race: 1, 2, 3.</span></p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" data-line-number="1"><span class="co"># create new variables in mtcars by converting the</span></a>
+<a class="sourceLine" id="cb148-2" data-line-number="2"><span class="co"># numeric ordinals into factors</span></a>
+<a class="sourceLine" id="cb148-3" data-line-number="3">mtcars<span class="op">$</span>cyl_fct &lt;-<span class="st"> </span><span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl)</a>
+<a class="sourceLine" id="cb148-4" data-line-number="4">mtcars<span class="op">$</span>gear_fct &lt;-<span class="st"> </span><span class="kw">as.factor</span>(mtcars<span class="op">$</span>gear)</a>
+<a class="sourceLine" id="cb148-5" data-line-number="5">mtcars<span class="op">$</span>carb_fct &lt;-<span class="st"> </span><span class="kw">as.factor</span>(mtcars<span class="op">$</span>carb)</a>
+<a class="sourceLine" id="cb148-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb148-7" data-line-number="7">mtcars<span class="op">$</span>vs_fct &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">ifelse</span>(mtcars<span class="op">$</span>vs <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;v-shaped&quot;</span>, <span class="st">&quot;straight&quot;</span>))</a>
+<a class="sourceLine" id="cb148-8" data-line-number="8">mtcars<span class="op">$</span>am_fct &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">ifelse</span>(mtcars<span class="op">$</span>am <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;automatic&quot;</span>, <span class="st">&quot;manual&quot;</span>))</a>
+<a class="sourceLine" id="cb148-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb148-10" data-line-number="10"><span class="kw">str</span>(mtcars)</a></code></pre></div>
+<pre><code>&#39;data.frame&#39;:   32 obs. of  16 variables:
+ $ mpg     : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+ $ cyl     : num  6 6 4 6 8 6 8 4 4 6 ...
+ $ disp    : num  160 160 108 258 360 ...
+ $ hp      : num  110 110 93 110 175 105 245 62 95 123 ...
+ $ drat    : num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+ $ wt      : num  2.62 2.88 2.32 3.21 3.44 ...
+ $ qsec    : num  16.5 17 18.6 19.4 17 ...
+ $ vs      : num  0 0 1 1 0 1 0 1 1 1 ...
+ $ am      : num  1 1 1 0 0 0 0 0 0 0 ...
+ $ gear    : num  4 4 4 3 3 3 3 4 4 4 ...
+ $ carb    : num  4 4 1 1 2 1 4 2 2 4 ...
+ $ cyl_fct : Factor w/ 3 levels &quot;4&quot;,&quot;6&quot;,&quot;8&quot;: 2 2 1 2 3 2 3 1 1 2 ...
+ $ gear_fct: Factor w/ 3 levels &quot;3&quot;,&quot;4&quot;,&quot;5&quot;: 2 2 2 1 1 1 1 2 2 2 ...
+ $ carb_fct: Factor w/ 6 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 4 4 1 1 2 1 4 2 2 4 ...
+ $ vs_fct  : Factor w/ 2 levels &quot;straight&quot;,&quot;v-shaped&quot;: 2 2 1 1 2 1 2 1 1 1 ...
+ $ am_fct  : Factor w/ 2 levels &quot;automatic&quot;,&quot;manual&quot;: 2 2 2 1 1 1 1 1 1 1 ...</code></pre>
+<p>Take a minute to look at the output of <code>str()</code>. We have 5 new factor variables.</p>
+<p>Technically, we could have analyzed the variables without converting them, but let’s summarize the new ones anyhow.</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" data-line-number="1"><span class="co"># we index mtcars so as to inspect only the variables we just created</span></a>
+<a class="sourceLine" id="cb150-2" data-line-number="2"><span class="kw">summary</span>(mtcars[, <span class="dv">12</span><span class="op">:</span><span class="dv">16</span>])</a></code></pre></div>
+<pre><code> cyl_fct gear_fct carb_fct      vs_fct         am_fct  
+ 4:11    3:15     1: 7     straight:14   automatic:19  
+ 6: 7    4:12     2:10     v-shaped:18   manual   :13  
+ 8:14    5: 5     3: 3                                 
+                  4:10                                 
+                  6: 1                                 
+                  8: 1                                 </code></pre>
+<p>Not the prettiest summary, but note how R gives us the number of observations within each category for each factor. We’ll look at more readable ways to summarize factors in a future section.</p>
 </div>
 <div id="other-object-classes" class="section level3">
 <h3><span class="header-section-number">5.2.5</span> Other Object Classes</h3>
@@ -941,15 +1067,15 @@ $quake_data$ncols
 <p>R respects grouping operations and handles mathematical operations as one might expect.</p>
 <p>For instance, we can do some quick scratch calculations and print them directly to the console.</p>
 <p><span class="marginnote">In fact, R can be a handy calculator if you run it from the command line!</span></p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" data-line-number="1"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" data-line-number="1"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
 <pre><code>[1] 15</code></pre>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" data-line-number="1"><span class="fl">0.25</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.75</span> <span class="op">*</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" data-line-number="1"><span class="fl">0.25</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.75</span> <span class="op">*</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
 <pre><code>[1] 4.5</code></pre>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" data-line-number="1">(<span class="dv">5</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span><span class="dv">3</span>) <span class="op">/</span><span class="st"> </span><span class="dv">50</span></a></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1">(<span class="dv">5</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span><span class="dv">3</span>) <span class="op">/</span><span class="st"> </span><span class="dv">50</span></a></code></pre></div>
 <pre><code>[1] 20.5</code></pre>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" data-line-number="1"><span class="dv">8</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" data-line-number="1"><span class="dv">8</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
 <pre><code>[1] 2</code></pre>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" data-line-number="1"><span class="dv">8</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1"><span class="dv">8</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
 <pre><code>[1] 2</code></pre>
 <p><!--
 <caption>--><span class="marginnote shownote">(#tab:arithmetic.operators)Arithmetic operators</span><!--</caption>--></p>
@@ -1049,16 +1175,16 @@ $quake_data$ncols
 <p>That’s a pretty abstract description, so let’s look at a few examples to develop our intuition a bit.</p>
 <p>First, recall the operators we covered in the the prior two sections, as well as vectors.</p>
 <p>Say we wanted to add 5 to each of 3 numbers. Rather than specifying the arithmetic operation separately for each number, we could store those numbers to a vector and tell R to add 5 to the vector:</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" data-line-number="1">numvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">40</span>, <span class="dv">50</span>)</a>
-<a class="sourceLine" id="cb134-2" data-line-number="2">numvec <span class="op">+</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" data-line-number="1">numvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">40</span>, <span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb162-2" data-line-number="2">numvec <span class="op">+</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
 <pre><code>[1] 15 45 55</code></pre>
 <p>See what happened? R added 5 to each vector element separately.</p>
 <p>If we wanted to perform separate additions on each number, we could do so easily, <a href="https://www.oreilly.com/library/view/the-art-of/9781593273842/ch02s03.html">as long as the longer vector’s length is a multiple of the shorter vector’s length</a>:</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" data-line-number="1">numvec <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">90</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" data-line-number="1">numvec <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">90</span>)</a></code></pre></div>
 <pre><code>[1]  15  50 140</code></pre>
 <p>Did you notice the difference, though? Because the vector lengths were equal, R <em>did not</em> recycle 5, 10, and 90 to add each to each item in <code>numvec</code>. Rather, it added 5 to <code>numvec[1]</code>, 10 to <code>numvec[2]</code>, and 90 to <code>numvec[3]</code></p>
 <p>However, attempting to execute the following operation results in a warning, because 3 cannot be divided evenly by 2:</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1">numvec <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" data-line-number="1">numvec <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>)</a></code></pre></div>
 <pre><code>Warning in numvec + c(5, 10): longer object length is not a multiple of shorter
 object length</code></pre>
 <pre><code>[1] 15 50 55</code></pre>

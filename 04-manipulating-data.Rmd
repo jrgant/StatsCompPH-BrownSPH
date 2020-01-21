@@ -471,6 +471,98 @@ cat(paste0(totally_unnecessary_list[[1]], ","),
 
 ### Data Frames
 
+As public health researchers using R, you may be spending most of your time working with data frames.
+
+Data are a [rectangular data format](https://www.oreilly.com/library/view/practical-statistics-for/9781491952955/ch01.html), that is, a format which generally stores data with a series of labeled columns (variables) and observations (rows).
+
+We've already seen a couple of data frames. Here are a few more that R contains by default.
+
+```{r data.frame-examples}
+class(chickwts)
+head(chickwts)
+
+class(mtcars)
+head(mtcars)
+```
+
+Data frames lend themselves well to common epidemiologic analyses, but first, we should get a feel for how they behave.
+
+We've seen that `head(dataframe)` will return the first handful of rows in the data frame (as a data frame, it turns out).
+
+We might also want to inspect some other properties of a dataset.
+
+```{r data.frame-str}
+str(mtcars)
+```
+
+The `str()` function gives us a nice, concise report on the number of rows and variables, in addition to the value class of each variable.
+
+Sometimes, we may want to query some of these attributes directly:
+
+```{r data.frame-attrs}
+nrow(mtcars)
+length(mtcars)
+names(mtcars)
+```
+
+The outputs from `nrow()` and `length()` returned to us the number of rows and columns, respectively, while `names()` returned the column names for us.
+
+We can extract columns from the dataset as vectors if we want to operate on them directly:
+
+```{r data.frame-extract-column}
+class(mtcars$qsec)
+summary(mtcars$qsec)
+```
+
+We could also summarize all the variables at the same time, simply by passing the data frame to `summary()`.
+
+```{r data.frame-summarize}
+summary(mtcars)
+```
+
+Look carefully at the output from our summary. Does anything look off?
+
+I would say we should take a look at a few of the variables, which, despite having been stored as numeric, appear to be categorical variables.
+
+Let's check the number of unique values stored in each variable:
+
+```{r data.frame-checkvals}
+sapply(mtcars, function(x) length(unique(x)))
+```
+
+It looks like we might want to treat `cyl`, `vs`, `am`, `gear`, and `carb` as categorical.
+
+<span class="marginnote">To view more information about the `mtcars` dataset, type `?mtcars` into the console.</span>
+
+Specifically, we'll treat `cyl`, `gear`, and `carb` as ordinal, and we'll treat `vs` and `am` as binary.
+
+<span class="marginnote">Remember, categorical variables assign an observation to a particular group. For example, if we had a column for the car's manufacturer, we might have categories such as Chevy, Honda, or Ford. Ordinal variables are special cases of categorical variables in which the levels have some sort of natural ordering. For example, finishing place in a race: 1, 2, 3.</span>
+
+```{r data.frame-makefactors}
+
+# create new variables in mtcars by converting the
+# numeric ordinals into factors
+mtcars$cyl_fct <- as.factor(mtcars$cyl)
+mtcars$gear_fct <- as.factor(mtcars$gear)
+mtcars$carb_fct <- as.factor(mtcars$carb)
+
+mtcars$vs_fct <- as.factor(ifelse(mtcars$vs == 0, "v-shaped", "straight"))
+mtcars$am_fct <- as.factor(ifelse(mtcars$am == 0, "automatic", "manual"))
+
+str(mtcars)
+```
+
+Take a minute to look at the output of `str()`. We have 5 new factor variables.
+
+Technically, we could have analyzed the variables without converting them, but let's summarize the new ones anyhow.
+
+```{r data.frame-sumfactors}
+# we index mtcars so as to inspect only the variables we just created
+summary(mtcars[, 12:16])
+```
+
+Not the prettiest summary, but note how R gives us the number of observations within each category for each factor. We'll look at more readable ways to summarize factors in a future section.
+
 ### Other Object Classes
 
 Various subfields of epidemiology and statistics provide an array of object classes that are beyond the scope of this tutorial. For instance, an object with the class "graph" describes the components and structures of a [graph](http://mathworld.wolfram.com/Graph.html). The information stored in this object would typically allow one to manipulate, analyze, and visualize the graph.

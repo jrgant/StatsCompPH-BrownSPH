@@ -496,8 +496,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="exploratory-data-analysis" class="section level2">
 <h2><span class="header-section-number">6.2</span> Exploratory Data Analysis</h2>
 <p>First, let’s read in our data and glance at it using a couple of different views.</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" data-line-number="1">nhefs &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;data/nhefs.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb141-2" data-line-number="2"><span class="kw">head</span>(nhefs)</a></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1">nhefs &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;data/nhefs.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb169-2" data-line-number="2"><span class="kw">head</span>(nhefs)</a></code></pre></div>
 <pre><code># A tibble: 6 x 64
    seqn  qsmk death yrdth modth dadth   sbp   dbp   sex   age  race income
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
@@ -520,7 +520,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #   active &lt;dbl&gt;, exercise &lt;dbl&gt;, birthcontrol &lt;dbl&gt;, pregnancies &lt;dbl&gt;,
 #   cholesterol &lt;dbl&gt;, hightax82 &lt;dbl&gt;, price71 &lt;dbl&gt;, price82 &lt;dbl&gt;,
 #   tax71 &lt;dbl&gt;, tax82 &lt;dbl&gt;, price71_82 &lt;dbl&gt;, tax71_82 &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" data-line-number="1">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs)</a></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs)</a></code></pre></div>
 <pre><code>Observations: 1,629
 Variables: 64
 $ seqn              &lt;dbl&gt; 233, 235, 244, 245, 252, 257, 262, 266, 419, 420,...
@@ -588,15 +588,15 @@ $ tax82             &lt;dbl&gt; 0.4619751, 0.5718994, 0.2309875, 0.2199707, 0.57
 $ price71_82        &lt;dbl&gt; 0.44378662, 0.54931641, 0.05619812, 0.05479431, 0...
 $ tax71_82          &lt;dbl&gt; 0.6403809, 0.7929688, 0.3202515, 0.3049927, 0.792...</code></pre>
 <p>For now, let’s focus on observations (rows) that don’t have any missing data. To do this, let’s get a summary of how much missingness we have across the 1,629 observations.</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" data-line-number="1">allvars &lt;-<span class="st"> </span><span class="kw">names</span>(nhefs)</a>
-<a class="sourceLine" id="cb145-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb145-3" data-line-number="3">df_miss &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">variable =</span> allvars)</a>
-<a class="sourceLine" id="cb145-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb145-5" data-line-number="5">df_miss &lt;-<span class="st"> </span>df_miss <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb145-6" data-line-number="6"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb145-7" data-line-number="7"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">n_miss =</span> <span class="kw">sum</span>(<span class="kw">is.na</span>(nhefs[[variable]])))</a>
-<a class="sourceLine" id="cb145-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb145-9" data-line-number="9"><span class="kw">print</span>(df_miss, <span class="dt">n =</span> <span class="kw">nrow</span>(df_miss))</a></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1">allvars &lt;-<span class="st"> </span><span class="kw">names</span>(nhefs)</a>
+<a class="sourceLine" id="cb173-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb173-3" data-line-number="3">df_miss &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">variable =</span> allvars)</a>
+<a class="sourceLine" id="cb173-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb173-5" data-line-number="5">df_miss &lt;-<span class="st"> </span>df_miss <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb173-6" data-line-number="6"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb173-7" data-line-number="7"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">n_miss =</span> <span class="kw">sum</span>(<span class="kw">is.na</span>(nhefs[[variable]])))</a>
+<a class="sourceLine" id="cb173-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb173-9" data-line-number="9"><span class="kw">print</span>(df_miss, <span class="dt">n =</span> <span class="kw">nrow</span>(df_miss))</a></code></pre></div>
 <pre><code>Source: local data frame [64 x 2]
 Groups: &lt;by row&gt;
 
@@ -669,7 +669,7 @@ Groups: &lt;by row&gt;
 64 tax71_82               0</code></pre>
 <p>That looks a little hairy. Basically, all we did here was to create data.frame, save the NHEFS variable names to its first column, then look up each variable in the NHEFS data set and count the number of missing values.</p>
 <p>However, we could have gotten this summary in a number of different ways.</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" data-line-number="1"><span class="kw">lapply</span>(nhefs, <span class="cf">function</span>(x) <span class="kw">table</span>(<span class="kw">is.na</span>(x)))</a></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" data-line-number="1"><span class="kw">lapply</span>(nhefs, <span class="cf">function</span>(x) <span class="kw">table</span>(<span class="kw">is.na</span>(x)))</a></code></pre></div>
 <pre><code>$seqn
 
 FALSE 
@@ -989,7 +989,7 @@ $tax71_82
 
 FALSE  TRUE 
  1537    92 </code></pre>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1"><span class="kw">sapply</span>(nhefs, <span class="cf">function</span>(x) <span class="kw">sum</span>(<span class="kw">is.na</span>(x)))</a></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1"><span class="kw">sapply</span>(nhefs, <span class="cf">function</span>(x) <span class="kw">sum</span>(<span class="kw">is.na</span>(x)))</a></code></pre></div>
 <pre><code>             seqn              qsmk             death             yrdth 
                 0                 0                 0              1311 
             modth             dadth               sbp               dbp 
@@ -1023,8 +1023,8 @@ FALSE  TRUE
             tax71             tax82        price71_82          tax71_82 
                92                92                92                92 </code></pre>
 <p>Let’s drop every row with a missing value for any variable</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" data-line-number="1">nhefs2 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(nhefs)</a>
-<a class="sourceLine" id="cb151-2" data-line-number="2">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs2)</a></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1">nhefs2 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(nhefs)</a>
+<a class="sourceLine" id="cb179-2" data-line-number="2">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs2)</a></code></pre></div>
 <pre><code>Observations: 44
 Variables: 64
 $ seqn              &lt;dbl&gt; 1096, 1539, 1762, 1776, 2286, 4556, 5415, 6222, 6...
@@ -1092,13 +1092,13 @@ $ tax82             &lt;dbl&gt; 0.6379395, 0.6379395, 0.4399414, 0.2199707, 0.63
 $ price71_82        &lt;dbl&gt; 0.46356201, 0.17059326, 0.40594482, 0.05479431, 0...
 $ tax71_82          &lt;dbl&gt; 0.6219482, 0.3594971, 0.6099854, 0.3049927, 0.359...</code></pre>
 <p>Oops, we have only 44 rows left in the data set! Perhaps we should reconsider, and pick several variables that will be of interest to us for our current purposes.</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" data-line-number="1">selectvars &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
-<a class="sourceLine" id="cb153-2" data-line-number="2">  <span class="st">&quot;age&quot;</span>, <span class="st">&quot;alcoholfreq&quot;</span>, <span class="st">&quot;asthma&quot;</span>, <span class="st">&quot;wt71&quot;</span>,</a>
-<a class="sourceLine" id="cb153-3" data-line-number="3">  <span class="st">&quot;smokeintensity&quot;</span>, <span class="st">&quot;sbp&quot;</span>, <span class="st">&quot;allergies&quot;</span></a>
-<a class="sourceLine" id="cb153-4" data-line-number="4">)</a>
-<a class="sourceLine" id="cb153-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb153-6" data-line-number="6">nhefs3 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(nhefs[, selectvars])</a>
-<a class="sourceLine" id="cb153-7" data-line-number="7">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs3)</a></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" data-line-number="1">selectvars &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb181-2" data-line-number="2">  <span class="st">&quot;age&quot;</span>, <span class="st">&quot;alcoholfreq&quot;</span>, <span class="st">&quot;asthma&quot;</span>, <span class="st">&quot;wt71&quot;</span>,</a>
+<a class="sourceLine" id="cb181-3" data-line-number="3">  <span class="st">&quot;smokeintensity&quot;</span>, <span class="st">&quot;sbp&quot;</span>, <span class="st">&quot;allergies&quot;</span></a>
+<a class="sourceLine" id="cb181-4" data-line-number="4">)</a>
+<a class="sourceLine" id="cb181-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb181-6" data-line-number="6">nhefs3 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(nhefs[, selectvars])</a>
+<a class="sourceLine" id="cb181-7" data-line-number="7">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs3)</a></code></pre></div>
 <pre><code>Observations: 1,552
 Variables: 7
 $ age            &lt;dbl&gt; 42, 36, 56, 68, 40, 43, 56, 29, 51, 43, 43, 34, 54, ...
@@ -1112,19 +1112,19 @@ $ allergies      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 
 <p>Look back at the output we got from <code>glimpse()</code>. Are the variables in the formats we expect/need? I see one that we may need to update, depending on how we plan to use it. (Hint: Look back at the codebook for the variable summaries)</p>
 <p>It seems that <code>alcoholfreq</code> is current being treated as a numeric variables, but really, it’s a factor with 5 discrete levels. Furthermore, level 5 is Unknown, which we should probably treat as missing. We’ll also use a factor format for <code>alcoholfreq</code>.</p>
 <p><span class="marginnote">We could leave <code>alcoholfreq</code> as a numeric variable and wrap it in the <code>factor()</code> function only when we needed to. In some cases, that approach might be preferable, in some cases not.</span></p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" data-line-number="1">nhefs3<span class="op">$</span>alcfreq &lt;-<span class="st"> </span><span class="kw">as.factor</span>(nhefs3<span class="op">$</span>alcoholfreq)</a>
-<a class="sourceLine" id="cb155-2" data-line-number="2"><span class="kw">table</span>(nhefs3<span class="op">$</span>alcfreq)</a></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" data-line-number="1">nhefs3<span class="op">$</span>alcfreq &lt;-<span class="st"> </span><span class="kw">as.factor</span>(nhefs3<span class="op">$</span>alcoholfreq)</a>
+<a class="sourceLine" id="cb183-2" data-line-number="2"><span class="kw">table</span>(nhefs3<span class="op">$</span>alcfreq)</a></code></pre></div>
 <pre><code>
   0   1   2   3   4   5 
 320 217 489 329 192   5 </code></pre>
 <p>Let’s replace those 5 missing values with NA’s, too, and drop the corresponding rows from our data set. Let’s also get rid of the original <code>alcoholfreq</code> variable and just hang on to the factor variable we made.</p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" data-line-number="1"><span class="co"># In words: where alcfreq in nhefs3 equals 5, assign NA</span></a>
-<a class="sourceLine" id="cb157-2" data-line-number="2">nhefs3<span class="op">$</span>alcfreq[nhefs3<span class="op">$</span>alcfreq <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb157-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb157-4" data-line-number="4">nhefs4 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(nhefs3)</a>
-<a class="sourceLine" id="cb157-5" data-line-number="5">nhefs4<span class="op">$</span>alcoholfreq &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb157-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb157-7" data-line-number="7">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs4)</a></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" data-line-number="1"><span class="co"># In words: where alcfreq in nhefs3 equals 5, assign NA</span></a>
+<a class="sourceLine" id="cb185-2" data-line-number="2">nhefs3<span class="op">$</span>alcfreq[nhefs3<span class="op">$</span>alcfreq <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb185-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb185-4" data-line-number="4">nhefs4 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(nhefs3)</a>
+<a class="sourceLine" id="cb185-5" data-line-number="5">nhefs4<span class="op">$</span>alcoholfreq &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb185-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb185-7" data-line-number="7">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs4)</a></code></pre></div>
 <pre><code>Observations: 1,547
 Variables: 7
 $ age            &lt;dbl&gt; 42, 36, 56, 68, 40, 43, 56, 29, 51, 43, 43, 34, 54, ...
@@ -1135,9 +1135,9 @@ $ sbp            &lt;dbl&gt; 175, 123, 115, 148, 118, 141, 132, 100, 163, 184, 1
 $ allergies      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0...
 $ alcfreq        &lt;fct&gt; 1, 0, 3, 2, 2, 3, 1, 0, 1, 0, 3, 0, 0, 4, 4, 3, 2, 1...</code></pre>
 <p>Let’s summarize our dataset:</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" data-line-number="1"><span class="co"># Continuous variables</span></a>
-<a class="sourceLine" id="cb159-2" data-line-number="2">contvars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;wt71&quot;</span>, <span class="st">&quot;smokeintensity&quot;</span>, <span class="st">&quot;sbp&quot;</span>)</a>
-<a class="sourceLine" id="cb159-3" data-line-number="3"><span class="kw">summary</span>(nhefs4[, contvars])</a></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" data-line-number="1"><span class="co"># Continuous variables</span></a>
+<a class="sourceLine" id="cb187-2" data-line-number="2">contvars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;wt71&quot;</span>, <span class="st">&quot;smokeintensity&quot;</span>, <span class="st">&quot;sbp&quot;</span>)</a>
+<a class="sourceLine" id="cb187-3" data-line-number="3"><span class="kw">summary</span>(nhefs4[, contvars])</a></code></pre></div>
 <pre><code>      age             wt71        smokeintensity       sbp       
  Min.   :25.00   Min.   : 39.58   Min.   : 1.00   Min.   : 87.0  
  1st Qu.:33.00   1st Qu.: 59.65   1st Qu.:10.00   1st Qu.:116.0  
@@ -1145,13 +1145,13 @@ $ alcfreq        &lt;fct&gt; 1, 0, 3, 2, 2, 3, 1, 0, 1, 0, 3, 0, 0, 4, 4, 3, 2, 
  Mean   :43.65   Mean   : 70.90   Mean   :20.54   Mean   :128.7  
  3rd Qu.:53.00   3rd Qu.: 79.95   3rd Qu.:30.00   3rd Qu.:139.5  
  Max.   :74.00   Max.   :151.73   Max.   :80.00   Max.   :229.0  </code></pre>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" data-line-number="1"><span class="co"># Categorical variables</span></a>
-<a class="sourceLine" id="cb161-2" data-line-number="2">catvars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;asthma&quot;</span>, <span class="st">&quot;allergies&quot;</span>, <span class="st">&quot;alcfreq&quot;</span>)</a>
-<a class="sourceLine" id="cb161-3" data-line-number="3"><span class="kw">lapply</span>(</a>
-<a class="sourceLine" id="cb161-4" data-line-number="4">  <span class="dt">X =</span> catvars,</a>
-<a class="sourceLine" id="cb161-5" data-line-number="5">  <span class="dt">FUN =</span> <span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb161-6" data-line-number="6">    summarytools<span class="op">::</span><span class="kw">freq</span>(nhefs4[x])</a>
-<a class="sourceLine" id="cb161-7" data-line-number="7">  })</a></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" data-line-number="1"><span class="co"># Categorical variables</span></a>
+<a class="sourceLine" id="cb189-2" data-line-number="2">catvars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;asthma&quot;</span>, <span class="st">&quot;allergies&quot;</span>, <span class="st">&quot;alcfreq&quot;</span>)</a>
+<a class="sourceLine" id="cb189-3" data-line-number="3"><span class="kw">lapply</span>(</a>
+<a class="sourceLine" id="cb189-4" data-line-number="4">  <span class="dt">X =</span> catvars,</a>
+<a class="sourceLine" id="cb189-5" data-line-number="5">  <span class="dt">FUN =</span> <span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb189-6" data-line-number="6">    summarytools<span class="op">::</span><span class="kw">freq</span>(nhefs4[x])</a>
+<a class="sourceLine" id="cb189-7" data-line-number="7">  })</a></code></pre></div>
 <pre><code>Frequencies  
 asthma  
 Type: Numeric  
@@ -1188,24 +1188,24 @@ Type: Factor
       Total   1547    100.00         100.00    100.00         100.00</code></pre>
 <p><span class="marginnote">Based on this <a href="https://www.r-bloggers.com/quick-plot-of-all-variables/">tidy example</a>.</span></p>
 <p>A few plots may help us, too:</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb163-2" data-line-number="2"><span class="kw">library</span>(ggthemes)</a>
-<a class="sourceLine" id="cb163-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb163-4" data-line-number="4">nhefs4 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb163-5" data-line-number="5"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(contvars) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb163-6" data-line-number="6"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb163-7" data-line-number="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb163-8" data-line-number="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>key, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb163-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb163-10" data-line-number="10"><span class="st">  </span><span class="kw">theme_clean</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb191-2" data-line-number="2"><span class="kw">library</span>(ggthemes)</a>
+<a class="sourceLine" id="cb191-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb191-4" data-line-number="4">nhefs4 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb191-5" data-line-number="5"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(contvars) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb191-6" data-line-number="6"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb191-7" data-line-number="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb191-8" data-line-number="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>key, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb191-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb191-10" data-line-number="10"><span class="st">  </span><span class="kw">theme_clean</span>()</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/eda-density-1.svg" width="672"  /></p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" data-line-number="1">nhefs4 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb164-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(catvars) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb164-3" data-line-number="3"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb164-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb164-5" data-line-number="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>key, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb164-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">width =</span> <span class="fl">0.5</span>, <span class="dt">fill =</span> <span class="st">&quot;lightgray&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb164-7" data-line-number="7"><span class="st">  </span><span class="kw">theme_clean</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" data-line-number="1">nhefs4 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb192-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(catvars) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb192-3" data-line-number="3"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb192-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-5" data-line-number="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>key, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">width =</span> <span class="fl">0.5</span>, <span class="dt">fill =</span> <span class="st">&quot;lightgray&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-7" data-line-number="7"><span class="st">  </span><span class="kw">theme_clean</span>()</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/eda-bars-1.svg" width="672"  /></p>
 <p>Don’t worry just now about the plot code. We’ll be looking in some detail at the ggplot2 package later.</p>
 </div>
