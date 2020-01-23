@@ -1,8 +1,48 @@
 # Getting Comfortable with Loops and Logic
 
+## What's a Loop?
+
+A loop is simply a type of algorithm, in this case, a procedure in which we direct R to iteratively check for a particular condition and, depending on the state of that condition, conduct a particular action or terminate the algorithm.
+
+Imagine we are conducting a randomized controlled trial and we want to assign study participants randomly to either the treatment or control arm. We decide we'll flip a coin for each participant and assign them to the treatment group if the coin comes up heads and to the control group if it comes up tails. Assuming we have 100 participants to assign, the following text provides an informal description of a loop designed to carry out this task:
+
+1. Pick individual
+2. Flip coin
+   - IF coin = heads, assign to TREATMENT
+   - ELSE IF coin = tails, assign to CONTROL
+3. IF any individuals not assigned, repeat from step 1, ELSE stop.
+
+Here's the equivalent in code, where our coin flip is a random draw of 1 or 0:
+
+```{r for-loop-intro}
+
+# generate participant IDs
+pid <- 1:100
+
+# set up a vector to store treatment group assignment
+rx <- vector()
+
+# set random seed so we get same set of coin flips each time
+set.seed(98765)
+
+for (i in 1:100) {
+  coinflip <- rbinom(1, 1, prob = 0.5)
+
+  if (coinflip == 1) {
+    rx[i] <- "treatment"
+  } else {
+    rx[i] <- "control"
+  }
+}
+
+data.frame(pid, rx)
+```
+
+The code above demonstrates the use of a **for-loop**. We also could have used a **while-loop**, which would have started as `while (i <= 100)`.
+
 Loops are important and powerful tools in statistical programming and, when combined with logical operations, provide you with a means to develop sophisticated, flexible code bases.
 
-In this chapter, we'll focus on some simple implementations of loops, focusing separately on self-written loops and **vectorized loops** in R. We'll also take a look at a couple of looping procedures in SAS.
+In this chapter, we'll focus on some simple implementations of loops, focusing separately on self-written loops like the one displayed above and **vectorized loops** in R. We'll also take a look at a couple of looping procedures in SAS.
 
 ## Why Loop?
 
