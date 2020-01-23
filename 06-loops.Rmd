@@ -40,6 +40,14 @@ data.frame(pid, rx)
 
 The code above demonstrates the use of a **for-loop**. We also could have used a **while-loop**, which would have started as `while (i <= 100)`.
 
+We can also express our algorithm as a flowchart. Often, mapping algorithms visually can help us as we plan or design loops and statistical programs in general. Furthermore, they make communicating complex procedures much easier.
+
+<iframe class="diagram" src="images/for-loop-diagram.html"></iframe>
+<!-- ```{r for-loop-flowchart, echo = F}
+htmltools::includeHTML("images/for-loop-diagram.html")
+``` -->
+
+
 Loops are important and powerful tools in statistical programming and, when combined with logical operations, provide you with a means to develop sophisticated, flexible code bases.
 
 In this chapter, we'll focus on some simple implementations of loops, focusing separately on self-written loops like the one displayed above and **vectorized loops** in R. We'll also take a look at a couple of looping procedures in SAS.
