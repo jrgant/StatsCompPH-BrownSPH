@@ -44,11 +44,9 @@ df <- tibble(
 print(df)
 ```
 
-### What Did We Simulate?
+<span class="marginnote">**What Did We Simulate?**</span>
 
-Assuming we understand the relationships simulated in the prior section as causal, we can represent them using a causal directed acyclic graph (DAG).
-
-```{r dag, message = F}
+```{r dag, message = F, echo = F, fig.margin = T, fig.width = 5, out.width = "75%", fig.cap = "Assuming we understand the relationships simulated in the prior section as causal, we can represent them using a causal directed acyclic graph (DAG). Don't worry about DAGs for the purposes of this guide. We just want to tie a causal diagram to its simulation and note that simulating such examples can be useful when studying causal inference."}
 # install.packages("devtools")
 # devtools::install_github("jrgant/quickdag")
 
@@ -59,11 +57,12 @@ edges <- c("L -> { X Y }",
            "X -> Y")
 
 qd_dag(edgelist = edges, check.dag = F, verbose = F) %>%
-  render_graph()
+  export_graph(file_name = "images/simdag.png",
+							 file_type = "png",
+						 	 width = 500)
 
+knitr::include_graphics("images/simdag.png")
 ```
-
-Don't worry about DAGs for the purposes of this guide. We just want to tie a causal diagram to its simulation and note that simulating such examples can be useful when studying causal inference.
 
 ## The Old Way
 
