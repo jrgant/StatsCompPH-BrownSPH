@@ -8,6 +8,8 @@
 
 ### Programming
 
+1. Grolemund G, Wickham H. [R for Data Science](https://r4ds.had.co.nz/). 2017. Accessed 2020-02-12.
+
 1. Wickham H. [Advanced R](http://adv-r.had.co.nz/). http://adv-r.had.co.nz. Accessed 2019-10-15.
 
 1. Tidyverse. [https://www.tidyverse.org/]().
