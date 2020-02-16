@@ -170,6 +170,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">7.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a><ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#standard-loop"><span class="toc-section-number">7.3.1</span> Standard Loop</a></li>
+<li><a href="getting-comfortable-with-loops-and-logic.html#vectorized-loops"><span class="toc-section-number">7.3.2</span> Vectorized Loops</a></li>
+<li><a href="getting-comfortable-with-loops-and-logic.html#nested-loops"><span class="toc-section-number">7.3.3</span> Nested Loops</a></li>
 </ul></li>
 </ul></li>
 <li class="has-sub"><a href="functionalizing-code.html#functionalizing-code"><span class="toc-section-number">8</span> Functionalizing Code</a><ul>
@@ -224,20 +226,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     Y &amp; \sim \text{Binomial}\big(0.05 + 0.2L + 0.4M + 0.05X\big)
 \end{split}
 \]</span></p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1"><span class="co"># simulate some data</span></a>
-<a class="sourceLine" id="cb210-2" data-line-number="2">n &lt;-<span class="st"> </span><span class="dv">500</span></a>
-<a class="sourceLine" id="cb210-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb210-4" data-line-number="4"><span class="kw">set.seed</span>(<span class="dv">3498743</span>)</a>
-<a class="sourceLine" id="cb210-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb210-6" data-line-number="6">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
-<a class="sourceLine" id="cb210-7" data-line-number="7">  <span class="dt">i =</span> <span class="dv">1</span><span class="op">:</span>n,</a>
-<a class="sourceLine" id="cb210-8" data-line-number="8">  <span class="dt">l =</span> <span class="kw">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span>),</a>
-<a class="sourceLine" id="cb210-9" data-line-number="9">  <span class="dt">m =</span> <span class="kw">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.6</span>),</a>
-<a class="sourceLine" id="cb210-10" data-line-number="10">  <span class="dt">x =</span> <span class="kw">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span> <span class="op">*</span><span class="st"> </span>l <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span> <span class="op">*</span><span class="st"> </span>m),</a>
-<a class="sourceLine" id="cb210-11" data-line-number="11">  <span class="dt">y =</span> <span class="kw">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.05</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span> <span class="op">*</span><span class="st"> </span>l <span class="op">+</span><span class="st"> </span><span class="fl">0.4</span> <span class="op">*</span><span class="st"> </span>m <span class="op">+</span><span class="st"> </span><span class="fl">0.05</span> <span class="op">*</span><span class="st"> </span>x)</a>
-<a class="sourceLine" id="cb210-12" data-line-number="12">)</a>
-<a class="sourceLine" id="cb210-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb210-14" data-line-number="14"><span class="kw">print</span>(df)</a></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" data-line-number="1"><span class="co"># simulate some data</span></a>
+<a class="sourceLine" id="cb216-2" data-line-number="2">n &lt;-<span class="st"> </span><span class="dv">500</span></a>
+<a class="sourceLine" id="cb216-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb216-4" data-line-number="4"><span class="kw">set.seed</span>(<span class="dv">3498743</span>)</a>
+<a class="sourceLine" id="cb216-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb216-6" data-line-number="6">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb216-7" data-line-number="7">  <span class="dt">i =</span> <span class="dv">1</span><span class="op">:</span>n,</a>
+<a class="sourceLine" id="cb216-8" data-line-number="8">  <span class="dt">l =</span> <span class="kw">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span>),</a>
+<a class="sourceLine" id="cb216-9" data-line-number="9">  <span class="dt">m =</span> <span class="kw">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.6</span>),</a>
+<a class="sourceLine" id="cb216-10" data-line-number="10">  <span class="dt">x =</span> <span class="kw">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span> <span class="op">*</span><span class="st"> </span>l <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span> <span class="op">*</span><span class="st"> </span>m),</a>
+<a class="sourceLine" id="cb216-11" data-line-number="11">  <span class="dt">y =</span> <span class="kw">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.05</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span> <span class="op">*</span><span class="st"> </span>l <span class="op">+</span><span class="st"> </span><span class="fl">0.4</span> <span class="op">*</span><span class="st"> </span>m <span class="op">+</span><span class="st"> </span><span class="fl">0.05</span> <span class="op">*</span><span class="st"> </span>x)</a>
+<a class="sourceLine" id="cb216-12" data-line-number="12">)</a>
+<a class="sourceLine" id="cb216-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb216-14" data-line-number="14"><span class="kw">print</span>(df)</a></code></pre></div>
 <pre><code># A tibble: 500 x 5
        i     l     m     x     y
    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
@@ -267,27 +269,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.2</span> The Old Way</h2>
 <p>Let’s say we are interested in estimating the effect of some exposure <em>X</em> on some outcome <em>Y</em> under different assumptions about the set of relevant adjustment covariates.</p>
 <p>We could simply rewrite code individually for each of our analyses of interest.</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1"><span class="co"># run analyses using different independent covariates</span></a>
-<a class="sourceLine" id="cb212-2" data-line-number="2">fit1 &lt;-<span class="st"> </span><span class="kw">glm</span>(<span class="st">&quot;y ~ x&quot;</span>, <span class="dt">data =</span> df, <span class="dt">family =</span> <span class="kw">binomial</span>())</a>
-<a class="sourceLine" id="cb212-3" data-line-number="3">fit2 &lt;-<span class="st"> </span><span class="kw">glm</span>(<span class="st">&quot;y ~ x + l&quot;</span>, <span class="dt">data =</span> df, <span class="dt">family =</span> <span class="kw">binomial</span>())</a>
-<a class="sourceLine" id="cb212-4" data-line-number="4">fit3 &lt;-<span class="st"> </span><span class="kw">glm</span>(<span class="st">&quot;y ~ x + l + m&quot;</span>, <span class="dt">data =</span> df, <span class="dt">family =</span> <span class="kw">binomial</span>())</a>
-<a class="sourceLine" id="cb212-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb212-6" data-line-number="6"><span class="co"># view model summaries</span></a>
-<a class="sourceLine" id="cb212-7" data-line-number="7"><span class="co"># broom::tidy()</span></a>
-<a class="sourceLine" id="cb212-8" data-line-number="8"><span class="kw">tidy</span>(fit1, <span class="dt">exponentiate =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1"><span class="co"># run analyses using different independent covariates</span></a>
+<a class="sourceLine" id="cb218-2" data-line-number="2">fit1 &lt;-<span class="st"> </span><span class="kw">glm</span>(<span class="st">&quot;y ~ x&quot;</span>, <span class="dt">data =</span> df, <span class="dt">family =</span> <span class="kw">binomial</span>())</a>
+<a class="sourceLine" id="cb218-3" data-line-number="3">fit2 &lt;-<span class="st"> </span><span class="kw">glm</span>(<span class="st">&quot;y ~ x + l&quot;</span>, <span class="dt">data =</span> df, <span class="dt">family =</span> <span class="kw">binomial</span>())</a>
+<a class="sourceLine" id="cb218-4" data-line-number="4">fit3 &lt;-<span class="st"> </span><span class="kw">glm</span>(<span class="st">&quot;y ~ x + l + m&quot;</span>, <span class="dt">data =</span> df, <span class="dt">family =</span> <span class="kw">binomial</span>())</a>
+<a class="sourceLine" id="cb218-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb218-6" data-line-number="6"><span class="co"># view model summaries</span></a>
+<a class="sourceLine" id="cb218-7" data-line-number="7"><span class="co"># broom::tidy()</span></a>
+<a class="sourceLine" id="cb218-8" data-line-number="8"><span class="kw">tidy</span>(fit1, <span class="dt">exponentiate =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code># A tibble: 2 x 5
   term        estimate std.error statistic  p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
 1 (Intercept)    0.406     0.136     -6.62 3.62e-11
 2 x              1.96      0.189      3.56 3.72e- 4</code></pre>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" data-line-number="1"><span class="kw">tidy</span>(fit2, <span class="dt">exponentiate =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1"><span class="kw">tidy</span>(fit2, <span class="dt">exponentiate =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code># A tibble: 3 x 5
   term        estimate std.error statistic  p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
 1 (Intercept)    0.326     0.151     -7.45 9.56e-14
 2 x              1.73      0.194      2.82 4.77e- 3
 3 l              2.23      0.200      4.00 6.29e- 5</code></pre>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" data-line-number="1"><span class="kw">tidy</span>(fit3, <span class="dt">exponentiate =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1"><span class="kw">tidy</span>(fit3, <span class="dt">exponentiate =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code># A tibble: 4 x 5
   term        estimate std.error statistic  p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -306,26 +308,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="a-new-way-part-1" class="section level2">
 <h2><span class="header-section-number">8.3</span> A New Way, Part 1</h2>
 <p>One approach to functionalizing our analysis would be to write a function that takes a single argument, the right-hand side (RHS) of the models we’d like to run. Then, we could simply run the function three times, feeding in each covariate set directly</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1">regfun &lt;-<span class="st"> </span><span class="cf">function</span>(vars) {</a>
-<a class="sourceLine" id="cb218-2" data-line-number="2">  fit &lt;-<span class="st"> </span><span class="kw">glm</span>(<span class="kw">paste0</span>(<span class="st">&quot;y ~ &quot;</span>, vars), <span class="dt">data =</span> df, <span class="dt">family =</span> <span class="kw">binomial</span>())</a>
-<a class="sourceLine" id="cb218-3" data-line-number="3">  <span class="kw">tidy</span>(fit, <span class="dt">exponentiate =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb218-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb218-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb218-6" data-line-number="6"><span class="co"># run analyses</span></a>
-<a class="sourceLine" id="cb218-7" data-line-number="7"><span class="kw">regfun</span>(<span class="st">&quot;x&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1">regfun &lt;-<span class="st"> </span><span class="cf">function</span>(vars) {</a>
+<a class="sourceLine" id="cb224-2" data-line-number="2">  fit &lt;-<span class="st"> </span><span class="kw">glm</span>(<span class="kw">paste0</span>(<span class="st">&quot;y ~ &quot;</span>, vars), <span class="dt">data =</span> df, <span class="dt">family =</span> <span class="kw">binomial</span>())</a>
+<a class="sourceLine" id="cb224-3" data-line-number="3">  <span class="kw">tidy</span>(fit, <span class="dt">exponentiate =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb224-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb224-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb224-6" data-line-number="6"><span class="co"># run analyses</span></a>
+<a class="sourceLine" id="cb224-7" data-line-number="7"><span class="kw">regfun</span>(<span class="st">&quot;x&quot;</span>)</a></code></pre></div>
 <pre><code># A tibble: 2 x 5
   term        estimate std.error statistic  p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
 1 (Intercept)    0.406     0.136     -6.62 3.62e-11
 2 x              1.96      0.189      3.56 3.72e- 4</code></pre>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1"><span class="kw">regfun</span>(<span class="st">&quot;x + l&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" data-line-number="1"><span class="kw">regfun</span>(<span class="st">&quot;x + l&quot;</span>)</a></code></pre></div>
 <pre><code># A tibble: 3 x 5
   term        estimate std.error statistic  p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
 1 (Intercept)    0.326     0.151     -7.45 9.56e-14
 2 x              1.73      0.194      2.82 4.77e- 3
 3 l              2.23      0.200      4.00 6.29e- 5</code></pre>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1"><span class="kw">regfun</span>(<span class="st">&quot;x + l + m&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" data-line-number="1"><span class="kw">regfun</span>(<span class="st">&quot;x + l + m&quot;</span>)</a></code></pre></div>
 <pre><code># A tibble: 4 x 5
   term        estimate std.error statistic  p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -337,13 +339,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="a-new-way-part-2" class="section level2">
 <h2><span class="header-section-number">8.4</span> A New Way, Part 2</h2>
 <p>If we tried to be a little more elegant, we might try to avoid repeated calls to the <code>regfun()</code> function. Let’s write some code that loops through a vector of RHS options and spits out each analysis.</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1"><span class="co">## specify the righthand side equations we&#39;d like to test</span></a>
-<a class="sourceLine" id="cb224-2" data-line-number="2">rhs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>,</a>
-<a class="sourceLine" id="cb224-3" data-line-number="3">         <span class="st">&quot;x + l&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1"><span class="co">## specify the righthand side equations we&#39;d like to test</span></a>
+<a class="sourceLine" id="cb230-2" data-line-number="2">rhs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>,</a>
+<a class="sourceLine" id="cb230-3" data-line-number="3">         <span class="st">&quot;x + l&quot;</span>)</a></code></pre></div>
 <div id="loop-method-1" class="section level3">
 <h3><span class="header-section-number">8.4.1</span> Loop Method 1</h3>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" data-line-number="1"><span class="co">## purrr::map()</span></a>
-<a class="sourceLine" id="cb225-2" data-line-number="2"><span class="kw">map</span>(rhs, <span class="dt">.f =</span> <span class="cf">function</span>(x) <span class="kw">regfun</span>(<span class="dt">vars =</span> x))</a></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1"><span class="co">## purrr::map()</span></a>
+<a class="sourceLine" id="cb231-2" data-line-number="2"><span class="kw">map</span>(rhs, <span class="dt">.f =</span> <span class="cf">function</span>(x) <span class="kw">regfun</span>(<span class="dt">vars =</span> x))</a></code></pre></div>
 <pre><code>[[1]]
 # A tibble: 2 x 5
   term        estimate std.error statistic  p.value
@@ -361,9 +363,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="loop-method-2" class="section level3">
 <h3><span class="header-section-number">8.4.2</span> Loop Method 2</h3>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(rhs)) {</a>
-<a class="sourceLine" id="cb227-2" data-line-number="2">  <span class="kw">print</span>(<span class="kw">regfun</span>(rhs[i]))</a>
-<a class="sourceLine" id="cb227-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" data-line-number="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(rhs)) {</a>
+<a class="sourceLine" id="cb233-2" data-line-number="2">  <span class="kw">print</span>(<span class="kw">regfun</span>(rhs[i]))</a>
+<a class="sourceLine" id="cb233-3" data-line-number="3">}</a></code></pre></div>
 <pre><code># A tibble: 2 x 5
   term        estimate std.error statistic  p.value
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -380,8 +382,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">8.4.3</span> Add a New Analysis</h3>
 <p>What if you want to add a new analysis? Easy!</p>
 <p>Of course, you’d probably just add the new covariate set to the <code>rhs</code> vector above and rerun thecode, but for the sake of exposition:</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1">rhs2 &lt;-<span class="st"> </span><span class="kw">c</span>(rhs, <span class="st">&quot;x + l + m&quot;</span>)</a>
-<a class="sourceLine" id="cb229-2" data-line-number="2"><span class="kw">map</span>(rhs2, <span class="dt">.f =</span> <span class="cf">function</span>(x) <span class="kw">regfun</span>(<span class="dt">vars =</span> x))</a></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" data-line-number="1">rhs2 &lt;-<span class="st"> </span><span class="kw">c</span>(rhs, <span class="st">&quot;x + l + m&quot;</span>)</a>
+<a class="sourceLine" id="cb235-2" data-line-number="2"><span class="kw">map</span>(rhs2, <span class="dt">.f =</span> <span class="cf">function</span>(x) <span class="kw">regfun</span>(<span class="dt">vars =</span> x))</a></code></pre></div>
 <pre><code>[[1]]
 # A tibble: 2 x 5
   term        estimate std.error statistic  p.value
@@ -410,16 +412,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="a-new-way-part-3" class="section level2">
 <h2><span class="header-section-number">8.5</span> A New Way, Part 3</h2>
 <p>If you know you’re going to run <code>regfun()</code> multiple times, build looping into the function from the start and write even less!</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1">regfun_looper &lt;-<span class="st"> </span><span class="cf">function</span>(vars) {</a>
-<a class="sourceLine" id="cb231-2" data-line-number="2">  <span class="co"># purrr::map()</span></a>
-<a class="sourceLine" id="cb231-3" data-line-number="3">  <span class="kw">map</span>(vars, <span class="dt">.f =</span> <span class="cf">function</span>(<span class="dt">x =</span> vars) {</a>
-<a class="sourceLine" id="cb231-4" data-line-number="4">    fit &lt;-<span class="st"> </span><span class="kw">glm</span>(<span class="kw">paste0</span>(<span class="st">&quot;y ~ &quot;</span>, x), <span class="dt">data =</span> df, <span class="dt">family =</span> <span class="kw">binomial</span>())</a>
-<a class="sourceLine" id="cb231-5" data-line-number="5">    <span class="kw">tidy</span>(fit, <span class="dt">exponentiate =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb231-6" data-line-number="6">  })</a>
-<a class="sourceLine" id="cb231-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb231-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb231-9" data-line-number="9"><span class="co">## voila!</span></a>
-<a class="sourceLine" id="cb231-10" data-line-number="10"><span class="kw">regfun_looper</span>(rhs2)</a></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" data-line-number="1">regfun_looper &lt;-<span class="st"> </span><span class="cf">function</span>(vars) {</a>
+<a class="sourceLine" id="cb237-2" data-line-number="2">  <span class="co"># purrr::map()</span></a>
+<a class="sourceLine" id="cb237-3" data-line-number="3">  <span class="kw">map</span>(vars, <span class="dt">.f =</span> <span class="cf">function</span>(<span class="dt">x =</span> vars) {</a>
+<a class="sourceLine" id="cb237-4" data-line-number="4">    fit &lt;-<span class="st"> </span><span class="kw">glm</span>(<span class="kw">paste0</span>(<span class="st">&quot;y ~ &quot;</span>, x), <span class="dt">data =</span> df, <span class="dt">family =</span> <span class="kw">binomial</span>())</a>
+<a class="sourceLine" id="cb237-5" data-line-number="5">    <span class="kw">tidy</span>(fit, <span class="dt">exponentiate =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb237-6" data-line-number="6">  })</a>
+<a class="sourceLine" id="cb237-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb237-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb237-9" data-line-number="9"><span class="co">## voila!</span></a>
+<a class="sourceLine" id="cb237-10" data-line-number="10"><span class="kw">regfun_looper</span>(rhs2)</a></code></pre></div>
 <pre><code>[[1]]
 # A tibble: 2 x 5
   term        estimate std.error statistic  p.value

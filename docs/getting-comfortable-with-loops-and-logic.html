@@ -170,6 +170,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">7.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a><ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#standard-loop"><span class="toc-section-number">7.3.1</span> Standard Loop</a></li>
+<li><a href="getting-comfortable-with-loops-and-logic.html#vectorized-loops"><span class="toc-section-number">7.3.2</span> Vectorized Loops</a></li>
+<li><a href="getting-comfortable-with-loops-and-logic.html#nested-loops"><span class="toc-section-number">7.3.3</span> Nested Loops</a></li>
 </ul></li>
 </ul></li>
 <li class="has-sub"><a href="functionalizing-code.html#functionalizing-code"><span class="toc-section-number">8</span> Functionalizing Code</a><ul>
@@ -879,26 +881,28 @@ marital        &quot;numeric&quot;</code></pre>
 <a class="sourceLine" id="cb206-6" data-line-number="6">  templist &lt;-<span class="st"> </span><span class="kw">list</span>()</a>
 <a class="sourceLine" id="cb206-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb206-8" data-line-number="8">  <span class="co"># test the number of unique values in the ith element of nhl</span></a>
-<a class="sourceLine" id="cb206-9" data-line-number="9">  <span class="cf">if</span> (<span class="kw">length</span>(<span class="kw">unique</span>(nhl[[i]])) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">6</span>) {</a>
-<a class="sourceLine" id="cb206-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb206-11" data-line-number="11">    templist[[<span class="st">&quot;type&quot;</span>]]  &lt;-<span class="st"> &quot;categorical&quot;</span></a>
-<a class="sourceLine" id="cb206-12" data-line-number="12">    templist[[<span class="st">&quot;stats&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">table</span>(nhl[[i]])</a>
-<a class="sourceLine" id="cb206-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb206-14" data-line-number="14">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb206-9" data-line-number="9">  <span class="co"># if there are 6 or fewer unique values, treat as categorical</span></a>
+<a class="sourceLine" id="cb206-10" data-line-number="10">  <span class="co"># otherwise, treat as continuous</span></a>
+<a class="sourceLine" id="cb206-11" data-line-number="11">  <span class="cf">if</span> (<span class="kw">length</span>(<span class="kw">unique</span>(nhl[[i]])) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">6</span>) {</a>
+<a class="sourceLine" id="cb206-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb206-13" data-line-number="13">    templist[[<span class="st">&quot;type&quot;</span>]]  &lt;-<span class="st"> &quot;categorical&quot;</span></a>
+<a class="sourceLine" id="cb206-14" data-line-number="14">    templist[[<span class="st">&quot;stats&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">table</span>(nhl[[i]])</a>
 <a class="sourceLine" id="cb206-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb206-16" data-line-number="16">    templist[[<span class="st">&quot;type&quot;</span>]]  &lt;-<span class="st"> &quot;continuous&quot;</span></a>
-<a class="sourceLine" id="cb206-17" data-line-number="17">    templist[[<span class="st">&quot;stats&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">summary</span>(nhl[[i]])</a>
-<a class="sourceLine" id="cb206-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb206-19" data-line-number="19">  }</a>
+<a class="sourceLine" id="cb206-16" data-line-number="16">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb206-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb206-18" data-line-number="18">    templist[[<span class="st">&quot;type&quot;</span>]]  &lt;-<span class="st"> &quot;continuous&quot;</span></a>
+<a class="sourceLine" id="cb206-19" data-line-number="19">    templist[[<span class="st">&quot;stats&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">summary</span>(nhl[[i]])</a>
 <a class="sourceLine" id="cb206-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb206-21" data-line-number="21">  <span class="co"># save the list we created into the ith element of our final holding object</span></a>
-<a class="sourceLine" id="cb206-22" data-line-number="22">  nhl_sum[[i]] &lt;-<span class="st"> </span>templist</a>
-<a class="sourceLine" id="cb206-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb206-24" data-line-number="24">  <span class="co"># name the list element</span></a>
-<a class="sourceLine" id="cb206-25" data-line-number="25">  <span class="kw">names</span>(nhl_sum)[i] &lt;-<span class="st"> </span><span class="kw">names</span>(nhl)[i]</a>
-<a class="sourceLine" id="cb206-26" data-line-number="26">}</a>
-<a class="sourceLine" id="cb206-27" data-line-number="27"></a>
-<a class="sourceLine" id="cb206-28" data-line-number="28"><span class="kw">print</span>(nhl_sum)</a></code></pre></div>
+<a class="sourceLine" id="cb206-21" data-line-number="21">  }</a>
+<a class="sourceLine" id="cb206-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb206-23" data-line-number="23">  <span class="co"># save the list we created into the ith element of our final holding object</span></a>
+<a class="sourceLine" id="cb206-24" data-line-number="24">  nhl_sum[[i]] &lt;-<span class="st"> </span>templist</a>
+<a class="sourceLine" id="cb206-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb206-26" data-line-number="26">  <span class="co"># name the list element</span></a>
+<a class="sourceLine" id="cb206-27" data-line-number="27">  <span class="kw">names</span>(nhl_sum)[i] &lt;-<span class="st"> </span><span class="kw">names</span>(nhl)[i]</a>
+<a class="sourceLine" id="cb206-28" data-line-number="28">}</a>
+<a class="sourceLine" id="cb206-29" data-line-number="29"></a>
+<a class="sourceLine" id="cb206-30" data-line-number="30"><span class="kw">print</span>(nhl_sum)</a></code></pre></div>
 <pre><code>$seqn
 $seqn$type
 [1] &quot;continuous&quot;
@@ -982,7 +986,224 @@ $marital$stats
 $stats
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
    1.00   10.00   20.00   20.55   30.00   80.00 </code></pre>
-<p><dev-note>Address the same use case with lapply and purrr::map. Also, show an example that uses a nested loop.</dev-note></p>
+</div>
+<div id="vectorized-loops" class="section level3">
+<h3><span class="header-section-number">7.3.2</span> Vectorized Loops</h3>
+<p>We’re not going to focus properly on vectorization, except to review an implementation or two from what’s called the <code>apply</code> family of functions in R. In general, vectorized loops can operate quite a bit faster in certain circumstances, but they also provide a different approach to iteration.</p>
+<p><span class="marginnote">To go beyond the looping examples covered here, DataCamp has a detailed <a href="https://www.datacamp.com/community/tutorials/tutorial-on-loops-in-r">tutorial</a> on writing loops and controlling their flow and output.</span></p>
+<p>For instance, let’s achieve something similar to what we did in the prior section with a standard <code>for</code> loop. With the <code>for</code> loop, we had to tell R explicitly how many loops to do, and we had to tell it where to store our results in <code>nhl_sum</code> each time.</p>
+<p>We might see some advantages to this approach: for one, we can read the code line by line and see the entire sequence of events. We also forced ourselves to be exact about what R was to do with each piece of information, which is good practice.</p>
+<p>But R gives us a variety of flexible tools to work with, and the <code>apply</code> functions can provide some more elegant, less verbose,<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> “Verbose” essentially means we have to type a lot. You may also see functions use a setting called “verbose” to control how much output a function gives you, so the word is used as a bit of jargon in programming.</span> and easier-to-debug solutions.</p>
+<p>Anyway, since this introduction to vectorized loops is getting a little verbose, let’s skip to the good stuff: we can use the <code>lapply</code> function to get a similar result as we did with a <code>for</code> loop.</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1">nhl_sum2 &lt;-<span class="st"> </span><span class="kw">lapply</span>(nhl, <span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb210-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb210-3" data-line-number="3">  <span class="cf">if</span> (<span class="kw">length</span>(x) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">6</span>) {</a>
+<a class="sourceLine" id="cb210-4" data-line-number="4">    <span class="kw">list</span>(<span class="dt">type =</span> <span class="st">&quot;categorical&quot;</span>,</a>
+<a class="sourceLine" id="cb210-5" data-line-number="5">         <span class="dt">stats =</span> <span class="kw">table</span>(x))</a>
+<a class="sourceLine" id="cb210-6" data-line-number="6">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb210-7" data-line-number="7">    <span class="kw">list</span>(<span class="dt">type =</span> <span class="st">&quot;continuous&quot;</span>,</a>
+<a class="sourceLine" id="cb210-8" data-line-number="8">         <span class="dt">stats =</span> <span class="kw">summary</span>(x))</a>
+<a class="sourceLine" id="cb210-9" data-line-number="9">  }</a>
+<a class="sourceLine" id="cb210-10" data-line-number="10">})</a>
+<a class="sourceLine" id="cb210-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb210-12" data-line-number="12"><span class="kw">print</span>(nhl_sum2)</a></code></pre></div>
+<pre><code>$seqn
+$seqn$type
+[1] &quot;continuous&quot;
+
+$seqn$stats
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    233   10607   20333   16552   22719   25061 
+
+
+$death
+$death$type
+[1] &quot;continuous&quot;
+
+$death$stats
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  0.0000  0.0000  0.1952  0.0000  1.0000 
+
+
+$sex
+$sex$type
+[1] &quot;continuous&quot;
+
+$sex$stats
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  0.0000  1.0000  0.5095  1.0000  1.0000 
+
+
+$age
+$age$type
+[1] &quot;continuous&quot;
+
+$age$stats
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  25.00   33.00   44.00   43.92   53.00   74.00 
+
+
+$race
+$race$type
+[1] &quot;continuous&quot;
+
+$race$stats
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  0.000   0.000   0.000   0.132   0.000   1.000 
+
+
+$smokeyrs
+$smokeyrs$type
+[1] &quot;continuous&quot;
+
+$smokeyrs$stats
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00   15.00   24.00   24.87   33.00   64.00 
+
+
+$smokeintensity
+$smokeintensity$type
+[1] &quot;continuous&quot;
+
+$smokeintensity$stats
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00   10.00   20.00   20.55   30.00   80.00 
+
+
+$marital
+$marital$type
+[1] &quot;continuous&quot;
+
+$marital$stats
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  2.000   2.000   2.000   2.503   2.000   8.000 </code></pre>
+<p>Remember, what we wrote above is also a loop, but we can translate roughly into words what we told R to do:</p>
+<ol style="list-style-type: decimal">
+<li>Loop through each column in <code>nhl</code>, and apply a function to it.</li>
+<li>The function is: if the column contains fewer than 6 unique values, return a list containing a string named <code>type</code> (set to “categorical”) and a frequency table stored in <code>stats</code>.</li>
+<li>Otherwise, return a list containing a string named <code>type</code> (set to “continuous”) and the results of <code>summary()</code> stored in <code>stats</code>.</li>
+</ol>
+<p>The “l” in <code>lapply</code> refers to “list”, meaning the function will return to us a list. In each drawer will be stored the results of each iteration of the function—in other words, one of the lists we told R to make in the if-else statements.</p>
+<p>We may look at the code above and concede it is more succinct than the standard <code>for</code> loop, but maybe it’s a tad ugly because we specified an anonymous function<label for="tufte-sn-2" class="margin-toggle sidenote-number">2</label><input type="checkbox" id="tufte-sn-2" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">2</span> <strong>Jargon alert:</strong> An anonymous function simply means that the function is not named or stored in our environment.</span> within the <code>lapply</code> function itself.</p>
+<p>We could have done the following for the sake of readability:</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1">autosummary &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb212-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb212-3" data-line-number="3">  <span class="cf">if</span> (<span class="kw">length</span>(x) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">6</span>) {</a>
+<a class="sourceLine" id="cb212-4" data-line-number="4">    <span class="kw">list</span>(<span class="dt">type =</span> <span class="st">&quot;categorical&quot;</span>,</a>
+<a class="sourceLine" id="cb212-5" data-line-number="5">         <span class="dt">stats =</span> <span class="kw">table</span>(x))</a>
+<a class="sourceLine" id="cb212-6" data-line-number="6">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb212-7" data-line-number="7">    <span class="kw">list</span>(<span class="dt">type =</span> <span class="st">&quot;continuous&quot;</span>,</a>
+<a class="sourceLine" id="cb212-8" data-line-number="8">         <span class="dt">stats =</span> <span class="kw">summary</span>(x))</a>
+<a class="sourceLine" id="cb212-9" data-line-number="9">  }</a>
+<a class="sourceLine" id="cb212-10" data-line-number="10">}</a>
+<a class="sourceLine" id="cb212-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb212-12" data-line-number="12">nhl_sum3 &lt;-<span class="st"> </span><span class="kw">lapply</span>(nhl, autosummary)</a>
+<a class="sourceLine" id="cb212-13" data-line-number="13"><span class="kw">print</span>(nhl_sum3)</a></code></pre></div>
+<pre><code>$seqn
+$seqn$type
+[1] &quot;continuous&quot;
+
+$seqn$stats
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    233   10607   20333   16552   22719   25061 
+
+
+$death
+$death$type
+[1] &quot;continuous&quot;
+
+$death$stats
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  0.0000  0.0000  0.1952  0.0000  1.0000 
+
+
+$sex
+$sex$type
+[1] &quot;continuous&quot;
+
+$sex$stats
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  0.0000  1.0000  0.5095  1.0000  1.0000 
+
+
+$age
+$age$type
+[1] &quot;continuous&quot;
+
+$age$stats
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  25.00   33.00   44.00   43.92   53.00   74.00 
+
+
+$race
+$race$type
+[1] &quot;continuous&quot;
+
+$race$stats
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  0.000   0.000   0.000   0.132   0.000   1.000 
+
+
+$smokeyrs
+$smokeyrs$type
+[1] &quot;continuous&quot;
+
+$smokeyrs$stats
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00   15.00   24.00   24.87   33.00   64.00 
+
+
+$smokeintensity
+$smokeintensity$type
+[1] &quot;continuous&quot;
+
+$smokeintensity$stats
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00   10.00   20.00   20.55   30.00   80.00 
+
+
+$marital
+$marital$type
+[1] &quot;continuous&quot;
+
+$marital$stats
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  2.000   2.000   2.000   2.503   2.000   8.000 </code></pre>
+<p>Other functions in the <code>apply</code> family include <code>apply</code> itself, <code>sapply</code>, <code>mapply</code>, and <code>tapply</code>. Each provides variations on a theme, handling different sorts of inputs and returning different object types.</p>
+<p><span class="marginnote">A full review of the <code>apply</code> family is beyond the scope of this introduction, and to be honest, while your humble author uses several of these functions all the time, he will never really remember how to use the base <code>apply</code> function properly.</span></p>
+<p>In fact, you’ve already seen some of these functions used in prior code examples that were focused on other aspects of R. Scroll through prior chapters and sections to see if you can spot them and figure out what they’re doing.</p>
+</div>
+<div id="nested-loops" class="section level3">
+<h3><span class="header-section-number">7.3.3</span> Nested Loops</h3>
+<p>Nesting in this context refers to placing loops within loops.<label for="tufte-sn-3" class="margin-toggle sidenote-number">3</label><input type="checkbox" id="tufte-sn-3" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">3</span> Kind of like dreams within dreams in the movie <em>Inception</em>, except nested loops make sense!</span></p>
+<p>Loop logic takes a while to get used to, and you might find you don’t need them all at often. Nonetheless, they’re something we should make an attempt to familiarize outselves with.</p>
+<p>Perhaps the following code will say in generated output what is difficult to say in words:</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" data-line-number="1">alpha &lt;-<span class="st"> </span>LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb214-2" data-line-number="2">nums &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb214-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb214-4" data-line-number="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(alpha)) {</a>
+<a class="sourceLine" id="cb214-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb214-6" data-line-number="6">  <span class="kw">cat</span>(<span class="st">&quot;&lt;&lt;&quot;</span>, alpha[i], <span class="st">&quot;&gt;&gt;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb214-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb214-8" data-line-number="8">  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(nums)) {</a>
+<a class="sourceLine" id="cb214-9" data-line-number="9">    <span class="kw">cat</span>(<span class="kw">paste0</span>(alpha[i], nums[j]), <span class="st">&quot; &quot;</span>)</a>
+<a class="sourceLine" id="cb214-10" data-line-number="10">  }</a>
+<a class="sourceLine" id="cb214-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb214-12" data-line-number="12">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n\n</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb214-13" data-line-number="13">}</a></code></pre></div>
+<pre><code>&lt;&lt; A &gt;&gt;
+A1  A2  A3  A4  A5  A6  A7  A8  A9  A10  
+
+&lt;&lt; B &gt;&gt;
+B1  B2  B3  B4  B5  B6  B7  B8  B9  B10  
+
+&lt;&lt; C &gt;&gt;
+C1  C2  C3  C4  C5  C6  C7  C8  C9  C10  
+
+&lt;&lt; D &gt;&gt;
+D1  D2  D3  D4  D5  D6  D7  D8  D9  D10  </code></pre>
+<p>In words, we loop through two objects, <code>alpha</code> and <code>nums</code>, tracked by <code>i</code> and <code>j</code>, respectively.</p>
+<p>We get to the first element of <code>alpha</code>, output it to the console using <code>cat()</code>, and then, we loop through <code>nums</code>, paste each object to the current <code>alpha</code> element, and output that string to the console. Once we’ve finished doing this for all the elements of <code>num</code>, we move to the next iteration and continue until we’ve exhausted the whole procedure for all elements in <code>alpha</code>.</p>
 
 </div>
 </div>

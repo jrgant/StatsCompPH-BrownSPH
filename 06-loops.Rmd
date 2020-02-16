@@ -183,6 +183,8 @@ for (i in 1:length(nhl)) {
   templist <- list()
 
   # test the number of unique values in the ith element of nhl
+  # if there are 6 or fewer unique values, treat as categorical
+  # otherwise, treat as continuous
   if (length(unique(nhl[[i]])) <= 6) {
 
     templist[["type"]]  <- "categorical"
@@ -213,4 +215,95 @@ If we just want to peak at the `smokeintensity` statistics, for instance, we can
 nhl_sum$smokeintensity
 ```
 
-<dev-note>Address the same use case with lapply and purrr::map. Also, show an example that uses a nested loop.</dev-note>
+### Vectorized Loops
+
+We're not going to focus properly on vectorization, except to review an implementation or two from what's called the `apply` family of functions in R. In general, vectorized loops can operate quite a bit faster in certain circumstances, but they also provide a different approach to iteration.
+
+<span class="marginnote">To go beyond the looping examples covered here, DataCamp has a detailed [tutorial](https://www.datacamp.com/community/tutorials/tutorial-on-loops-in-r) on writing loops and controlling their flow and output.</span>
+
+For instance, let's achieve something similar to what we did in the prior section with a standard `for` loop. With the `for` loop, we had to tell R explicitly how many loops to do, and we had to tell it where to store our results in `nhl_sum` each time.
+
+We might see some advantages to this approach: for one, we can read the code line by line and see the entire sequence of events. We also forced ourselves to be exact about what R was to do with each piece of information, which is good practice.
+
+But R gives us a variety of flexible tools to work with, and the `apply` functions can provide some more elegant, less verbose,^["Verbose" essentially means we have to type a lot. You may also see functions use a setting called "verbose" to control how much output a function gives you, so the word is used as a bit of jargon in programming.] and easier-to-debug solutions.
+
+Anyway, since this introduction to vectorized loops is getting a little verbose, let's skip to the good stuff: we can use the `lapply` function to get a similar result as we did with a `for` loop.
+
+```{r lapply-loop}
+nhl_sum2 <- lapply(nhl, function(x) {
+
+  if (length(x) <= 6) {
+    list(type = "categorical",
+         stats = table(x))
+  } else {
+    list(type = "continuous",
+         stats = summary(x))
+  }
+})
+
+print(nhl_sum2)
+```
+
+Remember, what we wrote above is also a loop, but we can translate roughly into words what we told R to do:
+
+1. Loop through each column in `nhl`, and apply a function to it.
+1. The function is: if the column contains fewer than 6 unique values, return a list containing a string named `type` (set to "categorical") and a frequency table stored in `stats`.
+1. Otherwise, return a list containing a string named `type` (set to "continuous") and the results of `summary()` stored in `stats`.
+
+The "l" in `lapply` refers to "list", meaning the function will return to us a list. In each drawer will be stored the results of each iteration of the function---in other words, one of the lists we told R to make in the if-else statements.
+
+We may look at the code above and concede it is more succinct than the standard `for` loop, but maybe it's a tad ugly because we specified an anonymous function^[**Jargon alert:** An anonymous function simply means that the function is not named or stored in our environment.] within the `lapply` function itself.
+
+We could have done the following for the sake of readability:
+
+```{r lapply-loop-2}
+autosummary <- function(x) {
+
+  if (length(x) <= 6) {
+    list(type = "categorical",
+         stats = table(x))
+  } else {
+    list(type = "continuous",
+         stats = summary(x))
+  }
+}
+
+nhl_sum3 <- lapply(nhl, autosummary)
+print(nhl_sum3)
+```
+
+Other functions in the `apply` family include `apply` itself, `sapply`, `mapply`, and `tapply`. Each provides variations on a theme, handling different sorts of inputs and returning different object types.
+
+<span class="marginnote">A full review of the `apply` family is beyond the scope of this introduction, and to be honest, while your humble author uses several of these functions all the time, he will never really remember how to use the base `apply` function properly.</span>
+
+In fact, you've already seen some of these functions used in prior code examples that were focused on other aspects of R. Scroll through prior chapters and sections to see if you can spot them and figure out what they're doing.
+
+### Nested Loops
+
+Nesting in this context refers to placing loops within loops.^[Kind of like dreams within dreams in the movie _Inception_, except nested loops make sense!]
+
+Loop logic takes a while to get used to, and you might find you don't need them all at often. Nonetheless, they're something we should make an attempt to familiarize outselves with.
+
+Perhaps the following code will say in generated output what is difficult to say in words:
+
+```{r nested-loops}
+
+alpha <- LETTERS[1:4]
+nums <- 1:10
+
+for (i in 1:length(alpha)) {
+
+  cat("<<", alpha[i], ">>\n")
+
+  for (j in 1:length(nums)) {
+    cat(paste0(alpha[i], nums[j]), " ")
+  }
+
+  cat("\n\n")
+}
+
+```
+
+In words, we loop through two objects, `alpha` and `nums`, tracked by `i` and `j`, respectively.
+
+We get to the first element of `alpha`, output it to the console using `cat()`, and then, we loop through `nums`, paste each object to the current `alpha` element, and output that string to the console. Once we've finished doing this for all the elements of `num`, we move to the next iteration and continue until we've exhausted the whole procedure for all elements in `alpha`.
