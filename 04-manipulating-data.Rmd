@@ -473,7 +473,7 @@ cat(paste0(totally_unnecessary_list[[1]], ","),
 
 As public health researchers using R, you may be spending most of your time working with data frames.
 
-Data are a [rectangular data format](https://www.oreilly.com/library/view/practical-statistics-for/9781491952955/ch01.html), that is, a format which generally stores data with a series of labeled columns (variables) and observations (rows).
+Data frames are a [rectangular data format](https://www.oreilly.com/library/view/practical-statistics-for/9781491952955/ch01.html), that is, a format which generally stores data with a series of labeled columns (variables) and observations (rows).
 
 We've already seen a couple of data frames. Here are a few more that R contains by default.
 
