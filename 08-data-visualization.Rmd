@@ -1,1 +1,65 @@
 # Data Visualization
+
+```{r setup, include=F}
+knitr::opts_chunk$set(dev = "svg",
+                      fig.align = "center")
+```
+
+Look at your data!
+
+Yes, that means look at your raw data by producing subsets, printing to the console, and all the other things we've been doing. But it also means that we should visualize our data.
+
+The potential purposes for doing so are legion, but we can name a few for starters:
+
+- To detect errors (e.g., miscoded observations)
+- To detect missing data
+- To detect your own coding errors (e.g., miscoded derivative variables)
+- To see the variation of single variables and the covariation between pairs of variables
+- To summarize a lot of quantitative information so that it can be digested by the reader quickly and efficiently
+- To reveal relationships between exposure and outcome
+- To diagnose statistical or computational procedures (e.g., regressions, algorithms)
+- To make principled decisions about how to analyze your data
+
+Before we continue, though, we should keep one thing in mind: **data visualization is not about making pretty pictures**. Saying so does not discount the importance of aesthetics in your visualizations. However, the aesthetics you employ should be chosen to make the message of the figure clear to your audience. In some cases, we might want to highlight a particular contrast between two variables. In others, we might want to visualize how a particular variable trends over time. In yet others, we may simply want to visualize features in our raw dataset.
+
+Each of these objectives implies the usefulness of certain visualizations and the impropriety of others. In other words, we want the purpose of the visualization to dictate the means by which we display relevant data.
+
+In this introduction, we will focus on a couple of broad concepts and code examples in order to get you up and running as quickly as possible. However, I highly recommend two (freely available) resources in particular:
+
+1. [Data Visualization: A Practical Introduction](https://socviz.co/) by Kieran Healy
+
+2. [Top 50 ggplot2 Visualizations - The Master List (with Full R Code)](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html) by Selva Prabhakaran
+
+Keeping these bookmarked will probably cover about 90%^[Source: Thin air] of your data visualization needs.
+
+## Base R versus ggplot2
+
+You may find that working with plotting in base R is more efficient when you want quick-and-dirty visualizations---for instance, while you're conducting exploratory data analysis.
+
+### Boxplots (Base R)
+
+```{r base-r-bp, out.width="75%"}
+# using built-in iris dataset
+boxplot(iris$Petal.Width)
+boxplot(Petal.Width ~ Species, data = iris)
+```
+
+### Density Plots (Base R)
+
+```{r base-r-density, out.width="75%"}
+plot(density(iris$Petal.Width))
+```
+
+### Scatterplots (Base R)
+
+```{r base-r-scatter, out.width="75%"}
+plot(iris$Petal.Width)
+
+plot(Petal.Width ~ Petal.Length, data = iris)
+```
+
+### Histograms (Base R)
+
+```{r base-r-hist, out.width="75%"}
+hist(iris$Petal.Width)
+```
