@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta property="og:title" content="5 Working with Data | Computing Concepts for Public Health Researchers" />
@@ -21,12 +20,13 @@ MathJax.Hub.Config({
   TeX: { equationNumbers: { autoNumber: "AMS" } }
 });
 </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <meta name="description" content="Resources and tutorials for R and SAS analysis geared toward public health students.">
 
 <title>5 Working with Data | Computing Concepts for Public Health Researchers</title>
 
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-italics.css" rel="stylesheet" />
@@ -43,26 +43,28 @@ MathJax.Hub.Config({
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -71,9 +73,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -108,6 +110,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
+
 </head>
 
 <body>
@@ -118,44 +121,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="col-sm-12">
 <div id="TOC">
 <ul>
-<li class="has-sub"><a href="index.html#learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a><ul>
+<li><a href="index.html#learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a>
+<ul>
 <li><a href="index.html#main-objectives"><span class="toc-section-number">1.1</span> Main objectives</a></li>
 <li><a href="index.html#secondary-objectives"><span class="toc-section-number">1.2</span> Secondary objectives</a></li>
 <li><a href="index.html#acknowledgements"><span class="toc-section-number">1.3</span> Acknowledgements</a></li>
 </ul></li>
-<li class="has-sub"><a href="startup.html#startup"><span class="toc-section-number">2</span> Getting Started</a><ul>
+<li><a href="startup.html#startup"><span class="toc-section-number">2</span> Getting Started</a>
+<ul>
 <li><a href="startup.html#getting-started-with-r"><span class="toc-section-number">2.1</span> Getting Started with R</a></li>
 <li><a href="startup.html#getting-started-with-sas"><span class="toc-section-number">2.2</span> Getting Started with SAS</a></li>
 </ul></li>
-<li class="has-sub"><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a><ul>
+<li><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a>
+<ul>
 <li><a href="data-structures.html#major-differences-between-r-and-sas"><span class="toc-section-number">3.1</span> Major Differences Between R and SAS</a></li>
 <li><a href="data-structures.html#r-object-and-value-classes"><span class="toc-section-number">3.2</span> R: Object and Value Classes</a></li>
 <li><a href="data-structures.html#sas-value-formats"><span class="toc-section-number">3.3</span> SAS: Value Formats</a></li>
 </ul></li>
-<li class="has-sub"><a href="importing-and-exporting-data.html#importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a><ul>
-<li class="has-sub"><a href="importing-and-exporting-data.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a><ul>
+<li><a href="importing-and-exporting-data.html#importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a>
+<ul>
+<li><a href="importing-and-exporting-data.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a>
+<ul>
 <li><a href="importing-and-exporting-data.html#reading-data"><span class="toc-section-number">4.1.1</span> Reading Data</a></li>
 <li><a href="importing-and-exporting-data.html#writing-data"><span class="toc-section-number">4.1.2</span> Writing Data</a></li>
 </ul></li>
 <li><a href="importing-and-exporting-data.html#sas-reading-and-writing-data"><span class="toc-section-number">4.2</span> SAS: Reading and Writing Data</a></li>
 </ul></li>
-<li class="has-sub"><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a><ul>
+<li><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a>
+<ul>
 <li><a href="working-with-data.html#objects-in-r"><span class="toc-section-number">5.1</span> Objects in R</a></li>
-<li class="has-sub"><a href="working-with-data.html#more-complex-objects"><span class="toc-section-number">5.2</span> More Complex Objects</a><ul>
+<li><a href="working-with-data.html#more-complex-objects"><span class="toc-section-number">5.2</span> More Complex Objects</a>
+<ul>
 <li><a href="working-with-data.html#vectors"><span class="toc-section-number">5.2.1</span> Vectors</a></li>
 <li><a href="working-with-data.html#matrices"><span class="toc-section-number">5.2.2</span> Matrices</a></li>
 <li><a href="working-with-data.html#lists"><span class="toc-section-number">5.2.3</span> Lists</a></li>
 <li><a href="working-with-data.html#data-frames"><span class="toc-section-number">5.2.4</span> Data Frames</a></li>
 <li><a href="working-with-data.html#other-object-classes"><span class="toc-section-number">5.2.5</span> Other Object Classes</a></li>
 </ul></li>
-<li class="has-sub"><a href="working-with-data.html#conducting-operations-on-objects"><span class="toc-section-number">5.3</span> Conducting Operations on Objects</a><ul>
+<li><a href="working-with-data.html#conducting-operations-on-objects"><span class="toc-section-number">5.3</span> Conducting Operations on Objects</a>
+<ul>
 <li><a href="working-with-data.html#arithmetic-operations"><span class="toc-section-number">5.3.1</span> Arithmetic Operations</a></li>
 <li><a href="working-with-data.html#logical-operations"><span class="toc-section-number">5.3.2</span> Logical Operations</a></li>
 <li><a href="working-with-data.html#recycling"><span class="toc-section-number">5.3.3</span> Recycling</a></li>
 </ul></li>
 </ul></li>
-<li class="has-sub"><a href="statistical-analysis.html#statistical-analysis"><span class="toc-section-number">6</span> Statistical Analysis</a><ul>
-<li class="has-sub"><a href="statistical-analysis.html#setup"><span class="toc-section-number">6.1</span> Setup</a><ul>
+<li><a href="statistical-analysis.html#statistical-analysis"><span class="toc-section-number">6</span> Statistical Analysis</a>
+<ul>
+<li><a href="statistical-analysis.html#setup"><span class="toc-section-number">6.1</span> Setup</a>
+<ul>
 <li><a href="statistical-analysis.html#data"><span class="toc-section-number">6.1.1</span> Data</a></li>
 <li><a href="statistical-analysis.html#nhefs-codebook"><span class="toc-section-number">6.1.2</span> NHEFS Codebook</a></li>
 </ul></li>
@@ -163,41 +176,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="statistical-analysis.html#tabular-analysis"><span class="toc-section-number">6.3</span> Tabular Analysis</a></li>
 <li><a href="statistical-analysis.html#regression-models"><span class="toc-section-number">6.4</span> Regression Models</a></li>
 </ul></li>
-<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a><ul>
+<li><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a>
+<ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#whats-a-loop"><span class="toc-section-number">7.1</span> What’s a Loop?</a></li>
-<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#why-loop"><span class="toc-section-number">7.2</span> Why Loop?</a><ul>
+<li><a href="getting-comfortable-with-loops-and-logic.html#why-loop"><span class="toc-section-number">7.2</span> Why Loop?</a>
+<ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#curly-braces"><span class="toc-section-number">7.2.1</span> Curly Braces</a></li>
 </ul></li>
-<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">7.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a><ul>
+<li><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">7.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a>
+<ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#standard-loop"><span class="toc-section-number">7.3.1</span> Standard Loop</a></li>
 <li><a href="getting-comfortable-with-loops-and-logic.html#vectorized-loops"><span class="toc-section-number">7.3.2</span> Vectorized Loops</a></li>
 <li><a href="getting-comfortable-with-loops-and-logic.html#nested-loops"><span class="toc-section-number">7.3.3</span> Nested Loops</a></li>
 </ul></li>
 </ul></li>
-<li class="has-sub"><a href="functionalizing-code.html#functionalizing-code"><span class="toc-section-number">8</span> Functionalizing Code</a><ul>
+<li><a href="functionalizing-code.html#functionalizing-code"><span class="toc-section-number">8</span> Functionalizing Code</a>
+<ul>
 <li><a href="functionalizing-code.html#simulate-data"><span class="toc-section-number">8.1</span> Simulate Data</a></li>
 <li><a href="functionalizing-code.html#the-old-way"><span class="toc-section-number">8.2</span> The Old Way</a></li>
 <li><a href="functionalizing-code.html#a-new-way-part-1"><span class="toc-section-number">8.3</span> A New Way, Part 1</a></li>
-<li class="has-sub"><a href="functionalizing-code.html#a-new-way-part-2"><span class="toc-section-number">8.4</span> A New Way, Part 2</a><ul>
+<li><a href="functionalizing-code.html#a-new-way-part-2"><span class="toc-section-number">8.4</span> A New Way, Part 2</a>
+<ul>
 <li><a href="functionalizing-code.html#loop-method-1"><span class="toc-section-number">8.4.1</span> Loop Method 1</a></li>
 <li><a href="functionalizing-code.html#loop-method-2"><span class="toc-section-number">8.4.2</span> Loop Method 2</a></li>
 <li><a href="functionalizing-code.html#add-a-new-analysis"><span class="toc-section-number">8.4.3</span> Add a New Analysis</a></li>
 </ul></li>
 <li><a href="functionalizing-code.html#a-new-way-part-3"><span class="toc-section-number">8.5</span> A New Way, Part 3</a></li>
-<li class="has-sub"><a href="functionalizing-code.html#approximate-in-sas"><span class="toc-section-number">8.6</span> Approximate in SAS</a><ul>
+<li><a href="functionalizing-code.html#approximate-in-sas"><span class="toc-section-number">8.6</span> Approximate in SAS</a>
+<ul>
 <li><a href="functionalizing-code.html#simulate-data-1"><span class="toc-section-number">8.6.1</span> Simulate Data</a></li>
 </ul></li>
 </ul></li>
 <li><a href="data-visualization.html#data-visualization"><span class="toc-section-number">9</span> Data Visualization</a></li>
 <li><a href="programming-concepts.html#programming-concepts"><span class="toc-section-number">10</span> Programming Concepts</a></li>
-<li class="has-sub"><a href="resources.html#resources"><span class="toc-section-number">11</span> Resources</a><ul>
-<li class="has-sub"><a href="resources.html#r"><span class="toc-section-number">11.1</span> R</a><ul>
+<li><a href="resources.html#resources"><span class="toc-section-number">11</span> Resources</a>
+<ul>
+<li><a href="resources.html#r"><span class="toc-section-number">11.1</span> R</a>
+<ul>
 <li><a href="resources.html#core-documentation"><span class="toc-section-number">11.1.1</span> Core Documentation</a></li>
 <li><a href="resources.html#programming"><span class="toc-section-number">11.1.2</span> Programming</a></li>
 <li><a href="resources.html#data-visualization-1"><span class="toc-section-number">11.1.3</span> Data Visualization</a></li>
 <li><a href="resources.html#reproducible-research-and-version-control"><span class="toc-section-number">11.1.4</span> Reproducible Research and Version Control</a></li>
 </ul></li>
-<li class="has-sub"><a href="resources.html#sas"><span class="toc-section-number">11.2</span> SAS</a><ul>
+<li><a href="resources.html#sas"><span class="toc-section-number">11.2</span> SAS</a>
+<ul>
 <li><a href="resources.html#programming-and-core-documentation"><span class="toc-section-number">11.2.1</span> Programming and Core Documentation</a></li>
 <li><a href="resources.html#reproducible-research"><span class="toc-section-number">11.2.2</span> Reproducible Research</a></li>
 </ul></li>
@@ -208,160 +230,160 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="row">
 <div class="col-sm-12">
-<div id="working-with-data" class="section level1">
+<div id="working-with-data" class="section level1" number="5">
 <h1><span class="header-section-number">5</span> Working with Data</h1>
-<div id="objects-in-r" class="section level2">
+<div id="objects-in-r" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Objects in R</h2>
 <p>The first thing to keep in mind when working in R is that, by default, all objects are stored in the global environment when you assign them. An object stored to the global environment will be accessible from anywhere in a project once assigned.</p>
 <p>These objects can be any of the data types or structures we saw a couple of sections ago.</p>
 <p><span class="marginnote">Note that we can also assign objects as so: <code>y = 10</code>. However, using the equal sign is generally not preferred because it is used to assign values to function arguments, too.</span></p>
 <p>To begin, though, we’ll assign single values to several variables using <code>&lt;-</code>, known as the assignment operator. One important thing to keep in mind when working in R is that all names are <strong>case-sensitive</strong>, meaning that R considers <code>myvariable</code> and <code>myVariable</code> to be two different objects.</p>
 <p><span class="marginnote">Can you name the data types for each object we just assigned? Write 3 more lines and wrap each object name in a <code>class()</code> function.</span></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">x1 &lt;-<span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2">x2 &lt;-<span class="st"> &quot;Welcome to Brown!&quot;</span></a>
-<a class="sourceLine" id="cb16-3" data-line-number="3">x3 &lt;-<span class="st"> </span><span class="ot">TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="working-with-data.html#cb16-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb16-2"><a href="working-with-data.html#cb16-2" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="st">&quot;Welcome to Brown!&quot;</span></span>
+<span id="cb16-3"><a href="working-with-data.html#cb16-3" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span></code></pre></div>
 <p>To view what’s stored in those variables, we print them to the console.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># note that in some cases, you may want use the print() function</span></a>
-<a class="sourceLine" id="cb17-2" data-line-number="2">x1</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="working-with-data.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># note that in some cases, you may want use the print() function</span></span>
+<span id="cb17-2"><a href="working-with-data.html#cb17-2" aria-hidden="true" tabindex="-1"></a>x1</span></code></pre></div>
 <pre><code>[1] 10</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">x2</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="working-with-data.html#cb19-1" aria-hidden="true" tabindex="-1"></a>x2</span></code></pre></div>
 <pre><code>[1] &quot;Welcome to Brown!&quot;</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">x3</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="working-with-data.html#cb21-1" aria-hidden="true" tabindex="-1"></a>x3</span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
 <p>We can also perform manipulations with them:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">x1 <span class="op">*</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="working-with-data.html#cb23-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="sc">*</span> <span class="dv">10</span></span></code></pre></div>
 <pre><code>[1] 100</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">paste</span>(x2, <span class="st">&quot;We can do many things with the paste() function!&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="working-with-data.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(x2, <span class="st">&quot;We can do many things with the paste() function!&quot;</span>)</span></code></pre></div>
 <pre><code>[1] &quot;Welcome to Brown! We can do many things with the paste() function!&quot;</code></pre>
 <p>With <code>x3</code>, we can do a couple of things because Booleans are also be treated as numerics, in a sense, where <code>TRUE</code> equals 1 and <code>FALSE</code> equals 0.</p>
 <p><span class="marginnote">Recall the prior <a href="data-structures.html#major-differences-between-r-and-sas">discussion</a> of R as a functional language. Here, we pass the object <code>x3</code> to the function <code>isTRUE</code>.</span></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># test whether x3 is TRUE</span></a>
-<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">isTRUE</span>(x3)</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="working-with-data.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># test whether x3 is TRUE</span></span>
+<span id="cb27-2"><a href="working-with-data.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">isTRUE</span>(x3)</span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="co"># test whether x3 is FALSE</span></a>
-<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw">isFALSE</span>(x3)</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="working-with-data.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># test whether x3 is FALSE</span></span>
+<span id="cb29-2"><a href="working-with-data.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">isFALSE</span>(x3)</span></code></pre></div>
 <pre><code>[1] FALSE</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># multiply TRUE (1) times 5</span></a>
-<a class="sourceLine" id="cb31-2" data-line-number="2">x3 <span class="op">*</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="working-with-data.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># multiply TRUE (1) times 5</span></span>
+<span id="cb31-2"><a href="working-with-data.html#cb31-2" aria-hidden="true" tabindex="-1"></a>x3 <span class="sc">*</span> <span class="dv">5</span></span></code></pre></div>
 <pre><code>[1] 5</code></pre>
 <p>These are very simple examples, of course, but hopefully they provide some inkling as to how the different data types can be combined and manipulated to achieve various ends. Checking variable values and classes will be a regular task when manipulating data and debugging code.</p>
 <p>For instance, if we needed to confirm that <code>x1</code> was a numeric variable, we could check it:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">is.numeric</span>(x1)</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="working-with-data.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(x1)</span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
 <p>Or we could make sure it took the value we expected:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">x1 <span class="op">==</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="working-with-data.html#cb35-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="sc">==</span> <span class="dv">10</span></span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
 <p>Note, that to avoid reassigning <code>x1</code>, we used <code>==</code>, which is a logical, or comparison, operator.</p>
 <p>We’ll revisit logical operations in a bit after we review how to manipulate and work with some different types of objects.</p>
 </div>
-<div id="more-complex-objects" class="section level2">
+<div id="more-complex-objects" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> More Complex Objects</h2>
 <p>When we reviewed data types previously, we saw that R is capable of handling objects such as vectors, matrices, lists, and data frames. Let’s have a look at each of these objects in turn, and get a feel for how we can work with them.</p>
-<div id="vectors" class="section level3">
+<div id="vectors" class="section level3" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> Vectors</h3>
 <p>You can think of a vector as a sequence of values. In fact, the objects we assigned in the prior section were simply vectors with a length of one.</p>
 <p>Creating longer vectors is straightforward but requires a <strong>concatenation</strong> function called <code>c()</code>. As we did last time, let’s create a few vectors.</p>
 <p><span class="marginnote definition"><strong>Concatenation</strong> Merging or joining multiple objects into one.</span></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">x1_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">21</span>, <span class="dv">455</span>, <span class="dv">89</span>, <span class="dv">09</span>)</a>
-<a class="sourceLine" id="cb37-2" data-line-number="2">x2_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Hi!&quot;</span>, <span class="st">&quot;Welcome&quot;</span>, <span class="st">&quot;to&quot;</span>, <span class="st">&quot;Brown&quot;</span>, <span class="st">&quot;SPH&quot;</span>)</a>
-<a class="sourceLine" id="cb37-3" data-line-number="3">x3_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb37-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb37-5" data-line-number="5">x1_vec</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="working-with-data.html#cb37-1" aria-hidden="true" tabindex="-1"></a>x1_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">21</span>, <span class="dv">455</span>, <span class="dv">89</span>, <span class="dv">09</span>)</span>
+<span id="cb37-2"><a href="working-with-data.html#cb37-2" aria-hidden="true" tabindex="-1"></a>x2_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Hi!&quot;</span>, <span class="st">&quot;Welcome&quot;</span>, <span class="st">&quot;to&quot;</span>, <span class="st">&quot;Brown&quot;</span>, <span class="st">&quot;SPH&quot;</span>)</span>
+<span id="cb37-3"><a href="working-with-data.html#cb37-3" aria-hidden="true" tabindex="-1"></a>x3_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb37-4"><a href="working-with-data.html#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="working-with-data.html#cb37-5" aria-hidden="true" tabindex="-1"></a>x1_vec</span></code></pre></div>
 <pre><code>[1]  50  21 455  89   9</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">x2_vec</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="working-with-data.html#cb39-1" aria-hidden="true" tabindex="-1"></a>x2_vec</span></code></pre></div>
 <pre><code>[1] &quot;Hi!&quot;     &quot;Welcome&quot; &quot;to&quot;      &quot;Brown&quot;   &quot;SPH&quot;    </code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">x3_vec</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="working-with-data.html#cb41-1" aria-hidden="true" tabindex="-1"></a>x3_vec</span></code></pre></div>
 <pre><code>[1]  TRUE  TRUE FALSE FALSE FALSE</code></pre>
 <p>Now we have 3 more vectors for which we can retrieve some information. Let’s figure out the classes and lengths for each vector.</p>
 <p><span class="marginnote">Much of the code in these blocks is included to make the output display a little neater. Ignore most of it for now, and simply recognize that we’ve passed each of the objects above into the <code>class()</code> and <code>length()</code> functions.</span></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">cat</span>(<span class="st">&quot;x1_vec attributes&quot;</span>,</a>
-<a class="sourceLine" id="cb43-2" data-line-number="2">    <span class="kw">paste0</span>(<span class="kw">rep</span>(<span class="st">&quot;-&quot;</span>, <span class="dv">30</span>), <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>),</a>
-<a class="sourceLine" id="cb43-3" data-line-number="3">    <span class="kw">paste</span>(<span class="st">&quot;class:&quot;</span>, <span class="kw">class</span>(x1_vec)),</a>
-<a class="sourceLine" id="cb43-4" data-line-number="4">    <span class="kw">paste</span>(<span class="st">&quot;length:&quot;</span>, <span class="kw">length</span>(x1_vec)),</a>
-<a class="sourceLine" id="cb43-5" data-line-number="5">    <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span></a>
-<a class="sourceLine" id="cb43-6" data-line-number="6">  )</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="working-with-data.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;x1_vec attributes&quot;</span>,</span>
+<span id="cb43-2"><a href="working-with-data.html#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="fu">rep</span>(<span class="st">&quot;-&quot;</span>, <span class="dv">30</span>), <span class="at">collapse =</span> <span class="st">&quot;&quot;</span>),</span>
+<span id="cb43-3"><a href="working-with-data.html#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="st">&quot;class:&quot;</span>, <span class="fu">class</span>(x1_vec)),</span>
+<span id="cb43-4"><a href="working-with-data.html#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="st">&quot;length:&quot;</span>, <span class="fu">length</span>(x1_vec)),</span>
+<span id="cb43-5"><a href="working-with-data.html#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span></span>
+<span id="cb43-6"><a href="working-with-data.html#cb43-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>x1_vec attributes
 ------------------------------
 class: numeric
 length: 5</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">cat</span>(<span class="st">&quot;x2_vec attributes&quot;</span>,</a>
-<a class="sourceLine" id="cb45-2" data-line-number="2">    <span class="kw">paste0</span>(<span class="kw">rep</span>(<span class="st">&quot;-&quot;</span>, <span class="dv">30</span>), <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>),</a>
-<a class="sourceLine" id="cb45-3" data-line-number="3">    <span class="kw">paste</span>(<span class="st">&quot;class:&quot;</span>, <span class="kw">class</span>(x2_vec)),</a>
-<a class="sourceLine" id="cb45-4" data-line-number="4">    <span class="kw">paste</span>(<span class="st">&quot;length:&quot;</span>, <span class="kw">length</span>(x2_vec)),</a>
-<a class="sourceLine" id="cb45-5" data-line-number="5">    <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span></a>
-<a class="sourceLine" id="cb45-6" data-line-number="6">  )</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="working-with-data.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;x2_vec attributes&quot;</span>,</span>
+<span id="cb45-2"><a href="working-with-data.html#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="fu">rep</span>(<span class="st">&quot;-&quot;</span>, <span class="dv">30</span>), <span class="at">collapse =</span> <span class="st">&quot;&quot;</span>),</span>
+<span id="cb45-3"><a href="working-with-data.html#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="st">&quot;class:&quot;</span>, <span class="fu">class</span>(x2_vec)),</span>
+<span id="cb45-4"><a href="working-with-data.html#cb45-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="st">&quot;length:&quot;</span>, <span class="fu">length</span>(x2_vec)),</span>
+<span id="cb45-5"><a href="working-with-data.html#cb45-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span></span>
+<span id="cb45-6"><a href="working-with-data.html#cb45-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>x2_vec attributes
 ------------------------------
 class: character
 length: 5</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">cat</span>(<span class="st">&quot;x3_vec attributes&quot;</span>,</a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">    <span class="kw">paste0</span>(<span class="kw">rep</span>(<span class="st">&quot;-&quot;</span>, <span class="dv">30</span>), <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>),</a>
-<a class="sourceLine" id="cb47-3" data-line-number="3">    <span class="kw">paste</span>(<span class="st">&quot;class:&quot;</span>, <span class="kw">class</span>(x3_vec)),</a>
-<a class="sourceLine" id="cb47-4" data-line-number="4">    <span class="kw">paste</span>(<span class="st">&quot;length:&quot;</span>, <span class="kw">length</span>(x3_vec)),</a>
-<a class="sourceLine" id="cb47-5" data-line-number="5">    <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span></a>
-<a class="sourceLine" id="cb47-6" data-line-number="6">  )</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="working-with-data.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;x3_vec attributes&quot;</span>,</span>
+<span id="cb47-2"><a href="working-with-data.html#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="fu">rep</span>(<span class="st">&quot;-&quot;</span>, <span class="dv">30</span>), <span class="at">collapse =</span> <span class="st">&quot;&quot;</span>),</span>
+<span id="cb47-3"><a href="working-with-data.html#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="st">&quot;class:&quot;</span>, <span class="fu">class</span>(x3_vec)),</span>
+<span id="cb47-4"><a href="working-with-data.html#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="st">&quot;length:&quot;</span>, <span class="fu">length</span>(x3_vec)),</span>
+<span id="cb47-5"><a href="working-with-data.html#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span></span>
+<span id="cb47-6"><a href="working-with-data.html#cb47-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>x3_vec attributes
 ------------------------------
 class: logical
 length: 5</code></pre>
 <p>However, a single vector can contain values of only one class. In fact, if we try to mix classes, R will convert all elements of the vector into a single class. In the example below, R converts the numerical value 5 into a character because it doesn’t know how to convert the string we provided into a number.</p>
 <p>This process of changing value classes is known as <strong>coercion</strong>.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">x4_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="st">&quot;So-called &#39;Arthur King&#39;!&quot;</span>)</a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb49-3" data-line-number="3"><span class="co"># R coerces the numeric value into a character</span></a>
-<a class="sourceLine" id="cb49-4" data-line-number="4"><span class="kw">c</span>(<span class="st">&quot;class&quot;</span> =<span class="st"> </span><span class="kw">class</span>(x4_vec[<span class="dv">1</span>]),</a>
-<a class="sourceLine" id="cb49-5" data-line-number="5">  <span class="st">&quot;numeric?&quot;</span> =<span class="st"> </span><span class="kw">is.numeric</span>(x4_vec[<span class="dv">1</span>]))</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="working-with-data.html#cb49-1" aria-hidden="true" tabindex="-1"></a>x4_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="st">&quot;So-called &#39;Arthur King&#39;!&quot;</span>)</span>
+<span id="cb49-2"><a href="working-with-data.html#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="working-with-data.html#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># R coerces the numeric value into a character</span></span>
+<span id="cb49-4"><a href="working-with-data.html#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">&quot;class&quot;</span> <span class="ot">=</span> <span class="fu">class</span>(x4_vec[<span class="dv">1</span>]),</span>
+<span id="cb49-5"><a href="working-with-data.html#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;numeric?&quot;</span> <span class="ot">=</span> <span class="fu">is.numeric</span>(x4_vec[<span class="dv">1</span>]))</span></code></pre></div>
 <pre><code>      class    numeric? 
 &quot;character&quot;     &quot;FALSE&quot; </code></pre>
 <p><span class="marginnote">You can check specific class types with a large number of functions. A few examples to demonstrate their general form: <code>is.numeric()</code>, <code>is.character()</code>, <code>is.logical()</code>, <code>is.vector()</code>.</span></p>
 <p>We see the vector’s class is <code>character</code>. If we print the first element of the vector, we’ll see R has wrapped it in quotation marks, indicating that the number 5 has been saved as a string (a series of characters).</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">x4_vec[<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="working-with-data.html#cb51-1" aria-hidden="true" tabindex="-1"></a>x4_vec[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>[1] &quot;5&quot;</code></pre>
 <p>The implication here is important. Say you wanted to perform a logical or arithmetic operation on the first element. What would be the result?</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="co"># arithmetic operation</span></a>
-<a class="sourceLine" id="cb53-2" data-line-number="2">x4_vec[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="working-with-data.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arithmetic operation</span></span>
+<span id="cb53-2"><a href="working-with-data.html#cb53-2" aria-hidden="true" tabindex="-1"></a>x4_vec[<span class="dv">1</span>] <span class="sc">+</span> <span class="dv">5</span></span></code></pre></div>
 <pre><code>Error in x4_vec[1] + 5: non-numeric argument to binary operator</code></pre>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="co"># equivalence with another numeric</span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2">x4_vec[<span class="dv">1</span>] <span class="op">==</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="working-with-data.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalence with another numeric</span></span>
+<span id="cb55-2"><a href="working-with-data.html#cb55-2" aria-hidden="true" tabindex="-1"></a>x4_vec[<span class="dv">1</span>] <span class="sc">==</span> <span class="dv">5</span></span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="co"># equivalence with another string</span></a>
-<a class="sourceLine" id="cb57-2" data-line-number="2">x4_vec[<span class="dv">1</span>] <span class="op">==</span><span class="st"> &quot;5&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="working-with-data.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalence with another string</span></span>
+<span id="cb57-2"><a href="working-with-data.html#cb57-2" aria-hidden="true" tabindex="-1"></a>x4_vec[<span class="dv">1</span>] <span class="sc">==</span> <span class="st">&quot;5&quot;</span></span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
 <p>Something interesting happened… the arithmetic operation failed because the first element of <code>x4_vec</code> was a character string, but the other two operations succeeded!</p>
 <p>In the latter case, we might not be all that surprised: after all, we compared two strings we knew were identical. However, in the second example R implicitly coerced our character “5” into a numeric value and was able to compare it successfully to the numeric value we proposed.</p>
 <p>Familiarize yourself with how R (or any programming lanuage you happen to be using) handles different classes and objects. All languages have their quirks in this regard, and recognizing these special cases early on will save you a lot of grief in the future.</p>
 </div>
-<div id="matrices" class="section level3">
+<div id="matrices" class="section level3" number="5.2.2">
 <h3><span class="header-section-number">5.2.2</span> Matrices</h3>
 <p>In most epidemiologic data analysis, you might not end up dealing with matrices all that often. Because most of the data sets epidemiologists use contain mixtures of numeric, string, and other variable formats, we tend to use data frames.</p>
 <p>However, you should still be familiar with matrices as, depending on your line of work, they may come in handy.</p>
 <p><span class="marginnote">For instance, you might actually need to do linear algebra, in which case, you may need to use a matrix. In addition, for very computationally demanding tasks, R can operate on matrices much faster than on data frames. We’ll largely ignore these issues for now, but we’ll look at a couple of instances in which matrices can be used to generate nice figure layouts for <a href="/data-visualization.html">data visualization</a>.</span></p>
 <p>Matrices can be multidimensional, but for the sake of our emotional stability, we’ll consider matrices in up to three dimensions.</p>
 <p>A two-dimensional matrix is essentially a vector:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">mat1 &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>))</a>
-<a class="sourceLine" id="cb59-2" data-line-number="2">mat1</a></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="working-with-data.html#cb59-1" aria-hidden="true" tabindex="-1"></a>mat1 <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>))</span>
+<span id="cb59-2"><a href="working-with-data.html#cb59-2" aria-hidden="true" tabindex="-1"></a>mat1</span></code></pre></div>
 <pre><code>     [,1]
 [1,]    6
 [2,]    7
 [3,]    8</code></pre>
 <p>However, because the elements are now indexed by both row and colum, we need to refer to each element by its specific coordinates.</p>
 <p>For example, if we want to retrieve 7 from the matrix, we need to tell R that we want the element in row 2, column 1, which we can do as follows:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">mat1[<span class="dv">2</span>, <span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="working-with-data.html#cb61-1" aria-hidden="true" tabindex="-1"></a>mat1[<span class="dv">2</span>, <span class="dv">1</span>]</span></code></pre></div>
 <pre><code>[1] 7</code></pre>
 <p>If we wanted the third row:</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">mat1[<span class="dv">3</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="working-with-data.html#cb63-1" aria-hidden="true" tabindex="-1"></a>mat1[<span class="dv">3</span>, ]</span></code></pre></div>
 <pre><code>[1] 8</code></pre>
 <p>If we wanted the first colum:</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">mat1[, <span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="working-with-data.html#cb65-1" aria-hidden="true" tabindex="-1"></a>mat1[, <span class="dv">1</span>]</span></code></pre></div>
 <pre><code>[1] 6 7 8</code></pre>
 <p>With such a small matrix, these operations might seem a bit daft, so let’s consider a larger numerical matrix.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">n1 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></a>
-<a class="sourceLine" id="cb67-2" data-line-number="2">n2 &lt;-<span class="st"> </span><span class="dv">901</span><span class="op">:</span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb67-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb67-4" data-line-number="4">mat2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(n1, n2), <span class="dt">nrow =</span> <span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb67-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb67-6" data-line-number="6"><span class="co"># show the first 10 rows of the matrix</span></a>
-<a class="sourceLine" id="cb67-7" data-line-number="7">mat2[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="working-with-data.html#cb67-1" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span></span>
+<span id="cb67-2"><a href="working-with-data.html#cb67-2" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="dv">901</span><span class="sc">:</span><span class="dv">1000</span></span>
+<span id="cb67-3"><a href="working-with-data.html#cb67-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-4"><a href="working-with-data.html#cb67-4" aria-hidden="true" tabindex="-1"></a>mat2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(n1, n2), <span class="at">nrow =</span> <span class="dv">100</span>)</span>
+<span id="cb67-5"><a href="working-with-data.html#cb67-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-6"><a href="working-with-data.html#cb67-6" aria-hidden="true" tabindex="-1"></a><span class="co"># show the first 10 rows of the matrix</span></span>
+<span id="cb67-7"><a href="working-with-data.html#cb67-7" aria-hidden="true" tabindex="-1"></a>mat2[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span></code></pre></div>
 <pre><code>      [,1] [,2]
  [1,]    1  901
  [2,]    2  902
@@ -373,13 +395,13 @@ length: 5</code></pre>
  [8,]    8  908
  [9,]    9  909
 [10,]   10  910</code></pre>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="co"># print total number of rows and columns</span></a>
-<a class="sourceLine" id="cb69-2" data-line-number="2"><span class="kw">dim</span>(mat2)</a></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="working-with-data.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print total number of rows and columns</span></span>
+<span id="cb69-2"><a href="working-with-data.html#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(mat2)</span></code></pre></div>
 <pre><code>[1] 100   2</code></pre>
 <p>Be careful with matrices, though:</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">mat3 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(n1, n2), <span class="dt">nrow =</span> <span class="dv">50</span>)</a>
-<a class="sourceLine" id="cb71-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb71-3" data-line-number="3">mat3[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="working-with-data.html#cb71-1" aria-hidden="true" tabindex="-1"></a>mat3 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(n1, n2), <span class="at">nrow =</span> <span class="dv">50</span>)</span>
+<span id="cb71-2"><a href="working-with-data.html#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-3"><a href="working-with-data.html#cb71-3" aria-hidden="true" tabindex="-1"></a>mat3[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span></code></pre></div>
 <pre><code>      [,1] [,2] [,3] [,4]
  [1,]    1   51  901  951
  [2,]    2   52  902  952
@@ -391,12 +413,12 @@ length: 5</code></pre>
  [8,]    8   58  908  958
  [9,]    9   59  909  959
 [10,]   10   60  910  960</code></pre>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw">dim</span>(mat3)</a></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="working-with-data.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(mat3)</span></code></pre></div>
 <pre><code>[1] 50  4</code></pre>
 <p>Because we told R we wanted a matrix with 50 rows, the first vector we specified was distributed across the first two columns, while the second vector was distributed across the third and fourth columns.</p>
 <p>That’s fine if it’s what we wanted. Let’s say, though, that we wanted a matrix with 50 rows and 4 columns but wanted it filled out row-by-row:</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">mat4 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(n1, n2), <span class="dt">nrow =</span> <span class="dv">50</span>, <span class="dt">ncol =</span> <span class="dv">4</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb75-2" data-line-number="2">mat4[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="working-with-data.html#cb75-1" aria-hidden="true" tabindex="-1"></a>mat4 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(n1, n2), <span class="at">nrow =</span> <span class="dv">50</span>, <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb75-2"><a href="working-with-data.html#cb75-2" aria-hidden="true" tabindex="-1"></a>mat4[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span></code></pre></div>
 <pre><code>      [,1] [,2] [,3] [,4]
  [1,]    1    2    3    4
  [2,]    5    6    7    8
@@ -408,10 +430,10 @@ length: 5</code></pre>
  [8,]   29   30   31   32
  [9,]   33   34   35   36
 [10,]   37   38   39   40</code></pre>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1"><span class="co"># </span><span class="al">NOTE</span></a>
-<a class="sourceLine" id="cb77-2" data-line-number="2"><span class="co"># Here, we return rows 41-50 from mat4, but the output will label them 1-10.</span></a>
-<a class="sourceLine" id="cb77-3" data-line-number="3"><span class="co"># That&#39;s because R returns our request to us as its own matrix.</span></a>
-<a class="sourceLine" id="cb77-4" data-line-number="4">mat4[<span class="dv">41</span><span class="op">:</span><span class="dv">50</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="working-with-data.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span></span>
+<span id="cb77-2"><a href="working-with-data.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Here, we return rows 41-50 from mat4, but the output will label them 1-10.</span></span>
+<span id="cb77-3"><a href="working-with-data.html#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="co"># That&#39;s because R returns our request to us as its own matrix.</span></span>
+<span id="cb77-4"><a href="working-with-data.html#cb77-4" aria-hidden="true" tabindex="-1"></a>mat4[<span class="dv">41</span><span class="sc">:</span><span class="dv">50</span>, ]</span></code></pre></div>
 <pre><code>      [,1] [,2] [,3] [,4]
  [1,]  961  962  963  964
  [2,]  965  966  967  968
@@ -425,15 +447,15 @@ length: 5</code></pre>
 [10,]  997  998  999 1000</code></pre>
 <p>In general, specifying the features you want in as much detail as possible will be the safest route, and may save you a good deal of grief in the future.</p>
 <p>Say we wanted to get the column and row sums for this matrix. Easy!</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="kw">colSums</span>(mat4)</a></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="working-with-data.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(mat4)</span></code></pre></div>
 <pre><code>[1] 24950 25000 25050 25100</code></pre>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1"><span class="kw">rowSums</span>(mat4)</a></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="working-with-data.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rowSums</span>(mat4)</span></code></pre></div>
 <pre><code> [1]   10   26   42   58   74   90  106  122  138  154  170  186  202  218  234
 [16]  250  266  282  298  314  330  346  362  378  394 3610 3626 3642 3658 3674
 [31] 3690 3706 3722 3738 3754 3770 3786 3802 3818 3834 3850 3866 3882 3898 3914
 [46] 3930 3946 3962 3978 3994</code></pre>
 <p>Say we wanted to multiply every number in the matrix by 123456. Easy!</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1">mat4 <span class="op">*</span><span class="st"> </span><span class="dv">123456</span></a></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="working-with-data.html#cb83-1" aria-hidden="true" tabindex="-1"></a>mat4 <span class="sc">*</span> <span class="dv">123456</span></span></code></pre></div>
 <pre><code>           [,1]      [,2]      [,3]      [,4]
  [1,]    123456    246912    370368    493824
  [2,]    617280    740736    864192    987648
@@ -486,25 +508,25 @@ length: 5</code></pre>
 [49,] 122591808 122715264 122838720 122962176
 [50,] 123085632 123209088 123332544 123456000</code></pre>
 </div>
-<div id="lists" class="section level3">
+<div id="lists" class="section level3" number="5.2.3">
 <h3><span class="header-section-number">5.2.3</span> Lists</h3>
 <p>Lists are very flexible objects in R. Think of them like chest of drawers into which we can store basically any other type of object. This feature of lists makes them useful for storing all sorts of data. In fact, when we get to fitting regression models, we’ll see that the fitted model objects R returns to us are essentially stored as lists containing the estimated models, the data used to fit the model, regression diagnostics, and more.</p>
 <p>A quick demonstration of storing multiple objects in a list:</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="co"># Object 1: Vector</span></a>
-<a class="sourceLine" id="cb85-2" data-line-number="2">my_vector &lt;-<span class="st"> </span><span class="dv">4</span><span class="op">:</span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb85-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb85-4" data-line-number="4"><span class="co"># Object 2: Matrix</span></a>
-<a class="sourceLine" id="cb85-5" data-line-number="5">my_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">ncol =</span> <span class="dv">4</span>, <span class="dt">byrow =</span> T)</a>
-<a class="sourceLine" id="cb85-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb85-7" data-line-number="7"><span class="co"># Object 3: Dataframe (first 15 rows of iris)</span></a>
-<a class="sourceLine" id="cb85-8" data-line-number="8">my_df &lt;-<span class="st"> </span>datasets<span class="op">::</span>iris[<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>, ]</a>
-<a class="sourceLine" id="cb85-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb85-10" data-line-number="10"><span class="co"># Object 4: List</span></a>
-<a class="sourceLine" id="cb85-11" data-line-number="11">my_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">vector =</span> my_vector,</a>
-<a class="sourceLine" id="cb85-12" data-line-number="12">                <span class="dt">matrix =</span> my_matrix,</a>
-<a class="sourceLine" id="cb85-13" data-line-number="13">                <span class="dt">dataframe =</span> my_df)</a>
-<a class="sourceLine" id="cb85-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb85-15" data-line-number="15">my_list</a></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="working-with-data.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Object 1: Vector</span></span>
+<span id="cb85-2"><a href="working-with-data.html#cb85-2" aria-hidden="true" tabindex="-1"></a>my_vector <span class="ot">&lt;-</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb85-3"><a href="working-with-data.html#cb85-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-4"><a href="working-with-data.html#cb85-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Object 2: Matrix</span></span>
+<span id="cb85-5"><a href="working-with-data.html#cb85-5" aria-hidden="true" tabindex="-1"></a>my_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">byrow =</span> T)</span>
+<span id="cb85-6"><a href="working-with-data.html#cb85-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-7"><a href="working-with-data.html#cb85-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Object 3: Dataframe (first 15 rows of iris)</span></span>
+<span id="cb85-8"><a href="working-with-data.html#cb85-8" aria-hidden="true" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> datasets<span class="sc">::</span>iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, ]</span>
+<span id="cb85-9"><a href="working-with-data.html#cb85-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-10"><a href="working-with-data.html#cb85-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Object 4: List</span></span>
+<span id="cb85-11"><a href="working-with-data.html#cb85-11" aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">vector =</span> my_vector,</span>
+<span id="cb85-12"><a href="working-with-data.html#cb85-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">matrix =</span> my_matrix,</span>
+<span id="cb85-13"><a href="working-with-data.html#cb85-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">dataframe =</span> my_df)</span>
+<span id="cb85-14"><a href="working-with-data.html#cb85-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-15"><a href="working-with-data.html#cb85-15" aria-hidden="true" tabindex="-1"></a>my_list</span></code></pre></div>
 <pre><code>$vector
 [1]  4  5  6  7  8  9 10
 
@@ -535,19 +557,19 @@ $dataframe
 15          5.8         4.0          1.2         0.2  setosa</code></pre>
 <p>Now, let’s interrogate the list so we can get familiar with its features.</p>
 <p>First, we saved each of the three objects into their own space within the list. <em>The objects are still separate from one other. In other words, we have not merged them.</em> Each of these spaces possesses a name, which we assigned in the code above.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="kw">names</span>(my_list)</a></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="working-with-data.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(my_list)</span></code></pre></div>
 <pre><code>[1] &quot;vector&quot;    &quot;matrix&quot;    &quot;dataframe&quot;</code></pre>
 <p>We can query each of the objects individually:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">my_list<span class="op">$</span>vector</a></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="working-with-data.html#cb89-1" aria-hidden="true" tabindex="-1"></a>my_list<span class="sc">$</span>vector</span></code></pre></div>
 <pre><code>[1]  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1">my_list<span class="op">$</span>matrix</a></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="working-with-data.html#cb91-1" aria-hidden="true" tabindex="-1"></a>my_list<span class="sc">$</span>matrix</span></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,]    1    2    3    4
 [2,]    5    6    7    8
 [3,]    9   10   11   12
 [4,]   13   14   15   16
 [5,]   17   18   19   20</code></pre>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="kw">head</span>(my_list<span class="op">$</span>dataframe)</a></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="working-with-data.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(my_list<span class="sc">$</span>dataframe)</span></code></pre></div>
 <pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1          5.1         3.5          1.4         0.2  setosa
 2          4.9         3.0          1.4         0.2  setosa
@@ -557,7 +579,7 @@ $dataframe
 6          5.4         3.9          1.7         0.4  setosa</code></pre>
 <p>Alternatively, we could have accessed each object using a few different methods, each with slightly different effects. Let’s focus on the dataframe to demonstrate.</p>
 <p>Access using single brackets and name of the list element:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1">my_list[<span class="st">&quot;dataframe&quot;</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="working-with-data.html#cb95-1" aria-hidden="true" tabindex="-1"></a>my_list[<span class="st">&quot;dataframe&quot;</span>]</span></code></pre></div>
 <pre><code>$dataframe
    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1           5.1         3.5          1.4         0.2  setosa
@@ -576,7 +598,7 @@ $dataframe
 14          4.3         3.0          1.1         0.1  setosa
 15          5.8         4.0          1.2         0.2  setosa</code></pre>
 <p>Access using double brackets and name of the list element:</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1">my_list[[<span class="st">&quot;dataframe&quot;</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="working-with-data.html#cb97-1" aria-hidden="true" tabindex="-1"></a>my_list[[<span class="st">&quot;dataframe&quot;</span>]]</span></code></pre></div>
 <pre><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1           5.1         3.5          1.4         0.2  setosa
 2           4.9         3.0          1.4         0.2  setosa
@@ -600,8 +622,8 @@ $dataframe
 <li><p>When we use double brackets, we pull the contents out of the drawer, which means we can access them directly and act upon them as if they were not in the list at all.</p></li>
 </ol>
 <p>To see the implications of how we query the list, we can try to perform some operations on the dataframe using each method of accessing it.</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1"><span class="co"># access the list element (pull out the drawer)</span></a>
-<a class="sourceLine" id="cb99-2" data-line-number="2"><span class="kw">head</span>(my_list[<span class="st">&quot;dataframe&quot;</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="working-with-data.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># access the list element (pull out the drawer)</span></span>
+<span id="cb99-2"><a href="working-with-data.html#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(my_list[<span class="st">&quot;dataframe&quot;</span>])</span></code></pre></div>
 <pre><code>$dataframe
    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1           5.1         3.5          1.4         0.2  setosa
@@ -619,8 +641,8 @@ $dataframe
 13          4.8         3.0          1.4         0.1  setosa
 14          4.3         3.0          1.1         0.1  setosa
 15          5.8         4.0          1.2         0.2  setosa</code></pre>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1"><span class="co"># access the dataframe itself (pull out the contents of the drawer)</span></a>
-<a class="sourceLine" id="cb101-2" data-line-number="2"><span class="kw">head</span>(my_list[[<span class="st">&quot;dataframe&quot;</span>]])</a></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="working-with-data.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># access the dataframe itself (pull out the contents of the drawer)</span></span>
+<span id="cb101-2"><a href="working-with-data.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(my_list[[<span class="st">&quot;dataframe&quot;</span>]])</span></code></pre></div>
 <pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1          5.1         3.5          1.4         0.2  setosa
 2          4.9         3.0          1.4         0.2  setosa
@@ -630,7 +652,7 @@ $dataframe
 6          5.4         3.9          1.7         0.4  setosa</code></pre>
 <p>In the first case, R did not apply the <code>head()</code></p>
 <p>The same bracket principle applies if we access elements and their contents using the numerical index of the list.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1"><span class="kw">head</span>(my_list[<span class="dv">3</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="working-with-data.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(my_list[<span class="dv">3</span>])</span></code></pre></div>
 <pre><code>$dataframe
    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1           5.1         3.5          1.4         0.2  setosa
@@ -648,7 +670,7 @@ $dataframe
 13          4.8         3.0          1.4         0.1  setosa
 14          4.3         3.0          1.1         0.1  setosa
 15          5.8         4.0          1.2         0.2  setosa</code></pre>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="kw">head</span>(my_list[[<span class="dv">3</span>]])</a></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="working-with-data.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(my_list[[<span class="dv">3</span>]])</span></code></pre></div>
 <pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1          5.1         3.5          1.4         0.2  setosa
 2          4.9         3.0          1.4         0.2  setosa
@@ -688,9 +710,9 @@ $dataframe
 <td align="left">Element contents</td>
 </tr>
 <tr class="odd">
-<td align="left">list$elementName</td>
-<td align="left">my_list$dataframe</td>
+<td align="left">list<span class="math inline">\(elementName |my_list\)</span>dataframe</td>
 <td align="left">Element contents</td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>
@@ -700,48 +722,48 @@ $dataframe
 <p>
 <span class="marginnote shownote">
 <!--
-<div class="figure">--><span id="fig:matryoshka-doll"></span>
-<img src="images/matryoshka-doll_BrokenSphere_Wikimedia-Cropped.jpg" alt="Think of [Matryoshka (Russian nesting) dolls](https://en.wikipedia.org/wiki/Matryoshka_doll). &amp;copy; BrokenSphere / [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Floral_matryoshka_set_2_smallest_doll_nested.JPG) (cropped)" width="674"  />
+<div class="figure">--><span style="display:block;" id="fig:matryoshka-doll"></span>
+<img src="images/matryoshka-doll_BrokenSphere_Wikimedia-Cropped.jpg" alt="Think of [Matryoshka (Russian nesting) dolls](https://en.wikipedia.org/wiki/Matryoshka_doll). &amp;copy; BrokenSphere / [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Floral_matryoshka_set_2_smallest_doll_nested.JPG) (cropped)"  />
 <!--
 <p class="caption marginnote">-->Figure 5.1: Think of <a href="https://en.wikipedia.org/wiki/Matryoshka_doll">Matryoshka (Russian nesting) dolls</a>. © BrokenSphere / <a href="https://commons.wikimedia.org/wiki/File:Floral_matryoshka_set_2_smallest_doll_nested.JPG">Wikimedia Commons</a> (cropped)<!--</p>-->
 <!--</div>--></span>
 </p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1"><span class="co"># select first n rows from each example dataset</span></a>
-<a class="sourceLine" id="cb107-2" data-line-number="2">n1 &lt;-<span class="st"> </span><span class="dv">15</span></a>
-<a class="sourceLine" id="cb107-3" data-line-number="3">n2 &lt;-<span class="st"> </span><span class="dv">30</span></a>
-<a class="sourceLine" id="cb107-4" data-line-number="4">n3 &lt;-<span class="st"> </span><span class="dv">50</span></a>
-<a class="sourceLine" id="cb107-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb107-6" data-line-number="6"><span class="co"># create a subset of each dataset</span></a>
-<a class="sourceLine" id="cb107-7" data-line-number="7">iris_sub  &lt;-<span class="st"> </span>datasets<span class="op">::</span>iris[<span class="dv">1</span><span class="op">:</span>n1, ]</a>
-<a class="sourceLine" id="cb107-8" data-line-number="8">airq_sub  &lt;-<span class="st"> </span>datasets<span class="op">::</span>airquality[<span class="dv">1</span><span class="op">:</span>n2, ]</a>
-<a class="sourceLine" id="cb107-9" data-line-number="9">quake_sub &lt;-<span class="st"> </span>datasets<span class="op">::</span>quakes[<span class="dv">1</span><span class="op">:</span>n3, ]</a>
-<a class="sourceLine" id="cb107-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb107-11" data-line-number="11"><span class="co"># store some info about the iris dataset</span></a>
-<a class="sourceLine" id="cb107-12" data-line-number="12"><span class="co"># info: ?datasets::iris</span></a>
-<a class="sourceLine" id="cb107-13" data-line-number="13">nl1 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">data =</span> iris_sub,</a>
-<a class="sourceLine" id="cb107-14" data-line-number="14">            <span class="dt">nrows =</span> <span class="kw">nrow</span>(iris_sub),</a>
-<a class="sourceLine" id="cb107-15" data-line-number="15">            <span class="dt">ncols =</span> <span class="kw">length</span>(iris_sub))</a>
-<a class="sourceLine" id="cb107-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb107-17" data-line-number="17"><span class="co"># store some info about the airquality dataset</span></a>
-<a class="sourceLine" id="cb107-18" data-line-number="18"><span class="co"># info: ?datasets::airquality</span></a>
-<a class="sourceLine" id="cb107-19" data-line-number="19">nl2 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">data =</span> airq_sub,</a>
-<a class="sourceLine" id="cb107-20" data-line-number="20">            <span class="dt">nrows =</span> <span class="kw">nrow</span>(airq_sub),</a>
-<a class="sourceLine" id="cb107-21" data-line-number="21">            <span class="dt">ncols =</span> <span class="kw">length</span>(airq_sub))</a>
-<a class="sourceLine" id="cb107-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb107-23" data-line-number="23"><span class="co"># store some info about the precip dataset</span></a>
-<a class="sourceLine" id="cb107-24" data-line-number="24"><span class="co"># info: ?datasets::quakes</span></a>
-<a class="sourceLine" id="cb107-25" data-line-number="25">nl3 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">data =</span> quake_sub,</a>
-<a class="sourceLine" id="cb107-26" data-line-number="26">            <span class="dt">nrows =</span> <span class="kw">nrow</span>(quake_sub),</a>
-<a class="sourceLine" id="cb107-27" data-line-number="27">            <span class="dt">ncols =</span> <span class="kw">length</span>(quake_sub))</a>
-<a class="sourceLine" id="cb107-28" data-line-number="28"></a>
-<a class="sourceLine" id="cb107-29" data-line-number="29"><span class="co"># store dataset summaries to list</span></a>
-<a class="sourceLine" id="cb107-30" data-line-number="30">datasummary_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">irisdata =</span> nl1,</a>
-<a class="sourceLine" id="cb107-31" data-line-number="31">                         <span class="dt">airquality_data =</span> nl2,</a>
-<a class="sourceLine" id="cb107-32" data-line-number="32">                         <span class="dt">quake_data =</span> nl3)</a></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="working-with-data.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select first n rows from each example dataset</span></span>
+<span id="cb107-2"><a href="working-with-data.html#cb107-2" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb107-3"><a href="working-with-data.html#cb107-3" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb107-4"><a href="working-with-data.html#cb107-4" aria-hidden="true" tabindex="-1"></a>n3 <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb107-5"><a href="working-with-data.html#cb107-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-6"><a href="working-with-data.html#cb107-6" aria-hidden="true" tabindex="-1"></a><span class="co"># create a subset of each dataset</span></span>
+<span id="cb107-7"><a href="working-with-data.html#cb107-7" aria-hidden="true" tabindex="-1"></a>iris_sub  <span class="ot">&lt;-</span> datasets<span class="sc">::</span>iris[<span class="dv">1</span><span class="sc">:</span>n1, ]</span>
+<span id="cb107-8"><a href="working-with-data.html#cb107-8" aria-hidden="true" tabindex="-1"></a>airq_sub  <span class="ot">&lt;-</span> datasets<span class="sc">::</span>airquality[<span class="dv">1</span><span class="sc">:</span>n2, ]</span>
+<span id="cb107-9"><a href="working-with-data.html#cb107-9" aria-hidden="true" tabindex="-1"></a>quake_sub <span class="ot">&lt;-</span> datasets<span class="sc">::</span>quakes[<span class="dv">1</span><span class="sc">:</span>n3, ]</span>
+<span id="cb107-10"><a href="working-with-data.html#cb107-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-11"><a href="working-with-data.html#cb107-11" aria-hidden="true" tabindex="-1"></a><span class="co"># store some info about the iris dataset</span></span>
+<span id="cb107-12"><a href="working-with-data.html#cb107-12" aria-hidden="true" tabindex="-1"></a><span class="co"># info: ?datasets::iris</span></span>
+<span id="cb107-13"><a href="working-with-data.html#cb107-13" aria-hidden="true" tabindex="-1"></a>nl1 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">data =</span> iris_sub,</span>
+<span id="cb107-14"><a href="working-with-data.html#cb107-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">nrows =</span> <span class="fu">nrow</span>(iris_sub),</span>
+<span id="cb107-15"><a href="working-with-data.html#cb107-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">ncols =</span> <span class="fu">length</span>(iris_sub))</span>
+<span id="cb107-16"><a href="working-with-data.html#cb107-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-17"><a href="working-with-data.html#cb107-17" aria-hidden="true" tabindex="-1"></a><span class="co"># store some info about the airquality dataset</span></span>
+<span id="cb107-18"><a href="working-with-data.html#cb107-18" aria-hidden="true" tabindex="-1"></a><span class="co"># info: ?datasets::airquality</span></span>
+<span id="cb107-19"><a href="working-with-data.html#cb107-19" aria-hidden="true" tabindex="-1"></a>nl2 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">data =</span> airq_sub,</span>
+<span id="cb107-20"><a href="working-with-data.html#cb107-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">nrows =</span> <span class="fu">nrow</span>(airq_sub),</span>
+<span id="cb107-21"><a href="working-with-data.html#cb107-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">ncols =</span> <span class="fu">length</span>(airq_sub))</span>
+<span id="cb107-22"><a href="working-with-data.html#cb107-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-23"><a href="working-with-data.html#cb107-23" aria-hidden="true" tabindex="-1"></a><span class="co"># store some info about the precip dataset</span></span>
+<span id="cb107-24"><a href="working-with-data.html#cb107-24" aria-hidden="true" tabindex="-1"></a><span class="co"># info: ?datasets::quakes</span></span>
+<span id="cb107-25"><a href="working-with-data.html#cb107-25" aria-hidden="true" tabindex="-1"></a>nl3 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">data =</span> quake_sub,</span>
+<span id="cb107-26"><a href="working-with-data.html#cb107-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">nrows =</span> <span class="fu">nrow</span>(quake_sub),</span>
+<span id="cb107-27"><a href="working-with-data.html#cb107-27" aria-hidden="true" tabindex="-1"></a>            <span class="at">ncols =</span> <span class="fu">length</span>(quake_sub))</span>
+<span id="cb107-28"><a href="working-with-data.html#cb107-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-29"><a href="working-with-data.html#cb107-29" aria-hidden="true" tabindex="-1"></a><span class="co"># store dataset summaries to list</span></span>
+<span id="cb107-30"><a href="working-with-data.html#cb107-30" aria-hidden="true" tabindex="-1"></a>datasummary_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">irisdata =</span> nl1,</span>
+<span id="cb107-31"><a href="working-with-data.html#cb107-31" aria-hidden="true" tabindex="-1"></a>                         <span class="at">airquality_data =</span> nl2,</span>
+<span id="cb107-32"><a href="working-with-data.html#cb107-32" aria-hidden="true" tabindex="-1"></a>                         <span class="at">quake_data =</span> nl3)</span></code></pre></div>
 <p>Before we look at <code>datasummary_list</code>, sit with the code above for a minute and think about what you expect <code>datasummary_list</code> to look like…</p>
 <p>We saved three lists, each containing a dataset along with some basic information about that dataset.</p>
 <p>Next, we took these three lists and put them all into another list.</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1">datasummary_list</a></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="working-with-data.html#cb108-1" aria-hidden="true" tabindex="-1"></a>datasummary_list</span></code></pre></div>
 <pre><code>$irisdata
 $irisdata$data
    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
@@ -870,14 +892,14 @@ $quake_data$ncols
 [1] 5</code></pre>
 <p>There’s the whole thing, but we’ll take a minute to pick apart the elements of <code>datasummary_list</code>.</p>
 <p>First, we named each of its elements:</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1"><span class="kw">names</span>(datasummary_list)</a></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="working-with-data.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(datasummary_list)</span></code></pre></div>
 <pre><code>[1] &quot;irisdata&quot;        &quot;airquality_data&quot; &quot;quake_data&quot;     </code></pre>
 <p>We can look at the first element, in which we stored a subset of the <code>iris</code> data:</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1"><span class="kw">names</span>(datasummary_list<span class="op">$</span>irisdata)</a></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="working-with-data.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(datasummary_list<span class="sc">$</span>irisdata)</span></code></pre></div>
 <pre><code>[1] &quot;data&quot;  &quot;nrows&quot; &quot;ncols&quot;</code></pre>
 <p><span class="marginnote">Did we have to access this list directly? Have a look back at the list access table above.<span></p>
 <p>If we wanted to see the <code>iris</code> data and the information we saved about it:</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" data-line-number="1">datasummary_list<span class="op">$</span>irisdata<span class="op">$</span>data</a></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="working-with-data.html#cb114-1" aria-hidden="true" tabindex="-1"></a>datasummary_list<span class="sc">$</span>irisdata<span class="sc">$</span>data</span></code></pre></div>
 <pre><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1           5.1         3.5          1.4         0.2  setosa
 2           4.9         3.0          1.4         0.2  setosa
@@ -894,13 +916,13 @@ $quake_data$ncols
 13          4.8         3.0          1.4         0.1  setosa
 14          4.3         3.0          1.1         0.1  setosa
 15          5.8         4.0          1.2         0.2  setosa</code></pre>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" data-line-number="1">datasummary_list<span class="op">$</span>irisdata<span class="op">$</span>nrows</a></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="working-with-data.html#cb116-1" aria-hidden="true" tabindex="-1"></a>datasummary_list<span class="sc">$</span>irisdata<span class="sc">$</span>nrows</span></code></pre></div>
 <pre><code>[1] 15</code></pre>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" data-line-number="1">datasummary_list<span class="op">$</span>irisdata<span class="op">$</span>ncols</a></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="working-with-data.html#cb118-1" aria-hidden="true" tabindex="-1"></a>datasummary_list<span class="sc">$</span>irisdata<span class="sc">$</span>ncols</span></code></pre></div>
 <pre><code>[1] 5</code></pre>
 <p>Note, too, that you can mix access methods, depending on your needs:</p>
 <p><span class="marginnote">Which dataset are we accessing?</span></p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" data-line-number="1"><span class="kw">head</span>(datasummary_list[[<span class="dv">3</span>]]<span class="op">$</span>data)</a></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="working-with-data.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datasummary_list[[<span class="dv">3</span>]]<span class="sc">$</span>data)</span></code></pre></div>
 <pre><code>     lat   long depth mag stations
 1 -20.42 181.62   562 4.8       41
 2 -20.62 181.03   650 4.2       15
@@ -909,26 +931,26 @@ $quake_data$ncols
 5 -20.42 181.96   649 4.0       11
 6 -19.68 184.31   195 4.0       12</code></pre>
 <p>We’ll see some lists later on in a few worked examples, as we’ve only scratched the surface. But even with what we’ve learned so far, hopefully your brain is starting to think about different ways me might use lists to store, manipulate, and analyze data. Data analysis and programming is in part an act of creativity!</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" data-line-number="1">s1 &lt;-<span class="st"> &quot;Okay&quot;</span></a>
-<a class="sourceLine" id="cb122-2" data-line-number="2">s2 &lt;-<span class="st"> &quot;that&#39;s all about lists&quot;</span></a>
-<a class="sourceLine" id="cb122-3" data-line-number="3">s3 &lt;-<span class="st"> &quot;for now!&quot;</span></a>
-<a class="sourceLine" id="cb122-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb122-5" data-line-number="5">totally_unnecessary_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">firstbit =</span> s1,</a>
-<a class="sourceLine" id="cb122-6" data-line-number="6">                                 <span class="dt">secondbit =</span> <span class="kw">list</span>(s2, s3))</a>
-<a class="sourceLine" id="cb122-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb122-8" data-line-number="8"><span class="kw">cat</span>(<span class="kw">paste0</span>(totally_unnecessary_list[[<span class="dv">1</span>]], <span class="st">&quot;,&quot;</span>),</a>
-<a class="sourceLine" id="cb122-9" data-line-number="9">           totally_unnecessary_list[[<span class="dv">2</span>]][[<span class="dv">1</span>]],</a>
-<a class="sourceLine" id="cb122-10" data-line-number="10">           totally_unnecessary_list[[<span class="dv">2</span>]][[<span class="dv">2</span>]], <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="working-with-data.html#cb122-1" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="st">&quot;Okay&quot;</span></span>
+<span id="cb122-2"><a href="working-with-data.html#cb122-2" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="st">&quot;that&#39;s all about lists&quot;</span></span>
+<span id="cb122-3"><a href="working-with-data.html#cb122-3" aria-hidden="true" tabindex="-1"></a>s3 <span class="ot">&lt;-</span> <span class="st">&quot;for now!&quot;</span></span>
+<span id="cb122-4"><a href="working-with-data.html#cb122-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-5"><a href="working-with-data.html#cb122-5" aria-hidden="true" tabindex="-1"></a>totally_unnecessary_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">firstbit =</span> s1,</span>
+<span id="cb122-6"><a href="working-with-data.html#cb122-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">secondbit =</span> <span class="fu">list</span>(s2, s3))</span>
+<span id="cb122-7"><a href="working-with-data.html#cb122-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-8"><a href="working-with-data.html#cb122-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">paste0</span>(totally_unnecessary_list[[<span class="dv">1</span>]], <span class="st">&quot;,&quot;</span>),</span>
+<span id="cb122-9"><a href="working-with-data.html#cb122-9" aria-hidden="true" tabindex="-1"></a>           totally_unnecessary_list[[<span class="dv">2</span>]][[<span class="dv">1</span>]],</span>
+<span id="cb122-10"><a href="working-with-data.html#cb122-10" aria-hidden="true" tabindex="-1"></a>           totally_unnecessary_list[[<span class="dv">2</span>]][[<span class="dv">2</span>]], <span class="at">sep =</span> <span class="st">&quot; &quot;</span>)</span></code></pre></div>
 <pre><code>Okay, that&#39;s all about lists for now!</code></pre>
 </div>
-<div id="data-frames" class="section level3">
+<div id="data-frames" class="section level3" number="5.2.4">
 <h3><span class="header-section-number">5.2.4</span> Data Frames</h3>
 <p>As public health researchers using R, you may be spending most of your time working with data frames.</p>
-<p>Data are a <a href="https://www.oreilly.com/library/view/practical-statistics-for/9781491952955/ch01.html">rectangular data format</a>, that is, a format which generally stores data with a series of labeled columns (variables) and observations (rows).</p>
+<p>Data frames are a <a href="https://www.oreilly.com/library/view/practical-statistics-for/9781491952955/ch01.html">rectangular data format</a>, that is, a format which generally stores data with a series of labeled columns (variables) and observations (rows).</p>
 <p>We’ve already seen a couple of data frames. Here are a few more that R contains by default.</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" data-line-number="1"><span class="kw">class</span>(chickwts)</a></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="working-with-data.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(chickwts)</span></code></pre></div>
 <pre><code>[1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" data-line-number="1"><span class="kw">head</span>(chickwts)</a></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="working-with-data.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(chickwts)</span></code></pre></div>
 <pre><code>  weight      feed
 1    179 horsebean
 2    160 horsebean
@@ -936,9 +958,9 @@ $quake_data$ncols
 4    227 horsebean
 5    217 horsebean
 6    168 horsebean</code></pre>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" data-line-number="1"><span class="kw">class</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="working-with-data.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mtcars)</span></code></pre></div>
 <pre><code>[1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" data-line-number="1"><span class="kw">head</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="working-with-data.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars)</span></code></pre></div>
 <pre><code>                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
 Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
 Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
@@ -949,7 +971,7 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre
 <p>Data frames lend themselves well to common epidemiologic analyses, but first, we should get a feel for how they behave.</p>
 <p>We’ve seen that <code>head(dataframe)</code> will return the first handful of rows in the data frame (as a data frame, it turns out).</p>
 <p>We might also want to inspect some other properties of a dataset.</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" data-line-number="1"><span class="kw">str</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="working-with-data.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mtcars)</span></code></pre></div>
 <pre><code>&#39;data.frame&#39;:   32 obs. of  11 variables:
  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
@@ -964,22 +986,22 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre
  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
 <p>The <code>str()</code> function gives us a nice, concise report on the number of rows and variables, in addition to the value class of each variable.</p>
 <p>Sometimes, we may want to query some of these attributes directly:</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" data-line-number="1"><span class="kw">nrow</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="working-with-data.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(mtcars)</span></code></pre></div>
 <pre><code>[1] 32</code></pre>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" data-line-number="1"><span class="kw">length</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="working-with-data.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(mtcars)</span></code></pre></div>
 <pre><code>[1] 11</code></pre>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1"><span class="kw">names</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="working-with-data.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mtcars)</span></code></pre></div>
 <pre><code> [1] &quot;mpg&quot;  &quot;cyl&quot;  &quot;disp&quot; &quot;hp&quot;   &quot;drat&quot; &quot;wt&quot;   &quot;qsec&quot; &quot;vs&quot;   &quot;am&quot;   &quot;gear&quot;
 [11] &quot;carb&quot;</code></pre>
 <p>The outputs from <code>nrow()</code> and <code>length()</code> returned to us the number of rows and columns, respectively, while <code>names()</code> returned the column names for us.</p>
 <p>We can extract columns from the dataset as vectors if we want to operate on them directly:</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" data-line-number="1"><span class="kw">class</span>(mtcars<span class="op">$</span>qsec)</a></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="working-with-data.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mtcars<span class="sc">$</span>qsec)</span></code></pre></div>
 <pre><code>[1] &quot;numeric&quot;</code></pre>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" data-line-number="1"><span class="kw">summary</span>(mtcars<span class="op">$</span>qsec)</a></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="working-with-data.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mtcars<span class="sc">$</span>qsec)</span></code></pre></div>
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   14.50   16.89   17.71   17.85   18.90   22.90 </code></pre>
 <p>We could also summarize all the variables at the same time, simply by passing the data frame to <code>summary()</code>.</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" data-line-number="1"><span class="kw">summary</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="working-with-data.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mtcars)</span></code></pre></div>
 <pre><code>      mpg             cyl             disp             hp       
  Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  
  1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  
@@ -1004,23 +1026,23 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre
 <p>Look carefully at the output from our summary. Does anything look off?</p>
 <p>I would say we should take a look at a few of the variables, which, despite having been stored as numeric, appear to be categorical variables.</p>
 <p>Let’s check the number of unique values stored in each variable:</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" data-line-number="1"><span class="kw">sapply</span>(mtcars, <span class="cf">function</span>(x) <span class="kw">length</span>(<span class="kw">unique</span>(x)))</a></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="working-with-data.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(mtcars, <span class="cf">function</span>(x) <span class="fu">length</span>(<span class="fu">unique</span>(x)))</span></code></pre></div>
 <pre><code> mpg  cyl disp   hp drat   wt qsec   vs   am gear carb 
   25    3   27   22   22   29   30    2    2    3    6 </code></pre>
 <p>It looks like we might want to treat <code>cyl</code>, <code>vs</code>, <code>am</code>, <code>gear</code>, and <code>carb</code> as categorical.</p>
 <p><span class="marginnote">To view more information about the <code>mtcars</code> dataset, type <code>?mtcars</code> into the console.</span></p>
 <p>Specifically, we’ll treat <code>cyl</code>, <code>gear</code>, and <code>carb</code> as ordinal, and we’ll treat <code>vs</code> and <code>am</code> as binary.</p>
 <p><span class="marginnote">Remember, categorical variables assign an observation to a particular group. For example, if we had a column for the car’s manufacturer, we might have categories such as Chevy, Honda, or Ford. Ordinal variables are special cases of categorical variables in which the levels have some sort of natural ordering. For example, finishing place in a race: 1, 2, 3.</span></p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" data-line-number="1"><span class="co"># create new variables in mtcars by converting the</span></a>
-<a class="sourceLine" id="cb148-2" data-line-number="2"><span class="co"># numeric ordinals into factors</span></a>
-<a class="sourceLine" id="cb148-3" data-line-number="3">mtcars<span class="op">$</span>cyl_fct &lt;-<span class="st"> </span><span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl)</a>
-<a class="sourceLine" id="cb148-4" data-line-number="4">mtcars<span class="op">$</span>gear_fct &lt;-<span class="st"> </span><span class="kw">as.factor</span>(mtcars<span class="op">$</span>gear)</a>
-<a class="sourceLine" id="cb148-5" data-line-number="5">mtcars<span class="op">$</span>carb_fct &lt;-<span class="st"> </span><span class="kw">as.factor</span>(mtcars<span class="op">$</span>carb)</a>
-<a class="sourceLine" id="cb148-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb148-7" data-line-number="7">mtcars<span class="op">$</span>vs_fct &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">ifelse</span>(mtcars<span class="op">$</span>vs <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;v-shaped&quot;</span>, <span class="st">&quot;straight&quot;</span>))</a>
-<a class="sourceLine" id="cb148-8" data-line-number="8">mtcars<span class="op">$</span>am_fct &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">ifelse</span>(mtcars<span class="op">$</span>am <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;automatic&quot;</span>, <span class="st">&quot;manual&quot;</span>))</a>
-<a class="sourceLine" id="cb148-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb148-10" data-line-number="10"><span class="kw">str</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="working-with-data.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create new variables in mtcars by converting the</span></span>
+<span id="cb148-2"><a href="working-with-data.html#cb148-2" aria-hidden="true" tabindex="-1"></a><span class="co"># numeric ordinals into factors</span></span>
+<span id="cb148-3"><a href="working-with-data.html#cb148-3" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>cyl_fct <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>cyl)</span>
+<span id="cb148-4"><a href="working-with-data.html#cb148-4" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>gear_fct <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>gear)</span>
+<span id="cb148-5"><a href="working-with-data.html#cb148-5" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>carb_fct <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>carb)</span>
+<span id="cb148-6"><a href="working-with-data.html#cb148-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-7"><a href="working-with-data.html#cb148-7" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>vs_fct <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">ifelse</span>(mtcars<span class="sc">$</span>vs <span class="sc">==</span> <span class="dv">0</span>, <span class="st">&quot;v-shaped&quot;</span>, <span class="st">&quot;straight&quot;</span>))</span>
+<span id="cb148-8"><a href="working-with-data.html#cb148-8" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>am_fct <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">ifelse</span>(mtcars<span class="sc">$</span>am <span class="sc">==</span> <span class="dv">0</span>, <span class="st">&quot;automatic&quot;</span>, <span class="st">&quot;manual&quot;</span>))</span>
+<span id="cb148-9"><a href="working-with-data.html#cb148-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-10"><a href="working-with-data.html#cb148-10" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mtcars)</span></code></pre></div>
 <pre><code>&#39;data.frame&#39;:   32 obs. of  16 variables:
  $ mpg     : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
  $ cyl     : num  6 6 4 6 8 6 8 4 4 6 ...
@@ -1040,8 +1062,8 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre
  $ am_fct  : Factor w/ 2 levels &quot;automatic&quot;,&quot;manual&quot;: 2 2 2 1 1 1 1 1 1 1 ...</code></pre>
 <p>Take a minute to look at the output of <code>str()</code>. We have 5 new factor variables.</p>
 <p>Technically, we could have analyzed the variables without converting them, but let’s summarize the new ones anyhow.</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" data-line-number="1"><span class="co"># we index mtcars so as to inspect only the variables we just created</span></a>
-<a class="sourceLine" id="cb150-2" data-line-number="2"><span class="kw">summary</span>(mtcars[, <span class="dv">12</span><span class="op">:</span><span class="dv">16</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="working-with-data.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we index mtcars so as to inspect only the variables we just created</span></span>
+<span id="cb150-2"><a href="working-with-data.html#cb150-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mtcars[, <span class="dv">12</span><span class="sc">:</span><span class="dv">16</span>])</span></code></pre></div>
 <pre><code> cyl_fct gear_fct carb_fct      vs_fct         am_fct  
  4:11    3:15     1: 7     straight:14   automatic:19  
  6: 7    4:12     2:10     v-shaped:18   manual   :13  
@@ -1051,28 +1073,28 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre
                   8: 1                                 </code></pre>
 <p>Not the prettiest summary, but note how R gives us the number of observations within each category for each factor. We’ll look at more readable ways to summarize factors in a future section.</p>
 </div>
-<div id="other-object-classes" class="section level3">
+<div id="other-object-classes" class="section level3" number="5.2.5">
 <h3><span class="header-section-number">5.2.5</span> Other Object Classes</h3>
 <p>Various subfields of epidemiology and statistics provide an array of object classes that are beyond the scope of this tutorial. For instance, an object with the class “graph” describes the components and structures of a <a href="http://mathworld.wolfram.com/Graph.html">graph</a>. The information stored in this object would typically allow one to manipulate, analyze, and visualize the graph.</p>
 </div>
 </div>
-<div id="conducting-operations-on-objects" class="section level2">
+<div id="conducting-operations-on-objects" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> Conducting Operations on Objects</h2>
-<div id="arithmetic-operations" class="section level3">
+<div id="arithmetic-operations" class="section level3" number="5.3.1">
 <h3><span class="header-section-number">5.3.1</span> Arithmetic Operations</h3>
 <p>It may come as no surprise that you’ll be doing a fair bit of arithmetic while coding, whether you’re doing quick calculations in the console or creating variables derived from some arithmetic combination of other variables.</p>
 <p>R respects grouping operations and handles mathematical operations as one might expect.</p>
 <p>For instance, we can do some quick scratch calculations and print them directly to the console.</p>
 <p><span class="marginnote">In fact, R can be a handy calculator if you run it from the command line!</span></p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" data-line-number="1"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="working-with-data.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">+</span> <span class="dv">10</span></span></code></pre></div>
 <pre><code>[1] 15</code></pre>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" data-line-number="1"><span class="fl">0.25</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.75</span> <span class="op">*</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="working-with-data.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.25</span> <span class="sc">*</span> <span class="dv">9</span> <span class="sc">+</span> <span class="fl">0.75</span> <span class="sc">*</span> <span class="dv">3</span></span></code></pre></div>
 <pre><code>[1] 4.5</code></pre>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1">(<span class="dv">5</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span> <span class="op">^</span><span class="st"> </span><span class="dv">3</span>) <span class="op">/</span><span class="st"> </span><span class="dv">50</span></a></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="working-with-data.html#cb156-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">5</span> <span class="sc">^</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">^</span> <span class="dv">3</span>) <span class="sc">/</span> <span class="dv">50</span></span></code></pre></div>
 <pre><code>[1] 20.5</code></pre>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" data-line-number="1"><span class="dv">8</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="working-with-data.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> <span class="sc">%%</span> <span class="dv">3</span></span></code></pre></div>
 <pre><code>[1] 2</code></pre>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1"><span class="dv">8</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="working-with-data.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> <span class="sc">%/%</span> <span class="dv">3</span></span></code></pre></div>
 <pre><code>[1] 2</code></pre>
 <p><!--
 <caption>--><span class="marginnote shownote">(#tab:arithmetic.operators)Arithmetic operators</span><!--</caption>--></p>
@@ -1120,7 +1142,7 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre
 </table>
 <p>For more information, refer to <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Arithmetic.html">R’s documentation on arithmetic operators</a>.</p>
 </div>
-<div id="logical-operations" class="section level3">
+<div id="logical-operations" class="section level3" number="5.3.2">
 <h3><span class="header-section-number">5.3.2</span> Logical Operations</h3>
 <p>We already saw one example of a logical operation, when we checked to see if <code>x1</code> was equal to 10. Statistical and epidemiologic analysis relies heavily on implementing logical operations and checks for truth, and so it is a good idea to master these operators early—and to use them often.</p>
 <p><!--
@@ -1165,23 +1187,23 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre
 </table>
 <p>When combining various operators, some will take <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Syntax.html">precedence</a> over others, and it’s important to get a feel for this hierarchy to avoid unexpected results while programming.</p>
 </div>
-<div id="recycling" class="section level3">
+<div id="recycling" class="section level3" number="5.3.3">
 <h3><span class="header-section-number">5.3.3</span> Recycling</h3>
 <p>In short, <strong>recycling</strong> refers to the reuse of an input object (or objects) to produce an output.</p>
 <p>Recycling is a <em>very</em> important concept in R. First, recycling can make your code more efficient. Second, if you forget that R recycles, you might unwittingly perform an operation that spits out a bunch of wrong answers.</p>
 <p>That’s a pretty abstract description, so let’s look at a few examples to develop our intuition a bit.</p>
 <p>First, recall the operators we covered in the the prior two sections, as well as vectors.</p>
 <p>Say we wanted to add 5 to each of 3 numbers. Rather than specifying the arithmetic operation separately for each number, we could store those numbers to a vector and tell R to add 5 to the vector:</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" data-line-number="1">numvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">40</span>, <span class="dv">50</span>)</a>
-<a class="sourceLine" id="cb162-2" data-line-number="2">numvec <span class="op">+</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="working-with-data.html#cb162-1" aria-hidden="true" tabindex="-1"></a>numvec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">40</span>, <span class="dv">50</span>)</span>
+<span id="cb162-2"><a href="working-with-data.html#cb162-2" aria-hidden="true" tabindex="-1"></a>numvec <span class="sc">+</span> <span class="dv">5</span></span></code></pre></div>
 <pre><code>[1] 15 45 55</code></pre>
 <p>See what happened? R added 5 to each vector element separately.</p>
 <p>If we wanted to perform separate additions on each number, we could do so easily, <a href="https://www.oreilly.com/library/view/the-art-of/9781593273842/ch02s03.html">as long as the longer vector’s length is a multiple of the shorter vector’s length</a>:</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" data-line-number="1">numvec <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">90</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="working-with-data.html#cb164-1" aria-hidden="true" tabindex="-1"></a>numvec <span class="sc">+</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">90</span>)</span></code></pre></div>
 <pre><code>[1]  15  50 140</code></pre>
 <p>Did you notice the difference, though? Because the vector lengths were equal, R <em>did not</em> recycle 5, 10, and 90 to add each to each item in <code>numvec</code>. Rather, it added 5 to <code>numvec[1]</code>, 10 to <code>numvec[2]</code>, and 90 to <code>numvec[3]</code></p>
 <p>However, attempting to execute the following operation results in a warning, because 3 cannot be divided evenly by 2:</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" data-line-number="1">numvec <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="working-with-data.html#cb166-1" aria-hidden="true" tabindex="-1"></a>numvec <span class="sc">+</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>Warning in numvec + c(5, 10): longer object length is not a multiple of shorter
 object length</code></pre>
 <pre><code>[1] 15 50 55</code></pre>

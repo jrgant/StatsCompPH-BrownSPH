@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta property="og:title" content="4 Importing and Exporting Data | Computing Concepts for Public Health Researchers" />
@@ -21,12 +20,13 @@ MathJax.Hub.Config({
   TeX: { equationNumbers: { autoNumber: "AMS" } }
 });
 </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <meta name="description" content="Resources and tutorials for R and SAS analysis geared toward public health students.">
 
 <title>4 Importing and Exporting Data | Computing Concepts for Public Health Researchers</title>
 
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-italics.css" rel="stylesheet" />
@@ -43,26 +43,28 @@ MathJax.Hub.Config({
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -71,9 +73,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -108,6 +110,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
+
 </head>
 
 <body>
@@ -118,44 +121,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="col-sm-12">
 <div id="TOC">
 <ul>
-<li class="has-sub"><a href="index.html#learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a><ul>
+<li><a href="index.html#learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a>
+<ul>
 <li><a href="index.html#main-objectives"><span class="toc-section-number">1.1</span> Main objectives</a></li>
 <li><a href="index.html#secondary-objectives"><span class="toc-section-number">1.2</span> Secondary objectives</a></li>
 <li><a href="index.html#acknowledgements"><span class="toc-section-number">1.3</span> Acknowledgements</a></li>
 </ul></li>
-<li class="has-sub"><a href="startup.html#startup"><span class="toc-section-number">2</span> Getting Started</a><ul>
+<li><a href="startup.html#startup"><span class="toc-section-number">2</span> Getting Started</a>
+<ul>
 <li><a href="startup.html#getting-started-with-r"><span class="toc-section-number">2.1</span> Getting Started with R</a></li>
 <li><a href="startup.html#getting-started-with-sas"><span class="toc-section-number">2.2</span> Getting Started with SAS</a></li>
 </ul></li>
-<li class="has-sub"><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a><ul>
+<li><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a>
+<ul>
 <li><a href="data-structures.html#major-differences-between-r-and-sas"><span class="toc-section-number">3.1</span> Major Differences Between R and SAS</a></li>
 <li><a href="data-structures.html#r-object-and-value-classes"><span class="toc-section-number">3.2</span> R: Object and Value Classes</a></li>
 <li><a href="data-structures.html#sas-value-formats"><span class="toc-section-number">3.3</span> SAS: Value Formats</a></li>
 </ul></li>
-<li class="has-sub"><a href="importing-and-exporting-data.html#importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a><ul>
-<li class="has-sub"><a href="importing-and-exporting-data.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a><ul>
+<li><a href="importing-and-exporting-data.html#importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a>
+<ul>
+<li><a href="importing-and-exporting-data.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a>
+<ul>
 <li><a href="importing-and-exporting-data.html#reading-data"><span class="toc-section-number">4.1.1</span> Reading Data</a></li>
 <li><a href="importing-and-exporting-data.html#writing-data"><span class="toc-section-number">4.1.2</span> Writing Data</a></li>
 </ul></li>
 <li><a href="importing-and-exporting-data.html#sas-reading-and-writing-data"><span class="toc-section-number">4.2</span> SAS: Reading and Writing Data</a></li>
 </ul></li>
-<li class="has-sub"><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a><ul>
+<li><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a>
+<ul>
 <li><a href="working-with-data.html#objects-in-r"><span class="toc-section-number">5.1</span> Objects in R</a></li>
-<li class="has-sub"><a href="working-with-data.html#more-complex-objects"><span class="toc-section-number">5.2</span> More Complex Objects</a><ul>
+<li><a href="working-with-data.html#more-complex-objects"><span class="toc-section-number">5.2</span> More Complex Objects</a>
+<ul>
 <li><a href="working-with-data.html#vectors"><span class="toc-section-number">5.2.1</span> Vectors</a></li>
 <li><a href="working-with-data.html#matrices"><span class="toc-section-number">5.2.2</span> Matrices</a></li>
 <li><a href="working-with-data.html#lists"><span class="toc-section-number">5.2.3</span> Lists</a></li>
 <li><a href="working-with-data.html#data-frames"><span class="toc-section-number">5.2.4</span> Data Frames</a></li>
 <li><a href="working-with-data.html#other-object-classes"><span class="toc-section-number">5.2.5</span> Other Object Classes</a></li>
 </ul></li>
-<li class="has-sub"><a href="working-with-data.html#conducting-operations-on-objects"><span class="toc-section-number">5.3</span> Conducting Operations on Objects</a><ul>
+<li><a href="working-with-data.html#conducting-operations-on-objects"><span class="toc-section-number">5.3</span> Conducting Operations on Objects</a>
+<ul>
 <li><a href="working-with-data.html#arithmetic-operations"><span class="toc-section-number">5.3.1</span> Arithmetic Operations</a></li>
 <li><a href="working-with-data.html#logical-operations"><span class="toc-section-number">5.3.2</span> Logical Operations</a></li>
 <li><a href="working-with-data.html#recycling"><span class="toc-section-number">5.3.3</span> Recycling</a></li>
 </ul></li>
 </ul></li>
-<li class="has-sub"><a href="statistical-analysis.html#statistical-analysis"><span class="toc-section-number">6</span> Statistical Analysis</a><ul>
-<li class="has-sub"><a href="statistical-analysis.html#setup"><span class="toc-section-number">6.1</span> Setup</a><ul>
+<li><a href="statistical-analysis.html#statistical-analysis"><span class="toc-section-number">6</span> Statistical Analysis</a>
+<ul>
+<li><a href="statistical-analysis.html#setup"><span class="toc-section-number">6.1</span> Setup</a>
+<ul>
 <li><a href="statistical-analysis.html#data"><span class="toc-section-number">6.1.1</span> Data</a></li>
 <li><a href="statistical-analysis.html#nhefs-codebook"><span class="toc-section-number">6.1.2</span> NHEFS Codebook</a></li>
 </ul></li>
@@ -163,41 +176,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="statistical-analysis.html#tabular-analysis"><span class="toc-section-number">6.3</span> Tabular Analysis</a></li>
 <li><a href="statistical-analysis.html#regression-models"><span class="toc-section-number">6.4</span> Regression Models</a></li>
 </ul></li>
-<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a><ul>
+<li><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a>
+<ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#whats-a-loop"><span class="toc-section-number">7.1</span> What’s a Loop?</a></li>
-<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#why-loop"><span class="toc-section-number">7.2</span> Why Loop?</a><ul>
+<li><a href="getting-comfortable-with-loops-and-logic.html#why-loop"><span class="toc-section-number">7.2</span> Why Loop?</a>
+<ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#curly-braces"><span class="toc-section-number">7.2.1</span> Curly Braces</a></li>
 </ul></li>
-<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">7.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a><ul>
+<li><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">7.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a>
+<ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#standard-loop"><span class="toc-section-number">7.3.1</span> Standard Loop</a></li>
 <li><a href="getting-comfortable-with-loops-and-logic.html#vectorized-loops"><span class="toc-section-number">7.3.2</span> Vectorized Loops</a></li>
 <li><a href="getting-comfortable-with-loops-and-logic.html#nested-loops"><span class="toc-section-number">7.3.3</span> Nested Loops</a></li>
 </ul></li>
 </ul></li>
-<li class="has-sub"><a href="functionalizing-code.html#functionalizing-code"><span class="toc-section-number">8</span> Functionalizing Code</a><ul>
+<li><a href="functionalizing-code.html#functionalizing-code"><span class="toc-section-number">8</span> Functionalizing Code</a>
+<ul>
 <li><a href="functionalizing-code.html#simulate-data"><span class="toc-section-number">8.1</span> Simulate Data</a></li>
 <li><a href="functionalizing-code.html#the-old-way"><span class="toc-section-number">8.2</span> The Old Way</a></li>
 <li><a href="functionalizing-code.html#a-new-way-part-1"><span class="toc-section-number">8.3</span> A New Way, Part 1</a></li>
-<li class="has-sub"><a href="functionalizing-code.html#a-new-way-part-2"><span class="toc-section-number">8.4</span> A New Way, Part 2</a><ul>
+<li><a href="functionalizing-code.html#a-new-way-part-2"><span class="toc-section-number">8.4</span> A New Way, Part 2</a>
+<ul>
 <li><a href="functionalizing-code.html#loop-method-1"><span class="toc-section-number">8.4.1</span> Loop Method 1</a></li>
 <li><a href="functionalizing-code.html#loop-method-2"><span class="toc-section-number">8.4.2</span> Loop Method 2</a></li>
 <li><a href="functionalizing-code.html#add-a-new-analysis"><span class="toc-section-number">8.4.3</span> Add a New Analysis</a></li>
 </ul></li>
 <li><a href="functionalizing-code.html#a-new-way-part-3"><span class="toc-section-number">8.5</span> A New Way, Part 3</a></li>
-<li class="has-sub"><a href="functionalizing-code.html#approximate-in-sas"><span class="toc-section-number">8.6</span> Approximate in SAS</a><ul>
+<li><a href="functionalizing-code.html#approximate-in-sas"><span class="toc-section-number">8.6</span> Approximate in SAS</a>
+<ul>
 <li><a href="functionalizing-code.html#simulate-data-1"><span class="toc-section-number">8.6.1</span> Simulate Data</a></li>
 </ul></li>
 </ul></li>
 <li><a href="data-visualization.html#data-visualization"><span class="toc-section-number">9</span> Data Visualization</a></li>
 <li><a href="programming-concepts.html#programming-concepts"><span class="toc-section-number">10</span> Programming Concepts</a></li>
-<li class="has-sub"><a href="resources.html#resources"><span class="toc-section-number">11</span> Resources</a><ul>
-<li class="has-sub"><a href="resources.html#r"><span class="toc-section-number">11.1</span> R</a><ul>
+<li><a href="resources.html#resources"><span class="toc-section-number">11</span> Resources</a>
+<ul>
+<li><a href="resources.html#r"><span class="toc-section-number">11.1</span> R</a>
+<ul>
 <li><a href="resources.html#core-documentation"><span class="toc-section-number">11.1.1</span> Core Documentation</a></li>
 <li><a href="resources.html#programming"><span class="toc-section-number">11.1.2</span> Programming</a></li>
 <li><a href="resources.html#data-visualization-1"><span class="toc-section-number">11.1.3</span> Data Visualization</a></li>
 <li><a href="resources.html#reproducible-research-and-version-control"><span class="toc-section-number">11.1.4</span> Reproducible Research and Version Control</a></li>
 </ul></li>
-<li class="has-sub"><a href="resources.html#sas"><span class="toc-section-number">11.2</span> SAS</a><ul>
+<li><a href="resources.html#sas"><span class="toc-section-number">11.2</span> SAS</a>
+<ul>
 <li><a href="resources.html#programming-and-core-documentation"><span class="toc-section-number">11.2.1</span> Programming and Core Documentation</a></li>
 <li><a href="resources.html#reproducible-research"><span class="toc-section-number">11.2.2</span> Reproducible Research</a></li>
 </ul></li>
@@ -208,7 +230,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="row">
 <div class="col-sm-12">
-<div id="importing-and-exporting-data" class="section level1">
+<div id="importing-and-exporting-data" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Importing and Exporting Data</h1>
 <p>Data come in many formats. Some formats are universal and easily imported into most statistical programs, while others are proprietary and tailored to a specific program.</p>
 <p>While incompatibility between datafile formats and various programs used to be a considerable annoyance, most programs have made it rather easy to import data formats regardless of the format’s origin. However, in some cases, features available in one language will be unavailable in another or might require additional formatting.</p>
@@ -216,6 +238,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><!--
 <caption>--><span class="marginnote shownote"><span id="tab:dataset-format-table">Table 4.1: </span>Common dataset formats</span><!--</caption>--></p>
 <table>
+<colgroup>
+<col width="2%" />
+<col width="18%" />
+<col width="79%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Format</th>
@@ -256,36 +283,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div id="r-reading-and-writing-data" class="section level2">
+<div id="r-reading-and-writing-data" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> R: Reading and Writing Data</h2>
 <p>Before we begin, you’ll want to install two R packages:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># if you&#39;ve already installed the tidyverse package, you should have readr</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">install.packages</span>(<span class="st">&quot;readr&quot;</span>)</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">install.packages</span>(<span class="st">&quot;haven&quot;</span>)</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co"># We could also do the following to avoid having to use install.packages()</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co"># multiple times:</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co"># pkgs &lt;- c(&quot;readr&quot;, &quot;haven&quot;)</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co"># install.packages(pkgs)</span></a></code></pre></div>
-<div id="reading-data" class="section level3">
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="importing-and-exporting-data.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if you&#39;ve already installed the tidyverse package, you should have readr</span></span>
+<span id="cb7-2"><a href="importing-and-exporting-data.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;readr&quot;</span>)</span>
+<span id="cb7-3"><a href="importing-and-exporting-data.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;haven&quot;</span>)</span>
+<span id="cb7-4"><a href="importing-and-exporting-data.html#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="importing-and-exporting-data.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># We could also do the following to avoid having to use install.packages()</span></span>
+<span id="cb7-6"><a href="importing-and-exporting-data.html#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># multiple times:</span></span>
+<span id="cb7-7"><a href="importing-and-exporting-data.html#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="importing-and-exporting-data.html#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># pkgs &lt;- c(&quot;readr&quot;, &quot;haven&quot;)</span></span>
+<span id="cb7-9"><a href="importing-and-exporting-data.html#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(pkgs)</span></span></code></pre></div>
+<div id="reading-data" class="section level3" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Reading Data</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># load packages</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">library</span>(readr)</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">library</span>(haven)</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co"># import a standard CSV file</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">iris_csv &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;data/iris.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co"># import a tab-delimited TXT file, we specify the tab delimiter as \t</span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9">iris_txt &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_delim</span>(<span class="st">&quot;data/iris.txt&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co"># import a sas7bdat file</span></a>
-<a class="sourceLine" id="cb8-12" data-line-number="12">iris_sas &lt;-<span class="st"> </span>haven<span class="op">::</span><span class="kw">read_sas</span>(<span class="st">&quot;data/iris.sas7bdat&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="importing-and-exporting-data.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
+<span id="cb8-2"><a href="importing-and-exporting-data.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb8-3"><a href="importing-and-exporting-data.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb8-4"><a href="importing-and-exporting-data.html#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="importing-and-exporting-data.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># import a standard CSV file</span></span>
+<span id="cb8-6"><a href="importing-and-exporting-data.html#cb8-6" aria-hidden="true" tabindex="-1"></a>iris_csv <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;data/iris.csv&quot;</span>)</span>
+<span id="cb8-7"><a href="importing-and-exporting-data.html#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="importing-and-exporting-data.html#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># import a tab-delimited TXT file, we specify the tab delimiter as \t</span></span>
+<span id="cb8-9"><a href="importing-and-exporting-data.html#cb8-9" aria-hidden="true" tabindex="-1"></a>iris_txt <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_delim</span>(<span class="st">&quot;data/iris.txt&quot;</span>, <span class="at">delim =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>)</span>
+<span id="cb8-10"><a href="importing-and-exporting-data.html#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="importing-and-exporting-data.html#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># import a sas7bdat file</span></span>
+<span id="cb8-12"><a href="importing-and-exporting-data.html#cb8-12" aria-hidden="true" tabindex="-1"></a>iris_sas <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sas</span>(<span class="st">&quot;data/iris.sas7bdat&quot;</span>)</span></code></pre></div>
 <p><span class="marginnote">Note that we’ve called our various read functions by telling R which package includes each one. Because we’ve already called <code>library()</code> to load the readr and haven packages, we don’t need to use <code>package::function()</code>. However, for clarity, we’ll use them from time to time to mark which package hosts a particular function. Furthermore, calling functions in this way can be done <em>without loading the package</em>, which can come in handy if you want to avoid loading a large package that takes up memory.</span></p>
 <p>Let’s check the results for each imported version of the <code>iris</code> dataset from R.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">head</span>(iris_csv)</a></code></pre></div>
-<pre><code># A tibble: 6 x 5
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="importing-and-exporting-data.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris_csv)</span></code></pre></div>
+<pre><code># A tibble: 6 × 5
   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
 1          5.1         3.5          1.4         0.2 setosa 
@@ -294,8 +321,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 4          4.6         3.1          1.5         0.2 setosa 
 5          5           3.6          1.4         0.2 setosa 
 6          5.4         3.9          1.7         0.4 setosa </code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">head</span>(iris_txt)</a></code></pre></div>
-<pre><code># A tibble: 6 x 5
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="importing-and-exporting-data.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris_txt)</span></code></pre></div>
+<pre><code># A tibble: 6 × 5
   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
 1          5.1         3.5          1.4         0.2 setosa 
@@ -304,8 +331,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 4          4.6         3.1          1.5         0.2 setosa 
 5          5           3.6          1.4         0.2 setosa 
 6          5.4         3.9          1.7         0.4 setosa </code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">head</span>(iris_sas)</a></code></pre></div>
-<pre><code># A tibble: 6 x 5
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="importing-and-exporting-data.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris_sas)</span></code></pre></div>
+<pre><code># A tibble: 6 × 5
   Sepal_Length Sepal_Width Petal_Length Petal_Width Species
          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
 1          5.1         3.5          1.4         0.2       1
@@ -316,17 +343,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 6          5.4         3.9          1.7         0.4       1</code></pre>
 <p>Looking good, but we should notice that the variable names from the SAS import are slightly different because periods are not permissible characters in SAS variable names.</p>
 </div>
-<div id="writing-data" class="section level3">
+<div id="writing-data" class="section level3" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> Writing Data</h3>
 <p>When writing data, we use the <code>write</code> function for the desired output format. Typically, you’ll tell the function which <code>data.frame</code> you want to save and give it the desired path and filename.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">readr<span class="op">::</span><span class="kw">write_csv</span>(iris_csv, <span class="st">&quot;data/iris2.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">readr<span class="op">::</span><span class="kw">write_delim</span>(iris_txt, <span class="st">&quot;data/iris2.txt&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb15-3" data-line-number="3">readr<span class="op">::</span><span class="kw">write_delim</span>(iris_txt, <span class="st">&quot;data/iris3.txt&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;,&quot;</span>)</a>
-<a class="sourceLine" id="cb15-4" data-line-number="4">haven<span class="op">::</span><span class="kw">write_sas</span>(iris_sas, <span class="st">&quot;data/iris2.sas&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="importing-and-exporting-data.html#cb15-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">write_csv</span>(iris_csv, <span class="st">&quot;data/iris2.csv&quot;</span>)</span>
+<span id="cb15-2"><a href="importing-and-exporting-data.html#cb15-2" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">write_delim</span>(iris_txt, <span class="st">&quot;data/iris2.txt&quot;</span>, <span class="at">delim =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>)</span>
+<span id="cb15-3"><a href="importing-and-exporting-data.html#cb15-3" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">write_delim</span>(iris_txt, <span class="st">&quot;data/iris3.txt&quot;</span>, <span class="at">delim =</span> <span class="st">&quot;,&quot;</span>)</span>
+<span id="cb15-4"><a href="importing-and-exporting-data.html#cb15-4" aria-hidden="true" tabindex="-1"></a>haven<span class="sc">::</span><span class="fu">write_sas</span>(iris_sas, <span class="st">&quot;data/iris2.sas&quot;</span>)</span></code></pre></div>
 <p>Note that we could have passed any of the data.frames we created into any of the functions. For instance, we could have passed <code>iris_csv</code> to <code>haven::write_sas()</code> in order to save it as sas7bdat.</p>
 </div>
 </div>
-<div id="sas-reading-and-writing-data" class="section level2">
+<div id="sas-reading-and-writing-data" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> SAS: Reading and Writing Data</h2>
 
 </div>

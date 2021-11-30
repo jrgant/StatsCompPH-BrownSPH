@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta property="og:title" content="7 Getting Comfortable with Loops and Logic | Computing Concepts for Public Health Researchers" />
@@ -21,12 +20,13 @@ MathJax.Hub.Config({
   TeX: { equationNumbers: { autoNumber: "AMS" } }
 });
 </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <meta name="description" content="Resources and tutorials for R and SAS analysis geared toward public health students.">
 
 <title>7 Getting Comfortable with Loops and Logic | Computing Concepts for Public Health Researchers</title>
 
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-italics.css" rel="stylesheet" />
@@ -43,26 +43,28 @@ MathJax.Hub.Config({
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -71,9 +73,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -108,6 +110,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
+
 </head>
 
 <body>
@@ -118,44 +121,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="col-sm-12">
 <div id="TOC">
 <ul>
-<li class="has-sub"><a href="index.html#learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a><ul>
+<li><a href="index.html#learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a>
+<ul>
 <li><a href="index.html#main-objectives"><span class="toc-section-number">1.1</span> Main objectives</a></li>
 <li><a href="index.html#secondary-objectives"><span class="toc-section-number">1.2</span> Secondary objectives</a></li>
 <li><a href="index.html#acknowledgements"><span class="toc-section-number">1.3</span> Acknowledgements</a></li>
 </ul></li>
-<li class="has-sub"><a href="startup.html#startup"><span class="toc-section-number">2</span> Getting Started</a><ul>
+<li><a href="startup.html#startup"><span class="toc-section-number">2</span> Getting Started</a>
+<ul>
 <li><a href="startup.html#getting-started-with-r"><span class="toc-section-number">2.1</span> Getting Started with R</a></li>
 <li><a href="startup.html#getting-started-with-sas"><span class="toc-section-number">2.2</span> Getting Started with SAS</a></li>
 </ul></li>
-<li class="has-sub"><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a><ul>
+<li><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a>
+<ul>
 <li><a href="data-structures.html#major-differences-between-r-and-sas"><span class="toc-section-number">3.1</span> Major Differences Between R and SAS</a></li>
 <li><a href="data-structures.html#r-object-and-value-classes"><span class="toc-section-number">3.2</span> R: Object and Value Classes</a></li>
 <li><a href="data-structures.html#sas-value-formats"><span class="toc-section-number">3.3</span> SAS: Value Formats</a></li>
 </ul></li>
-<li class="has-sub"><a href="importing-and-exporting-data.html#importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a><ul>
-<li class="has-sub"><a href="importing-and-exporting-data.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a><ul>
+<li><a href="importing-and-exporting-data.html#importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a>
+<ul>
+<li><a href="importing-and-exporting-data.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a>
+<ul>
 <li><a href="importing-and-exporting-data.html#reading-data"><span class="toc-section-number">4.1.1</span> Reading Data</a></li>
 <li><a href="importing-and-exporting-data.html#writing-data"><span class="toc-section-number">4.1.2</span> Writing Data</a></li>
 </ul></li>
 <li><a href="importing-and-exporting-data.html#sas-reading-and-writing-data"><span class="toc-section-number">4.2</span> SAS: Reading and Writing Data</a></li>
 </ul></li>
-<li class="has-sub"><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a><ul>
+<li><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a>
+<ul>
 <li><a href="working-with-data.html#objects-in-r"><span class="toc-section-number">5.1</span> Objects in R</a></li>
-<li class="has-sub"><a href="working-with-data.html#more-complex-objects"><span class="toc-section-number">5.2</span> More Complex Objects</a><ul>
+<li><a href="working-with-data.html#more-complex-objects"><span class="toc-section-number">5.2</span> More Complex Objects</a>
+<ul>
 <li><a href="working-with-data.html#vectors"><span class="toc-section-number">5.2.1</span> Vectors</a></li>
 <li><a href="working-with-data.html#matrices"><span class="toc-section-number">5.2.2</span> Matrices</a></li>
 <li><a href="working-with-data.html#lists"><span class="toc-section-number">5.2.3</span> Lists</a></li>
 <li><a href="working-with-data.html#data-frames"><span class="toc-section-number">5.2.4</span> Data Frames</a></li>
 <li><a href="working-with-data.html#other-object-classes"><span class="toc-section-number">5.2.5</span> Other Object Classes</a></li>
 </ul></li>
-<li class="has-sub"><a href="working-with-data.html#conducting-operations-on-objects"><span class="toc-section-number">5.3</span> Conducting Operations on Objects</a><ul>
+<li><a href="working-with-data.html#conducting-operations-on-objects"><span class="toc-section-number">5.3</span> Conducting Operations on Objects</a>
+<ul>
 <li><a href="working-with-data.html#arithmetic-operations"><span class="toc-section-number">5.3.1</span> Arithmetic Operations</a></li>
 <li><a href="working-with-data.html#logical-operations"><span class="toc-section-number">5.3.2</span> Logical Operations</a></li>
 <li><a href="working-with-data.html#recycling"><span class="toc-section-number">5.3.3</span> Recycling</a></li>
 </ul></li>
 </ul></li>
-<li class="has-sub"><a href="statistical-analysis.html#statistical-analysis"><span class="toc-section-number">6</span> Statistical Analysis</a><ul>
-<li class="has-sub"><a href="statistical-analysis.html#setup"><span class="toc-section-number">6.1</span> Setup</a><ul>
+<li><a href="statistical-analysis.html#statistical-analysis"><span class="toc-section-number">6</span> Statistical Analysis</a>
+<ul>
+<li><a href="statistical-analysis.html#setup"><span class="toc-section-number">6.1</span> Setup</a>
+<ul>
 <li><a href="statistical-analysis.html#data"><span class="toc-section-number">6.1.1</span> Data</a></li>
 <li><a href="statistical-analysis.html#nhefs-codebook"><span class="toc-section-number">6.1.2</span> NHEFS Codebook</a></li>
 </ul></li>
@@ -163,41 +176,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="statistical-analysis.html#tabular-analysis"><span class="toc-section-number">6.3</span> Tabular Analysis</a></li>
 <li><a href="statistical-analysis.html#regression-models"><span class="toc-section-number">6.4</span> Regression Models</a></li>
 </ul></li>
-<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a><ul>
+<li><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a>
+<ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#whats-a-loop"><span class="toc-section-number">7.1</span> What’s a Loop?</a></li>
-<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#why-loop"><span class="toc-section-number">7.2</span> Why Loop?</a><ul>
+<li><a href="getting-comfortable-with-loops-and-logic.html#why-loop"><span class="toc-section-number">7.2</span> Why Loop?</a>
+<ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#curly-braces"><span class="toc-section-number">7.2.1</span> Curly Braces</a></li>
 </ul></li>
-<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">7.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a><ul>
+<li><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">7.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a>
+<ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#standard-loop"><span class="toc-section-number">7.3.1</span> Standard Loop</a></li>
 <li><a href="getting-comfortable-with-loops-and-logic.html#vectorized-loops"><span class="toc-section-number">7.3.2</span> Vectorized Loops</a></li>
 <li><a href="getting-comfortable-with-loops-and-logic.html#nested-loops"><span class="toc-section-number">7.3.3</span> Nested Loops</a></li>
 </ul></li>
 </ul></li>
-<li class="has-sub"><a href="functionalizing-code.html#functionalizing-code"><span class="toc-section-number">8</span> Functionalizing Code</a><ul>
+<li><a href="functionalizing-code.html#functionalizing-code"><span class="toc-section-number">8</span> Functionalizing Code</a>
+<ul>
 <li><a href="functionalizing-code.html#simulate-data"><span class="toc-section-number">8.1</span> Simulate Data</a></li>
 <li><a href="functionalizing-code.html#the-old-way"><span class="toc-section-number">8.2</span> The Old Way</a></li>
 <li><a href="functionalizing-code.html#a-new-way-part-1"><span class="toc-section-number">8.3</span> A New Way, Part 1</a></li>
-<li class="has-sub"><a href="functionalizing-code.html#a-new-way-part-2"><span class="toc-section-number">8.4</span> A New Way, Part 2</a><ul>
+<li><a href="functionalizing-code.html#a-new-way-part-2"><span class="toc-section-number">8.4</span> A New Way, Part 2</a>
+<ul>
 <li><a href="functionalizing-code.html#loop-method-1"><span class="toc-section-number">8.4.1</span> Loop Method 1</a></li>
 <li><a href="functionalizing-code.html#loop-method-2"><span class="toc-section-number">8.4.2</span> Loop Method 2</a></li>
 <li><a href="functionalizing-code.html#add-a-new-analysis"><span class="toc-section-number">8.4.3</span> Add a New Analysis</a></li>
 </ul></li>
 <li><a href="functionalizing-code.html#a-new-way-part-3"><span class="toc-section-number">8.5</span> A New Way, Part 3</a></li>
-<li class="has-sub"><a href="functionalizing-code.html#approximate-in-sas"><span class="toc-section-number">8.6</span> Approximate in SAS</a><ul>
+<li><a href="functionalizing-code.html#approximate-in-sas"><span class="toc-section-number">8.6</span> Approximate in SAS</a>
+<ul>
 <li><a href="functionalizing-code.html#simulate-data-1"><span class="toc-section-number">8.6.1</span> Simulate Data</a></li>
 </ul></li>
 </ul></li>
 <li><a href="data-visualization.html#data-visualization"><span class="toc-section-number">9</span> Data Visualization</a></li>
 <li><a href="programming-concepts.html#programming-concepts"><span class="toc-section-number">10</span> Programming Concepts</a></li>
-<li class="has-sub"><a href="resources.html#resources"><span class="toc-section-number">11</span> Resources</a><ul>
-<li class="has-sub"><a href="resources.html#r"><span class="toc-section-number">11.1</span> R</a><ul>
+<li><a href="resources.html#resources"><span class="toc-section-number">11</span> Resources</a>
+<ul>
+<li><a href="resources.html#r"><span class="toc-section-number">11.1</span> R</a>
+<ul>
 <li><a href="resources.html#core-documentation"><span class="toc-section-number">11.1.1</span> Core Documentation</a></li>
 <li><a href="resources.html#programming"><span class="toc-section-number">11.1.2</span> Programming</a></li>
 <li><a href="resources.html#data-visualization-1"><span class="toc-section-number">11.1.3</span> Data Visualization</a></li>
 <li><a href="resources.html#reproducible-research-and-version-control"><span class="toc-section-number">11.1.4</span> Reproducible Research and Version Control</a></li>
 </ul></li>
-<li class="has-sub"><a href="resources.html#sas"><span class="toc-section-number">11.2</span> SAS</a><ul>
+<li><a href="resources.html#sas"><span class="toc-section-number">11.2</span> SAS</a>
+<ul>
 <li><a href="resources.html#programming-and-core-documentation"><span class="toc-section-number">11.2.1</span> Programming and Core Documentation</a></li>
 <li><a href="resources.html#reproducible-research"><span class="toc-section-number">11.2.2</span> Reproducible Research</a></li>
 </ul></li>
@@ -208,9 +230,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="row">
 <div class="col-sm-12">
-<div id="getting-comfortable-with-loops-and-logic" class="section level1">
+<div id="getting-comfortable-with-loops-and-logic" class="section level1" number="7">
 <h1><span class="header-section-number">7</span> Getting Comfortable with Loops and Logic</h1>
-<div id="whats-a-loop" class="section level2">
+<div id="whats-a-loop" class="section level2" number="7.1">
 <h2><span class="header-section-number">7.1</span> What’s a Loop?</h2>
 <p>A loop is simply a type of algorithm, in this case, a procedure in which we direct R to iteratively check for a particular condition and, depending on the state of that condition, conduct a particular action or terminate the algorithm.</p>
 <p>Imagine we are conducting a randomized controlled trial and we want to assign study participants randomly to either the treatment or control arm. We decide we’ll flip a coin for each participant and assign them to the treatment group if the coin comes up heads and to the control group if it comes up tails. Assuming we have 100 participants to assign, the following text provides an informal description of a loop designed to carry out this task:</p>
@@ -224,26 +246,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>IF any individuals not assigned, repeat from step 1, ELSE stop.</li>
 </ol>
 <p>Here’s the equivalent in code, where our coin flip is a random draw of 1 or 0:</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" data-line-number="1"><span class="co"># generate participant IDs</span></a>
-<a class="sourceLine" id="cb193-2" data-line-number="2">pid &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></a>
-<a class="sourceLine" id="cb193-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb193-4" data-line-number="4"><span class="co"># set up a vector to store treatment group assignment</span></a>
-<a class="sourceLine" id="cb193-5" data-line-number="5">rx &lt;-<span class="st"> </span><span class="kw">vector</span>()</a>
-<a class="sourceLine" id="cb193-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb193-7" data-line-number="7"><span class="co"># set random seed so we get same set of coin flips each time</span></a>
-<a class="sourceLine" id="cb193-8" data-line-number="8"><span class="kw">set.seed</span>(<span class="dv">98765</span>)</a>
-<a class="sourceLine" id="cb193-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb193-10" data-line-number="10"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>) {</a>
-<a class="sourceLine" id="cb193-11" data-line-number="11">  coinflip &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb193-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb193-13" data-line-number="13">  <span class="cf">if</span> (coinflip <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb193-14" data-line-number="14">    rx[i] &lt;-<span class="st"> &quot;treatment&quot;</span></a>
-<a class="sourceLine" id="cb193-15" data-line-number="15">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb193-16" data-line-number="16">    rx[i] &lt;-<span class="st"> &quot;control&quot;</span></a>
-<a class="sourceLine" id="cb193-17" data-line-number="17">  }</a>
-<a class="sourceLine" id="cb193-18" data-line-number="18">}</a>
-<a class="sourceLine" id="cb193-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb193-20" data-line-number="20"><span class="kw">data.frame</span>(pid, rx)</a></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="getting-comfortable-with-loops-and-logic.html#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate participant IDs</span></span>
+<span id="cb195-2"><a href="getting-comfortable-with-loops-and-logic.html#cb195-2" aria-hidden="true" tabindex="-1"></a>pid <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span></span>
+<span id="cb195-3"><a href="getting-comfortable-with-loops-and-logic.html#cb195-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-4"><a href="getting-comfortable-with-loops-and-logic.html#cb195-4" aria-hidden="true" tabindex="-1"></a><span class="co"># set up a vector to store treatment group assignment</span></span>
+<span id="cb195-5"><a href="getting-comfortable-with-loops-and-logic.html#cb195-5" aria-hidden="true" tabindex="-1"></a>rx <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
+<span id="cb195-6"><a href="getting-comfortable-with-loops-and-logic.html#cb195-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-7"><a href="getting-comfortable-with-loops-and-logic.html#cb195-7" aria-hidden="true" tabindex="-1"></a><span class="co"># set random seed so we get same set of coin flips each time</span></span>
+<span id="cb195-8"><a href="getting-comfortable-with-loops-and-logic.html#cb195-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">98765</span>)</span>
+<span id="cb195-9"><a href="getting-comfortable-with-loops-and-logic.html#cb195-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-10"><a href="getting-comfortable-with-loops-and-logic.html#cb195-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb195-11"><a href="getting-comfortable-with-loops-and-logic.html#cb195-11" aria-hidden="true" tabindex="-1"></a>  coinflip <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span>
+<span id="cb195-12"><a href="getting-comfortable-with-loops-and-logic.html#cb195-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-13"><a href="getting-comfortable-with-loops-and-logic.html#cb195-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (coinflip <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb195-14"><a href="getting-comfortable-with-loops-and-logic.html#cb195-14" aria-hidden="true" tabindex="-1"></a>    rx[i] <span class="ot">&lt;-</span> <span class="st">&quot;treatment&quot;</span></span>
+<span id="cb195-15"><a href="getting-comfortable-with-loops-and-logic.html#cb195-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb195-16"><a href="getting-comfortable-with-loops-and-logic.html#cb195-16" aria-hidden="true" tabindex="-1"></a>    rx[i] <span class="ot">&lt;-</span> <span class="st">&quot;control&quot;</span></span>
+<span id="cb195-17"><a href="getting-comfortable-with-loops-and-logic.html#cb195-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb195-18"><a href="getting-comfortable-with-loops-and-logic.html#cb195-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb195-19"><a href="getting-comfortable-with-loops-and-logic.html#cb195-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-20"><a href="getting-comfortable-with-loops-and-logic.html#cb195-20" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(pid, rx)</span></code></pre></div>
 <pre><code>    pid        rx
 1     1 treatment
 2     2   control
@@ -355,22 +377,22 @@ htmltools::includeHTML("images/for-loop-diagram.html")
 <p>Loops are important and powerful tools in statistical programming and, when combined with logical operations, provide you with a means to develop sophisticated, flexible code bases.</p>
 <p>In this chapter, we’ll focus on some simple implementations of loops, focusing separately on self-written loops like the one displayed above and <strong>vectorized loops</strong> in R. We’ll also take a look at a couple of looping procedures in SAS.</p>
 </div>
-<div id="why-loop" class="section level2">
+<div id="why-loop" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> Why Loop?</h2>
 <p>Looping often arises as a practical solution to repeat some task on a series of objects.</p>
 <p>Let’s say we had a list of numbers and wanted to multiple each of them by 10. Pretending we don’t know about R’s <a href="working-with-data.html#recycling">recycling capabilities</a>, we might write a loop to conduct this task.</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1"><span class="co"># generate a list of arbitrary numbers to operate upon</span></a>
-<a class="sourceLine" id="cb195-2" data-line-number="2">numlist &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">10</span>, <span class="dt">to =</span> <span class="dv">100</span>, <span class="dt">by =</span> <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb195-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb195-4" data-line-number="4"><span class="co"># first, we need to create an empty object in which to store our results</span></a>
-<a class="sourceLine" id="cb195-5" data-line-number="5">results &lt;-<span class="st"> </span><span class="kw">vector</span>()</a>
-<a class="sourceLine" id="cb195-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb195-7" data-line-number="7"><span class="co"># loop</span></a>
-<a class="sourceLine" id="cb195-8" data-line-number="8"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(numlist)) {</a>
-<a class="sourceLine" id="cb195-9" data-line-number="9">  results[i] &lt;-<span class="st"> </span>numlist[i] <span class="op">*</span><span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb195-10" data-line-number="10">}</a>
-<a class="sourceLine" id="cb195-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb195-12" data-line-number="12"><span class="kw">print</span>(results)</a></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="getting-comfortable-with-loops-and-logic.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate a list of arbitrary numbers to operate upon</span></span>
+<span id="cb197-2"><a href="getting-comfortable-with-loops-and-logic.html#cb197-2" aria-hidden="true" tabindex="-1"></a>numlist <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">10</span>, <span class="at">to =</span> <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>)</span>
+<span id="cb197-3"><a href="getting-comfortable-with-loops-and-logic.html#cb197-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-4"><a href="getting-comfortable-with-loops-and-logic.html#cb197-4" aria-hidden="true" tabindex="-1"></a><span class="co"># first, we need to create an empty object in which to store our results</span></span>
+<span id="cb197-5"><a href="getting-comfortable-with-loops-and-logic.html#cb197-5" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">vector</span>()</span>
+<span id="cb197-6"><a href="getting-comfortable-with-loops-and-logic.html#cb197-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-7"><a href="getting-comfortable-with-loops-and-logic.html#cb197-7" aria-hidden="true" tabindex="-1"></a><span class="co"># loop</span></span>
+<span id="cb197-8"><a href="getting-comfortable-with-loops-and-logic.html#cb197-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(numlist)) {</span>
+<span id="cb197-9"><a href="getting-comfortable-with-loops-and-logic.html#cb197-9" aria-hidden="true" tabindex="-1"></a>  results[i] <span class="ot">&lt;-</span> numlist[i] <span class="sc">*</span> <span class="dv">10</span></span>
+<span id="cb197-10"><a href="getting-comfortable-with-loops-and-logic.html#cb197-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb197-11"><a href="getting-comfortable-with-loops-and-logic.html#cb197-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-12"><a href="getting-comfortable-with-loops-and-logic.html#cb197-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(results)</span></code></pre></div>
 <pre><code> [1]  100  200  300  400  500  600  700  800  900 1000</code></pre>
 <p><span class="marginnote">To gain a little intuition, run the following loops and observe the results: <code>for (i in 1:3) print(i)</code>, <code>for (i in 32:60) print(i)</code>.
 </span></p>
@@ -385,14 +407,14 @@ htmltools::includeHTML("images/for-loop-diagram.html")
 </ol></li>
 <li><p>Print the vector of results.</p></li>
 </ol>
-<div id="curly-braces" class="section level3">
+<div id="curly-braces" class="section level3" number="7.2.1">
 <h3><span class="header-section-number">7.2.1</span> Curly Braces</h3>
 <p>Note that we don’t always have to use curly braces in our loops. Because our loop above is quite short, we could have written it as:</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" data-line-number="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(numlist)) results[i] &lt;-<span class="st"> </span>numlist[i] <span class="op">*</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="getting-comfortable-with-loops-and-logic.html#cb199-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(numlist)) results[i] <span class="ot">&lt;-</span> numlist[i] <span class="sc">*</span> <span class="dv">10</span></span></code></pre></div>
 <p>However, the syntax above requires that all the code be written in a single line. Moving forward, we’ll almost always use curly braces when using procedures that allow them. These include not only <code>for</code> loops but <code>if</code>/<code>else</code> statements and <code>function</code> definitions.</p>
 </div>
 </div>
-<div id="nested-loops-conditional-logic-and-reinventing-wheels" class="section level2">
+<div id="nested-loops-conditional-logic-and-reinventing-wheels" class="section level2" number="7.3">
 <h2><span class="header-section-number">7.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</h2>
 <p>Usually, we’ll be using loops to conduct more complicated operations. Let’s pretend R doesn’t have all these nifty built-in tools to summarize our data or create new variables.</p>
 <p>Imagine instead that we’re tasked with developing summary statistics for both categorical and continuous variables. To do so, we’ll have to do the following:</p>
@@ -402,8 +424,8 @@ htmltools::includeHTML("images/for-loop-diagram.html")
 <li>Calculate summary statistics appropriate to the variable type</li>
 </ol>
 <p>I’ve selected a handful of variables from the NHEFS dataset we’ve already worked with.</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" data-line-number="1"><span class="kw">head</span>(nh)</a></code></pre></div>
-<pre><code># A tibble: 6 x 8
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="getting-comfortable-with-loops-and-logic.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(nh)</span></code></pre></div>
+<pre><code># A tibble: 6 × 8
    seqn death   sex   age  race smokeyrs smokeintensity marital
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;          &lt;dbl&gt;   &lt;dbl&gt;
 1   233     0     0    42     1       29             30       2
@@ -413,7 +435,7 @@ htmltools::includeHTML("images/for-loop-diagram.html")
 5   252     0     0    40     0       19             20       2
 6   257     0     1    43     1       21             10       4</code></pre>
 <p>However, instead of storing the data in a data frame, I’ve stored it in a list for the purposes of the current examples.</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" data-line-number="1"><span class="kw">head</span>(nhl)</a></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="getting-comfortable-with-loops-and-logic.html#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(nhl)</span></code></pre></div>
 <pre><code>$seqn
    [1]   233   235   244   245   252   257   262   266   419   420   428   431
   [13]   434   443   446   455   457   596   603   604   605   616   618   619
@@ -836,10 +858,10 @@ $smokeyrs
 <p>None of these variables has any missing data, but if you don’t trust me, check for yourself!</p>
 <p>First, though, take a minute to look through the list object and make note of a few things. All we’ve done is taken each variable from the <code>nh</code> dataframe and stored it as a separate vector in the list called <code>nhl</code>.</p>
 <p>No observations have been reordered, so if we took the 7th value from each vector stored in <code>nhl</code>, we should be able to reproduce the 7th row of <code>nh</code>.</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1">list7 &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">lapply</span>(nhl, <span class="cf">function</span>(x) x[<span class="dv">7</span>]))</a>
-<a class="sourceLine" id="cb202-2" data-line-number="2">df7 &lt;-<span class="st"> </span><span class="kw">unlist</span>(nh[<span class="dv">7</span>, ])</a>
-<a class="sourceLine" id="cb202-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb202-4" data-line-number="4"><span class="kw">cbind</span>(list7, df7)</a></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="getting-comfortable-with-loops-and-logic.html#cb204-1" aria-hidden="true" tabindex="-1"></a>list7 <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(nhl, <span class="cf">function</span>(x) x[<span class="dv">7</span>]))</span>
+<span id="cb204-2"><a href="getting-comfortable-with-loops-and-logic.html#cb204-2" aria-hidden="true" tabindex="-1"></a>df7 <span class="ot">&lt;-</span> <span class="fu">unlist</span>(nh[<span class="dv">7</span>, ])</span>
+<span id="cb204-3"><a href="getting-comfortable-with-loops-and-logic.html#cb204-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb204-4"><a href="getting-comfortable-with-loops-and-logic.html#cb204-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(list7, df7)</span></code></pre></div>
 <pre><code>               list7 df7
 seqn             262 262
 death              0   0
@@ -853,7 +875,7 @@ marital            2   2</code></pre>
 <p>Before we start writing up our code to generate some descriptive statistics for these variables, we should list the tasks we’ll need to execute in order to do so.</p>
 <p>You may have noticed in the header of <code>nh</code> that all of the variables are labeled as <code>dbl</code>, meaning they are numeric. However, we know that some of them should (or could) be treated as categorical.</p>
 <p>Just to be safe, we can check to make sure the variables were saved as numeric in the list as well.</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" data-line-number="1"><span class="kw">cbind</span>(<span class="kw">unlist</span>(<span class="kw">lapply</span>(nhl, class)))</a></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="getting-comfortable-with-loops-and-logic.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">unlist</span>(<span class="fu">lapply</span>(nhl, class)))</span></code></pre></div>
 <pre><code>               [,1]     
 seqn           &quot;numeric&quot;
 death          &quot;numeric&quot;
@@ -870,39 +892,39 @@ marital        &quot;numeric&quot;</code></pre>
 <li><p>Store the results.</p></li>
 </ol>
 <p>Considering this problem will allow us to introduce a couple of looping approaches we might consider. The first is a self-written loop similar to the one we already wrote. The next couple of approaches will used <em>vectorized</em> loops, either with functions provided as part of the standard R installation or with some newer functions provided via the <code>purrr</code> package.</p>
-<div id="standard-loop" class="section level3">
+<div id="standard-loop" class="section level3" number="7.3.1">
 <h3><span class="header-section-number">7.3.1</span> Standard Loop</h3>
 <p>To begin, we’re going to create a new list <code>nhl_sum</code> in which each of its elements is itself a list storing the original variable vector, the variable’s class type, and the summary statistics we calculate.</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" data-line-number="1">nhl_sum &lt;-<span class="st"> </span><span class="kw">list</span>()</a>
-<a class="sourceLine" id="cb206-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb206-3" data-line-number="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(nhl)) {</a>
-<a class="sourceLine" id="cb206-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb206-5" data-line-number="5">  <span class="co"># reinitialize an empty temporary list at the beginning of each iteration</span></a>
-<a class="sourceLine" id="cb206-6" data-line-number="6">  templist &lt;-<span class="st"> </span><span class="kw">list</span>()</a>
-<a class="sourceLine" id="cb206-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb206-8" data-line-number="8">  <span class="co"># test the number of unique values in the ith element of nhl</span></a>
-<a class="sourceLine" id="cb206-9" data-line-number="9">  <span class="co"># if there are 6 or fewer unique values, treat as categorical</span></a>
-<a class="sourceLine" id="cb206-10" data-line-number="10">  <span class="co"># otherwise, treat as continuous</span></a>
-<a class="sourceLine" id="cb206-11" data-line-number="11">  <span class="cf">if</span> (<span class="kw">length</span>(<span class="kw">unique</span>(nhl[[i]])) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">6</span>) {</a>
-<a class="sourceLine" id="cb206-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb206-13" data-line-number="13">    templist[[<span class="st">&quot;type&quot;</span>]]  &lt;-<span class="st"> &quot;categorical&quot;</span></a>
-<a class="sourceLine" id="cb206-14" data-line-number="14">    templist[[<span class="st">&quot;stats&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">table</span>(nhl[[i]])</a>
-<a class="sourceLine" id="cb206-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb206-16" data-line-number="16">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb206-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb206-18" data-line-number="18">    templist[[<span class="st">&quot;type&quot;</span>]]  &lt;-<span class="st"> &quot;continuous&quot;</span></a>
-<a class="sourceLine" id="cb206-19" data-line-number="19">    templist[[<span class="st">&quot;stats&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">summary</span>(nhl[[i]])</a>
-<a class="sourceLine" id="cb206-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb206-21" data-line-number="21">  }</a>
-<a class="sourceLine" id="cb206-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb206-23" data-line-number="23">  <span class="co"># save the list we created into the ith element of our final holding object</span></a>
-<a class="sourceLine" id="cb206-24" data-line-number="24">  nhl_sum[[i]] &lt;-<span class="st"> </span>templist</a>
-<a class="sourceLine" id="cb206-25" data-line-number="25"></a>
-<a class="sourceLine" id="cb206-26" data-line-number="26">  <span class="co"># name the list element</span></a>
-<a class="sourceLine" id="cb206-27" data-line-number="27">  <span class="kw">names</span>(nhl_sum)[i] &lt;-<span class="st"> </span><span class="kw">names</span>(nhl)[i]</a>
-<a class="sourceLine" id="cb206-28" data-line-number="28">}</a>
-<a class="sourceLine" id="cb206-29" data-line-number="29"></a>
-<a class="sourceLine" id="cb206-30" data-line-number="30"><span class="kw">print</span>(nhl_sum)</a></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="getting-comfortable-with-loops-and-logic.html#cb208-1" aria-hidden="true" tabindex="-1"></a>nhl_sum <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb208-2"><a href="getting-comfortable-with-loops-and-logic.html#cb208-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb208-3"><a href="getting-comfortable-with-loops-and-logic.html#cb208-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(nhl)) {</span>
+<span id="cb208-4"><a href="getting-comfortable-with-loops-and-logic.html#cb208-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb208-5"><a href="getting-comfortable-with-loops-and-logic.html#cb208-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># reinitialize an empty temporary list at the beginning of each iteration</span></span>
+<span id="cb208-6"><a href="getting-comfortable-with-loops-and-logic.html#cb208-6" aria-hidden="true" tabindex="-1"></a>  templist <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb208-7"><a href="getting-comfortable-with-loops-and-logic.html#cb208-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb208-8"><a href="getting-comfortable-with-loops-and-logic.html#cb208-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># test the number of unique values in the ith element of nhl</span></span>
+<span id="cb208-9"><a href="getting-comfortable-with-loops-and-logic.html#cb208-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># if there are 6 or fewer unique values, treat as categorical</span></span>
+<span id="cb208-10"><a href="getting-comfortable-with-loops-and-logic.html#cb208-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># otherwise, treat as continuous</span></span>
+<span id="cb208-11"><a href="getting-comfortable-with-loops-and-logic.html#cb208-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(<span class="fu">unique</span>(nhl[[i]])) <span class="sc">&lt;=</span> <span class="dv">6</span>) {</span>
+<span id="cb208-12"><a href="getting-comfortable-with-loops-and-logic.html#cb208-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb208-13"><a href="getting-comfortable-with-loops-and-logic.html#cb208-13" aria-hidden="true" tabindex="-1"></a>    templist[[<span class="st">&quot;type&quot;</span>]]  <span class="ot">&lt;-</span> <span class="st">&quot;categorical&quot;</span></span>
+<span id="cb208-14"><a href="getting-comfortable-with-loops-and-logic.html#cb208-14" aria-hidden="true" tabindex="-1"></a>    templist[[<span class="st">&quot;stats&quot;</span>]] <span class="ot">&lt;-</span> <span class="fu">table</span>(nhl[[i]])</span>
+<span id="cb208-15"><a href="getting-comfortable-with-loops-and-logic.html#cb208-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb208-16"><a href="getting-comfortable-with-loops-and-logic.html#cb208-16" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb208-17"><a href="getting-comfortable-with-loops-and-logic.html#cb208-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb208-18"><a href="getting-comfortable-with-loops-and-logic.html#cb208-18" aria-hidden="true" tabindex="-1"></a>    templist[[<span class="st">&quot;type&quot;</span>]]  <span class="ot">&lt;-</span> <span class="st">&quot;continuous&quot;</span></span>
+<span id="cb208-19"><a href="getting-comfortable-with-loops-and-logic.html#cb208-19" aria-hidden="true" tabindex="-1"></a>    templist[[<span class="st">&quot;stats&quot;</span>]] <span class="ot">&lt;-</span> <span class="fu">summary</span>(nhl[[i]])</span>
+<span id="cb208-20"><a href="getting-comfortable-with-loops-and-logic.html#cb208-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb208-21"><a href="getting-comfortable-with-loops-and-logic.html#cb208-21" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb208-22"><a href="getting-comfortable-with-loops-and-logic.html#cb208-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb208-23"><a href="getting-comfortable-with-loops-and-logic.html#cb208-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># save the list we created into the ith element of our final holding object</span></span>
+<span id="cb208-24"><a href="getting-comfortable-with-loops-and-logic.html#cb208-24" aria-hidden="true" tabindex="-1"></a>  nhl_sum[[i]] <span class="ot">&lt;-</span> templist</span>
+<span id="cb208-25"><a href="getting-comfortable-with-loops-and-logic.html#cb208-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb208-26"><a href="getting-comfortable-with-loops-and-logic.html#cb208-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># name the list element</span></span>
+<span id="cb208-27"><a href="getting-comfortable-with-loops-and-logic.html#cb208-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(nhl_sum)[i] <span class="ot">&lt;-</span> <span class="fu">names</span>(nhl)[i]</span>
+<span id="cb208-28"><a href="getting-comfortable-with-loops-and-logic.html#cb208-28" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb208-29"><a href="getting-comfortable-with-loops-and-logic.html#cb208-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb208-30"><a href="getting-comfortable-with-loops-and-logic.html#cb208-30" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(nhl_sum)</span></code></pre></div>
 <pre><code>$seqn
 $seqn$type
 [1] &quot;continuous&quot;
@@ -979,7 +1001,7 @@ $marital$stats
 1279   97   96   99   57    1 </code></pre>
 <p><span class="marginnote">Note that we included <code>seqn</code>, which is the recipient ID. We could have written the loop to omit that variable, or we could have dropped its summary from <code>nhl_sum</code>.</span></p>
 <p>If we just want to peak at the <code>smokeintensity</code> statistics, for instance, we can access them directly from <code>nhl_sum</code>:</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1">nhl_sum<span class="op">$</span>smokeintensity</a></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="getting-comfortable-with-loops-and-logic.html#cb210-1" aria-hidden="true" tabindex="-1"></a>nhl_sum<span class="sc">$</span>smokeintensity</span></code></pre></div>
 <pre><code>$type
 [1] &quot;continuous&quot;
 
@@ -987,26 +1009,26 @@ $stats
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
    1.00   10.00   20.00   20.55   30.00   80.00 </code></pre>
 </div>
-<div id="vectorized-loops" class="section level3">
+<div id="vectorized-loops" class="section level3" number="7.3.2">
 <h3><span class="header-section-number">7.3.2</span> Vectorized Loops</h3>
 <p>We’re not going to focus properly on vectorization, except to review an implementation or two from what’s called the <code>apply</code> family of functions in R. In general, vectorized loops can operate quite a bit faster in certain circumstances, but they also provide a different approach to iteration.</p>
 <p><span class="marginnote">To go beyond the looping examples covered here, DataCamp has a detailed <a href="https://www.datacamp.com/community/tutorials/tutorial-on-loops-in-r">tutorial</a> on writing loops and controlling their flow and output.</span></p>
 <p>For instance, let’s achieve something similar to what we did in the prior section with a standard <code>for</code> loop. With the <code>for</code> loop, we had to tell R explicitly how many loops to do, and we had to tell it where to store our results in <code>nhl_sum</code> each time.</p>
 <p>We might see some advantages to this approach: for one, we can read the code line by line and see the entire sequence of events. We also forced ourselves to be exact about what R was to do with each piece of information, which is good practice.</p>
-<p>But R gives us a variety of flexible tools to work with, and the <code>apply</code> functions can provide some more elegant, less verbose,<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> “Verbose” essentially means we have to type a lot. You may also see functions use a setting called “verbose” to control how much output a function gives you, so the word is used as a bit of jargon in programming.</span> and easier-to-debug solutions.</p>
+<p>But R gives us a variety of flexible tools to work with, and the <code>apply</code> functions can provide some more elegant, less verbose,<a href="resources.html#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and easier-to-debug solutions.</p>
 <p>Anyway, since this introduction to vectorized loops is getting a little verbose, let’s skip to the good stuff: we can use the <code>lapply</code> function to get a similar result as we did with a <code>for</code> loop.</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1">nhl_sum2 &lt;-<span class="st"> </span><span class="kw">lapply</span>(nhl, <span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb210-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb210-3" data-line-number="3">  <span class="cf">if</span> (<span class="kw">length</span>(x) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">6</span>) {</a>
-<a class="sourceLine" id="cb210-4" data-line-number="4">    <span class="kw">list</span>(<span class="dt">type =</span> <span class="st">&quot;categorical&quot;</span>,</a>
-<a class="sourceLine" id="cb210-5" data-line-number="5">         <span class="dt">stats =</span> <span class="kw">table</span>(x))</a>
-<a class="sourceLine" id="cb210-6" data-line-number="6">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb210-7" data-line-number="7">    <span class="kw">list</span>(<span class="dt">type =</span> <span class="st">&quot;continuous&quot;</span>,</a>
-<a class="sourceLine" id="cb210-8" data-line-number="8">         <span class="dt">stats =</span> <span class="kw">summary</span>(x))</a>
-<a class="sourceLine" id="cb210-9" data-line-number="9">  }</a>
-<a class="sourceLine" id="cb210-10" data-line-number="10">})</a>
-<a class="sourceLine" id="cb210-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb210-12" data-line-number="12"><span class="kw">print</span>(nhl_sum2)</a></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="getting-comfortable-with-loops-and-logic.html#cb212-1" aria-hidden="true" tabindex="-1"></a>nhl_sum2 <span class="ot">&lt;-</span> <span class="fu">lapply</span>(nhl, <span class="cf">function</span>(x) {</span>
+<span id="cb212-2"><a href="getting-comfortable-with-loops-and-logic.html#cb212-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb212-3"><a href="getting-comfortable-with-loops-and-logic.html#cb212-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(x) <span class="sc">&lt;=</span> <span class="dv">6</span>) {</span>
+<span id="cb212-4"><a href="getting-comfortable-with-loops-and-logic.html#cb212-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">type =</span> <span class="st">&quot;categorical&quot;</span>,</span>
+<span id="cb212-5"><a href="getting-comfortable-with-loops-and-logic.html#cb212-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">stats =</span> <span class="fu">table</span>(x))</span>
+<span id="cb212-6"><a href="getting-comfortable-with-loops-and-logic.html#cb212-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb212-7"><a href="getting-comfortable-with-loops-and-logic.html#cb212-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">type =</span> <span class="st">&quot;continuous&quot;</span>,</span>
+<span id="cb212-8"><a href="getting-comfortable-with-loops-and-logic.html#cb212-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">stats =</span> <span class="fu">summary</span>(x))</span>
+<span id="cb212-9"><a href="getting-comfortable-with-loops-and-logic.html#cb212-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb212-10"><a href="getting-comfortable-with-loops-and-logic.html#cb212-10" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb212-11"><a href="getting-comfortable-with-loops-and-logic.html#cb212-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb212-12"><a href="getting-comfortable-with-loops-and-logic.html#cb212-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(nhl_sum2)</span></code></pre></div>
 <pre><code>$seqn
 $seqn$type
 [1] &quot;continuous&quot;
@@ -1084,21 +1106,21 @@ $marital$stats
 <li>Otherwise, return a list containing a string named <code>type</code> (set to “continuous”) and the results of <code>summary()</code> stored in <code>stats</code>.</li>
 </ol>
 <p>The “l” in <code>lapply</code> refers to “list”, meaning the function will return to us a list. In each drawer will be stored the results of each iteration of the function—in other words, one of the lists we told R to make in the if-else statements.</p>
-<p>We may look at the code above and concede it is more succinct than the standard <code>for</code> loop, but maybe it’s a tad ugly because we specified an anonymous function<label for="tufte-sn-2" class="margin-toggle sidenote-number">2</label><input type="checkbox" id="tufte-sn-2" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">2</span> <strong>Jargon alert:</strong> An anonymous function simply means that the function is not named or stored in our environment.</span> within the <code>lapply</code> function itself.</p>
+<p>We may look at the code above and concede it is more succinct than the standard <code>for</code> loop, but maybe it’s a tad ugly because we specified an anonymous function<a href="resources.html#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> within the <code>lapply</code> function itself.</p>
 <p>We could have done the following for the sake of readability:</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1">autosummary &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb212-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb212-3" data-line-number="3">  <span class="cf">if</span> (<span class="kw">length</span>(x) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">6</span>) {</a>
-<a class="sourceLine" id="cb212-4" data-line-number="4">    <span class="kw">list</span>(<span class="dt">type =</span> <span class="st">&quot;categorical&quot;</span>,</a>
-<a class="sourceLine" id="cb212-5" data-line-number="5">         <span class="dt">stats =</span> <span class="kw">table</span>(x))</a>
-<a class="sourceLine" id="cb212-6" data-line-number="6">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb212-7" data-line-number="7">    <span class="kw">list</span>(<span class="dt">type =</span> <span class="st">&quot;continuous&quot;</span>,</a>
-<a class="sourceLine" id="cb212-8" data-line-number="8">         <span class="dt">stats =</span> <span class="kw">summary</span>(x))</a>
-<a class="sourceLine" id="cb212-9" data-line-number="9">  }</a>
-<a class="sourceLine" id="cb212-10" data-line-number="10">}</a>
-<a class="sourceLine" id="cb212-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb212-12" data-line-number="12">nhl_sum3 &lt;-<span class="st"> </span><span class="kw">lapply</span>(nhl, autosummary)</a>
-<a class="sourceLine" id="cb212-13" data-line-number="13"><span class="kw">print</span>(nhl_sum3)</a></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="getting-comfortable-with-loops-and-logic.html#cb214-1" aria-hidden="true" tabindex="-1"></a>autosummary <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb214-2"><a href="getting-comfortable-with-loops-and-logic.html#cb214-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb214-3"><a href="getting-comfortable-with-loops-and-logic.html#cb214-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(x) <span class="sc">&lt;=</span> <span class="dv">6</span>) {</span>
+<span id="cb214-4"><a href="getting-comfortable-with-loops-and-logic.html#cb214-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">type =</span> <span class="st">&quot;categorical&quot;</span>,</span>
+<span id="cb214-5"><a href="getting-comfortable-with-loops-and-logic.html#cb214-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">stats =</span> <span class="fu">table</span>(x))</span>
+<span id="cb214-6"><a href="getting-comfortable-with-loops-and-logic.html#cb214-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb214-7"><a href="getting-comfortable-with-loops-and-logic.html#cb214-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">type =</span> <span class="st">&quot;continuous&quot;</span>,</span>
+<span id="cb214-8"><a href="getting-comfortable-with-loops-and-logic.html#cb214-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">stats =</span> <span class="fu">summary</span>(x))</span>
+<span id="cb214-9"><a href="getting-comfortable-with-loops-and-logic.html#cb214-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb214-10"><a href="getting-comfortable-with-loops-and-logic.html#cb214-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb214-11"><a href="getting-comfortable-with-loops-and-logic.html#cb214-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb214-12"><a href="getting-comfortable-with-loops-and-logic.html#cb214-12" aria-hidden="true" tabindex="-1"></a>nhl_sum3 <span class="ot">&lt;-</span> <span class="fu">lapply</span>(nhl, autosummary)</span>
+<span id="cb214-13"><a href="getting-comfortable-with-loops-and-logic.html#cb214-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(nhl_sum3)</span></code></pre></div>
 <pre><code>$seqn
 $seqn$type
 [1] &quot;continuous&quot;
@@ -1173,24 +1195,24 @@ $marital$stats
 <p><span class="marginnote">A full review of the <code>apply</code> family is beyond the scope of this introduction, and to be honest, while your humble author uses several of these functions all the time, he will never really remember how to use the base <code>apply</code> function properly.</span></p>
 <p>In fact, you’ve already seen some of these functions used in prior code examples that were focused on other aspects of R. Scroll through prior chapters and sections to see if you can spot them and figure out what they’re doing.</p>
 </div>
-<div id="nested-loops" class="section level3">
+<div id="nested-loops" class="section level3" number="7.3.3">
 <h3><span class="header-section-number">7.3.3</span> Nested Loops</h3>
-<p>Nesting in this context refers to placing loops within loops.<label for="tufte-sn-3" class="margin-toggle sidenote-number">3</label><input type="checkbox" id="tufte-sn-3" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">3</span> Kind of like dreams within dreams in the movie <em>Inception</em>, except nested loops make sense!</span></p>
+<p>Nesting in this context refers to placing loops within loops.<a href="resources.html#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
 <p>Loop logic takes a while to get used to, and you might find you don’t need them all at often. Nonetheless, they’re something we should make an attempt to familiarize outselves with.</p>
 <p>Perhaps the following code will say in generated output what is difficult to say in words:</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" data-line-number="1">alpha &lt;-<span class="st"> </span>LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</a>
-<a class="sourceLine" id="cb214-2" data-line-number="2">nums &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb214-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb214-4" data-line-number="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(alpha)) {</a>
-<a class="sourceLine" id="cb214-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb214-6" data-line-number="6">  <span class="kw">cat</span>(<span class="st">&quot;&lt;&lt;&quot;</span>, alpha[i], <span class="st">&quot;&gt;&gt;</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb214-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb214-8" data-line-number="8">  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(nums)) {</a>
-<a class="sourceLine" id="cb214-9" data-line-number="9">    <span class="kw">cat</span>(<span class="kw">paste0</span>(alpha[i], nums[j]), <span class="st">&quot; &quot;</span>)</a>
-<a class="sourceLine" id="cb214-10" data-line-number="10">  }</a>
-<a class="sourceLine" id="cb214-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb214-12" data-line-number="12">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n\n</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb214-13" data-line-number="13">}</a></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="getting-comfortable-with-loops-and-logic.html#cb216-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb216-2"><a href="getting-comfortable-with-loops-and-logic.html#cb216-2" aria-hidden="true" tabindex="-1"></a>nums <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb216-3"><a href="getting-comfortable-with-loops-and-logic.html#cb216-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb216-4"><a href="getting-comfortable-with-loops-and-logic.html#cb216-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(alpha)) {</span>
+<span id="cb216-5"><a href="getting-comfortable-with-loops-and-logic.html#cb216-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb216-6"><a href="getting-comfortable-with-loops-and-logic.html#cb216-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;&lt;&lt;&quot;</span>, alpha[i], <span class="st">&quot;&gt;&gt;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb216-7"><a href="getting-comfortable-with-loops-and-logic.html#cb216-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb216-8"><a href="getting-comfortable-with-loops-and-logic.html#cb216-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(nums)) {</span>
+<span id="cb216-9"><a href="getting-comfortable-with-loops-and-logic.html#cb216-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="fu">paste0</span>(alpha[i], nums[j]), <span class="st">&quot; &quot;</span>)</span>
+<span id="cb216-10"><a href="getting-comfortable-with-loops-and-logic.html#cb216-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb216-11"><a href="getting-comfortable-with-loops-and-logic.html#cb216-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb216-12"><a href="getting-comfortable-with-loops-and-logic.html#cb216-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n\n</span><span class="st">&quot;</span>)</span>
+<span id="cb216-13"><a href="getting-comfortable-with-loops-and-logic.html#cb216-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>&lt;&lt; A &gt;&gt;
 A1  A2  A3  A4  A5  A6  A7  A8  A9  A10  
 
