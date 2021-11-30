@@ -60,6 +60,11 @@ a-new-way-part-3
 approximate-in-sas
 simulate-data-1
 data-visualization
+base-r-versus-ggplot2
+boxplots-base-r
+density-plots-base-r
+scatterplots-base-r
+histograms-base-r
 programming-concepts
 resources
 r
