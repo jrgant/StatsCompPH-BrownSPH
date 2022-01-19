@@ -39,7 +39,6 @@
 <path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 59.039062 67.464844 L 51.839844 67.464844 "/>
 <g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
   <use xlink:href="#glyph0-1" x="41.509766" y="251.523438"/>
-<<<<<<< HEAD
   <use xlink:href="#glyph0-2" x="41.509766" y="244.523438"/>
   <use xlink:href="#glyph0-3" x="41.509766" y="241.523438"/>
 </g>
@@ -62,30 +61,6 @@
   <use xlink:href="#glyph0-5" x="41.509766" y="75.964844"/>
   <use xlink:href="#glyph0-2" x="41.509766" y="68.964844"/>
   <use xlink:href="#glyph0-3" x="41.509766" y="65.964844"/>
-=======
-  <use xlink:href="#glyph0-2" x="41.509766" y="244.851562"/>
-  <use xlink:href="#glyph0-3" x="41.509766" y="241.515625"/>
-</g>
-<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
-  <use xlink:href="#glyph0-4" x="41.509766" y="207.632812"/>
-  <use xlink:href="#glyph0-2" x="41.509766" y="200.960938"/>
-  <use xlink:href="#glyph0-1" x="41.509766" y="197.625"/>
-</g>
-<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
-  <use xlink:href="#glyph0-4" x="41.509766" y="163.746094"/>
-  <use xlink:href="#glyph0-2" x="41.509766" y="157.074219"/>
-  <use xlink:href="#glyph0-3" x="41.509766" y="153.738281"/>
-</g>
-<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
-  <use xlink:href="#glyph0-5" x="41.509766" y="119.855469"/>
-  <use xlink:href="#glyph0-2" x="41.509766" y="113.183594"/>
-  <use xlink:href="#glyph0-1" x="41.509766" y="109.847656"/>
-</g>
-<g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
-  <use xlink:href="#glyph0-5" x="41.509766" y="75.964844"/>
-  <use xlink:href="#glyph0-2" x="41.509766" y="69.292969"/>
-  <use xlink:href="#glyph0-3" x="41.509766" y="65.957031"/>
->>>>>>> 8a0c3c2f27d5e96c223a686947e6497f971e8966
 </g>
 <path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 59.039062 286.558594 L 473.761719 286.558594 L 473.761719 59.039062 L 59.039062 59.039062 Z M 59.039062 286.558594 "/>
 </g>
