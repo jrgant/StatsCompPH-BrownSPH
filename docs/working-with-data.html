@@ -946,51 +946,38 @@ $quake_data$ncols
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" title="1"><span class="kw">class</span>(mtcars)</a></code></pre></div>
 <pre><code>[1] &quot;data.frame&quot;</code></pre>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" title="1"><span class="kw">head</span>(mtcars)</a></code></pre></div>
-<pre><code>                   mpg cyl disp  hp drat    wt  qsec vs am gear carb cyl_fct
-Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4       6
-Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4       6
-Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1       4
-Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1       6
-Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2       8
-Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1       6
-                  gear_fct carb_fct   vs_fct    am_fct
-Mazda RX4                4        4 v-shaped    manual
-Mazda RX4 Wag            4        4 v-shaped    manual
-Datsun 710               4        1 straight    manual
-Hornet 4 Drive           3        1 straight automatic
-Hornet Sportabout        3        2 v-shaped automatic
-Valiant                  3        1 straight automatic</code></pre>
+<pre><code>                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
 <p>Data frames lend themselves well to common epidemiologic analyses, but first, we should get a feel for how they behave.</p>
 <p>We’ve seen that <code>head(dataframe)</code> will return the first handful of rows in the data frame (as a data frame, it turns out).</p>
 <p>We might also want to inspect some other properties of a dataset.</p>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" title="1"><span class="kw">str</span>(mtcars)</a></code></pre></div>
-<pre><code>&#39;data.frame&#39;:   32 obs. of  16 variables:
- $ mpg     : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
- $ cyl     : num  6 6 4 6 8 6 8 4 4 6 ...
- $ disp    : num  160 160 108 258 360 ...
- $ hp      : num  110 110 93 110 175 105 245 62 95 123 ...
- $ drat    : num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
- $ wt      : num  2.62 2.88 2.32 3.21 3.44 ...
- $ qsec    : num  16.5 17 18.6 19.4 17 ...
- $ vs      : num  0 0 1 1 0 1 0 1 1 1 ...
- $ am      : num  1 1 1 0 0 0 0 0 0 0 ...
- $ gear    : num  4 4 4 3 3 3 3 4 4 4 ...
- $ carb    : num  4 4 1 1 2 1 4 2 2 4 ...
- $ cyl_fct : Factor w/ 3 levels &quot;4&quot;,&quot;6&quot;,&quot;8&quot;: 2 2 1 2 3 2 3 1 1 2 ...
- $ gear_fct: Factor w/ 3 levels &quot;3&quot;,&quot;4&quot;,&quot;5&quot;: 2 2 2 1 1 1 1 2 2 2 ...
- $ carb_fct: Factor w/ 6 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 4 4 1 1 2 1 4 2 2 4 ...
- $ vs_fct  : Factor w/ 2 levels &quot;straight&quot;,&quot;v-shaped&quot;: 2 2 1 1 2 1 2 1 1 1 ...
- $ am_fct  : Factor w/ 2 levels &quot;automatic&quot;,&quot;manual&quot;: 2 2 2 1 1 1 1 1 1 1 ...</code></pre>
+<pre><code>&#39;data.frame&#39;:   32 obs. of  11 variables:
+ $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+ $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+ $ disp: num  160 160 108 258 360 ...
+ $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+ $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+ $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+ $ qsec: num  16.5 17 18.6 19.4 17 ...
+ $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+ $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+ $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+ $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
 <p>The <code>str()</code> function gives us a nice, concise report on the number of rows and variables, in addition to the value class of each variable.</p>
 <p>Sometimes, we may want to query some of these attributes directly:</p>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" title="1"><span class="kw">nrow</span>(mtcars)</a></code></pre></div>
 <pre><code>[1] 32</code></pre>
 <div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" title="1"><span class="kw">length</span>(mtcars)</a></code></pre></div>
-<pre><code>[1] 16</code></pre>
+<pre><code>[1] 11</code></pre>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" title="1"><span class="kw">names</span>(mtcars)</a></code></pre></div>
-<pre><code> [1] &quot;mpg&quot;      &quot;cyl&quot;      &quot;disp&quot;     &quot;hp&quot;       &quot;drat&quot;     &quot;wt&quot;      
- [7] &quot;qsec&quot;     &quot;vs&quot;       &quot;am&quot;       &quot;gear&quot;     &quot;carb&quot;     &quot;cyl_fct&quot; 
-[13] &quot;gear_fct&quot; &quot;carb_fct&quot; &quot;vs_fct&quot;   &quot;am_fct&quot;  </code></pre>
+<pre><code> [1] &quot;mpg&quot;  &quot;cyl&quot;  &quot;disp&quot; &quot;hp&quot;   &quot;drat&quot; &quot;wt&quot;   &quot;qsec&quot; &quot;vs&quot;   &quot;am&quot;   &quot;gear&quot;
+[11] &quot;carb&quot;</code></pre>
 <p>The outputs from <code>nrow()</code> and <code>length()</code> returned to us the number of rows and columns, respectively, while <code>names()</code> returned the column names for us.</p>
 <p>We can extract columns from the dataset as vectors if we want to operate on them directly:</p>
 <div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" title="1"><span class="kw">class</span>(mtcars<span class="op">$</span>qsec)</a></code></pre></div>
@@ -1014,28 +1001,19 @@ Valiant                  3        1 straight automatic</code></pre>
  Mean   :3.597   Mean   :3.217   Mean   :17.85   Mean   :0.4375  
  3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90   3rd Qu.:1.0000  
  Max.   :4.930   Max.   :5.424   Max.   :22.90   Max.   :1.0000  
-       am              gear            carb       cyl_fct gear_fct carb_fct
- Min.   :0.0000   Min.   :3.000   Min.   :1.000   4:11    3:15     1: 7    
- 1st Qu.:0.0000   1st Qu.:3.000   1st Qu.:2.000   6: 7    4:12     2:10    
- Median :0.0000   Median :4.000   Median :2.000   8:14    5: 5     3: 3    
- Mean   :0.4062   Mean   :3.688   Mean   :2.812                    4:10    
- 3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000                    6: 1    
- Max.   :1.0000   Max.   :5.000   Max.   :8.000                    8: 1    
-      vs_fct         am_fct  
- straight:14   automatic:19  
- v-shaped:18   manual   :13  
-                             
-                             
-                             
-                             </code></pre>
+       am              gear            carb      
+ Min.   :0.0000   Min.   :3.000   Min.   :1.000  
+ 1st Qu.:0.0000   1st Qu.:3.000   1st Qu.:2.000  
+ Median :0.0000   Median :4.000   Median :2.000  
+ Mean   :0.4062   Mean   :3.688   Mean   :2.812  
+ 3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000  
+ Max.   :1.0000   Max.   :5.000   Max.   :8.000  </code></pre>
 <p>Look carefully at the output from our summary. Does anything look off?</p>
 <p>I would say we should take a look at a few of the variables, which, despite having been stored as numeric, appear to be categorical variables.</p>
 <p>Let’s check the number of unique values stored in each variable:</p>
 <div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" title="1"><span class="kw">sapply</span>(mtcars, <span class="cf">function</span>(x) <span class="kw">length</span>(<span class="kw">unique</span>(x)))</a></code></pre></div>
-<pre><code>     mpg      cyl     disp       hp     drat       wt     qsec       vs 
-      25        3       27       22       22       29       30        2 
-      am     gear     carb  cyl_fct gear_fct carb_fct   vs_fct   am_fct 
-       2        3        6        3        3        6        2        2 </code></pre>
+<pre><code> mpg  cyl disp   hp drat   wt qsec   vs   am gear carb 
+  25    3   27   22   22   29   30    2    2    3    6 </code></pre>
 <p>It looks like we might want to treat <code>cyl</code>, <code>vs</code>, <code>am</code>, <code>gear</code>, and <code>carb</code> as categorical.</p>
 <p><span class="marginnote">To view more information about the <code>mtcars</code> dataset, type <code>?mtcars</code> into the console.</span></p>
 <p>Specifically, we’ll treat <code>cyl</code>, <code>gear</code>, and <code>carb</code> as ordinal, and we’ll treat <code>vs</code> and <code>am</code> as binary.</p>

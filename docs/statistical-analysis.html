@@ -1198,14 +1198,22 @@ Type: Factor
 <a class="sourceLine" id="cb191-8" title="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>key, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb191-9" title="9"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb191-10" title="10"><span class="st">  </span><span class="kw">theme_clean</span>()</a></code></pre></div>
+<pre><code>Note: Using an external vector in selections is ambiguous.
+ℹ Use `all_of(contvars)` instead of `contvars` to silence this message.
+ℹ See &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.
+This message is displayed once per session.</code></pre>
 <p><img src="stats-comp-ph_files/figure-html/eda-density-1.svg" width="672"  /></p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1">nhefs4 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb192-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(catvars) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb192-3" title="3"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb192-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb192-5" title="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>key, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb192-6" title="6"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">width =</span> <span class="fl">0.5</span>, <span class="dt">fill =</span> <span class="st">&quot;lightgray&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb192-7" title="7"><span class="st">  </span><span class="kw">theme_clean</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" title="1">nhefs4 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb193-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(catvars) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb193-3" title="3"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb193-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb193-5" title="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>key, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb193-6" title="6"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">width =</span> <span class="fl">0.5</span>, <span class="dt">fill =</span> <span class="st">&quot;lightgray&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb193-7" title="7"><span class="st">  </span><span class="kw">theme_clean</span>()</a></code></pre></div>
+<pre><code>Note: Using an external vector in selections is ambiguous.
+ℹ Use `all_of(catvars)` instead of `catvars` to silence this message.
+ℹ See &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.
+This message is displayed once per session.</code></pre>
 <p><img src="stats-comp-ph_files/figure-html/eda-bars-1.svg" width="672"  /></p>
 <p>Don’t worry just now about the plot code. We’ll be looking in some detail at the ggplot2 package later.</p>
 </div>
