@@ -14,11 +14,18 @@
 
 <meta name="author" content="Jason Gantenberg, MPH" />
 
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="/usr/share/javascript/mathjax/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
 <meta name="description" content="Resources and tutorials for R and SAS analysis geared toward public health students.">
 
 <title>9 Data Visualization | Computing Concepts for Public Health Researchers</title>
 
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-italics.css" rel="stylesheet" />
@@ -35,28 +42,26 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -65,9 +70,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -113,54 +118,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="col-sm-12">
 <div id="TOC">
 <ul>
-<li><a href="index.html#learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a>
-<ul>
+<li class="has-sub"><a href="index.html#learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a><ul>
 <li><a href="index.html#main-objectives"><span class="toc-section-number">1.1</span> Main objectives</a></li>
 <li><a href="index.html#secondary-objectives"><span class="toc-section-number">1.2</span> Secondary objectives</a></li>
 <li><a href="index.html#acknowledgements"><span class="toc-section-number">1.3</span> Acknowledgements</a></li>
 </ul></li>
-<li><a href="startup.html#startup"><span class="toc-section-number">2</span> Getting Started</a>
-<ul>
+<li class="has-sub"><a href="startup.html#startup"><span class="toc-section-number">2</span> Getting Started</a><ul>
 <li><a href="startup.html#getting-started-with-r"><span class="toc-section-number">2.1</span> Getting Started with R</a></li>
 <li><a href="startup.html#getting-started-with-sas"><span class="toc-section-number">2.2</span> Getting Started with SAS</a></li>
 </ul></li>
-<li><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a>
-<ul>
+<li class="has-sub"><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a><ul>
 <li><a href="data-structures.html#major-differences-between-r-and-sas"><span class="toc-section-number">3.1</span> Major Differences Between R and SAS</a></li>
 <li><a href="data-structures.html#r-object-and-value-classes"><span class="toc-section-number">3.2</span> R: Object and Value Classes</a></li>
 <li><a href="data-structures.html#sas-value-formats"><span class="toc-section-number">3.3</span> SAS: Value Formats</a></li>
 </ul></li>
-<li><a href="importing-and-exporting-data.html#importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a>
-<ul>
-<li><a href="importing-and-exporting-data.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a>
-<ul>
+<li class="has-sub"><a href="importing-and-exporting-data.html#importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a><ul>
+<li class="has-sub"><a href="importing-and-exporting-data.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a><ul>
 <li><a href="importing-and-exporting-data.html#reading-data"><span class="toc-section-number">4.1.1</span> Reading Data</a></li>
 <li><a href="importing-and-exporting-data.html#writing-data"><span class="toc-section-number">4.1.2</span> Writing Data</a></li>
 </ul></li>
 <li><a href="importing-and-exporting-data.html#sas-reading-and-writing-data"><span class="toc-section-number">4.2</span> SAS: Reading and Writing Data</a></li>
 </ul></li>
-<li><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a>
-<ul>
+<li class="has-sub"><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a><ul>
 <li><a href="working-with-data.html#objects-in-r"><span class="toc-section-number">5.1</span> Objects in R</a></li>
-<li><a href="working-with-data.html#more-complex-objects"><span class="toc-section-number">5.2</span> More Complex Objects</a>
-<ul>
+<li class="has-sub"><a href="working-with-data.html#more-complex-objects"><span class="toc-section-number">5.2</span> More Complex Objects</a><ul>
 <li><a href="working-with-data.html#vectors"><span class="toc-section-number">5.2.1</span> Vectors</a></li>
 <li><a href="working-with-data.html#matrices"><span class="toc-section-number">5.2.2</span> Matrices</a></li>
 <li><a href="working-with-data.html#lists"><span class="toc-section-number">5.2.3</span> Lists</a></li>
 <li><a href="working-with-data.html#data-frames"><span class="toc-section-number">5.2.4</span> Data Frames</a></li>
 <li><a href="working-with-data.html#other-object-classes"><span class="toc-section-number">5.2.5</span> Other Object Classes</a></li>
 </ul></li>
-<li><a href="working-with-data.html#conducting-operations-on-objects"><span class="toc-section-number">5.3</span> Conducting Operations on Objects</a>
-<ul>
+<li class="has-sub"><a href="working-with-data.html#conducting-operations-on-objects"><span class="toc-section-number">5.3</span> Conducting Operations on Objects</a><ul>
 <li><a href="working-with-data.html#arithmetic-operations"><span class="toc-section-number">5.3.1</span> Arithmetic Operations</a></li>
 <li><a href="working-with-data.html#logical-operations"><span class="toc-section-number">5.3.2</span> Logical Operations</a></li>
 <li><a href="working-with-data.html#recycling"><span class="toc-section-number">5.3.3</span> Recycling</a></li>
 </ul></li>
 </ul></li>
-<li><a href="statistical-analysis.html#statistical-analysis"><span class="toc-section-number">6</span> Statistical Analysis</a>
-<ul>
-<li><a href="statistical-analysis.html#setup"><span class="toc-section-number">6.1</span> Setup</a>
-<ul>
+<li class="has-sub"><a href="statistical-analysis.html#statistical-analysis"><span class="toc-section-number">6</span> Statistical Analysis</a><ul>
+<li class="has-sub"><a href="statistical-analysis.html#setup"><span class="toc-section-number">6.1</span> Setup</a><ul>
 <li><a href="statistical-analysis.html#data"><span class="toc-section-number">6.1.1</span> Data</a></li>
 <li><a href="statistical-analysis.html#nhefs-codebook"><span class="toc-section-number">6.1.2</span> NHEFS Codebook</a></li>
 </ul></li>
@@ -168,34 +163,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="statistical-analysis.html#tabular-analysis"><span class="toc-section-number">6.3</span> Tabular Analysis</a></li>
 <li><a href="statistical-analysis.html#regression-models"><span class="toc-section-number">6.4</span> Regression Models</a></li>
 </ul></li>
-<li><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a>
-<ul>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a><ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#whats-a-loop"><span class="toc-section-number">7.1</span> What’s a Loop?</a></li>
-<li><a href="getting-comfortable-with-loops-and-logic.html#why-loop"><span class="toc-section-number">7.2</span> Why Loop?</a>
-<ul>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#why-loop"><span class="toc-section-number">7.2</span> Why Loop?</a><ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#curly-braces"><span class="toc-section-number">7.2.1</span> Curly Braces</a></li>
 </ul></li>
-<li><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">7.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a>
-<ul>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">7.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a><ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#standard-loop"><span class="toc-section-number">7.3.1</span> Standard Loop</a></li>
 <li><a href="getting-comfortable-with-loops-and-logic.html#vectorized-loops"><span class="toc-section-number">7.3.2</span> Vectorized Loops</a></li>
 <li><a href="getting-comfortable-with-loops-and-logic.html#nested-loops"><span class="toc-section-number">7.3.3</span> Nested Loops</a></li>
 </ul></li>
 </ul></li>
-<li><a href="functionalizing-code.html#functionalizing-code"><span class="toc-section-number">8</span> Functionalizing Code</a>
-<ul>
+<li class="has-sub"><a href="functionalizing-code.html#functionalizing-code"><span class="toc-section-number">8</span> Functionalizing Code</a><ul>
 <li><a href="functionalizing-code.html#simulate-data"><span class="toc-section-number">8.1</span> Simulate Data</a></li>
 <li><a href="functionalizing-code.html#the-old-way"><span class="toc-section-number">8.2</span> The Old Way</a></li>
 <li><a href="functionalizing-code.html#a-new-way-part-1"><span class="toc-section-number">8.3</span> A New Way, Part 1</a></li>
-<li><a href="functionalizing-code.html#a-new-way-part-2"><span class="toc-section-number">8.4</span> A New Way, Part 2</a>
-<ul>
+<li class="has-sub"><a href="functionalizing-code.html#a-new-way-part-2"><span class="toc-section-number">8.4</span> A New Way, Part 2</a><ul>
 <li><a href="functionalizing-code.html#loop-method-1"><span class="toc-section-number">8.4.1</span> Loop Method 1</a></li>
 <li><a href="functionalizing-code.html#loop-method-2"><span class="toc-section-number">8.4.2</span> Loop Method 2</a></li>
 <li><a href="functionalizing-code.html#add-a-new-analysis"><span class="toc-section-number">8.4.3</span> Add a New Analysis</a></li>
 </ul></li>
 <li><a href="functionalizing-code.html#a-new-way-part-3"><span class="toc-section-number">8.5</span> A New Way, Part 3</a></li>
-<li><a href="functionalizing-code.html#approximate-in-sas"><span class="toc-section-number">8.6</span> Approximate in SAS</a>
-<ul>
+<li class="has-sub"><a href="functionalizing-code.html#approximate-in-sas"><span class="toc-section-number">8.6</span> Approximate in SAS</a><ul>
 <li><a href="functionalizing-code.html#simulate-data-1"><span class="toc-section-number">8.6.1</span> Simulate Data</a></li>
 </ul></li>
 </ul></li>
@@ -208,17 +197,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li><a href="programming-concepts.html#programming-concepts"><span class="toc-section-number">10</span> Programming Concepts</a></li>
-<li><a href="resources.html#resources"><span class="toc-section-number">11</span> Resources</a>
-<ul>
-<li><a href="resources.html#r"><span class="toc-section-number">11.1</span> R</a>
-<ul>
+<li class="has-sub"><a href="resources.html#resources"><span class="toc-section-number">11</span> Resources</a><ul>
+<li class="has-sub"><a href="resources.html#r"><span class="toc-section-number">11.1</span> R</a><ul>
 <li><a href="resources.html#core-documentation"><span class="toc-section-number">11.1.1</span> Core Documentation</a></li>
 <li><a href="resources.html#programming"><span class="toc-section-number">11.1.2</span> Programming</a></li>
 <li><a href="resources.html#data-visualization-1"><span class="toc-section-number">11.1.3</span> Data Visualization</a></li>
 <li><a href="resources.html#reproducible-research-and-version-control"><span class="toc-section-number">11.1.4</span> Reproducible Research and Version Control</a></li>
 </ul></li>
-<li><a href="resources.html#sas"><span class="toc-section-number">11.2</span> SAS</a>
-<ul>
+<li class="has-sub"><a href="resources.html#sas"><span class="toc-section-number">11.2</span> SAS</a><ul>
 <li><a href="resources.html#programming-and-core-documentation"><span class="toc-section-number">11.2.1</span> Programming and Core Documentation</a></li>
 <li><a href="resources.html#reproducible-research"><span class="toc-section-number">11.2.2</span> Reproducible Research</a></li>
 </ul></li>
@@ -229,7 +215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="row">
 <div class="col-sm-12">
-<div id="data-visualization" class="section level1" number="9">
+<div id="data-visualization" class="section level1">
 <h1><span class="header-section-number">9</span> Data Visualization</h1>
 <p>Look at your data!</p>
 <p>Yes, that means look at your raw data by producing subsets, printing to the console, and all the other things we’ve been doing. But it also means that we should visualize our data.</p>
@@ -251,33 +237,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><a href="https://socviz.co/">Data Visualization: A Practical Introduction</a> by Kieran Healy</p></li>
 <li><p><a href="http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html">Top 50 ggplot2 Visualizations - The Master List (with Full R Code)</a> by Selva Prabhakaran</p></li>
 </ol>
-<p>Keeping these bookmarked will probably cover about 90%<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> Source: Thin air</span> of your data visualization needs.</p>
+<p>Keeping these bookmarked will probably cover about 90%<label for="tufte-sn-4" class="margin-toggle sidenote-number">4</label><input type="checkbox" id="tufte-sn-4" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">4</span> Source: Thin air</span> of your data visualization needs.</p>
 <div id="base-r-versus-ggplot2" class="section level2">
 <h2><span class="header-section-number">9.1</span> Base R versus ggplot2</h2>
 <p>You may find that working with plotting in base R is more efficient when you want quick-and-dirty visualizations—for instance, while you’re conducting exploratory data analysis.</p>
 <div id="boxplots-base-r" class="section level3">
 <h3><span class="header-section-number">9.1.1</span> Boxplots (Base R)</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># using built-in iris dataset</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">boxplot</span>(iris<span class="op">$</span>Petal.Width)</a></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" title="1"><span class="co"># using built-in iris dataset</span></a>
+<a class="sourceLine" id="cb241-2" title="2"><span class="kw">boxplot</span>(iris<span class="op">$</span>Petal.Width)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-bp-1.svg" width="75%"  style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">boxplot</span>(Petal.Width <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> iris)</a></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" title="1"><span class="kw">boxplot</span>(Petal.Width <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> iris)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-bp-2.svg" width="75%"  style="display: block; margin: auto;" /></p>
 </div>
 <div id="density-plots-base-r" class="section level3">
 <h3><span class="header-section-number">9.1.2</span> Density Plots (Base R)</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">density</span>(iris<span class="op">$</span>Petal.Width))</a></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" title="1"><span class="kw">plot</span>(<span class="kw">density</span>(iris<span class="op">$</span>Petal.Width))</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-density-1.svg" width="75%"  style="display: block; margin: auto;" /></p>
 </div>
 <div id="scatterplots-base-r" class="section level3">
 <h3><span class="header-section-number">9.1.3</span> Scatterplots (Base R)</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">plot</span>(iris<span class="op">$</span>Petal.Width)</a></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" title="1"><span class="kw">plot</span>(iris<span class="op">$</span>Petal.Width)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-scatter-1.svg" width="75%"  style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">plot</span>(Petal.Width <span class="op">~</span><span class="st"> </span>Petal.Length, <span class="dt">data =</span> iris)</a></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" title="1"><span class="kw">plot</span>(Petal.Width <span class="op">~</span><span class="st"> </span>Petal.Length, <span class="dt">data =</span> iris)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-scatter-2.svg" width="75%"  style="display: block; margin: auto;" /></p>
 </div>
 <div id="histograms-base-r" class="section level3">
 <h3><span class="header-section-number">9.1.4</span> Histograms (Base R)</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">hist</span>(iris<span class="op">$</span>Petal.Width)</a></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" title="1"><span class="kw">hist</span>(iris<span class="op">$</span>Petal.Width)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-hist-1.svg" width="75%"  style="display: block; margin: auto;" /></p>
 
 </div>

@@ -20,13 +20,12 @@ MathJax.Hub.Config({
   TeX: { equationNumbers: { autoNumber: "AMS" } }
 });
 </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script src="/usr/share/javascript/mathjax/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
 
 <meta name="description" content="Resources and tutorials for R and SAS analysis geared toward public health students.">
 
 <title>6 Statistical Analysis | Computing Concepts for Public Health Researchers</title>
 
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-italics.css" rel="stylesheet" />
@@ -43,28 +42,26 @@ MathJax.Hub.Config({
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -73,9 +70,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -121,54 +118,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="col-sm-12">
 <div id="TOC">
 <ul>
-<li><a href="index.html#learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a>
-<ul>
+<li class="has-sub"><a href="index.html#learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a><ul>
 <li><a href="index.html#main-objectives"><span class="toc-section-number">1.1</span> Main objectives</a></li>
 <li><a href="index.html#secondary-objectives"><span class="toc-section-number">1.2</span> Secondary objectives</a></li>
 <li><a href="index.html#acknowledgements"><span class="toc-section-number">1.3</span> Acknowledgements</a></li>
 </ul></li>
-<li><a href="startup.html#startup"><span class="toc-section-number">2</span> Getting Started</a>
-<ul>
+<li class="has-sub"><a href="startup.html#startup"><span class="toc-section-number">2</span> Getting Started</a><ul>
 <li><a href="startup.html#getting-started-with-r"><span class="toc-section-number">2.1</span> Getting Started with R</a></li>
 <li><a href="startup.html#getting-started-with-sas"><span class="toc-section-number">2.2</span> Getting Started with SAS</a></li>
 </ul></li>
-<li><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a>
-<ul>
+<li class="has-sub"><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a><ul>
 <li><a href="data-structures.html#major-differences-between-r-and-sas"><span class="toc-section-number">3.1</span> Major Differences Between R and SAS</a></li>
 <li><a href="data-structures.html#r-object-and-value-classes"><span class="toc-section-number">3.2</span> R: Object and Value Classes</a></li>
 <li><a href="data-structures.html#sas-value-formats"><span class="toc-section-number">3.3</span> SAS: Value Formats</a></li>
 </ul></li>
-<li><a href="importing-and-exporting-data.html#importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a>
-<ul>
-<li><a href="importing-and-exporting-data.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a>
-<ul>
+<li class="has-sub"><a href="importing-and-exporting-data.html#importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a><ul>
+<li class="has-sub"><a href="importing-and-exporting-data.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a><ul>
 <li><a href="importing-and-exporting-data.html#reading-data"><span class="toc-section-number">4.1.1</span> Reading Data</a></li>
 <li><a href="importing-and-exporting-data.html#writing-data"><span class="toc-section-number">4.1.2</span> Writing Data</a></li>
 </ul></li>
 <li><a href="importing-and-exporting-data.html#sas-reading-and-writing-data"><span class="toc-section-number">4.2</span> SAS: Reading and Writing Data</a></li>
 </ul></li>
-<li><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a>
-<ul>
+<li class="has-sub"><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a><ul>
 <li><a href="working-with-data.html#objects-in-r"><span class="toc-section-number">5.1</span> Objects in R</a></li>
-<li><a href="working-with-data.html#more-complex-objects"><span class="toc-section-number">5.2</span> More Complex Objects</a>
-<ul>
+<li class="has-sub"><a href="working-with-data.html#more-complex-objects"><span class="toc-section-number">5.2</span> More Complex Objects</a><ul>
 <li><a href="working-with-data.html#vectors"><span class="toc-section-number">5.2.1</span> Vectors</a></li>
 <li><a href="working-with-data.html#matrices"><span class="toc-section-number">5.2.2</span> Matrices</a></li>
 <li><a href="working-with-data.html#lists"><span class="toc-section-number">5.2.3</span> Lists</a></li>
 <li><a href="working-with-data.html#data-frames"><span class="toc-section-number">5.2.4</span> Data Frames</a></li>
 <li><a href="working-with-data.html#other-object-classes"><span class="toc-section-number">5.2.5</span> Other Object Classes</a></li>
 </ul></li>
-<li><a href="working-with-data.html#conducting-operations-on-objects"><span class="toc-section-number">5.3</span> Conducting Operations on Objects</a>
-<ul>
+<li class="has-sub"><a href="working-with-data.html#conducting-operations-on-objects"><span class="toc-section-number">5.3</span> Conducting Operations on Objects</a><ul>
 <li><a href="working-with-data.html#arithmetic-operations"><span class="toc-section-number">5.3.1</span> Arithmetic Operations</a></li>
 <li><a href="working-with-data.html#logical-operations"><span class="toc-section-number">5.3.2</span> Logical Operations</a></li>
 <li><a href="working-with-data.html#recycling"><span class="toc-section-number">5.3.3</span> Recycling</a></li>
 </ul></li>
 </ul></li>
-<li><a href="statistical-analysis.html#statistical-analysis"><span class="toc-section-number">6</span> Statistical Analysis</a>
-<ul>
-<li><a href="statistical-analysis.html#setup"><span class="toc-section-number">6.1</span> Setup</a>
-<ul>
+<li class="has-sub"><a href="statistical-analysis.html#statistical-analysis"><span class="toc-section-number">6</span> Statistical Analysis</a><ul>
+<li class="has-sub"><a href="statistical-analysis.html#setup"><span class="toc-section-number">6.1</span> Setup</a><ul>
 <li><a href="statistical-analysis.html#data"><span class="toc-section-number">6.1.1</span> Data</a></li>
 <li><a href="statistical-analysis.html#nhefs-codebook"><span class="toc-section-number">6.1.2</span> NHEFS Codebook</a></li>
 </ul></li>
@@ -176,50 +163,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="statistical-analysis.html#tabular-analysis"><span class="toc-section-number">6.3</span> Tabular Analysis</a></li>
 <li><a href="statistical-analysis.html#regression-models"><span class="toc-section-number">6.4</span> Regression Models</a></li>
 </ul></li>
-<li><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a>
-<ul>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a><ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#whats-a-loop"><span class="toc-section-number">7.1</span> What’s a Loop?</a></li>
-<li><a href="getting-comfortable-with-loops-and-logic.html#why-loop"><span class="toc-section-number">7.2</span> Why Loop?</a>
-<ul>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#why-loop"><span class="toc-section-number">7.2</span> Why Loop?</a><ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#curly-braces"><span class="toc-section-number">7.2.1</span> Curly Braces</a></li>
 </ul></li>
-<li><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">7.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a>
-<ul>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">7.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a><ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#standard-loop"><span class="toc-section-number">7.3.1</span> Standard Loop</a></li>
 <li><a href="getting-comfortable-with-loops-and-logic.html#vectorized-loops"><span class="toc-section-number">7.3.2</span> Vectorized Loops</a></li>
 <li><a href="getting-comfortable-with-loops-and-logic.html#nested-loops"><span class="toc-section-number">7.3.3</span> Nested Loops</a></li>
 </ul></li>
 </ul></li>
-<li><a href="functionalizing-code.html#functionalizing-code"><span class="toc-section-number">8</span> Functionalizing Code</a>
-<ul>
+<li class="has-sub"><a href="functionalizing-code.html#functionalizing-code"><span class="toc-section-number">8</span> Functionalizing Code</a><ul>
 <li><a href="functionalizing-code.html#simulate-data"><span class="toc-section-number">8.1</span> Simulate Data</a></li>
 <li><a href="functionalizing-code.html#the-old-way"><span class="toc-section-number">8.2</span> The Old Way</a></li>
 <li><a href="functionalizing-code.html#a-new-way-part-1"><span class="toc-section-number">8.3</span> A New Way, Part 1</a></li>
-<li><a href="functionalizing-code.html#a-new-way-part-2"><span class="toc-section-number">8.4</span> A New Way, Part 2</a>
-<ul>
+<li class="has-sub"><a href="functionalizing-code.html#a-new-way-part-2"><span class="toc-section-number">8.4</span> A New Way, Part 2</a><ul>
 <li><a href="functionalizing-code.html#loop-method-1"><span class="toc-section-number">8.4.1</span> Loop Method 1</a></li>
 <li><a href="functionalizing-code.html#loop-method-2"><span class="toc-section-number">8.4.2</span> Loop Method 2</a></li>
 <li><a href="functionalizing-code.html#add-a-new-analysis"><span class="toc-section-number">8.4.3</span> Add a New Analysis</a></li>
 </ul></li>
 <li><a href="functionalizing-code.html#a-new-way-part-3"><span class="toc-section-number">8.5</span> A New Way, Part 3</a></li>
-<li><a href="functionalizing-code.html#approximate-in-sas"><span class="toc-section-number">8.6</span> Approximate in SAS</a>
-<ul>
+<li class="has-sub"><a href="functionalizing-code.html#approximate-in-sas"><span class="toc-section-number">8.6</span> Approximate in SAS</a><ul>
 <li><a href="functionalizing-code.html#simulate-data-1"><span class="toc-section-number">8.6.1</span> Simulate Data</a></li>
 </ul></li>
 </ul></li>
-<li><a href="data-visualization.html#data-visualization"><span class="toc-section-number">9</span> Data Visualization</a></li>
+<li class="has-sub"><a href="data-visualization.html#data-visualization"><span class="toc-section-number">9</span> Data Visualization</a><ul>
+<li class="has-sub"><a href="data-visualization.html#base-r-versus-ggplot2"><span class="toc-section-number">9.1</span> Base R versus ggplot2</a><ul>
+<li><a href="data-visualization.html#boxplots-base-r"><span class="toc-section-number">9.1.1</span> Boxplots (Base R)</a></li>
+<li><a href="data-visualization.html#density-plots-base-r"><span class="toc-section-number">9.1.2</span> Density Plots (Base R)</a></li>
+<li><a href="data-visualization.html#scatterplots-base-r"><span class="toc-section-number">9.1.3</span> Scatterplots (Base R)</a></li>
+<li><a href="data-visualization.html#histograms-base-r"><span class="toc-section-number">9.1.4</span> Histograms (Base R)</a></li>
+</ul></li>
+</ul></li>
 <li><a href="programming-concepts.html#programming-concepts"><span class="toc-section-number">10</span> Programming Concepts</a></li>
-<li><a href="resources.html#resources"><span class="toc-section-number">11</span> Resources</a>
-<ul>
-<li><a href="resources.html#r"><span class="toc-section-number">11.1</span> R</a>
-<ul>
+<li class="has-sub"><a href="resources.html#resources"><span class="toc-section-number">11</span> Resources</a><ul>
+<li class="has-sub"><a href="resources.html#r"><span class="toc-section-number">11.1</span> R</a><ul>
 <li><a href="resources.html#core-documentation"><span class="toc-section-number">11.1.1</span> Core Documentation</a></li>
 <li><a href="resources.html#programming"><span class="toc-section-number">11.1.2</span> Programming</a></li>
 <li><a href="resources.html#data-visualization-1"><span class="toc-section-number">11.1.3</span> Data Visualization</a></li>
 <li><a href="resources.html#reproducible-research-and-version-control"><span class="toc-section-number">11.1.4</span> Reproducible Research and Version Control</a></li>
 </ul></li>
-<li><a href="resources.html#sas"><span class="toc-section-number">11.2</span> SAS</a>
-<ul>
+<li class="has-sub"><a href="resources.html#sas"><span class="toc-section-number">11.2</span> SAS</a><ul>
 <li><a href="resources.html#programming-and-core-documentation"><span class="toc-section-number">11.2.1</span> Programming and Core Documentation</a></li>
 <li><a href="resources.html#reproducible-research"><span class="toc-section-number">11.2.2</span> Reproducible Research</a></li>
 </ul></li>
@@ -230,19 +215,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="row">
 <div class="col-sm-12">
-<div id="statistical-analysis" class="section level1" number="6">
+<div id="statistical-analysis" class="section level1">
 <h1><span class="header-section-number">6</span> Statistical Analysis</h1>
-<div id="setup" class="section level2" number="6.1">
+<div id="setup" class="section level2">
 <h2><span class="header-section-number">6.1</span> Setup</h2>
 <p>In this section, we’ll provide some examples of basic statistical analyses you might be called upon to do at some point.</p>
 <p>Note that the analyses you conduct as part of real research will almost certainly be more complicated than the code shown here. However, the hope is that you’ll get enough of a feel to begin putting the pieces together as demanded by a given project.</p>
-<div id="data" class="section level3" number="6.1.1">
+<div id="data" class="section level3">
 <h3><span class="header-section-number">6.1.1</span> Data</h3>
 <p>If you’d like to try any of these examples on your own, we’re using the NHEFS data set freely available at the <a href="https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/">website</a> for <em>Causal Inference: What If</em> by Miguel A. Hernán and James M. Robins.</p>
 <p>For examples based in R, we’ll use the CSV file they provide, and the sas7bdat data set for our SAS examples.</p>
 <p>The website itself contains extensive code examples in SAS, Stata, R, and Python—everything you could want!—so those who will be taking advanced epidemiologic or causal inference coursework should refer to those resources for guidance on how to implement relevant analyses. We’ll cover a little bit here, but only briefly.</p>
 </div>
-<div id="nhefs-codebook" class="section level3" number="6.1.2">
+<div id="nhefs-codebook" class="section level3">
 <h3><span class="header-section-number">6.1.2</span> NHEFS Codebook</h3>
 <table>
 <colgroup>
@@ -516,11 +501,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 </div>
-<div id="exploratory-data-analysis" class="section level2" number="6.2">
+<div id="exploratory-data-analysis" class="section level2">
 <h2><span class="header-section-number">6.2</span> Exploratory Data Analysis</h2>
 <p>First, let’s read in our data and glance at it using a couple of different views.</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="statistical-analysis.html#cb169-1" aria-hidden="true" tabindex="-1"></a>nhefs <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;data/nhefs.csv&quot;</span>)</span>
-<span id="cb169-2"><a href="statistical-analysis.html#cb169-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(nhefs)</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1">nhefs &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;data/nhefs.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb169-2" title="2"><span class="kw">head</span>(nhefs)</a></code></pre></div>
 <pre><code># A tibble: 6 × 64
    seqn  qsmk death yrdth modth dadth   sbp   dbp   sex   age  race income
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
@@ -537,7 +522,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #   pepticulcer &lt;dbl&gt;, colitis &lt;dbl&gt;, hepatitis &lt;dbl&gt;, chroniccough &lt;dbl&gt;,
 #   hayfever &lt;dbl&gt;, diabetes &lt;dbl&gt;, polio &lt;dbl&gt;, tumor &lt;dbl&gt;,
 #   nervousbreak &lt;dbl&gt;, alcoholpy &lt;dbl&gt;, alcoholfreq &lt;dbl&gt;, …</code></pre>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="statistical-analysis.html#cb171-1" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(nhefs)</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs)</a></code></pre></div>
 <pre><code>Rows: 1,629
 Columns: 64
 $ seqn              &lt;dbl&gt; 233, 235, 244, 245, 252, 257, 262, 266, 419, 420, 42…
@@ -605,15 +590,15 @@ $ tax82             &lt;dbl&gt; 0.4619751, 0.5718994, 0.2309875, 0.2199707, 0.57
 $ price71_82        &lt;dbl&gt; 0.44378662, 0.54931641, 0.05619812, 0.05479431, 0.54…
 $ tax71_82          &lt;dbl&gt; 0.6403809, 0.7929688, 0.3202515, 0.3049927, 0.792968…</code></pre>
 <p>For now, let’s focus on observations (rows) that don’t have any missing data. To do this, let’s get a summary of how much missingness we have across the 1,629 observations.</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="statistical-analysis.html#cb173-1" aria-hidden="true" tabindex="-1"></a>allvars <span class="ot">&lt;-</span> <span class="fu">names</span>(nhefs)</span>
-<span id="cb173-2"><a href="statistical-analysis.html#cb173-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb173-3"><a href="statistical-analysis.html#cb173-3" aria-hidden="true" tabindex="-1"></a>df_miss <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">variable =</span> allvars)</span>
-<span id="cb173-4"><a href="statistical-analysis.html#cb173-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb173-5"><a href="statistical-analysis.html#cb173-5" aria-hidden="true" tabindex="-1"></a>df_miss <span class="ot">&lt;-</span> df_miss <span class="sc">%&gt;%</span></span>
-<span id="cb173-6"><a href="statistical-analysis.html#cb173-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb173-7"><a href="statistical-analysis.html#cb173-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">n_miss =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(nhefs[[variable]])))</span>
-<span id="cb173-8"><a href="statistical-analysis.html#cb173-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb173-9"><a href="statistical-analysis.html#cb173-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_miss, <span class="at">n =</span> <span class="fu">nrow</span>(df_miss))</span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1">allvars &lt;-<span class="st"> </span><span class="kw">names</span>(nhefs)</a>
+<a class="sourceLine" id="cb173-2" title="2"></a>
+<a class="sourceLine" id="cb173-3" title="3">df_miss &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">variable =</span> allvars)</a>
+<a class="sourceLine" id="cb173-4" title="4"></a>
+<a class="sourceLine" id="cb173-5" title="5">df_miss &lt;-<span class="st"> </span>df_miss <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb173-6" title="6"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb173-7" title="7"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">n_miss =</span> <span class="kw">sum</span>(<span class="kw">is.na</span>(nhefs[[variable]])))</a>
+<a class="sourceLine" id="cb173-8" title="8"></a>
+<a class="sourceLine" id="cb173-9" title="9"><span class="kw">print</span>(df_miss, <span class="dt">n =</span> <span class="kw">nrow</span>(df_miss))</a></code></pre></div>
 <pre><code># A tibble: 64 × 2
 # Rowwise: 
    variable          n_miss
@@ -684,7 +669,7 @@ $ tax71_82          &lt;dbl&gt; 0.6403809, 0.7929688, 0.3202515, 0.3049927, 0.79
 64 tax71_82              92</code></pre>
 <p>That looks a little hairy. Basically, all we did here was to create data.frame, save the NHEFS variable names to its first column, then look up each variable in the NHEFS data set and count the number of missing values.</p>
 <p>However, we could have gotten this summary in a number of different ways.</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="statistical-analysis.html#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(nhefs, <span class="cf">function</span>(x) <span class="fu">table</span>(<span class="fu">is.na</span>(x)))</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" title="1"><span class="kw">lapply</span>(nhefs, <span class="cf">function</span>(x) <span class="kw">table</span>(<span class="kw">is.na</span>(x)))</a></code></pre></div>
 <pre><code>$seqn
 
 FALSE 
@@ -1004,7 +989,7 @@ $tax71_82
 
 FALSE  TRUE 
  1537    92 </code></pre>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="statistical-analysis.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(nhefs, <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)))</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" title="1"><span class="kw">sapply</span>(nhefs, <span class="cf">function</span>(x) <span class="kw">sum</span>(<span class="kw">is.na</span>(x)))</a></code></pre></div>
 <pre><code>             seqn              qsmk             death             yrdth 
                 0                 0                 0              1311 
             modth             dadth               sbp               dbp 
@@ -1038,8 +1023,8 @@ FALSE  TRUE
             tax71             tax82        price71_82          tax71_82 
                92                92                92                92 </code></pre>
 <p>Let’s drop every row with a missing value for any variable</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="statistical-analysis.html#cb179-1" aria-hidden="true" tabindex="-1"></a>nhefs2 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(nhefs)</span>
-<span id="cb179-2"><a href="statistical-analysis.html#cb179-2" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(nhefs2)</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1">nhefs2 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(nhefs)</a>
+<a class="sourceLine" id="cb179-2" title="2">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs2)</a></code></pre></div>
 <pre><code>Rows: 44
 Columns: 64
 $ seqn              &lt;dbl&gt; 1096, 1539, 1762, 1776, 2286, 4556, 5415, 6222, 6933…
@@ -1107,13 +1092,13 @@ $ tax82             &lt;dbl&gt; 0.6379395, 0.6379395, 0.4399414, 0.2199707, 0.63
 $ price71_82        &lt;dbl&gt; 0.46356201, 0.17059326, 0.40594482, 0.05479431, 0.17…
 $ tax71_82          &lt;dbl&gt; 0.6219482, 0.3594971, 0.6099854, 0.3049927, 0.359497…</code></pre>
 <p>Oops, we have only 44 rows left in the data set! Perhaps we should reconsider, and pick several variables that will be of interest to us for our current purposes.</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="statistical-analysis.html#cb181-1" aria-hidden="true" tabindex="-1"></a>selectvars <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb181-2"><a href="statistical-analysis.html#cb181-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;age&quot;</span>, <span class="st">&quot;alcoholfreq&quot;</span>, <span class="st">&quot;asthma&quot;</span>, <span class="st">&quot;wt71&quot;</span>,</span>
-<span id="cb181-3"><a href="statistical-analysis.html#cb181-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;smokeintensity&quot;</span>, <span class="st">&quot;sbp&quot;</span>, <span class="st">&quot;allergies&quot;</span></span>
-<span id="cb181-4"><a href="statistical-analysis.html#cb181-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb181-5"><a href="statistical-analysis.html#cb181-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb181-6"><a href="statistical-analysis.html#cb181-6" aria-hidden="true" tabindex="-1"></a>nhefs3 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(nhefs[, selectvars])</span>
-<span id="cb181-7"><a href="statistical-analysis.html#cb181-7" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(nhefs3)</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" title="1">selectvars &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb181-2" title="2">  <span class="st">&quot;age&quot;</span>, <span class="st">&quot;alcoholfreq&quot;</span>, <span class="st">&quot;asthma&quot;</span>, <span class="st">&quot;wt71&quot;</span>,</a>
+<a class="sourceLine" id="cb181-3" title="3">  <span class="st">&quot;smokeintensity&quot;</span>, <span class="st">&quot;sbp&quot;</span>, <span class="st">&quot;allergies&quot;</span></a>
+<a class="sourceLine" id="cb181-4" title="4">)</a>
+<a class="sourceLine" id="cb181-5" title="5"></a>
+<a class="sourceLine" id="cb181-6" title="6">nhefs3 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(nhefs[, selectvars])</a>
+<a class="sourceLine" id="cb181-7" title="7">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs3)</a></code></pre></div>
 <pre><code>Rows: 1,552
 Columns: 7
 $ age            &lt;dbl&gt; 42, 36, 56, 68, 40, 43, 56, 29, 51, 43, 43, 34, 54, 51,…
@@ -1127,19 +1112,19 @@ $ allergies      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 
 <p>Look back at the output we got from <code>glimpse()</code>. Are the variables in the formats we expect/need? I see one that we may need to update, depending on how we plan to use it. (Hint: Look back at the codebook for the variable summaries)</p>
 <p>It seems that <code>alcoholfreq</code> is current being treated as a numeric variables, but really, it’s a factor with 5 discrete levels. Furthermore, level 5 is Unknown, which we should probably treat as missing. We’ll also use a factor format for <code>alcoholfreq</code>.</p>
 <p><span class="marginnote">We could leave <code>alcoholfreq</code> as a numeric variable and wrap it in the <code>factor()</code> function only when we needed to. In some cases, that approach might be preferable, in some cases not.</span></p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="statistical-analysis.html#cb183-1" aria-hidden="true" tabindex="-1"></a>nhefs3<span class="sc">$</span>alcfreq <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(nhefs3<span class="sc">$</span>alcoholfreq)</span>
-<span id="cb183-2"><a href="statistical-analysis.html#cb183-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nhefs3<span class="sc">$</span>alcfreq)</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" title="1">nhefs3<span class="op">$</span>alcfreq &lt;-<span class="st"> </span><span class="kw">as.factor</span>(nhefs3<span class="op">$</span>alcoholfreq)</a>
+<a class="sourceLine" id="cb183-2" title="2"><span class="kw">table</span>(nhefs3<span class="op">$</span>alcfreq)</a></code></pre></div>
 <pre><code>
   0   1   2   3   4   5 
 320 217 489 329 192   5 </code></pre>
 <p>Let’s replace those 5 missing values with NA’s, too, and drop the corresponding rows from our data set. Let’s also get rid of the original <code>alcoholfreq</code> variable and just hang on to the factor variable we made.</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="statistical-analysis.html#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In words: where alcfreq in nhefs3 equals 5, assign NA</span></span>
-<span id="cb185-2"><a href="statistical-analysis.html#cb185-2" aria-hidden="true" tabindex="-1"></a>nhefs3<span class="sc">$</span>alcfreq[nhefs3<span class="sc">$</span>alcfreq <span class="sc">==</span> <span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb185-3"><a href="statistical-analysis.html#cb185-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb185-4"><a href="statistical-analysis.html#cb185-4" aria-hidden="true" tabindex="-1"></a>nhefs4 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(nhefs3)</span>
-<span id="cb185-5"><a href="statistical-analysis.html#cb185-5" aria-hidden="true" tabindex="-1"></a>nhefs4<span class="sc">$</span>alcoholfreq <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb185-6"><a href="statistical-analysis.html#cb185-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb185-7"><a href="statistical-analysis.html#cb185-7" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(nhefs4)</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" title="1"><span class="co"># In words: where alcfreq in nhefs3 equals 5, assign NA</span></a>
+<a class="sourceLine" id="cb185-2" title="2">nhefs3<span class="op">$</span>alcfreq[nhefs3<span class="op">$</span>alcfreq <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb185-3" title="3"></a>
+<a class="sourceLine" id="cb185-4" title="4">nhefs4 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(nhefs3)</a>
+<a class="sourceLine" id="cb185-5" title="5">nhefs4<span class="op">$</span>alcoholfreq &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb185-6" title="6"></a>
+<a class="sourceLine" id="cb185-7" title="7">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs4)</a></code></pre></div>
 <pre><code>Rows: 1,547
 Columns: 7
 $ age            &lt;dbl&gt; 42, 36, 56, 68, 40, 43, 56, 29, 51, 43, 43, 34, 54, 51,…
@@ -1150,9 +1135,9 @@ $ sbp            &lt;dbl&gt; 175, 123, 115, 148, 118, 141, 132, 100, 163, 184, 1
 $ allergies      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0…
 $ alcfreq        &lt;fct&gt; 1, 0, 3, 2, 2, 3, 1, 0, 1, 0, 3, 0, 0, 4, 4, 3, 2, 1, 0…</code></pre>
 <p>Let’s summarize our dataset:</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="statistical-analysis.html#cb187-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Continuous variables</span></span>
-<span id="cb187-2"><a href="statistical-analysis.html#cb187-2" aria-hidden="true" tabindex="-1"></a>contvars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;wt71&quot;</span>, <span class="st">&quot;smokeintensity&quot;</span>, <span class="st">&quot;sbp&quot;</span>)</span>
-<span id="cb187-3"><a href="statistical-analysis.html#cb187-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nhefs4[, contvars])</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" title="1"><span class="co"># Continuous variables</span></a>
+<a class="sourceLine" id="cb187-2" title="2">contvars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;wt71&quot;</span>, <span class="st">&quot;smokeintensity&quot;</span>, <span class="st">&quot;sbp&quot;</span>)</a>
+<a class="sourceLine" id="cb187-3" title="3"><span class="kw">summary</span>(nhefs4[, contvars])</a></code></pre></div>
 <pre><code>      age             wt71        smokeintensity       sbp       
  Min.   :25.00   Min.   : 39.58   Min.   : 1.00   Min.   : 87.0  
  1st Qu.:33.00   1st Qu.: 59.65   1st Qu.:10.00   1st Qu.:116.0  
@@ -1160,13 +1145,13 @@ $ alcfreq        &lt;fct&gt; 1, 0, 3, 2, 2, 3, 1, 0, 1, 0, 3, 0, 0, 4, 4, 3, 2, 
  Mean   :43.65   Mean   : 70.90   Mean   :20.54   Mean   :128.7  
  3rd Qu.:53.00   3rd Qu.: 79.95   3rd Qu.:30.00   3rd Qu.:139.5  
  Max.   :74.00   Max.   :151.73   Max.   :80.00   Max.   :229.0  </code></pre>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="statistical-analysis.html#cb189-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Categorical variables</span></span>
-<span id="cb189-2"><a href="statistical-analysis.html#cb189-2" aria-hidden="true" tabindex="-1"></a>catvars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;asthma&quot;</span>, <span class="st">&quot;allergies&quot;</span>, <span class="st">&quot;alcfreq&quot;</span>)</span>
-<span id="cb189-3"><a href="statistical-analysis.html#cb189-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(</span>
-<span id="cb189-4"><a href="statistical-analysis.html#cb189-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">X =</span> catvars,</span>
-<span id="cb189-5"><a href="statistical-analysis.html#cb189-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">FUN =</span> <span class="cf">function</span>(x) {</span>
-<span id="cb189-6"><a href="statistical-analysis.html#cb189-6" aria-hidden="true" tabindex="-1"></a>    summarytools<span class="sc">::</span><span class="fu">freq</span>(nhefs4[x])</span>
-<span id="cb189-7"><a href="statistical-analysis.html#cb189-7" aria-hidden="true" tabindex="-1"></a>  })</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" title="1"><span class="co"># Categorical variables</span></a>
+<a class="sourceLine" id="cb189-2" title="2">catvars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;asthma&quot;</span>, <span class="st">&quot;allergies&quot;</span>, <span class="st">&quot;alcfreq&quot;</span>)</a>
+<a class="sourceLine" id="cb189-3" title="3"><span class="kw">lapply</span>(</a>
+<a class="sourceLine" id="cb189-4" title="4">  <span class="dt">X =</span> catvars,</a>
+<a class="sourceLine" id="cb189-5" title="5">  <span class="dt">FUN =</span> <span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb189-6" title="6">    summarytools<span class="op">::</span><span class="kw">freq</span>(nhefs4[x])</a>
+<a class="sourceLine" id="cb189-7" title="7">  })</a></code></pre></div>
 <pre><code>Frequencies  
 asthma  
 Type: Numeric  
@@ -1203,39 +1188,31 @@ Type: Factor
       Total   1547    100.00         100.00    100.00         100.00</code></pre>
 <p><span class="marginnote">Based on this <a href="https://www.r-bloggers.com/quick-plot-of-all-variables/">tidy example</a>.</span></p>
 <p>A few plots may help us, too:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="statistical-analysis.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb191-2"><a href="statistical-analysis.html#cb191-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
-<span id="cb191-3"><a href="statistical-analysis.html#cb191-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb191-4"><a href="statistical-analysis.html#cb191-4" aria-hidden="true" tabindex="-1"></a>nhefs4 <span class="sc">%&gt;%</span></span>
-<span id="cb191-5"><a href="statistical-analysis.html#cb191-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(contvars) <span class="sc">%&gt;%</span></span>
-<span id="cb191-6"><a href="statistical-analysis.html#cb191-6" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">gather</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb191-7"><a href="statistical-analysis.html#cb191-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
-<span id="cb191-8"><a href="statistical-analysis.html#cb191-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>key, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
-<span id="cb191-9"><a href="statistical-analysis.html#cb191-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
-<span id="cb191-10"><a href="statistical-analysis.html#cb191-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_clean</span>()</span></code></pre></div>
-<pre><code>Note: Using an external vector in selections is ambiguous.
-ℹ Use `all_of(contvars)` instead of `contvars` to silence this message.
-ℹ See &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.
-This message is displayed once per session.</code></pre>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb191-2" title="2"><span class="kw">library</span>(ggthemes)</a>
+<a class="sourceLine" id="cb191-3" title="3"></a>
+<a class="sourceLine" id="cb191-4" title="4">nhefs4 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb191-5" title="5"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(contvars) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb191-6" title="6"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb191-7" title="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb191-8" title="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>key, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb191-9" title="9"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb191-10" title="10"><span class="st">  </span><span class="kw">theme_clean</span>()</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/eda-density-1.svg" width="672"  /></p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="statistical-analysis.html#cb193-1" aria-hidden="true" tabindex="-1"></a>nhefs4 <span class="sc">%&gt;%</span></span>
-<span id="cb193-2"><a href="statistical-analysis.html#cb193-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(catvars) <span class="sc">%&gt;%</span></span>
-<span id="cb193-3"><a href="statistical-analysis.html#cb193-3" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">gather</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb193-4"><a href="statistical-analysis.html#cb193-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
-<span id="cb193-5"><a href="statistical-analysis.html#cb193-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>key, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
-<span id="cb193-6"><a href="statistical-analysis.html#cb193-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;count&quot;</span>, <span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">fill =</span> <span class="st">&quot;lightgray&quot;</span>) <span class="sc">+</span></span>
-<span id="cb193-7"><a href="statistical-analysis.html#cb193-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_clean</span>()</span></code></pre></div>
-<pre><code>Note: Using an external vector in selections is ambiguous.
-ℹ Use `all_of(catvars)` instead of `catvars` to silence this message.
-ℹ See &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.
-This message is displayed once per session.</code></pre>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1">nhefs4 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb192-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(catvars) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb192-3" title="3"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb192-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-5" title="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>key, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-6" title="6"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">width =</span> <span class="fl">0.5</span>, <span class="dt">fill =</span> <span class="st">&quot;lightgray&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-7" title="7"><span class="st">  </span><span class="kw">theme_clean</span>()</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/eda-bars-1.svg" width="672"  /></p>
 <p>Don’t worry just now about the plot code. We’ll be looking in some detail at the ggplot2 package later.</p>
 </div>
-<div id="tabular-analysis" class="section level2" number="6.3">
+<div id="tabular-analysis" class="section level2">
 <h2><span class="header-section-number">6.3</span> Tabular Analysis</h2>
 </div>
-<div id="regression-models" class="section level2" number="6.4">
+<div id="regression-models" class="section level2">
 <h2><span class="header-section-number">6.4</span> Regression Models</h2>
 
 </div>

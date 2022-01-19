@@ -20,13 +20,12 @@ MathJax.Hub.Config({
   TeX: { equationNumbers: { autoNumber: "AMS" } }
 });
 </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script src="/usr/share/javascript/mathjax/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
 
 <meta name="description" content="Resources and tutorials for R and SAS analysis geared toward public health students.">
 
 <title>2 Getting Started | Computing Concepts for Public Health Researchers</title>
 
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-italics.css" rel="stylesheet" />
@@ -43,28 +42,26 @@ MathJax.Hub.Config({
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -73,9 +70,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -121,54 +118,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="col-sm-12">
 <div id="TOC">
 <ul>
-<li><a href="index.html#learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a>
-<ul>
+<li class="has-sub"><a href="index.html#learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a><ul>
 <li><a href="index.html#main-objectives"><span class="toc-section-number">1.1</span> Main objectives</a></li>
 <li><a href="index.html#secondary-objectives"><span class="toc-section-number">1.2</span> Secondary objectives</a></li>
 <li><a href="index.html#acknowledgements"><span class="toc-section-number">1.3</span> Acknowledgements</a></li>
 </ul></li>
-<li><a href="startup.html#startup"><span class="toc-section-number">2</span> Getting Started</a>
-<ul>
+<li class="has-sub"><a href="startup.html#startup"><span class="toc-section-number">2</span> Getting Started</a><ul>
 <li><a href="startup.html#getting-started-with-r"><span class="toc-section-number">2.1</span> Getting Started with R</a></li>
 <li><a href="startup.html#getting-started-with-sas"><span class="toc-section-number">2.2</span> Getting Started with SAS</a></li>
 </ul></li>
-<li><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a>
-<ul>
+<li class="has-sub"><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a><ul>
 <li><a href="data-structures.html#major-differences-between-r-and-sas"><span class="toc-section-number">3.1</span> Major Differences Between R and SAS</a></li>
 <li><a href="data-structures.html#r-object-and-value-classes"><span class="toc-section-number">3.2</span> R: Object and Value Classes</a></li>
 <li><a href="data-structures.html#sas-value-formats"><span class="toc-section-number">3.3</span> SAS: Value Formats</a></li>
 </ul></li>
-<li><a href="importing-and-exporting-data.html#importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a>
-<ul>
-<li><a href="importing-and-exporting-data.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a>
-<ul>
+<li class="has-sub"><a href="importing-and-exporting-data.html#importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a><ul>
+<li class="has-sub"><a href="importing-and-exporting-data.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a><ul>
 <li><a href="importing-and-exporting-data.html#reading-data"><span class="toc-section-number">4.1.1</span> Reading Data</a></li>
 <li><a href="importing-and-exporting-data.html#writing-data"><span class="toc-section-number">4.1.2</span> Writing Data</a></li>
 </ul></li>
 <li><a href="importing-and-exporting-data.html#sas-reading-and-writing-data"><span class="toc-section-number">4.2</span> SAS: Reading and Writing Data</a></li>
 </ul></li>
-<li><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a>
-<ul>
+<li class="has-sub"><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a><ul>
 <li><a href="working-with-data.html#objects-in-r"><span class="toc-section-number">5.1</span> Objects in R</a></li>
-<li><a href="working-with-data.html#more-complex-objects"><span class="toc-section-number">5.2</span> More Complex Objects</a>
-<ul>
+<li class="has-sub"><a href="working-with-data.html#more-complex-objects"><span class="toc-section-number">5.2</span> More Complex Objects</a><ul>
 <li><a href="working-with-data.html#vectors"><span class="toc-section-number">5.2.1</span> Vectors</a></li>
 <li><a href="working-with-data.html#matrices"><span class="toc-section-number">5.2.2</span> Matrices</a></li>
 <li><a href="working-with-data.html#lists"><span class="toc-section-number">5.2.3</span> Lists</a></li>
 <li><a href="working-with-data.html#data-frames"><span class="toc-section-number">5.2.4</span> Data Frames</a></li>
 <li><a href="working-with-data.html#other-object-classes"><span class="toc-section-number">5.2.5</span> Other Object Classes</a></li>
 </ul></li>
-<li><a href="working-with-data.html#conducting-operations-on-objects"><span class="toc-section-number">5.3</span> Conducting Operations on Objects</a>
-<ul>
+<li class="has-sub"><a href="working-with-data.html#conducting-operations-on-objects"><span class="toc-section-number">5.3</span> Conducting Operations on Objects</a><ul>
 <li><a href="working-with-data.html#arithmetic-operations"><span class="toc-section-number">5.3.1</span> Arithmetic Operations</a></li>
 <li><a href="working-with-data.html#logical-operations"><span class="toc-section-number">5.3.2</span> Logical Operations</a></li>
 <li><a href="working-with-data.html#recycling"><span class="toc-section-number">5.3.3</span> Recycling</a></li>
 </ul></li>
 </ul></li>
-<li><a href="statistical-analysis.html#statistical-analysis"><span class="toc-section-number">6</span> Statistical Analysis</a>
-<ul>
-<li><a href="statistical-analysis.html#setup"><span class="toc-section-number">6.1</span> Setup</a>
-<ul>
+<li class="has-sub"><a href="statistical-analysis.html#statistical-analysis"><span class="toc-section-number">6</span> Statistical Analysis</a><ul>
+<li class="has-sub"><a href="statistical-analysis.html#setup"><span class="toc-section-number">6.1</span> Setup</a><ul>
 <li><a href="statistical-analysis.html#data"><span class="toc-section-number">6.1.1</span> Data</a></li>
 <li><a href="statistical-analysis.html#nhefs-codebook"><span class="toc-section-number">6.1.2</span> NHEFS Codebook</a></li>
 </ul></li>
@@ -176,50 +163,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="statistical-analysis.html#tabular-analysis"><span class="toc-section-number">6.3</span> Tabular Analysis</a></li>
 <li><a href="statistical-analysis.html#regression-models"><span class="toc-section-number">6.4</span> Regression Models</a></li>
 </ul></li>
-<li><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a>
-<ul>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a><ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#whats-a-loop"><span class="toc-section-number">7.1</span> What’s a Loop?</a></li>
-<li><a href="getting-comfortable-with-loops-and-logic.html#why-loop"><span class="toc-section-number">7.2</span> Why Loop?</a>
-<ul>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#why-loop"><span class="toc-section-number">7.2</span> Why Loop?</a><ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#curly-braces"><span class="toc-section-number">7.2.1</span> Curly Braces</a></li>
 </ul></li>
-<li><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">7.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a>
-<ul>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">7.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a><ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#standard-loop"><span class="toc-section-number">7.3.1</span> Standard Loop</a></li>
 <li><a href="getting-comfortable-with-loops-and-logic.html#vectorized-loops"><span class="toc-section-number">7.3.2</span> Vectorized Loops</a></li>
 <li><a href="getting-comfortable-with-loops-and-logic.html#nested-loops"><span class="toc-section-number">7.3.3</span> Nested Loops</a></li>
 </ul></li>
 </ul></li>
-<li><a href="functionalizing-code.html#functionalizing-code"><span class="toc-section-number">8</span> Functionalizing Code</a>
-<ul>
+<li class="has-sub"><a href="functionalizing-code.html#functionalizing-code"><span class="toc-section-number">8</span> Functionalizing Code</a><ul>
 <li><a href="functionalizing-code.html#simulate-data"><span class="toc-section-number">8.1</span> Simulate Data</a></li>
 <li><a href="functionalizing-code.html#the-old-way"><span class="toc-section-number">8.2</span> The Old Way</a></li>
 <li><a href="functionalizing-code.html#a-new-way-part-1"><span class="toc-section-number">8.3</span> A New Way, Part 1</a></li>
-<li><a href="functionalizing-code.html#a-new-way-part-2"><span class="toc-section-number">8.4</span> A New Way, Part 2</a>
-<ul>
+<li class="has-sub"><a href="functionalizing-code.html#a-new-way-part-2"><span class="toc-section-number">8.4</span> A New Way, Part 2</a><ul>
 <li><a href="functionalizing-code.html#loop-method-1"><span class="toc-section-number">8.4.1</span> Loop Method 1</a></li>
 <li><a href="functionalizing-code.html#loop-method-2"><span class="toc-section-number">8.4.2</span> Loop Method 2</a></li>
 <li><a href="functionalizing-code.html#add-a-new-analysis"><span class="toc-section-number">8.4.3</span> Add a New Analysis</a></li>
 </ul></li>
 <li><a href="functionalizing-code.html#a-new-way-part-3"><span class="toc-section-number">8.5</span> A New Way, Part 3</a></li>
-<li><a href="functionalizing-code.html#approximate-in-sas"><span class="toc-section-number">8.6</span> Approximate in SAS</a>
-<ul>
+<li class="has-sub"><a href="functionalizing-code.html#approximate-in-sas"><span class="toc-section-number">8.6</span> Approximate in SAS</a><ul>
 <li><a href="functionalizing-code.html#simulate-data-1"><span class="toc-section-number">8.6.1</span> Simulate Data</a></li>
 </ul></li>
 </ul></li>
-<li><a href="data-visualization.html#data-visualization"><span class="toc-section-number">9</span> Data Visualization</a></li>
+<li class="has-sub"><a href="data-visualization.html#data-visualization"><span class="toc-section-number">9</span> Data Visualization</a><ul>
+<li class="has-sub"><a href="data-visualization.html#base-r-versus-ggplot2"><span class="toc-section-number">9.1</span> Base R versus ggplot2</a><ul>
+<li><a href="data-visualization.html#boxplots-base-r"><span class="toc-section-number">9.1.1</span> Boxplots (Base R)</a></li>
+<li><a href="data-visualization.html#density-plots-base-r"><span class="toc-section-number">9.1.2</span> Density Plots (Base R)</a></li>
+<li><a href="data-visualization.html#scatterplots-base-r"><span class="toc-section-number">9.1.3</span> Scatterplots (Base R)</a></li>
+<li><a href="data-visualization.html#histograms-base-r"><span class="toc-section-number">9.1.4</span> Histograms (Base R)</a></li>
+</ul></li>
+</ul></li>
 <li><a href="programming-concepts.html#programming-concepts"><span class="toc-section-number">10</span> Programming Concepts</a></li>
-<li><a href="resources.html#resources"><span class="toc-section-number">11</span> Resources</a>
-<ul>
-<li><a href="resources.html#r"><span class="toc-section-number">11.1</span> R</a>
-<ul>
+<li class="has-sub"><a href="resources.html#resources"><span class="toc-section-number">11</span> Resources</a><ul>
+<li class="has-sub"><a href="resources.html#r"><span class="toc-section-number">11.1</span> R</a><ul>
 <li><a href="resources.html#core-documentation"><span class="toc-section-number">11.1.1</span> Core Documentation</a></li>
 <li><a href="resources.html#programming"><span class="toc-section-number">11.1.2</span> Programming</a></li>
 <li><a href="resources.html#data-visualization-1"><span class="toc-section-number">11.1.3</span> Data Visualization</a></li>
 <li><a href="resources.html#reproducible-research-and-version-control"><span class="toc-section-number">11.1.4</span> Reproducible Research and Version Control</a></li>
 </ul></li>
-<li><a href="resources.html#sas"><span class="toc-section-number">11.2</span> SAS</a>
-<ul>
+<li class="has-sub"><a href="resources.html#sas"><span class="toc-section-number">11.2</span> SAS</a><ul>
 <li><a href="resources.html#programming-and-core-documentation"><span class="toc-section-number">11.2.1</span> Programming and Core Documentation</a></li>
 <li><a href="resources.html#reproducible-research"><span class="toc-section-number">11.2.2</span> Reproducible Research</a></li>
 </ul></li>
@@ -230,9 +215,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="row">
 <div class="col-sm-12">
-<div id="startup" class="section level1" number="2">
+<div id="startup" class="section level1">
 <h1><span class="header-section-number">2</span> Getting Started</h1>
-<div id="getting-started-with-r" class="section level2" number="2.1">
+<div id="getting-started-with-r" class="section level2">
 <h2><span class="header-section-number">2.1</span> Getting Started with R</h2>
 <p>Download and install the appropriate <a href="https://www.r-project.org/">version of R</a>.</p>
 <p>Rather than using the default R interface, we recommend downloading <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a>. RStudio is an integrated development environment (IDE) built specifically to make a range of tasks easier in R.</p>
@@ -246,7 +231,7 @@ Figure 2.1: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
 <img src="images/rstudio-IDE-segment_UI.png" alt="[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), modified from the full [RStudio IDE cheatsheet](https://rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf)."  />
 </div>
 </div>
-<div id="getting-started-with-sas" class="section level2" number="2.2">
+<div id="getting-started-with-sas" class="section level2">
 <h2><span class="header-section-number">2.2</span> Getting Started with SAS</h2>
 <p>Brown University students can download the most recent version of SAS (pronounced “sass”) from <a href="https://www.brown.edu/information-technology/software/catalog/sas-1">Brown’s software catalogue</a>. You must log in to your student account to download the necessary software.</p>
 <p>Windows and Linux users should download the SAS 9.4 version that corresponds to their operating system as well as SAS Enterprise Guide. While SAS comes with a user interface, Enterprise Guide serves a similar purpose for SAS as RStudio does for R. Acquaint yourself with its <a href="https://www.sas.com/content/dam/SAS/en_us/doc/factsheet/sas-enterprise-guide-101431.pdf">interface</a>.</p>
