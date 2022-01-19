@@ -1,5 +1,6 @@
 # Data Visualization
 
+
 ```{r dataviz_setup, include=F}
 knitr::opts_chunk$set(dev = "svg",
                       fig.align = "center")
