@@ -116,9 +116,3 @@ tibble::tribble(
 ) %>%
   knitr::kable(caption = "Major object classes in R")
 ```
-
-## SAS: Value Formats
-
-We will spend a little less time reviewing SAS value formats because the first of the mandatory introductory SAS training modules covers these in a fair amount of detail.
-
-<dev-note>Select major datatypes and refer readers to the comprehensive datatype dictionary in the SAS 9.4 documentation</dev-note>
