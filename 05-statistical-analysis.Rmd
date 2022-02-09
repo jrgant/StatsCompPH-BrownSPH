@@ -1,7 +1,7 @@
 # Statistical Analysis
 
 ```{r, include = FALSE}
-pacman::p_load(magrittr, readxl, DT, summarytools)
+pacman::p_load(magrittr, readxl, DT, summarytools, dplyr, tidyr)
 ```
 
 ## Setup
@@ -147,8 +147,87 @@ nhefs4 %>%
 
 Don't worry just now about the plot code. We'll be looking in some detail at the ggplot2 package later.
 
+
 ## Tabular Analysis
 
+Soon you will be no stranger to two-by-two tables and contingency tables. Introductory statistics and epidemiologic methods courses will require you to analyze such tables, either to measure the strength of an exposure's effect on some outcome or to establish a statistical association between two variables.
 
+Going back to our NHEFS data, let's say we're interested in a possible association between quitting smoking and weight loss. The `qsmk` variable is a binary indicator of whether or not an individual quit smoking between 1971 and 1982, while the `wt82_71` variable measures an individual's change in weight (kilograms) between 1971 and 1982.
+
+Typically, we would not want to dichotomize a continuous variable like `wt82_71`, but for the sake of this example, let's begin by creating a binary indicator of whether a subject gained weight during this timeframe.
+
+```{r tabanalysis-gain-wt82_71}
+
+# check whether any values of wt82_71 are missing
+any(is.na(nhefs$wt82_71))
+
+# count the number of missing observations
+# is.na() will return TRUE if an observation is missing and FALSE if it is not
+# we can use sum() to add up the number of TRUE values because R will treat a
+# logical variable as numeric for this purpose, where TRUE = 1 and FALSE = 0
+sum(is.na(nhefs$wt82_71))
+
+# create the new variable, called wt82_71_gain
+nhefs$wt82_71_gain <- NA #initialize with NA
+nhefs$wt82_71_gain[nhefs$wt82_71 > 0] <- 1
+nhefs$wt82_71_gain[nhefs$wt82_71 <= 0] <- 0
+
+# make sure we coded the new variable correctly
+summary(nhefs$wt82_71[nhefs$wt82_71_gain == 1])
+summary(nhefs$wt82_71[nhefs$wt82_71_gain == 0])
+```
+
+The summary statistics we generated above should comply with our expectations: those we marked as having gained weight all have positive values of `wt82_71`, while those we marked as not having gained weight all have negative values of `wt82_71`. 
+
+Note, too, that we have 63 missing values in our new variable, just as we saw in the original outcome.
+
+```{r tabanalysis-2x2}
+with(nhefs, table(wt82_71_gain, qsmk, exclude = NULL))
+```
+
+The option `exclude = NULL` above includes missing values in the table output. We'll ignore them for simplicity.
+
+After doing so, we're left with the following two-by-two table for analysis.
+
+```{r tabanalysis-pretty-2x2}
+
+nhefs %>%
+  count(qsmk, wt82_71_gain) %>%
+  na.omit() %>%
+  pivot_wider(
+    names_from = wt82_71_gain,
+    values_from = n,
+    names_pref = "wtgain"
+  ) %>%
+  knitr::kable()
+```
+
+A natural choice here would be to conduct a two-sample test for the equality of proportions, where we compare the proportion of subjects in the quit smoking group (`r with(nhefs %>% select(qsmk, wt82_71_gain) %>% na.omit(), round(mean(wt82_71_gain[qsmk == 1]), 3))`) who gained weight versus the proportion in the non-quit smoking group (`r with(nhefs %>% select(qsmk, wt82_71_gain) %>% na.omit(), round(mean(wt82_71_gain[qsmk == 0]), 3))`).
+
+```{r tabanalysis-proptest}
+
+ptest <- prop.test(c(299, 757), c(299 + 104, 757 + 406))
+ptest
+
+```
+
+The output above, shows us the group proportions, the $\chi^2$ test statistic, and the corresponding *p*-value. We also get a 95% confidence interval for the difference in proportions.
+
+To get a tidier output as a `tibble`, the `broom` package often proves useful:
+
+```{r tabanalysis-broom-2x2}
+broom::tidy(ptest)
+```
+
+We also good have given the table directly to the `prop.test()` function:
+
+<span class="marginnote warning">
+**Know Your Output**
+Notice that the proportions and, as a result, the confidence interval given by the second `prop.test()` are different, even though the $\chi^2$ statistic and the *p*-value are the same. The statistical test we used applied to the distribution of cell counts in the table. However, if we needed to report the difference in proportions and its confidence interval, the second method would have given us an incorrect estimate. Always be sure you understand functions outputs!
+</span>
+
+```{r tabanalysis-tabinput-proptest}
+with(nhefs, prop.test(table(qsmk, wt82_71_gain)))
+```
 
 ## Regression Models
