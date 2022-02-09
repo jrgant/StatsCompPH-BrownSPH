@@ -1,4 +1,10 @@
 fig:rstudio-peak
+tab:value-class-table
+tab:object-class-table
+tab:dataset-format-table
+tab:list-access-table
+fig:matryoshka-doll
+fig:dag
 learning-objectives
 main-objectives
 secondary-objectives
@@ -67,9 +73,3 @@ reproducible-research-and-version-control
 sas
 programming-and-core-documentation
 reproducible-research
-tab:value-class-table
-tab:object-class-table
-tab:dataset-format-table
-tab:list-access-table
-fig:matryoshka-doll
-fig:dag
