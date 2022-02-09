@@ -6,7 +6,7 @@ html {
   font-size: 13px;
 }
 body {
-  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+  font-family: 'IBM Plex Sans', 'Source Sans Pro', Helvetica, Arial, sans-serif;
   width: 90%;
   margin: 0;
   display: flex;
@@ -160,7 +160,7 @@ pre.r:before, pre.sas:before, .sourceCode + pre:before, .sas + pre:before {
   display: inline-block;
   float: right;
   color: white;
-  font-family: 'Source Code Pro', 'Roboto Mono', Consolas, monospace;
+  font-family: 'IBM Plex Mono', 'Source Code Pro', 'Roboto Mono', Consolas, monospace;
   font-size: 1.3rem;
   font-weight: normal;
   font-variant: all-small-caps;
@@ -212,7 +212,7 @@ td, th {
   vertical-align: top;
 }
 td {
-  font-family: 'Source Sans Pro', Arial, sans-serif;
+  font-family: 'IBM Plex Sans', 'Source Sans Pro', Arial, sans-serif;
 }
 
 
@@ -229,7 +229,7 @@ td {
   border: none;
   border-radius: 5px;
   background: none;
-  font-family: 'Source Code Pro', 'Roboto Mono', Consolas, monospace;
+  font-family: 'IBM Plex Mono', 'Source Code Pro', 'Roboto Mono', Consolas, monospace;
   transition: 0.25s background, 0.25s color;
 }
 #learning-objectives.section.level1 + p {
@@ -272,14 +272,14 @@ span.deg {
 
 /* ## TERM DEFINITIONS -------------------------------------------------------*/
 
-.definition {
+.definition, .warning {
   background: aliceblue;
   padding: 15px;
   width: 45.25% !important;
   border-radius: 3px;
 }
 
-.definition strong:first-of-type {
+.definition strong:first-of-type, .warning strong:first-of-type {
   text-transform: uppercase;
   display: block;
   margin-bottom: 1rem;
@@ -287,6 +287,10 @@ span.deg {
 
 .definition strong:first-of-type::before {
   content: "📕 ";
+}
+
+.definition strong:first-of-type::before {
+  content: "⚠ ";
 }
 
 /* ## DEVELOPMENT ------------------------------------------------------------*/
@@ -298,7 +302,7 @@ dev-note {
   border-radius: 4px;
   padding: 10px;
   display: block;
-  font-family: 'Source Code Pro', monospace;
+  font-family: 'IBM Plex Mono', 'IBM Plex Mono', 'Source Code Pro', monospace;
   font-size: 1.3rem;
 }
 dev-note:before {
