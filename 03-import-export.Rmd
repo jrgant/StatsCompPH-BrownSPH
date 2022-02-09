@@ -98,6 +98,3 @@ haven::write_sas(iris_sas, "data/iris2.sas")
 
 Note that we could have passed any of the data.frames we created into any of the functions. For instance, we could have passed `iris_csv` to `haven::write_sas()` in order to save it as sas7bdat.
 
-
-
-## SAS: Reading and Writing Data
