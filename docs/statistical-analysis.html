@@ -1302,7 +1302,7 @@ sample estimates:
 <p>We also good have given the table directly to the <code>prop.test()</code> function:</p>
 <p><span class="marginnote warning">
 <strong>Know Your Output</strong>
-Notice that the proportions and, as a result, the confidence interval given by the second <code>prop.test()</code> are different, even though the <span class="math inline">\(\chi^2\)</span> statistic and the <em>p</em>-value are the same. The statistical test we used applied to the distribution of cell counts in the table. However, if we needed to report the difference in proportions and its confidence interval, the second method would have given us an incorrect estimate. Always be sure you understand functions outputs!
+Notice that the proportions and, as a result, the confidence interval given by the second <code>prop.test()</code> are different than the first, even though the <span class="math inline">\(\chi^2\)</span> statistic and the <em>p</em>-value are the same. The statistical test we used applied to the distribution of cell counts in the table. However, if we needed to report the difference in proportions and its confidence interval, the second method would have given us an incorrect estimate. Always be sure you understand functions outputs!
 </span></p>
 <div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" title="1"><span class="kw">with</span>(nhefs, <span class="kw">prop.test</span>(<span class="kw">table</span>(qsmk, wt82_<span class="dv">71</span>_gain)))</a></code></pre></div>
 <pre><code>

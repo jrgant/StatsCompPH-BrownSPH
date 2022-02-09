@@ -223,7 +223,7 @@ We also good have given the table directly to the `prop.test()` function:
 
 <span class="marginnote warning">
 **Know Your Output**
-Notice that the proportions and, as a result, the confidence interval given by the second `prop.test()` are different, even though the $\chi^2$ statistic and the *p*-value are the same. The statistical test we used applied to the distribution of cell counts in the table. However, if we needed to report the difference in proportions and its confidence interval, the second method would have given us an incorrect estimate. Always be sure you understand functions outputs!
+Notice that the proportions and, as a result, the confidence interval given by the second `prop.test()` are different than the first, even though the $\chi^2$ statistic and the *p*-value are the same. The statistical test we used applied to the distribution of cell counts in the table. However, if we needed to report the difference in proportions and its confidence interval, the second method would have given us an incorrect estimate. Always be sure you understand functions outputs!
 </span>
 
 ```{r tabanalysis-tabinput-proptest}
