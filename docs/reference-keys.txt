@@ -1,10 +1,4 @@
 fig:rstudio-peak
-tab:value-class-table
-tab:object-class-table
-tab:dataset-format-table
-tab:list-access-table
-fig:matryoshka-doll
-fig:dag
 learning-objectives
 main-objectives
 secondary-objectives
@@ -15,12 +9,10 @@ getting-started-with-sas
 data-structures
 major-differences-between-r-and-sas
 r-object-and-value-classes
-sas-value-formats
 importing-and-exporting-data
 r-reading-and-writing-data
 reading-data
 writing-data
-sas-reading-and-writing-data
 working-with-data
 objects-in-r
 more-complex-objects
@@ -75,3 +67,9 @@ reproducible-research-and-version-control
 sas
 programming-and-core-documentation
 reproducible-research
+tab:value-class-table
+tab:object-class-table
+tab:dataset-format-table
+tab:list-access-table
+fig:matryoshka-doll
+fig:dag

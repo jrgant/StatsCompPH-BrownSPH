@@ -39,6 +39,10 @@ MathJax.Hub.Config({
 
 <!-- <link rel="stylesheet" href="styles/switched-dev.css" /> -->
 
+<!-- MathJax -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -130,14 +134,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="has-sub"><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a><ul>
 <li><a href="data-structures.html#major-differences-between-r-and-sas"><span class="toc-section-number">3.1</span> Major Differences Between R and SAS</a></li>
 <li><a href="data-structures.html#r-object-and-value-classes"><span class="toc-section-number">3.2</span> R: Object and Value Classes</a></li>
-<li><a href="data-structures.html#sas-value-formats"><span class="toc-section-number">3.3</span> SAS: Value Formats</a></li>
 </ul></li>
 <li class="has-sub"><a href="importing-and-exporting-data.html#importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a><ul>
 <li class="has-sub"><a href="importing-and-exporting-data.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a><ul>
 <li><a href="importing-and-exporting-data.html#reading-data"><span class="toc-section-number">4.1.1</span> Reading Data</a></li>
 <li><a href="importing-and-exporting-data.html#writing-data"><span class="toc-section-number">4.1.2</span> Writing Data</a></li>
 </ul></li>
-<li><a href="importing-and-exporting-data.html#sas-reading-and-writing-data"><span class="toc-section-number">4.2</span> SAS: Reading and Writing Data</a></li>
 </ul></li>
 <li class="has-sub"><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a><ul>
 <li><a href="working-with-data.html#objects-in-r"><span class="toc-section-number">5.1</span> Objects in R</a></li>
@@ -243,27 +245,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You may find that working with plotting in base R is more efficient when you want quick-and-dirty visualizations—for instance, while you’re conducting exploratory data analysis.</p>
 <div id="boxplots-base-r" class="section level3">
 <h3><span class="header-section-number">9.1.1</span> Boxplots (Base R)</h3>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" title="1"><span class="co"># using built-in iris dataset</span></a>
-<a class="sourceLine" id="cb244-2" title="2"><span class="kw">boxplot</span>(iris<span class="op">$</span>Petal.Width)</a></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb259-1" title="1"><span class="co"># using built-in iris dataset</span></a>
+<a class="sourceLine" id="cb259-2" title="2"><span class="kw">boxplot</span>(iris<span class="op">$</span>Petal.Width)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-bp-1.svg" width="75%"  style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" title="1"><span class="kw">boxplot</span>(Petal.Width <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> iris)</a></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" title="1"><span class="kw">boxplot</span>(Petal.Width <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> iris)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-bp-2.svg" width="75%"  style="display: block; margin: auto;" /></p>
 </div>
 <div id="density-plots-base-r" class="section level3">
 <h3><span class="header-section-number">9.1.2</span> Density Plots (Base R)</h3>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" title="1"><span class="kw">plot</span>(<span class="kw">density</span>(iris<span class="op">$</span>Petal.Width))</a></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" title="1"><span class="kw">plot</span>(<span class="kw">density</span>(iris<span class="op">$</span>Petal.Width))</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-density-1.svg" width="75%"  style="display: block; margin: auto;" /></p>
 </div>
 <div id="scatterplots-base-r" class="section level3">
 <h3><span class="header-section-number">9.1.3</span> Scatterplots (Base R)</h3>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb247-1" title="1"><span class="kw">plot</span>(iris<span class="op">$</span>Petal.Width)</a></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" title="1"><span class="kw">plot</span>(iris<span class="op">$</span>Petal.Width)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-scatter-1.svg" width="75%"  style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" title="1"><span class="kw">plot</span>(Petal.Width <span class="op">~</span><span class="st"> </span>Petal.Length, <span class="dt">data =</span> iris)</a></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" title="1"><span class="kw">plot</span>(Petal.Width <span class="op">~</span><span class="st"> </span>Petal.Length, <span class="dt">data =</span> iris)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-scatter-2.svg" width="75%"  style="display: block; margin: auto;" /></p>
 </div>
 <div id="histograms-base-r" class="section level3">
 <h3><span class="header-section-number">9.1.4</span> Histograms (Base R)</h3>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" title="1"><span class="kw">hist</span>(iris<span class="op">$</span>Petal.Width)</a></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" title="1"><span class="kw">hist</span>(iris<span class="op">$</span>Petal.Width)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-hist-1.svg" width="75%"  style="display: block; margin: auto;" /></p>
 
 </div>

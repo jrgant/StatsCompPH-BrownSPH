@@ -39,6 +39,10 @@ MathJax.Hub.Config({
 
 <!-- <link rel="stylesheet" href="styles/switched-dev.css" /> -->
 
+<!-- MathJax -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -130,14 +134,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="has-sub"><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a><ul>
 <li><a href="data-structures.html#major-differences-between-r-and-sas"><span class="toc-section-number">3.1</span> Major Differences Between R and SAS</a></li>
 <li><a href="data-structures.html#r-object-and-value-classes"><span class="toc-section-number">3.2</span> R: Object and Value Classes</a></li>
-<li><a href="data-structures.html#sas-value-formats"><span class="toc-section-number">3.3</span> SAS: Value Formats</a></li>
 </ul></li>
 <li class="has-sub"><a href="importing-and-exporting-data.html#importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a><ul>
 <li class="has-sub"><a href="importing-and-exporting-data.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a><ul>
 <li><a href="importing-and-exporting-data.html#reading-data"><span class="toc-section-number">4.1.1</span> Reading Data</a></li>
 <li><a href="importing-and-exporting-data.html#writing-data"><span class="toc-section-number">4.1.2</span> Writing Data</a></li>
 </ul></li>
-<li><a href="importing-and-exporting-data.html#sas-reading-and-writing-data"><span class="toc-section-number">4.2</span> SAS: Reading and Writing Data</a></li>
 </ul></li>
 <li class="has-sub"><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a><ul>
 <li><a href="working-with-data.html#objects-in-r"><span class="toc-section-number">5.1</span> Objects in R</a></li>
@@ -234,9 +236,8 @@ Figure 2.1: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
 <div id="getting-started-with-sas" class="section level2">
 <h2><span class="header-section-number">2.2</span> Getting Started with SAS</h2>
 <p>Brown University students can download the most recent version of SAS (pronounced “sass”) from <a href="https://www.brown.edu/information-technology/software/catalog/sas-1">Brown’s software catalogue</a>. You must log in to your student account to download the necessary software.</p>
-<p>Windows and Linux users should download the SAS 9.4 version that corresponds to their operating system as well as SAS Enterprise Guide. While SAS comes with a user interface, Enterprise Guide serves a similar purpose for SAS as RStudio does for R. Acquaint yourself with its <a href="https://www.sas.com/content/dam/SAS/en_us/doc/factsheet/sas-enterprise-guide-101431.pdf">interface</a>.</p>
+<p>Windows and Linux users should download the SAS 9.4 version that corresponds to their operating system as well as SAS Enterprise Guide. While SAS comes with a user interface, Enterprise Guide in Windows serves a similar purpose for SAS as RStudio does for R. Acquaint yourself with its <a href="https://www.sas.com/content/dam/SAS/en_us/doc/factsheet/sas-enterprise-guide-101431.pdf">interface</a>.</p>
 <p>Unfortunately, Mac users will need to use the server-based version of SAS University because local downloads of SAS 9.4 and SAS Enterprise Guide <strong>are not</strong> available for macOS.</p>
-<p><dev-note>Consider providing instructions to download a virtual machine, install Linux (Mint or Ubuntu), and then install SAS 9.4 for Linux.</dev-note></p>
 
 </div>
 </div>

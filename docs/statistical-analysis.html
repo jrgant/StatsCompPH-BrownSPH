@@ -39,6 +39,10 @@ MathJax.Hub.Config({
 
 <!-- <link rel="stylesheet" href="styles/switched-dev.css" /> -->
 
+<!-- MathJax -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -130,14 +134,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="has-sub"><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a><ul>
 <li><a href="data-structures.html#major-differences-between-r-and-sas"><span class="toc-section-number">3.1</span> Major Differences Between R and SAS</a></li>
 <li><a href="data-structures.html#r-object-and-value-classes"><span class="toc-section-number">3.2</span> R: Object and Value Classes</a></li>
-<li><a href="data-structures.html#sas-value-formats"><span class="toc-section-number">3.3</span> SAS: Value Formats</a></li>
 </ul></li>
 <li class="has-sub"><a href="importing-and-exporting-data.html#importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a><ul>
 <li class="has-sub"><a href="importing-and-exporting-data.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a><ul>
 <li><a href="importing-and-exporting-data.html#reading-data"><span class="toc-section-number">4.1.1</span> Reading Data</a></li>
 <li><a href="importing-and-exporting-data.html#writing-data"><span class="toc-section-number">4.1.2</span> Writing Data</a></li>
 </ul></li>
-<li><a href="importing-and-exporting-data.html#sas-reading-and-writing-data"><span class="toc-section-number">4.2</span> SAS: Reading and Writing Data</a></li>
 </ul></li>
 <li class="has-sub"><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a><ul>
 <li><a href="working-with-data.html#objects-in-r"><span class="toc-section-number">5.1</span> Objects in R</a></li>
@@ -1192,33 +1194,128 @@ Type: Factor
 <a class="sourceLine" id="cb191-2" title="2"><span class="kw">library</span>(ggthemes)</a>
 <a class="sourceLine" id="cb191-3" title="3"></a>
 <a class="sourceLine" id="cb191-4" title="4">nhefs4 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb191-5" title="5"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(contvars) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb191-5" title="5"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="kw">all_of</span>(contvars)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb191-6" title="6"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb191-7" title="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb191-8" title="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>key, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb191-9" title="9"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb191-10" title="10"><span class="st">  </span><span class="kw">theme_clean</span>()</a></code></pre></div>
-<pre><code>Note: Using an external vector in selections is ambiguous.
-ℹ Use `all_of(contvars)` instead of `contvars` to silence this message.
-ℹ See &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.
-This message is displayed once per session.</code></pre>
+<a class="sourceLine" id="cb191-10" title="10"><span class="st">  </span><span class="kw">theme_tufte</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/eda-density-1.svg" width="672"  /></p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" title="1">nhefs4 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb193-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(catvars) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb193-3" title="3"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb193-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb193-5" title="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>key, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb193-6" title="6"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">width =</span> <span class="fl">0.5</span>, <span class="dt">fill =</span> <span class="st">&quot;lightgray&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb193-7" title="7"><span class="st">  </span><span class="kw">theme_clean</span>()</a></code></pre></div>
-<pre><code>Note: Using an external vector in selections is ambiguous.
-ℹ Use `all_of(catvars)` instead of `catvars` to silence this message.
-ℹ See &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.
-This message is displayed once per session.</code></pre>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1">nhefs4 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb192-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="kw">all_of</span>(catvars)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb192-3" title="3"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb192-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-5" title="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>key, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-6" title="6"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">width =</span> <span class="fl">0.5</span>, <span class="dt">fill =</span> <span class="st">&quot;lightgray&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-7" title="7"><span class="st">  </span><span class="kw">theme_tufte</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/eda-bars-1.svg" width="672"  /></p>
 <p>Don’t worry just now about the plot code. We’ll be looking in some detail at the ggplot2 package later.</p>
 </div>
 <div id="tabular-analysis" class="section level2">
 <h2><span class="header-section-number">6.3</span> Tabular Analysis</h2>
+<p>Soon you will be no stranger to two-by-two tables and contingency tables. Introductory statistics and epidemiologic methods courses will require you to analyze such tables, either to measure the strength of an exposure’s effect on some outcome or to establish a statistical association between two variables.</p>
+<p>Going back to our NHEFS data, let’s say we’re interested in a possible association between quitting smoking and weight loss. The <code>qsmk</code> variable is a binary indicator of whether or not an individual quit smoking between 1971 and 1982, while the <code>wt82_71</code> variable measures an individual’s change in weight (kilograms) between 1971 and 1982.</p>
+<p>Typically, we would not want to dichotomize a continuous variable like <code>wt82_71</code>, but for the sake of this example, let’s begin by creating a binary indicator of whether a subject gained weight during this timeframe.</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" title="1"><span class="co"># check whether any values of wt82_71 are missing</span></a>
+<a class="sourceLine" id="cb193-2" title="2"><span class="kw">any</span>(<span class="kw">is.na</span>(nhefs<span class="op">$</span>wt82_<span class="dv">71</span>))</a></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" title="1"><span class="co"># count the number of missing observations</span></a>
+<a class="sourceLine" id="cb195-2" title="2"><span class="co"># is.na() will return TRUE if an observation is missing and FALSE if it is not</span></a>
+<a class="sourceLine" id="cb195-3" title="3"><span class="co"># we can use sum() to add up the number of TRUE values because R will treat a</span></a>
+<a class="sourceLine" id="cb195-4" title="4"><span class="co"># logical variable as numeric for this purpose, where TRUE = 1 and FALSE = 0</span></a>
+<a class="sourceLine" id="cb195-5" title="5"><span class="kw">sum</span>(<span class="kw">is.na</span>(nhefs<span class="op">$</span>wt82_<span class="dv">71</span>))</a></code></pre></div>
+<pre><code>[1] 63</code></pre>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" title="1"><span class="co"># create the new variable, called wt82_71_gain</span></a>
+<a class="sourceLine" id="cb197-2" title="2">nhefs<span class="op">$</span>wt82_<span class="dv">71</span>_gain &lt;-<span class="st"> </span><span class="ot">NA</span> <span class="co">#initialize with NA</span></a>
+<a class="sourceLine" id="cb197-3" title="3">nhefs<span class="op">$</span>wt82_<span class="dv">71</span>_gain[nhefs<span class="op">$</span>wt82_<span class="dv">71</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb197-4" title="4">nhefs<span class="op">$</span>wt82_<span class="dv">71</span>_gain[nhefs<span class="op">$</span>wt82_<span class="dv">71</span> <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb197-5" title="5"></a>
+<a class="sourceLine" id="cb197-6" title="6"><span class="co"># make sure we coded the new variable correctly</span></a>
+<a class="sourceLine" id="cb197-7" title="7"><span class="kw">summary</span>(nhefs<span class="op">$</span>wt82_<span class="dv">71</span>[nhefs<span class="op">$</span>wt82_<span class="dv">71</span>_gain <span class="op">==</span><span class="st"> </span><span class="dv">1</span>])</a></code></pre></div>
+<pre><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA&#39;s 
+ 0.00108  2.49426  5.10182  6.46419  8.64786 48.53839       63 </code></pre>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" title="1"><span class="kw">summary</span>(nhefs<span class="op">$</span>wt82_<span class="dv">71</span>[nhefs<span class="op">$</span>wt82_<span class="dv">71</span>_gain <span class="op">==</span><span class="st"> </span><span class="dv">0</span>])</a></code></pre></div>
+<pre><code>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA&#39;s 
+-41.28047  -7.33938  -3.62566  -5.28355  -1.69944  -0.00037        63 </code></pre>
+<p>The summary statistics we generated above should comply with our expectations: those we marked as having gained weight all have positive values of <code>wt82_71</code>, while those we marked as not having gained weight all have negative values of <code>wt82_71</code>.</p>
+<p>Note, too, that we have 63 missing values in our new variable, just as we saw in the original outcome.</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" title="1"><span class="kw">with</span>(nhefs, <span class="kw">table</span>(wt82_<span class="dv">71</span>_gain, qsmk, <span class="dt">exclude =</span> <span class="ot">NULL</span>))</a></code></pre></div>
+<pre><code>            qsmk
+wt82_71_gain   0   1
+        0    406 104
+        1    757 299
+        &lt;NA&gt;  38  25</code></pre>
+<p>The option <code>exclude = NULL</code> above includes missing values in the table output. We’ll ignore them for simplicity.</p>
+<p>After doing so, we’re left with the following two-by-two table for analysis.</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" title="1">nhefs <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb203-2" title="2"><span class="st">  </span><span class="kw">count</span>(qsmk, wt82_<span class="dv">71</span>_gain) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb203-3" title="3"><span class="st">  </span><span class="kw">na.omit</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb203-4" title="4"><span class="st">  </span><span class="kw">pivot_wider</span>(</a>
+<a class="sourceLine" id="cb203-5" title="5">    <span class="dt">names_from =</span> wt82_<span class="dv">71</span>_gain,</a>
+<a class="sourceLine" id="cb203-6" title="6">    <span class="dt">values_from =</span> n,</a>
+<a class="sourceLine" id="cb203-7" title="7">    <span class="dt">names_pref =</span> <span class="st">&quot;wtgain&quot;</span></a>
+<a class="sourceLine" id="cb203-8" title="8">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb203-9" title="9"><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">qsmk</th>
+<th align="right">wtgain0</th>
+<th align="right">wtgain1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">406</td>
+<td align="right">757</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">104</td>
+<td align="right">299</td>
+</tr>
+</tbody>
+</table>
+<p>A natural choice here would be to conduct a two-sample test for the equality of proportions, where we compare the proportion of subjects in the quit smoking group (0.742) who gained weight versus the proportion in the non-quit smoking group (0.651).</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" title="1">ptest &lt;-<span class="st"> </span><span class="kw">prop.test</span>(<span class="kw">c</span>(<span class="dv">299</span>, <span class="dv">757</span>), <span class="kw">c</span>(<span class="dv">299</span> <span class="op">+</span><span class="st"> </span><span class="dv">104</span>, <span class="dv">757</span> <span class="op">+</span><span class="st"> </span><span class="dv">406</span>))</a>
+<a class="sourceLine" id="cb204-2" title="2">ptest</a></code></pre></div>
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  c(299, 757) out of c(299 + 104, 757 + 406)
+X-squared = 10.883, df = 1, p-value = 0.0009705
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ 0.03861122 0.14345407
+sample estimates:
+   prop 1    prop 2 
+0.7419355 0.6509028 </code></pre>
+<p>The output above, shows us the group proportions, the <span class="math inline">\(\chi^2\)</span> test statistic, and the corresponding <em>p</em>-value. We also get a 95% confidence interval for the difference in proportions.</p>
+<p>To get a tidier output as a <code>tibble</code>, the <code>broom</code> package often proves useful:</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" title="1">broom<span class="op">::</span><span class="kw">tidy</span>(ptest)</a></code></pre></div>
+<pre><code># A tibble: 1 × 9
+  estimate1 estimate2 statistic  p.value parameter conf.low conf.high method    
+      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     
+1     0.742     0.651      10.9 0.000971         1   0.0386     0.143 2-sample …
+# … with 1 more variable: alternative &lt;chr&gt;</code></pre>
+<p>We also good have given the table directly to the <code>prop.test()</code> function:</p>
+<p><span class="marginnote warning">
+<strong>Know Your Output</strong>
+Notice that the proportions and, as a result, the confidence interval given by the second <code>prop.test()</code> are different, even though the <span class="math inline">\(\chi^2\)</span> statistic and the <em>p</em>-value are the same. The statistical test we used applied to the distribution of cell counts in the table. However, if we needed to report the difference in proportions and its confidence interval, the second method would have given us an incorrect estimate. Always be sure you understand functions outputs!
+</span></p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" title="1"><span class="kw">with</span>(nhefs, <span class="kw">prop.test</span>(<span class="kw">table</span>(qsmk, wt82_<span class="dv">71</span>_gain)))</a></code></pre></div>
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  table(qsmk, wt82_71_gain)
+X-squared = 10.883, df = 1, p-value = 0.0009705
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ 0.03861122 0.14345407
+sample estimates:
+   prop 1    prop 2 
+0.3490972 0.2580645 </code></pre>
 </div>
 <div id="regression-models" class="section level2">
 <h2><span class="header-section-number">6.4</span> Regression Models</h2>
