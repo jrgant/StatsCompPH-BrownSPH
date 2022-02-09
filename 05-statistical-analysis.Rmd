@@ -122,27 +122,27 @@ lapply(
 
 A few plots may help us, too:
 
-```{r eda-density, dev = "svg"}
+```{r eda-density, warning = FALSE, dev = "svg"}
 library(ggplot2)
 library(ggthemes)
 
 nhefs4 %>%
-  dplyr::select(contvars) %>%
+  dplyr::select(all_of(contvars)) %>%
   tidyr::gather() %>%
   ggplot(aes(x = value)) +
   facet_wrap(~key, scales = "free") +
   geom_density() +
-  theme_clean()
+  theme_tufte(base_size = 16)
 ```
 
 ```{r eda-bars, warning = FALSE, dev = "svg"}
 nhefs4 %>%
-  dplyr::select(catvars) %>%
+  dplyr::select(all_of(catvars)) %>%
   tidyr::gather() %>%
   ggplot(aes(x = value)) +
   facet_wrap(~key, nrow = 2, scales = "free") +
   geom_bar(stat = "count", width = 0.5, fill = "lightgray") +
-  theme_clean()
+  theme_tufte(base_size = 16)
 ```
 
 Don't worry just now about the plot code. We'll be looking in some detail at the ggplot2 package later.
