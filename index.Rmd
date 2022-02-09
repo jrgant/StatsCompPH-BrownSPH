@@ -9,13 +9,13 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: jrgant/StatsCompPH-BrownSPH
+# Windows path
 description: "Resources and tutorials for R and SAS analysis geared toward public health students."
 ---
 
 ```{r book_setup, include = FALSE}
 pacman::p_load(tidyverse, data.table, SASMarkdown)
 
-# Windows path
 # saspath <- "C:/Program Files/SASHome/SASFoundation/9.4/sas.exe"
 # sasopts <- "-nosplash -ls 75"
 
@@ -91,7 +91,7 @@ Consider the benefits and drawbacks of each language
 
 Resource repository
 
-  - Excellent and, mostly, free resources on programming and data visualization
+  - Excellent, mostly free resources on programming and data visualization
 
 ## Secondary objectives
 
