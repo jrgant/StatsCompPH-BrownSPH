@@ -163,7 +163,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li><a href="statistical-analysis.html#exploratory-data-analysis"><span class="toc-section-number">6.2</span> Exploratory Data Analysis</a></li>
 <li><a href="statistical-analysis.html#tabular-analysis"><span class="toc-section-number">6.3</span> Tabular Analysis</a></li>
-<li><a href="statistical-analysis.html#regression-models"><span class="toc-section-number">6.4</span> Regression Models</a></li>
+<li class="has-sub"><a href="statistical-analysis.html#regression-models"><span class="toc-section-number">6.4</span> Regression Models</a><ul>
+<li><a href="statistical-analysis.html#linear-regression"><span class="toc-section-number">6.4.1</span> Linear regression</a></li>
+<li><a href="statistical-analysis.html#logistic-regression"><span class="toc-section-number">6.4.2</span> Logistic regression</a></li>
+<li><a href="statistical-analysis.html#log-binomial-regression"><span class="toc-section-number">6.4.3</span> Log-binomial regression</a></li>
+<li><a href="statistical-analysis.html#modified-poisson-regression"><span class="toc-section-number">6.4.4</span> Modified Poisson regression</a></li>
+<li><a href="statistical-analysis.html#poisson-regression"><span class="toc-section-number">6.4.5</span> Poisson regression</a></li>
+<li><a href="statistical-analysis.html#survival-analysis"><span class="toc-section-number">6.4.6</span> Survival analysis</a></li>
+<li><a href="statistical-analysis.html#overdispersion"><span class="toc-section-number">6.4.7</span> Overdispersion</a></li>
+</ul></li>
 </ul></li>
 <li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a><ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#whats-a-loop"><span class="toc-section-number">7.1</span> What’s a Loop?</a></li>
@@ -220,19 +228,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Computing Concepts for Public Health Researchers</h1>
 <h4 class="author"><em>Jason Gantenberg, <span class="deg">MPH</span></em></h4>
-<h4 class="date"><em>Last Compiled: 2022-02-09</em></h4>
+<h4 class="date"><em>Last Compiled: 2022-03-11</em></h4>
 </div>
 <div id="learning-objectives" class="section level1">
 <h1><span class="header-section-number">1</span> Learning Objectives</h1>
-<p>Statistical computing is an essential activity for modern researchers, but students tend to be left to their own devices to develop their programming abilities.</p>
-<p>While teaching oneself is an indispensable part of the process, new researchers may be better prepared to do so provided a base from which to develop those skills. This book is intended to serve as such an introductory resource, targeted to incoming graduate students at the Brown University School of Public Health.</p>
+<p>Statistical computing underlies much of the work we do as researchers. However, students tend to be left to their own devices to develop their programming abilities.</p>
+<p>While teaching oneself is an indispensable part of the process, new researchers may be better equipped to do so provided a base from which to develop their computing skills. This book is intended to serve as such an introductory resource, targeted at incoming graduate students at the Brown University School of Public Health.</p>
+<p>While the content focuses on coding in R, some examples of SAS code appear to provide a frame of reference for students having completed their degree program’s required SAS training modules (if applicable).</p>
 <div id="main-objectives" class="section level2">
 <h2><span class="header-section-number">1.1</span> Main objectives</h2>
-<p>Install R (plus RStudio) and SAS</p>
+<p>Install R (and RStudio)</p>
 <ul>
 <li>Include R packages that will be helpful to download as the tutorials progress</li>
 </ul>
-<p>Understand the different data types in both SAS and R</p>
+<p>Understand some basic data types in both SAS and R</p>
 <p>Understand how each language handles:</p>
 <ul>
 <li>Variable names</li>
@@ -241,9 +250,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Objects</li>
 <li>Environments (as applicable)</li>
 </ul>
-<p>Be able to conduct the following tasks in both SAS and R:</p>
+<p>Be able to conduct the following tasks in R:</p>
 <ul>
-<li>Import/export data from and to common filetypes
+<li>Import/export data to and from common filetypes
 <ul>
 <li>Use common machine-readable filetypes</li>
 </ul></li>
@@ -272,19 +281,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Produce publication-quality plots</p>
 <ul>
-<li>Export data from SAS</li>
 <li>Review image formats (JPG, PNG, EPS, WMF, EMF, PDF)</li>
 <li>Know where to find information on principles of data visualization</li>
 </ul>
-<p>Consider the benefits and drawbacks of each language</p>
+<p>Consider ways to make your analyses reproducible</p>
 <ul>
-<li>With flexibility comes complexity: find the appropriate tradeoff for you.</li>
-<li>For reproducibility, R leads the pack among statistical programming languages
-<ul>
-<li>Options exist but are limited for SAS</li>
-<li>Open source (R) vs. closed source (SAS)</li>
-</ul></li>
-<li>Free (R) vs. paid (SAS)</li>
+<li>RMarkdown</li>
+<li>Pseudorandom number seeds</li>
 </ul>
 <p>Resource repository</p>
 <ul>
@@ -304,7 +307,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Get comfortable with implementing multiple strategies for the same task</p>
 <ul>
 <li>R: <code>base</code> vs. <code>data.table</code> vs. <code>tidyverse</code></li>
-<li>SAS: merging with PROC SORT and MERGE DATA step vs. using hash objects</li>
 </ul>
 <p>Understand the benefits of competing strategies in prior bulletpoint</p>
 <ul>

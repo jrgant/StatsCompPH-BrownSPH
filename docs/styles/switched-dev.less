@@ -102,7 +102,7 @@ a:hover {
   padding: 0.1rem;
 }
 #TOC li ul {
-  font-weight: normal;
+  font-weight: 300;
 }
 .fullwidth-table {
   width: 100%;
@@ -110,7 +110,9 @@ a:hover {
 .fullwidth-table table {
   width: 100%;
 }
-
+.fullwidth-table span.marginnote {
+  float: none;
+}
 
 /* ## HEADINGS ---------------------------------------------------------------*/
 
@@ -203,8 +205,8 @@ p code, li code {
 code {
   padding-left: 10px;
   display: block;
-  font-family: "Source Code Pro", Consolas, monospace;
-  font-weight: 500;
+  font-family: "IBM Plex Mono", "Source Code Pro", Consolas, monospace;
+  font-weight: 400;
 }
 code.sourceCode span.co {
   color: @br-gray-a;
@@ -312,7 +314,7 @@ dev-note {
   border-radius: 4px;
   padding: 10px;
   display: block;
-  font-family: 'IBM Plex Mono', 'IBM Plex Mono', 'Source Code Pro', monospace;
+  font-family: 'IBM Plex Mono', 'Source Code Pro', monospace;
   font-size: 1.3rem;
 }
 dev-note:before {
@@ -334,4 +336,27 @@ dev-note:before {
   width: 65%;
   height: 580px;
   border: 0;
+}
+
+
+/* DETOURS ------------------------------------------------------------------ */
+
+
+.detour {
+  width: 100%;
+  border: 1px dashed;
+  border-radius: 50px;
+  padding-left: 2em;
+  // box-shadow: 1em 1em 1em @br-gray-a;
+  margin: 4em 0 4em 0;
+  background: @br-red-t10;
+}
+
+.detour p, .detour pre, .detour div {
+  width: 95% !important;
+}
+
+.detour .sourceCode + pre {
+  width: 80% !important;
+  background: none;
 }

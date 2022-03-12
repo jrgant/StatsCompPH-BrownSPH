@@ -163,7 +163,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li><a href="statistical-analysis.html#exploratory-data-analysis"><span class="toc-section-number">6.2</span> Exploratory Data Analysis</a></li>
 <li><a href="statistical-analysis.html#tabular-analysis"><span class="toc-section-number">6.3</span> Tabular Analysis</a></li>
-<li><a href="statistical-analysis.html#regression-models"><span class="toc-section-number">6.4</span> Regression Models</a></li>
+<li class="has-sub"><a href="statistical-analysis.html#regression-models"><span class="toc-section-number">6.4</span> Regression Models</a><ul>
+<li><a href="statistical-analysis.html#linear-regression"><span class="toc-section-number">6.4.1</span> Linear regression</a></li>
+<li><a href="statistical-analysis.html#logistic-regression"><span class="toc-section-number">6.4.2</span> Logistic regression</a></li>
+<li><a href="statistical-analysis.html#log-binomial-regression"><span class="toc-section-number">6.4.3</span> Log-binomial regression</a></li>
+<li><a href="statistical-analysis.html#modified-poisson-regression"><span class="toc-section-number">6.4.4</span> Modified Poisson regression</a></li>
+<li><a href="statistical-analysis.html#poisson-regression"><span class="toc-section-number">6.4.5</span> Poisson regression</a></li>
+<li><a href="statistical-analysis.html#survival-analysis"><span class="toc-section-number">6.4.6</span> Survival analysis</a></li>
+<li><a href="statistical-analysis.html#overdispersion"><span class="toc-section-number">6.4.7</span> Overdispersion</a></li>
+</ul></li>
 </ul></li>
 <li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a><ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#whats-a-loop"><span class="toc-section-number">7.1</span> What’s a Loop?</a></li>
@@ -1302,7 +1310,7 @@ sample estimates:
 <p>We also good have given the table directly to the <code>prop.test()</code> function:</p>
 <p><span class="marginnote warning">
 <strong>Know Your Output</strong>
-Notice that the proportions and, as a result, the confidence interval given by the second <code>prop.test()</code> are different than the first, even though the <span class="math inline">\(\chi^2\)</span> statistic and the <em>p</em>-value are the same. The statistical test we used applied to the distribution of cell counts in the table. However, if we needed to report the difference in proportions and its confidence interval, the second method would have given us an incorrect estimate. Always be sure you understand functions outputs!
+Notice that the proportions and, as a result, the confidence interval given by the second <code>prop.test()</code> are different than the first, even though the <span class="math inline">\(\chi^2\)</span> statistic and the <em>p</em>-value are the same. The statistical test we used applied to the distribution of cell counts in the table. However, if we needed to report the difference in proportions and its confidence interval, the second method would have given us an incorrect estimate. Always be sure you understand functions’ outputs!
 </span></p>
 <div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" title="1"><span class="kw">with</span>(nhefs, <span class="kw">prop.test</span>(<span class="kw">table</span>(qsmk, wt82_<span class="dv">71</span>_gain)))</a></code></pre></div>
 <pre><code>
@@ -1319,7 +1327,350 @@ sample estimates:
 </div>
 <div id="regression-models" class="section level2">
 <h2><span class="header-section-number">6.4</span> Regression Models</h2>
+<p>In this section we will fit some regression models that you may encounter in classes or in your own research. We will leave the theoretical background to your statistics and methods courses but aim to provide enough information so that you understand the basic idea behind each approach and can refer back to this page in the future.</p>
+<p>All upcoming examples use variables from the NHEFS dataset that we’ve referred back to several times by now.</p>
+<p><span class="marginnote">
+Note that you can pass all of the fit objects below to <code>broom::tidy()</code> in order to retrieve a data frame containing the regression information. Doing so will often make exporting tables and results much easier for you. However, we will focus on the default summary output for now.
+</span></p>
+<div id="linear-regression" class="section level3">
+<h3><span class="header-section-number">6.4.1</span> Linear regression</h3>
+<p>Exposure of interest: quitting smoking between 1971 and 1982 (<code>qsmk</code>)
+Outcome: change in weight between 1971 and 1982 (continuous, <code>wt82_71</code>)</p>
+<p>First, we can run an unadjusted model with weight change as the outcome and quitting smoking as the predictor variable. The symbol <code>~</code> indicates that the statement <code>wt82_71 ~ qsmk</code> is a formula.</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" title="1">fitlm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(wt82_<span class="dv">71</span> <span class="op">~</span><span class="st"> </span>qsmk, <span class="dt">data =</span> nhefs)</a>
+<a class="sourceLine" id="cb210-2" title="2"><span class="kw">summary</span>(fitlm1)</a></code></pre></div>
+<pre><code>
+Call:
+lm(formula = wt82_71 ~ qsmk, data = nhefs)
 
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-43.265  -4.023   0.033   4.248  46.554 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   1.9845     0.2288   8.672  &lt; 2e-16 ***
+qsmk          2.5406     0.4511   5.632 2.11e-08 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 7.804 on 1564 degrees of freedom
+  (63 observations deleted due to missingness)
+Multiple R-squared:  0.01988,   Adjusted R-squared:  0.01925 
+F-statistic: 31.72 on 1 and 1564 DF,  p-value: 2.106e-08</code></pre>
+<p>You can think of the <code>fitlm1</code> object that we saved as a list containing information about the model we fit:</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" title="1"><span class="kw">names</span>(fitlm1)</a></code></pre></div>
+<pre><code> [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
+ [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
+ [9] &quot;na.action&quot;     &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;        
+[13] &quot;model&quot;        </code></pre>
+<p>We can output coefficients,</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" title="1">fitlm1<span class="op">$</span>coefficients</a></code></pre></div>
+<pre><code>(Intercept)        qsmk 
+   1.984498    2.540581 </code></pre>
+<p>residuals,</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" title="1"><span class="kw">head</span>(fitlm1<span class="op">$</span>residuals)</a></code></pre></div>
+<pre><code>          1           2           3           4           5           6 
+-12.0784573   0.6204724   7.4299885   3.0056190   3.0047536   2.4345628 </code></pre>
+<p>and the data on which R fitted the model:</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" title="1"><span class="kw">head</span>(fitlm1<span class="op">$</span>model)</a></code></pre></div>
+<pre><code>     wt82_71 qsmk
+1 -10.093960    0
+2   2.604970    0
+3   9.414486    0
+4   4.990117    0
+5   4.989251    0
+6   4.419060    0</code></pre>
+<div class="detour">
+<p style="text-align:center;">
+<strong>Detour</strong>
+</p>
+<p>Why did we bother to note that the model object saves the “data on which R fitted the model”? Didn’t R fit the model on the data we told it to?</p>
+<p>To answer this question, let’s take a brief detour and check that the data frame saved in <code>fitlm1</code> has the same number of rows as the <code>nhefs</code> data frame we fed to the <code>lm()</code> function.</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1"><span class="kw">nrow</span>(fitlm1<span class="op">$</span>model)</a></code></pre></div>
+<pre><code>[1] 1566</code></pre>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" title="1"><span class="kw">nrow</span>(nhefs)</a></code></pre></div>
+<pre><code>[1] 1629</code></pre>
+<p>Interesting! The number of rows in each data set don’t match, but why?</p>
+<p>Recall that earlier on this page, we found 63 missing values of the outcome <code>wt82_71</code>, and if we subtract 1566 from 1629, we get 63. That’s because <em>R’s modeling methods omit rows with missing data for any variables included in the model formula</em>. The model object saves the row numbers of dropped observations in <code>fitlm1$na</code>, and we can verify by extracting these rows from the original <code>nhefs</code> data set:</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" title="1"><span class="co"># extract row numbers that were dropped from the fitlm1 model</span></a>
+<a class="sourceLine" id="cb224-2" title="2"><span class="co"># keep only wt82_71 column and see that they&#39;re all missing</span></a>
+<a class="sourceLine" id="cb224-3" title="3">nhefs[fitlm1<span class="op">$</span>na, <span class="kw">c</span>(<span class="st">&quot;wt82_71&quot;</span>)] <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb224-4" title="4"><span class="st">  </span><span class="kw">count</span>(wt82_<span class="dv">71</span>)</a></code></pre></div>
+<pre><code># A tibble: 1 × 2
+  wt82_71     n
+    &lt;dbl&gt; &lt;int&gt;
+1      NA    63</code></pre>
+<p>Not to belabor the point, but let’s convince ourselves a bit more by identifying the rows with missing values for <code>wt82_71</code> and comparing this to the list R made:</p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" title="1"><span class="co"># identify rows with missing values for wt82_71</span></a>
+<a class="sourceLine" id="cb226-2" title="2"><span class="co"># vector of numeric row indices</span></a>
+<a class="sourceLine" id="cb226-3" title="3">missindex &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">is.na</span>(nhefs<span class="op">$</span>wt82_<span class="dv">71</span>))  </a>
+<a class="sourceLine" id="cb226-4" title="4"></a>
+<a class="sourceLine" id="cb226-5" title="5"><span class="co">## sort vectors in numerical order, generate a cross table</span></a>
+<a class="sourceLine" id="cb226-6" title="6"><span class="co">## </span><span class="al">NOTE</span><span class="co"> sorting is unecessary in this case, but it&#39;s good</span></a>
+<a class="sourceLine" id="cb226-7" title="7"><span class="co">##      practice to ensure elements are ordered properly</span></a>
+<a class="sourceLine" id="cb226-8" title="8"><span class="kw">table</span>(<span class="kw">sort</span>(missindex) <span class="op">==</span><span class="st"> </span><span class="kw">sort</span>(fitlm1<span class="op">$</span>na))</a></code></pre></div>
+<pre><code>
+TRUE 
+  63 </code></pre>
+<p>The index vector we created manually matches the one R created and saved to <code>fitlm1</code>.</p>
+</div>
+<p>R also provides functions designed to extract specific information from model fits, though we’ll suppress the output since we already printed out some of this information above:</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" title="1"><span class="co"># extract model coefficients</span></a>
+<a class="sourceLine" id="cb228-2" title="2"><span class="kw">coef</span>(fitlm1)</a>
+<a class="sourceLine" id="cb228-3" title="3"></a>
+<a class="sourceLine" id="cb228-4" title="4"><span class="co"># extract model residuals</span></a>
+<a class="sourceLine" id="cb228-5" title="5"><span class="kw">residuals</span>(fitlm1)</a></code></pre></div>
+<p>Let’s look at some plot diagnostics to make sure our linear regression complies with the model’s assumptions:</p>
+<p><span class="marginnote">
+<code>par(mfrow = c(2, 2))</code> tells R that we want a 2x2 plot grid. If you ran <code>plot(fitlm1)</code> by itself, R would output four images in succession.
+</span></p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb229-2" title="2"><span class="kw">plot</span>(fitlm1)</a></code></pre></div>
+<p><img src="stats-comp-ph_files/figure-html/regression-linear-unadj-diag-1.svg" width="672"  /></p>
+<p>Based on the Q-Q plot, we may have some violations of the normal assumption (<em>i.e.</em>, residuals are not normality distributed), as evidenced by the points’ departure from the diagonal line. In a real analysis we would need to address this issue, possibly by transforming the outcome. However, our focus here is on implementing models in code, so we will proceed, leaving issues of statistical practice to your relevant coursework.</p>
+<p>Our unadjusted estimate, therefore, suggests that quitting smoking was associated with an average 2.54 kg increase in weight between 1971 and 1982.</p>
+<p>The unadjusted linear regression we just ran is actually a special case of the two-sample <em>t</em>-test (assuming equal variances between smoking group), to which you’ll be introduced early on in your stats classes. Compare the output of the code below to that of the linear regression.</p>
+<p><span class="marginnote definition">
+<strong>Comparing Outputs</strong>
+What are the <em>t</em> statistics?<br /><br />
+What are the <em>p</em>-values for the difference in weight gain between quit smoking groups?<br /><br />
+What are the degrees of freedom?<br /><br />
+When you take the difference of “mean of x” and “mean of y” from the output of <code>t.test()</code>, do you find that value in the linear regression summary?
+</span></p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" title="1"><span class="kw">with</span>(nhefs, <span class="kw">t.test</span>(wt82_<span class="dv">71</span>[qsmk <span class="op">==</span><span class="st"> </span><span class="dv">1</span>], wt82_<span class="dv">71</span>[qsmk <span class="op">==</span><span class="st"> </span><span class="dv">0</span>], <span class="dt">var.equal =</span> T))</a></code></pre></div>
+<pre><code>
+    Two Sample t-test
+
+data:  wt82_71[qsmk == 1] and wt82_71[qsmk == 0]
+t = 5.6322, df = 1564, p-value = 2.106e-08
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 1.655796 3.425367
+sample estimates:
+mean of x mean of y 
+ 4.525079  1.984498 </code></pre>
+<p>The code below fits a linear model for the effect of <code>qsmk</code> on <code>wt82_71</code> adjusted for years of smoking (<code>smokeyrs</code>), intensity of smoking (<code>smokeintensity</code>), diabetes, sex, and age. Note that we allow for an “interaction” between sex and age, denoted by <code>sex * age</code>.</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" title="1">fitlm2 &lt;-<span class="st"> </span><span class="kw">lm</span>(</a>
+<a class="sourceLine" id="cb232-2" title="2">  wt82_<span class="dv">71</span> <span class="op">~</span><span class="st"> </span>qsmk <span class="op">+</span><span class="st"> </span>smokeyrs <span class="op">+</span><span class="st"> </span>smokeintensity <span class="op">+</span><span class="st"> </span>diabetes <span class="op">+</span><span class="st"> </span>sex <span class="op">*</span><span class="st"> </span>age,</a>
+<a class="sourceLine" id="cb232-3" title="3">  <span class="dt">data =</span> nhefs</a>
+<a class="sourceLine" id="cb232-4" title="4">)</a>
+<a class="sourceLine" id="cb232-5" title="5"></a>
+<a class="sourceLine" id="cb232-6" title="6"><span class="kw">summary</span>(fitlm2)</a></code></pre></div>
+<pre><code>
+Call:
+lm(formula = wt82_71 ~ qsmk + smokeyrs + smokeintensity + diabetes + 
+    sex * age, data = nhefs)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-43.224  -3.989  -0.020   4.122  46.099 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     9.216915   1.283794   7.179 1.08e-12 ***
+qsmk            3.188466   0.445670   7.154 1.29e-12 ***
+smokeyrs        0.059153   0.034673   1.706   0.0882 .  
+smokeintensity  0.017379   0.016943   1.026   0.3052    
+diabetes       -0.016252   0.193774  -0.084   0.9332    
+sex             0.347490   1.463221   0.237   0.8123    
+age            -0.209819   0.040721  -5.153 2.90e-07 ***
+sex:age        -0.009605   0.032829  -0.293   0.7699    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 7.558 on 1558 degrees of freedom
+  (63 observations deleted due to missingness)
+Multiple R-squared:  0.08418,   Adjusted R-squared:  0.08006 
+F-statistic: 20.46 on 7 and 1558 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Our adjusted estimate suggests that quitting smoking was associated with an average 3.19 kg increase in weight between 1971 and 1982, conditional on the other variables we included in the second linear model.</p>
+<p>Almost always, we will want to report the standard error estimates and/or confidence intervals with our measures of effect. The <code>broom::tidy()</code> function makes extracting 95% confidence intervals from regression fit objects (<em>i.e.</em>, objects like <code>fitlm1</code> or <code>fitlm2</code>):</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" title="1">broom<span class="op">::</span><span class="kw">tidy</span>(fitlm2, <span class="dt">conf.int =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb234-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(term <span class="op">==</span><span class="st"> &quot;qsmk&quot;</span>)</a></code></pre></div>
+<pre><code># A tibble: 1 × 7
+  term  estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 qsmk      3.19     0.446      7.15 1.29e-12     2.31      4.06</code></pre>
+<p>Alternatively, we can calculate the same confidence interval manually:</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" title="1"><span class="co"># point estimate</span></a>
+<a class="sourceLine" id="cb236-2" title="2">est &lt;-<span class="st"> </span><span class="kw">unname</span>(<span class="kw">coef</span>(fitlm2)[<span class="st">&quot;qsmk&quot;</span>])</a>
+<a class="sourceLine" id="cb236-3" title="3"></a>
+<a class="sourceLine" id="cb236-4" title="4"><span class="co"># standard error of point estimate</span></a>
+<a class="sourceLine" id="cb236-5" title="5">se &lt;-<span class="st"> </span><span class="kw">unname</span>(<span class="kw">summary</span>(fitlm2)<span class="op">$</span>coefficients[, <span class="kw">c</span>(<span class="st">&quot;Std. Error&quot;</span>)][<span class="st">&quot;qsmk&quot;</span>])</a>
+<a class="sourceLine" id="cb236-6" title="6"></a>
+<a class="sourceLine" id="cb236-7" title="7"><span class="co"># lower and upper bounds of 95% confidence limits</span></a>
+<a class="sourceLine" id="cb236-8" title="8">ll &lt;-<span class="st"> </span>est <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>se</a>
+<a class="sourceLine" id="cb236-9" title="9">ul &lt;-<span class="st"> </span>est <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>se</a>
+<a class="sourceLine" id="cb236-10" title="10"></a>
+<a class="sourceLine" id="cb236-11" title="11"><span class="kw">c</span>(<span class="dt">estimate =</span> est, <span class="dt">ll95 =</span> ll, <span class="dt">ul95 =</span> ul)</a></code></pre></div>
+<pre><code>estimate     ll95     ul95 
+3.188466 2.314953 4.061979 </code></pre>
+</div>
+<div id="logistic-regression" class="section level3">
+<h3><span class="header-section-number">6.4.2</span> Logistic regression</h3>
+<p>Let’s revisit our tabular analysis, in which we were interested in whether quitting smoking affected the likelihood of a subject’s gaining weight between 1971 and 1982.</p>
+<p>We can answer the same question with a logistic regression model, using the <code>glm()</code> function.</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" title="1">fitlog1 &lt;-<span class="st"> </span><span class="kw">glm</span>(</a>
+<a class="sourceLine" id="cb238-2" title="2">  wt82_<span class="dv">71</span>_gain <span class="op">~</span><span class="st"> </span>qsmk,</a>
+<a class="sourceLine" id="cb238-3" title="3">  <span class="dt">data =</span> nhefs,</a>
+<a class="sourceLine" id="cb238-4" title="4">  <span class="dt">family =</span> <span class="kw">binomial</span>()</a>
+<a class="sourceLine" id="cb238-5" title="5">)</a>
+<a class="sourceLine" id="cb238-6" title="6"></a>
+<a class="sourceLine" id="cb238-7" title="7"><span class="kw">summary</span>(fitlog1)</a></code></pre></div>
+<pre><code>
+Call:
+glm(formula = wt82_71_gain ~ qsmk, family = binomial(), data = nhefs)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.6459  -1.4508   0.7726   0.9267   0.9267  
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  0.62301    0.06151  10.128  &lt; 2e-16 ***
+qsmk         0.43304    0.12940   3.347 0.000818 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1976.5  on 1565  degrees of freedom
+Residual deviance: 1964.9  on 1564  degrees of freedom
+  (63 observations deleted due to missingness)
+AIC: 1968.9
+
+Number of Fisher Scoring iterations: 4</code></pre>
+<p>From this regression, we see that smokers who quit had an average increase of 0.433 in their log-odds of weight gain between 1971 and 1982.</p>
+<p>Usually, you will be asked to report associations from logistic regressions as odds ratios, in which case you would simply exponentiate the coefficient of interest. In this case we would run <code>exp(0.43304)</code> and get an odds ratio of 1.54. That is, those who quit smoking had 1.54 times the odds of gaining weight between 1971 and 1982, compared to those who did not quit smoking.</p>
+<p>As in the linear regression example, you could run a model adjusting for other factors, in which case you would modify the model formula accordingly. We will forego running an adjusted model here to avoid redundancy.</p>
+</div>
+<div id="log-binomial-regression" class="section level3">
+<h3><span class="header-section-number">6.4.3</span> Log-binomial regression</h3>
+<p>While the logistic regression remains the most frequently used generalized linear model (GLM) for binary outcomes, epidemiologists are often interested in risk differences and risk ratios.</p>
+<p>Luckily, we can use the log-binomial model to estimate contrasts in risks.</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" title="1">fitlbin &lt;-<span class="st"> </span><span class="kw">glm</span>(</a>
+<a class="sourceLine" id="cb240-2" title="2">  wt82_<span class="dv">71</span>_gain <span class="op">~</span><span class="st"> </span>qsmk,</a>
+<a class="sourceLine" id="cb240-3" title="3">  <span class="dt">data =</span> nhefs,</a>
+<a class="sourceLine" id="cb240-4" title="4">  <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;log&quot;</span>)</a>
+<a class="sourceLine" id="cb240-5" title="5">)</a>
+<a class="sourceLine" id="cb240-6" title="6"></a>
+<a class="sourceLine" id="cb240-7" title="7"><span class="kw">summary</span>(fitlbin)</a></code></pre></div>
+<pre><code>
+Call:
+glm(formula = wt82_71_gain ~ qsmk, family = binomial(link = &quot;log&quot;), 
+    data = nhefs)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.6459  -1.4508   0.7726   0.9267   0.9267  
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -0.42939    0.02147 -19.995  &lt; 2e-16 ***
+qsmk         0.13090    0.03639   3.597 0.000322 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1976.5  on 1565  degrees of freedom
+Residual deviance: 1964.9  on 1564  degrees of freedom
+  (63 observations deleted due to missingness)
+AIC: 1968.9
+
+Number of Fisher Scoring iterations: 5</code></pre>
+<p>To get the risk ratio for the effect of quitting smoking on weight gain, we again exponentiate the beta coefficient of interest and, in doing so, estimate that those who quit smoking were 1.14 times as likely to gain weight versus non-smokers.</p>
+<p><span class="marginnote">Calculate the risk ratio manually and convince yourself that the log-binomial model gave you the correct answer.</span></p>
+</div>
+<div id="modified-poisson-regression" class="section level3">
+<h3><span class="header-section-number">6.4.4</span> Modified Poisson regression</h3>
+<p>Another way to get a risk ratio using GLMs involves a procedure called modified Poisson regression. “Modified” here refers to a necessary modification of the standard error estimates when using a Poisson regression model to estimate a risk ratio. Again, save the statistical details for later. All we want to know for the moment are the nuts-and-bolts: how to fit the model and how to modify the standard errors.</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" title="1">fitmodpois &lt;-<span class="st"> </span><span class="kw">glm</span>(</a>
+<a class="sourceLine" id="cb242-2" title="2">  wt82_<span class="dv">71</span>_gain <span class="op">~</span><span class="st"> </span>qsmk,</a>
+<a class="sourceLine" id="cb242-3" title="3">  <span class="dt">data =</span> nhefs,</a>
+<a class="sourceLine" id="cb242-4" title="4">  <span class="dt">family =</span> <span class="kw">poisson</span>()</a>
+<a class="sourceLine" id="cb242-5" title="5">)</a>
+<a class="sourceLine" id="cb242-6" title="6"></a>
+<a class="sourceLine" id="cb242-7" title="7"><span class="kw">summary</span>(fitmodpois)</a></code></pre></div>
+<pre><code>
+Call:
+glm(formula = wt82_71_gain ~ qsmk, family = poisson(), data = nhefs)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.2181  -1.1410   0.2843   0.4007   0.4007  
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -0.42939    0.03635 -11.814   &lt;2e-16 ***
+qsmk         0.13090    0.06830   1.916   0.0553 .  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 832.2  on 1565  degrees of freedom
+Residual deviance: 828.6  on 1564  degrees of freedom
+  (63 observations deleted due to missingness)
+AIC: 2944.6
+
+Number of Fisher Scoring iterations: 5</code></pre>
+<p>Let’s compare the <code>qsmk</code> coefficient estimate to the one we got using the log-binomial model:</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" title="1">modcompare &lt;-<span class="st"> </span><span class="kw">rbind</span>(</a>
+<a class="sourceLine" id="cb244-2" title="2">  broom<span class="op">::</span><span class="kw">tidy</span>(fitlbin) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="st">&quot;Log-binomial&quot;</span>),</a>
+<a class="sourceLine" id="cb244-3" title="3">  broom<span class="op">::</span><span class="kw">tidy</span>(fitmodpois) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="st">&quot;Modified Poisson&quot;</span>)</a>
+<a class="sourceLine" id="cb244-4" title="4">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb244-5" title="5"><span class="st">  </span><span class="kw">filter</span>(term <span class="op">==</span><span class="st"> &quot;qsmk&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb244-6" title="6"><span class="st">  </span><span class="kw">select</span>(model, estimate, std.error)</a>
+<a class="sourceLine" id="cb244-7" title="7"></a>
+<a class="sourceLine" id="cb244-8" title="8">modcompare <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb244-9" title="9"><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">model</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Log-binomial</td>
+<td align="right">0.1309019</td>
+<td align="right">0.0363902</td>
+</tr>
+<tr class="even">
+<td align="left">Modified Poisson</td>
+<td align="right">0.1309019</td>
+<td align="right">0.0683044</td>
+</tr>
+</tbody>
+</table>
+<p>Almost exactly the same point estimate, but we can see that the standard error from the modified Poisson model is considerably larger than that of the log-binomial model’s.</p>
+<p>To get a correct standard error for the modified Poisson model, we need to use a “robust” estimate of this error, also called the sandwich estimator:</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" title="1"><span class="co"># sandwich() provided by the sandwich package</span></a>
+<a class="sourceLine" id="cb245-2" title="2"><span class="co"># first, get the variance-covariance matrix</span></a>
+<a class="sourceLine" id="cb245-3" title="3">swvar_modpois &lt;-<span class="st"> </span>sandwich<span class="op">::</span><span class="kw">sandwich</span>(fitmodpois)</a>
+<a class="sourceLine" id="cb245-4" title="4"></a>
+<a class="sourceLine" id="cb245-5" title="5"><span class="co"># extract the variance of the qsmk coefficient and</span></a>
+<a class="sourceLine" id="cb245-6" title="6"><span class="co"># take the square root to get the standard error</span></a>
+<a class="sourceLine" id="cb245-7" title="7"><span class="kw">sqrt</span>(swvar_modpois[<span class="dv">2</span>, <span class="dv">2</span>])</a></code></pre></div>
+<pre><code>[1] 0.03639026</code></pre>
+<p>Compare this modified standard error to that of the log-binomial model. We’ve accounted for the conservative estimate in the original modified Poisson model.</p>
+<p>For more complex models, the log-binomial and modified Poisson models may provide slightly different answers. Each has other benefits and drawbacks that you will learn about if and when you take a class that introduces these methods.</p>
+</div>
+<div id="poisson-regression" class="section level3">
+<h3><span class="header-section-number">6.4.5</span> Poisson regression</h3>
+<p>I thought we just did Poisson regression!</p>
+<p>We did, sort of. However, we can also use Poisson regression for its standard purpose: to model incidence rates.</p>
+</div>
+<div id="survival-analysis" class="section level3">
+<h3><span class="header-section-number">6.4.6</span> Survival analysis</h3>
+</div>
+<div id="overdispersion" class="section level3">
+<h3><span class="header-section-number">6.4.7</span> Overdispersion</h3>
+
+</div>
 </div>
 </div>
 <p style="text-align: center;">
