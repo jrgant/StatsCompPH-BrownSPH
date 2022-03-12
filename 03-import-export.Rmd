@@ -6,6 +6,8 @@ While incompatibility between datafile formats and various programs used to be a
 
 The table below provides a brief summary of formats commonly used to store datasets.
 
+<div class="fullwidth-table">
+
 ```{r, dataset-format-table, echo = FALSE}
 tibble::tribble(
   ~Format,
@@ -36,8 +38,13 @@ tibble::tribble(
   "Microsoft Excel",
   "It is **highly recommended** that datasets not be saved in Excel format. Use a plain-text format like CSV or TXT or, alternatively, a statistical program's native export format whenever possible."
 ) %>%
-  knitr::kable(caption = "Common dataset formats")
+  knitr::kable(
+           caption = "Common dataset formats",
+           format = "html"
+         )
 ```
+</div>
+
 
 ## R: Reading and Writing Data
 
@@ -96,5 +103,5 @@ readr::write_delim(iris_txt, "data/iris3.txt", delim = ",")
 haven::write_sas(iris_sas, "data/iris2.sas")
 ```
 
-Note that we could have passed any of the data.frames we created into any of the functions. For instance, we could have passed `iris_csv` to `haven::write_sas()` in order to save it as sas7bdat.
+Note that we could have passed any of the data.frames we created into any of the functions. For instance, we could have passed `iris_csv` to `haven::write_sas()` in order to save it in `sas7bdat` format.
 

@@ -163,7 +163,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li><a href="statistical-analysis.html#exploratory-data-analysis"><span class="toc-section-number">6.2</span> Exploratory Data Analysis</a></li>
 <li><a href="statistical-analysis.html#tabular-analysis"><span class="toc-section-number">6.3</span> Tabular Analysis</a></li>
-<li><a href="statistical-analysis.html#regression-models"><span class="toc-section-number">6.4</span> Regression Models</a></li>
+<li class="has-sub"><a href="statistical-analysis.html#regression-models"><span class="toc-section-number">6.4</span> Regression Models</a><ul>
+<li><a href="statistical-analysis.html#linear-regression"><span class="toc-section-number">6.4.1</span> Linear regression</a></li>
+<li><a href="statistical-analysis.html#logistic-regression"><span class="toc-section-number">6.4.2</span> Logistic regression</a></li>
+<li><a href="statistical-analysis.html#log-binomial-regression"><span class="toc-section-number">6.4.3</span> Log-binomial regression</a></li>
+<li><a href="statistical-analysis.html#modified-poisson-regression"><span class="toc-section-number">6.4.4</span> Modified Poisson regression</a></li>
+<li><a href="statistical-analysis.html#poisson-regression"><span class="toc-section-number">6.4.5</span> Poisson regression</a></li>
+<li><a href="statistical-analysis.html#survival-analysis"><span class="toc-section-number">6.4.6</span> Survival analysis</a></li>
+<li><a href="statistical-analysis.html#overdispersion"><span class="toc-section-number">6.4.7</span> Overdispersion</a></li>
+</ul></li>
 </ul></li>
 <li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a><ul>
 <li><a href="getting-comfortable-with-loops-and-logic.html#whats-a-loop"><span class="toc-section-number">7.1</span> What’s a Loop?</a></li>
@@ -222,54 +230,96 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Data come in many formats. Some formats are universal and easily imported into most statistical programs, while others are proprietary and tailored to a specific program.</p>
 <p>While incompatibility between datafile formats and various programs used to be a considerable annoyance, most programs have made it rather easy to import data formats regardless of the format’s origin. However, in some cases, features available in one language will be unavailable in another or might require additional formatting.</p>
 <p>The table below provides a brief summary of formats commonly used to store datasets.</p>
+<div class="fullwidth-table">
+
 <p><!--
 <caption>--><span class="marginnote shownote"><span id="tab:dataset-format-table">Table 4.1: </span>Common dataset formats</span><!--</caption>--></p>
 <table>
-<colgroup>
-<col width="2%" />
-<col width="18%" />
-<col width="79%" />
-</colgroup>
+
+
 <thead>
-<tr class="header">
-<th align="left">Format</th>
-<th align="left">Created In</th>
-<th align="left">Description</th>
+<tr>
+<th style="text-align:left;">
+Format
+</th>
+<th style="text-align:left;">
+Created In
+</th>
+<th style="text-align:left;">
+Description
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">CSV</td>
-<td align="left">Almost all spreadsheet programs, plain text editors, and programs for statistical analysis.</td>
-<td align="left">CSV is a good universal format in which to store data. Any statistical program should have a built-in method by which to import CSV files. If you’re used to using text formatting in Excel (e.g., bold, italics, multiple worksheets), note that CSV <strong>does not</strong> preserve these features. If you have multiple sheets in an Excel file, you should make sure to save each to a separate CSV file.</td>
+<tr>
+<td style="text-align:left;">
+CSV
+</td>
+<td style="text-align:left;">
+Almost all spreadsheet programs, plain text editors, and programs for statistical analysis.
+</td>
+<td style="text-align:left;">
+CSV is a good universal format in which to store data. Any statistical program should have a built-in method by which to import CSV files. If you’re used to using text formatting in Excel (e.g., bold, italics, multiple worksheets), note that CSV <strong>does not</strong> preserve these features. If you have multiple sheets in an Excel file, you should make sure to save each to a separate CSV file.
+</td>
 </tr>
-<tr class="even">
-<td align="left">TXT</td>
-<td align="left">Almost all spreadsheet programs, plain text editors, and programs for statistical analysis.</td>
-<td align="left">Like CSV files, TXT files can be read by almost all statistical programs across different operating systems. Note that TXT files can use a number of different types of delimiters (column separators), including commas, spaces, and tabs.</td>
+<tr>
+<td style="text-align:left;">
+TXT
+</td>
+<td style="text-align:left;">
+Almost all spreadsheet programs, plain text editors, and programs for statistical analysis.
+</td>
+<td style="text-align:left;">
+Like CSV files, TXT files can be read by almost all statistical programs across different operating systems. Note that TXT files can use a number of different types of delimiters (column separators), including commas, spaces, and tabs.
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Rdata, RDS</td>
-<td align="left">R</td>
-<td align="left">We’ll get into the distinctions between these filetypes in a little bit. Both are specific to R, and if you want to transition smoothly between programs you plan to use for different tasks with the same dataset, it may be best to use CSV or TXT.</td>
+<tr>
+<td style="text-align:left;">
+Rdata, RDS
+</td>
+<td style="text-align:left;">
+R
+</td>
+<td style="text-align:left;">
+We’ll get into the distinctions between these filetypes in a little bit. Both are specific to R, and if you want to transition smoothly between programs you plan to use for different tasks with the same dataset, it may be best to use CSV or TXT.
+</td>
 </tr>
-<tr class="even">
-<td align="left">sas7bdat</td>
-<td align="left">SAS</td>
-<td align="left">Probably the most commonly used SAS-based dataset format, sas7bdat is capable of storing datasets with native SAS labeling and other features. If you find yourself moving between R and SAS, R has a number of packages available capable of importing and writing to the sas7bdat format, though important SAS variable labels requires an additional step or two.</td>
+<tr>
+<td style="text-align:left;">
+sas7bdat
+</td>
+<td style="text-align:left;">
+SAS
+</td>
+<td style="text-align:left;">
+Probably the most commonly used SAS-based dataset format, sas7bdat is capable of storing datasets with native SAS labeling and other features. If you find yourself moving between R and SAS, R has a number of packages available capable of importing and writing to the sas7bdat format, though important SAS variable labels requires an additional step or two.
+</td>
 </tr>
-<tr class="odd">
-<td align="left">DTA</td>
-<td align="left">Stata</td>
-<td align="left">While this format is native to Stata, both SAS and R can import the format easily.</td>
+<tr>
+<td style="text-align:left;">
+DTA
+</td>
+<td style="text-align:left;">
+Stata
+</td>
+<td style="text-align:left;">
+While this format is native to Stata, both SAS and R can import the format easily.
+</td>
 </tr>
-<tr class="even">
-<td align="left">XLS, XLSX</td>
-<td align="left">Microsoft Excel</td>
-<td align="left">It is <strong>highly recommended</strong> that datasets not be saved in Excel format. Use a plain-text format like CSV or TXT or, alternatively, a statistical program’s native export format whenever possible.</td>
+<tr>
+<td style="text-align:left;">
+XLS, XLSX
+</td>
+<td style="text-align:left;">
+Microsoft Excel
+</td>
+<td style="text-align:left;">
+It is <strong>highly recommended</strong> that datasets not be saved in Excel format. Use a plain-text format like CSV or TXT or, alternatively, a statistical program’s native export format whenever possible.
+</td>
 </tr>
 </tbody>
 </table>
+</div>
 <div id="r-reading-and-writing-data" class="section level2">
 <h2><span class="header-section-number">4.1</span> R: Reading and Writing Data</h2>
 <p>Before we begin, you’ll want to install two R packages:</p>
@@ -337,7 +387,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb15-2" title="2">readr<span class="op">::</span><span class="kw">write_delim</span>(iris_txt, <span class="st">&quot;data/iris2.txt&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</a>
 <a class="sourceLine" id="cb15-3" title="3">readr<span class="op">::</span><span class="kw">write_delim</span>(iris_txt, <span class="st">&quot;data/iris3.txt&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;,&quot;</span>)</a>
 <a class="sourceLine" id="cb15-4" title="4">haven<span class="op">::</span><span class="kw">write_sas</span>(iris_sas, <span class="st">&quot;data/iris2.sas&quot;</span>)</a></code></pre></div>
-<p>Note that we could have passed any of the data.frames we created into any of the functions. For instance, we could have passed <code>iris_csv</code> to <code>haven::write_sas()</code> in order to save it as sas7bdat.</p>
+<p>Note that we could have passed any of the data.frames we created into any of the functions. For instance, we could have passed <code>iris_csv</code> to <code>haven::write_sas()</code> in order to save it in <code>sas7bdat</code> format.</p>
 
 </div>
 </div>
