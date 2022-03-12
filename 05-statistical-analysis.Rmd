@@ -341,7 +341,7 @@ par(mfrow = c(2, 2))
 plot(fitlm1)
 ```
 
-Based on the Q-Q plot, we may have some violations of the normal assumption (_i.e._, residuals are not normality distributed), as evidenced by the points' departure from the diagonal line. In a real analysis we would need to address this issue, possibly by transforming the outcome. However, our focus here is on implementing models in code, so we will proceed, leaving issues of statistical practice to your relevant coursework.
+Based on the Q-Q plot, we may have some violations of the normality assumption (_i.e._, residuals are not normally distributed), as evidenced by the points' departure from the diagonal line. In a real analysis we would need to address this issue, possibly by transforming the outcome. However, our focus here is on implementing models in code, so we will proceed, leaving issues of statistical practice to your relevant coursework.
 
 Our unadjusted estimate, therefore, suggests that quitting smoking was associated with an average `r round(coef(fitlm1)['qsmk'], 2)` kg increase in weight between 1971 and 1982.
 
