@@ -9,13 +9,13 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: jrgant/StatsCompPH-BrownSPH
-# Windows path
 description: "Resources and tutorials for R and SAS analysis geared toward public health students."
 ---
 
 ```{r book_setup, include = FALSE}
 pacman::p_load(tidyverse, data.table, SASMarkdown)
 
+# Windows path
 # saspath <- "C:/Program Files/SASHome/SASFoundation/9.4/sas.exe"
 # sasopts <- "-nosplash -ls 75"
 
@@ -34,17 +34,20 @@ knitr::opts_chunk$set(
 
 # Learning Objectives
 
-Statistical computing is an essential activity for modern researchers, but students tend to be left to their own devices to develop their programming abilities.
+Statistical computing underlies much of the work we do as researchers. However, students tend to be left to their own devices to develop their programming abilities.
 
-While teaching oneself is an indispensable part of the process, new researchers may be better prepared to do so provided a base from which to develop those skills. This book is intended to serve as such an introductory resource, targeted to incoming graduate students at the Brown University School of Public Health.
+While teaching oneself is an indispensable part of the process, new researchers may be better equipped to do so provided a base from which to develop their computing skills. This book is intended to serve as such an introductory resource, targeted at incoming graduate students at the Brown University School of Public Health. 
+
+While the content focuses on coding in R, some examples of SAS code appear to provide a frame of reference for students having completed their degree program's required SAS training modules (if applicable).
+
 
 ## Main objectives
 
-Install R (plus RStudio) and SAS
+Install R (and RStudio)
 
   - Include R packages that will be helpful to download as the tutorials progress
 
-Understand the different data types in both SAS and R
+Understand some basic data types in both SAS and R
 
 Understand how each language handles:
 
@@ -54,9 +57,9 @@ Understand how each language handles:
   - Objects
   - Environments (as applicable)
 
-Be able to conduct the following tasks in both SAS and R:
+Be able to conduct the following tasks in R:
 
-  - Import/export data from and to common filetypes
+  - Import/export data to and from common filetypes
       - Use common machine-readable filetypes
   - Manipulate variables
       - Assign variable names and value formats
@@ -77,17 +80,13 @@ Be able to conduct the following tasks in both SAS and R:
 
 Produce publication-quality plots
 
-  - Export data from SAS
   - Review image formats (JPG, PNG, EPS, WMF, EMF, PDF)
   - Know where to find information on principles of data visualization
 
-Consider the benefits and drawbacks of each language
+Consider ways to make your analyses reproducible
 
-  - With flexibility comes complexity: find the appropriate tradeoff for you.
-  - For reproducibility, R leads the pack among statistical programming languages
-      - Options exist but are limited for SAS
-      - Open source (R) vs. closed source (SAS)
-  - Free (R) vs. paid (SAS)
+  - RMarkdown
+  - Pseudorandom number seeds
 
 Resource repository
 
@@ -106,7 +105,6 @@ Get a feel for how to conduct more advanced analysis
 Get comfortable with implementing multiple strategies for the same task
 
   - R: `base` vs. `data.table` vs. `tidyverse`
-  - SAS: merging with PROC SORT and MERGE DATA step vs. using hash objects
 
 Understand the benefits of competing strategies in prior bulletpoint
 
@@ -120,6 +118,7 @@ Understand the benefits of competing strategies in prior bulletpoint
       - Macros and functions
       - Code maintenance
       - Don't Repeat Yourself (DRY Principle)
+
 
 ## Acknowledgements
 
