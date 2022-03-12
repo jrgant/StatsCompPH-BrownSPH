@@ -33,11 +33,11 @@ In this introduction, we will focus on a couple of broad concepts and code examp
 
 Keeping these bookmarked will probably cover about 90%^[Source: Thin air] of your data visualization needs.
 
-## Base R versus ggplot2
+## Base R examples
 
 You may find that working with plotting in base R is more efficient when you want quick-and-dirty visualizations---for instance, while you're conducting exploratory data analysis.
 
-### Boxplots (Base R)
+### Boxplots
 
 ```{r base-r-bp, out.width="75%"}
 # using built-in iris dataset
@@ -45,13 +45,13 @@ boxplot(iris$Petal.Width)
 boxplot(Petal.Width ~ Species, data = iris)
 ```
 
-### Density Plots (Base R)
+### Density Plots
 
 ```{r base-r-density, out.width="75%"}
 plot(density(iris$Petal.Width))
 ```
 
-### Scatterplots (Base R)
+### Scatterplots
 
 ```{r base-r-scatter, out.width="75%"}
 plot(iris$Petal.Width)
@@ -59,8 +59,33 @@ plot(iris$Petal.Width)
 plot(Petal.Width ~ Petal.Length, data = iris)
 ```
 
-### Histograms (Base R)
+### Scatterplot Matrix
+
+```{r base-r-scattermatrix, out.width="100%", fig.asp=1}
+pairs(iris)
+```
+
+### Histograms
 
 ```{r base-r-hist, out.width="75%"}
 hist(iris$Petal.Width)
+```
+
+### Linear regression diagnostics
+
+Base R and some packages provide built-in plotting methods for certain types of objects. Here, feeding an object of the class `lm` will return a series of linear regression diagnostics.
+
+```{r base-linear-reg-diag, out.width="85%"}
+## run a regression on built-in dataset ChickWeight
+fit <- lm(weight ~ Diet, data = ChickWeight)
+class(fit)
+
+plot(fit)
+```
+
+If you run `plot(fit)` as above, you might find R irritating in that it will print these plots to your image device (image pane in RStudio) in succession, leaving you to flip between images. For a nicer output, you can output a grid of regression diagnostics.
+
+```{r base-linear-reg-diag-grid, out.width="85%", fig.asp=1}
+par(mfrow = c(2, 2))
+plot(fit)
 ```

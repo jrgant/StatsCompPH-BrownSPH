@@ -199,11 +199,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="has-sub"><a href="data-visualization.html#data-visualization"><span class="toc-section-number">9</span> Data Visualization</a><ul>
-<li class="has-sub"><a href="data-visualization.html#base-r-versus-ggplot2"><span class="toc-section-number">9.1</span> Base R versus ggplot2</a><ul>
-<li><a href="data-visualization.html#boxplots-base-r"><span class="toc-section-number">9.1.1</span> Boxplots (Base R)</a></li>
-<li><a href="data-visualization.html#density-plots-base-r"><span class="toc-section-number">9.1.2</span> Density Plots (Base R)</a></li>
-<li><a href="data-visualization.html#scatterplots-base-r"><span class="toc-section-number">9.1.3</span> Scatterplots (Base R)</a></li>
-<li><a href="data-visualization.html#histograms-base-r"><span class="toc-section-number">9.1.4</span> Histograms (Base R)</a></li>
+<li class="has-sub"><a href="data-visualization.html#base-r-examples"><span class="toc-section-number">9.1</span> Base R examples</a><ul>
+<li><a href="data-visualization.html#boxplots"><span class="toc-section-number">9.1.1</span> Boxplots</a></li>
+<li><a href="data-visualization.html#density-plots"><span class="toc-section-number">9.1.2</span> Density Plots</a></li>
+<li><a href="data-visualization.html#scatterplots"><span class="toc-section-number">9.1.3</span> Scatterplots</a></li>
+<li><a href="data-visualization.html#scatterplot-matrix"><span class="toc-section-number">9.1.4</span> Scatterplot Matrix</a></li>
+<li><a href="data-visualization.html#histograms"><span class="toc-section-number">9.1.5</span> Histograms</a></li>
+<li><a href="data-visualization.html#linear-regression-diagnostics"><span class="toc-section-number">9.1.6</span> Linear regression diagnostics</a></li>
 </ul></li>
 </ul></li>
 <li><a href="programming-concepts.html#programming-concepts"><span class="toc-section-number">10</span> Programming Concepts</a></li>
@@ -248,33 +250,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><a href="http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html">Top 50 ggplot2 Visualizations - The Master List (with Full R Code)</a> by Selva Prabhakaran</p></li>
 </ol>
 <p>Keeping these bookmarked will probably cover about 90%<label for="tufte-sn-4" class="margin-toggle sidenote-number">4</label><input type="checkbox" id="tufte-sn-4" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">4</span> Source: Thin air</span> of your data visualization needs.</p>
-<div id="base-r-versus-ggplot2" class="section level2">
-<h2><span class="header-section-number">9.1</span> Base R versus ggplot2</h2>
+<div id="base-r-examples" class="section level2">
+<h2><span class="header-section-number">9.1</span> Base R examples</h2>
 <p>You may find that working with plotting in base R is more efficient when you want quick-and-dirty visualizations—for instance, while you’re conducting exploratory data analysis.</p>
-<div id="boxplots-base-r" class="section level3">
-<h3><span class="header-section-number">9.1.1</span> Boxplots (Base R)</h3>
+<div id="boxplots" class="section level3">
+<h3><span class="header-section-number">9.1.1</span> Boxplots</h3>
 <div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" title="1"><span class="co"># using built-in iris dataset</span></a>
 <a class="sourceLine" id="cb296-2" title="2"><span class="kw">boxplot</span>(iris<span class="op">$</span>Petal.Width)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-bp-1.svg" width="75%"  style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb297-1" title="1"><span class="kw">boxplot</span>(Petal.Width <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> iris)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-bp-2.svg" width="75%"  style="display: block; margin: auto;" /></p>
 </div>
-<div id="density-plots-base-r" class="section level3">
-<h3><span class="header-section-number">9.1.2</span> Density Plots (Base R)</h3>
+<div id="density-plots" class="section level3">
+<h3><span class="header-section-number">9.1.2</span> Density Plots</h3>
 <div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" title="1"><span class="kw">plot</span>(<span class="kw">density</span>(iris<span class="op">$</span>Petal.Width))</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-density-1.svg" width="75%"  style="display: block; margin: auto;" /></p>
 </div>
-<div id="scatterplots-base-r" class="section level3">
-<h3><span class="header-section-number">9.1.3</span> Scatterplots (Base R)</h3>
+<div id="scatterplots" class="section level3">
+<h3><span class="header-section-number">9.1.3</span> Scatterplots</h3>
 <div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" title="1"><span class="kw">plot</span>(iris<span class="op">$</span>Petal.Width)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-scatter-1.svg" width="75%"  style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" title="1"><span class="kw">plot</span>(Petal.Width <span class="op">~</span><span class="st"> </span>Petal.Length, <span class="dt">data =</span> iris)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-scatter-2.svg" width="75%"  style="display: block; margin: auto;" /></p>
 </div>
-<div id="histograms-base-r" class="section level3">
-<h3><span class="header-section-number">9.1.4</span> Histograms (Base R)</h3>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" title="1"><span class="kw">hist</span>(iris<span class="op">$</span>Petal.Width)</a></code></pre></div>
+<div id="scatterplot-matrix" class="section level3">
+<h3><span class="header-section-number">9.1.4</span> Scatterplot Matrix</h3>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" title="1"><span class="kw">pairs</span>(iris)</a></code></pre></div>
+<p><img src="stats-comp-ph_files/figure-html/base-r-scattermatrix-1.svg" width="100%"  style="display: block; margin: auto;" /></p>
+</div>
+<div id="histograms" class="section level3">
+<h3><span class="header-section-number">9.1.5</span> Histograms</h3>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" title="1"><span class="kw">hist</span>(iris<span class="op">$</span>Petal.Width)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/base-r-hist-1.svg" width="75%"  style="display: block; margin: auto;" /></p>
+</div>
+<div id="linear-regression-diagnostics" class="section level3">
+<h3><span class="header-section-number">9.1.6</span> Linear regression diagnostics</h3>
+<p>Base R and some packages provide built-in plotting methods for certain types of objects. Here, feeding an object of the class <code>lm</code> will return a series of linear regression diagnostics.</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb303-1" title="1"><span class="co">## run a regression on built-in dataset ChickWeight</span></a>
+<a class="sourceLine" id="cb303-2" title="2">fit &lt;-<span class="st"> </span><span class="kw">lm</span>(weight <span class="op">~</span><span class="st"> </span>Diet, <span class="dt">data =</span> ChickWeight)</a>
+<a class="sourceLine" id="cb303-3" title="3"><span class="kw">class</span>(fit)</a></code></pre></div>
+<pre><code>[1] &quot;lm&quot;</code></pre>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" title="1"><span class="kw">plot</span>(fit)</a></code></pre></div>
+<p><img src="stats-comp-ph_files/figure-html/base-linear-reg-diag-1.svg" width="85%"  style="display: block; margin: auto;" /><img src="stats-comp-ph_files/figure-html/base-linear-reg-diag-2.svg" width="85%"  style="display: block; margin: auto;" /><img src="stats-comp-ph_files/figure-html/base-linear-reg-diag-3.svg" width="85%"  style="display: block; margin: auto;" /><img src="stats-comp-ph_files/figure-html/base-linear-reg-diag-4.svg" width="85%"  style="display: block; margin: auto;" /></p>
+<p>If you run <code>plot(fit)</code> as above, you might find R irritating in that it will print these plots to your image device (image pane in RStudio) in succession, leaving you to flip between images. For a nicer output, you can output a grid of regression diagnostics.</p>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb306-2" title="2"><span class="kw">plot</span>(fit)</a></code></pre></div>
+<p><img src="stats-comp-ph_files/figure-html/base-linear-reg-diag-grid-1.svg" width="85%"  style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
