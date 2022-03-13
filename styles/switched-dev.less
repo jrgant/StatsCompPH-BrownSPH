@@ -114,6 +114,7 @@ a:hover {
   float: none;
 }
 
+
 /* ## HEADINGS ---------------------------------------------------------------*/
 
 h1, h2 {
@@ -282,16 +283,17 @@ span.deg {
   font-variant: all-small-caps;
 }
 
-/* ## TERM DEFINITIONS -------------------------------------------------------*/
 
-.definition, .warning {
+/* ## TERM DEFINITIONS AND OTHER MARGIN NOTE STYLES --------------------------*/
+
+.definition, .warning, .idea {
   background: aliceblue;
   padding: 15px;
   width: 45.25% !important;
   border-radius: 3px;
 }
 
-.definition strong:first-of-type, .warning strong:first-of-type {
+.definition strong:first-of-type, .warning strong:first-of-type, .idea strong:first-of-type {
   text-transform: uppercase;
   display: block;
   margin-bottom: 1rem;
@@ -304,6 +306,16 @@ span.deg {
 .warning strong:first-of-type::before {
   content: "⚠️ ";
 }
+
+.idea strong:first-of-type::before {
+  content: "💡 "
+}
+
+.sidenote-number {
+  font-family: inherit;
+  font-size: 0.5rem !important;
+}
+
 
 /* ## DEVELOPMENT ------------------------------------------------------------*/
 
@@ -340,7 +352,6 @@ dev-note:before {
 
 
 /* DETOURS ------------------------------------------------------------------ */
-
 
 .detour {
   width: 100%;

@@ -440,7 +440,10 @@ summary(fitlbin)
 
 To get the risk ratio for the effect of quitting smoking on weight gain, we again exponentiate the beta coefficient of interest and, in doing so, estimate that those who quit smoking were `r round(exp(coef(fitlbin)["qsmk"]), 3)` times as likely to gain weight versus non-smokers.
 
-<span class="marginnote">Calculate the risk ratio manually and convince yourself that the log-binomial model gave you the correct answer.</span>
+<span class="marginnote idea">
+**Try this**
+Calculate the risk ratio manually and convince yourself that the log-binomial model gave you the correct answer.
+</span>
 
 ### Modified Poisson regression
 
