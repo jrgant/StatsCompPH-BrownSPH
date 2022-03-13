@@ -72,6 +72,13 @@ scatterplots
 scatterplot-matrix
 histograms
 linear-regression-diagnostics
+ggplot2-examples
+boxplots-1
+density-plots-1
+scatterplots-1
+faceted-plots
+bar-plots
+scatterplot-matrix-1
 programming-concepts
 resources
 r

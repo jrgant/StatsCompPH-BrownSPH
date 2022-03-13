@@ -71,7 +71,7 @@ pairs(iris)
 hist(iris$Petal.Width)
 ```
 
-### Linear regression diagnostics
+### Linear Regression Diagnostics
 
 Base R and some packages provide built-in plotting methods for certain types of objects. Here, feeding an object of the class `lm` will return a series of linear regression diagnostics.
 
@@ -88,4 +88,223 @@ If you run `plot(fit)` as above, you might find R irritating in that it will pri
 ```{r base-linear-reg-diag-grid, out.width="85%", fig.asp=1}
 par(mfrow = c(2, 2))
 plot(fit)
+``` 
+
+## ggplot2 Examples
+
+Before we start, let's load a few of the packages we'll be using. 
+
+```{r ggplot-loads}
+library(ggplot2)  # plotting package
+library(ggthemes) # a package that adds plot themes to ggplot2
+library(magrittr) # use pipes "%>%"
 ```
+
+Before, we get into the examples, I'm going to apply a universal theme for the subsequent plots:
+
+```{r ggplot-themeset}
+theme_set(theme_few(base_size = 16))
+```
+
+The `ggplot2` package in R is an excellent package for data visualization based on the _grammar of graphics_ concept.^[Leland Wilkinson. [The Grammar of Graphics](https://link.springer.com/book/10.1007/0-387-28695-0). Springer, 2005.] The basic idea is to divide plot features into conceptual layers defined by their function in the visualization. 
+
+Here's a general schema for how this concept maps to plot components in `ggplot2`:
+
+- **data:** the underlying data set and variables we wish to convert into plot aesthetics
+- **plot layer:** geometric entities (_e.g._, shapes, lines), statistical transformations, positioning elements
+- **scales:** scales applied to geoms to map additional data dimensions (_e.g._, a color gradient)
+- **coordinates:** the coordinate system used to plot the data (_e.g._, Cartesian, polar)
+- **facets:** specifications that control a grid of plots, showing the same plot within multiple discrete groupings
+
+Note that I've assigned names to each element for the sake of introduction, but the descriptions themselves follow closely from Hadley Wickham's (`ggplot2` creator) own in the paper referenced here.^[Hadley Wickham (2010) A Layered Grammar of Graphics, _Journal of Computational and Graphical Statistics_, 19:1, 3-28, DOI: [10.1198/jcgs.2009.07098](https://doi.org/10.1198/jcgs.2009.07098)]
+
+In the following examples I will focus on longform syntax with the `ggplot` function. Learning the ins and outs of `ggplot2` will give you more flexibility and control over your images, particularly when you need to produce publication-quality graphics. However, `ggplot2` provides the `qplot` function for quick visualizations, akin to the base R graphics depicted above. One nice thing about `qplot` the its default setting to choose a geometric mapping automatically (hereafter, "geom"). Below, the function automatically selects a scatterplot.
+
+```{r ggplot-qplot}
+qplot(x = Petal.Width, y = Petal.Length, data = iris)
+```
+
+However, we can specify the geom explicitly. Here we get a smoothed line:
+
+```{r ggplot-qplot-geomspec}
+qplot(x = Petal.Width, y = Petal.Length, data = iris, geom = "smooth")
+```
+
+The [`ggplot2` website](https://ggplot2.tidyverse.org/reference) contains extensive documentation on all of the package's functions, including many helpful worked examples.
+
+All the examples below use the in-built `iris` data set. Let's recall what it looks like:
+
+```{r iris-preview}
+head(iris, n = 10)
+```
+
+<span class="marginnote warning">
+**Strange Symbols**
+Note the difference between the `magrittr` pipe `%>%`, which we use to feed our data set to the `ggplot()` function and the `+` symbol we use to bind together the lines describing plot elements. This distinction is mandatory, as `ggplot2` will not allow you to use the `magrittr` pipe to link plot layers.
+</span>
+
+### Boxplots
+
+```{r ggplot-boxplot, fig.asp = 1}
+iris %>%
+  ggplot(aes(x = Petal.Width)) +
+  geom_boxplot()
+
+iris %>%
+  ggplot(aes(x = Species, y = Petal.Width)) +
+  geom_boxplot()
+```
+
+### Density Plots
+
+```{r ggplot-density, fig.asp = 1, fig.width = 5}
+iris %>%
+  ggplot(aes(x = Petal.Width)) +
+  geom_density()
+```
+
+```{r ggplot-density-color, fig.asp = 0.75}
+iris %>%
+  ggplot(aes(x = Petal.Width, color = Species)) +
+  geom_density()
+```
+
+### Scatterplots
+
+If we want to see the relationship between a flower's petal length and its petal width, we can make a scatterplot.
+
+```{r ggplot-scatterplot-marginal, fig.asp = 1, fig.width = 5}
+iris %>%
+  ggplot(aes(x = Petal.Width, y = Petal.Length)) +
+  geom_point()
+```
+
+Perhaps this relationship varies by species. In that case we need to differentiate each point based on the `Species` variable. We have multiple options to do so. Two that make immediate sense would be to differentiate species by color or by shape.
+
+```{r ggplot-scatterplot-grouped, fig.asp = 0.75, fig.width = 7}
+
+iris %>%
+  ggplot(
+    aes(
+      x = Petal.Width,
+      y = Petal.Length,
+      color = Species
+    )) +
+  geom_point()
+
+iris %>%
+  ggplot(
+    aes(
+      x = Petal.Width,
+      y = Petal.Length,
+      shape = Species
+    )
+  ) +
+  geom_point(size = 2)
+```
+
+### Faceted Plots
+
+Another option would have been to create a separate scatterplot for each species. In the plot below, each section of the grid is called a **facet**. We'll also save an initial (unfaceted) plot so we can play with the facet settings a bit.
+
+```{r ggplot-scatter-facet, fig.asp = 0.5}
+petal_facet <- iris %>%
+  ggplot(aes(x = Petal.Width, y = Petal.Length)) +
+  geom_point()
+
+petal_facet +
+  facet_wrap(vars(Species))
+
+```
+
+If we wanted a single column, we could have asked `facet_wrap()` for one.
+
+```{r ggplot-scatter-facet-1col, fig.asp = 3, fig.width = 3}
+petal_facet +
+  facet_wrap(vars(Species), ncol = 1)
+```
+
+In practice, you will choose particular plot designs to illuminate the aspects of your data you want to highlight.
+
+
+### Bar Plots
+
+To demonstrate the difference between two functions, `geom_bar()` and `geom_col()`, we'll create a binary variable that encodes whether a given observation had a petal length less than 2 or at least 2.
+
+```{r ggplot-bar}
+
+library(dplyr)
+
+### make discrete categories for Petal.Length
+### only to demonstrate geom_bar and geom_col
+iris_new <- iris %>%
+  mutate(
+    PL.group = case_when(
+      Petal.Length < 2 ~ "PL1",
+      Petal.Length >= 2 ~ "PL2",
+      TRUE ~ NA_character_
+    )
+  )
+
+head(iris_new)
+```
+
+The `geom_bar()` function will count up the number of members in each group. 
+
+```{r ggplot-bar1, fig.asp = 1, fig.width = 5}
+
+iris_new %>%
+  ggplot(aes(x = PL.group)) +
+  geom_bar()
+```
+
+Let's make that a little prettier, shall we?
+
+```{r ggplot-bar2, fig.asp = 1, fig.width = 5}
+
+iris_new %>%
+  ggplot(aes(x = PL.group)) +
+  geom_bar(
+    fill = "lightgray",
+    color = "black",
+    width = 0.5
+  )
+```
+
+Often you'll find that you'll be summarizing your data to make certain types of plots. Let's say we had already counted the number of members per `PL.group` level ourselves, as so:
+
+```{r ggplot-plgrp-counts}
+
+iris_sum <- iris_new %>% count(PL.group)
+iris_sum
+```
+
+To create the preceding plot, we would use `geom_col()` instead of `geom_bar()`:
+
+```{r ggplot-geom-col, fig.asp = 1, fig.width = 5}
+
+iris_sum %>%
+  ggplot(aes(x = PL.group, y = n)) +
+  geom_col(
+    fill = "lightgray",
+    color = "black",
+    width = 0.5
+  )
+```
+
+In most cases, you'll find more than one viable route to your chosen graphic.
+
+
+### Scatterplot Matrix
+
+Base R has a nice function to create scatterplot matrices. To do so with `ggplot2` we need to install another package called `GGally`. 
+
+<span class="marginnote idea">
+One wonderful think about `ggplot2` is that it boasts a universe of extensions written by R users to achieve specific plotting goals. While learning the ins and outs of `ggplot2` is fun (for me, anyway), you may find [extensions](https://exts.ggplot2.tidyverse.org) useful.
+</span>
+
+```{r ggplot-ggallymatrix, message = F, warning = F, fig.asp = 1}
+GGally::ggpairs(iris)
+```
+
+This visualization is nice because it gives you a lot of information in a small space. The bottom row even contains embedded facets!
