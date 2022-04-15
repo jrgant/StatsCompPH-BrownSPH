@@ -326,7 +326,7 @@ head(my_list["dataframe"])
 head(my_list[["dataframe"]])
 ```
 
-In the first case, R did not apply the `head()`
+In the first case, R did not apply the `head()` function because we did not access the contents of drawer we wanted.
 
 The same bracket principle applies if we access elements and their contents using the numerical index of the list.
 
@@ -361,7 +361,7 @@ tibble::tribble(
     'Element contents',
 
     'list$elementName',
-    'my_list$dataframe',
+    'my_list\\$dataframe',
     'Element contents'
   ) %>%
   knitr::kable(caption = "List access summary")
