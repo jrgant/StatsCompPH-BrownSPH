@@ -72,8 +72,8 @@ Be able to conduct the following tasks in R:
           - Logistic
           - Relative risk (log-binomial, Poisson, quasi-Poisson)
           - Proportional hazards
-          - Complex survey methods
-          - Generalized estimating equations
+          <!-- - Complex survey methods -->
+          <!-- - Generalized estimating equations -->
   - Simulate data
   - Write simple loops
   - Write simple functions/macros
