@@ -65,6 +65,7 @@ a-new-way-part-3
 approximate-in-sas
 simulate-data-1
 data-visualization
+data-set
 base-r-examples
 boxplots
 density-plots
@@ -79,6 +80,10 @@ scatterplots-1
 faceted-plots
 bar-plots
 scatterplot-matrix-1
+special-topics
+publication-quality-graphics
+animated-graphics
+interactive-graphics
 programming-concepts
 resources
 r
