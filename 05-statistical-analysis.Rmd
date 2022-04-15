@@ -12,7 +12,7 @@ Note that the analyses you conduct as part of real research will almost certainl
 
 ### Data
 
-If you'd like to try any of these examples on your own, we're using the NHEFS data set freely available at the [website](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) for _Causal Inference: What If_ by Miguel A. Hernán and James M. Robins.
+If you'd like to try any of these examples on your own, we're using the [NHANES I Epidemiologic Followup Study](https://wwwn.cdc.gov/nchs/nhanes/nhefs/default.aspx/) (NHEFS) data set freely available at the [website](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) for _Causal Inference: What If_ by Miguel A. Hernán and James M. Robins.
 
 For examples based in R, we'll use the CSV file they provide, and the sas7bdat data set for our SAS examples.
 
@@ -211,7 +211,7 @@ ptest
 
 ```
 
-The output above, shows us the group proportions, the $\chi^2$ test statistic, and the corresponding *p*-value. We also get a 95% confidence interval for the difference in proportions.
+The output above shows us the group proportions, the $\chi^2$ test statistic, and the corresponding *p*-value. We also get a 95% confidence interval for the difference in proportions.
 
 To get a tidier output as a `tibble`, the `broom` package often proves useful:
 
@@ -477,7 +477,7 @@ Almost exactly the same point estimate, but we can see that the standard error f
 
 To get a correct standard error for the modified Poisson model, we need to use a "robust" estimate of this error, also called the sandwich estimator:
 
-```{r}
+```{r sandwich}
 # sandwich() provided by the sandwich package
 # first, get the variance-covariance matrix
 swvar_modpois <- sandwich::sandwich(fitmodpois)
