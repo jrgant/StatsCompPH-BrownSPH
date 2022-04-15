@@ -33,6 +33,15 @@ In this introduction, we will focus on a couple of broad concepts and code examp
 
 Keeping these bookmarked will probably cover about 90%^[Source: Thin air] of your data visualization needs.
 
+## Data set
+
+All the examples below use the NHEFS data we used in the chapter on statistical analysis, so let's remind ourselves what the data look like.
+
+```{r iris-preview}
+nhefs <- readr::read_csv("data/nhefs.csv")
+str(nhefs)
+```
+
 ## Base R examples
 
 You may find that working with plotting in base R is more efficient when you want quick-and-dirty visualizations---for instance, while you're conducting exploratory data analysis.
@@ -41,34 +50,36 @@ You may find that working with plotting in base R is more efficient when you wan
 
 ```{r base-r-bp, out.width="75%"}
 # using built-in iris dataset
-boxplot(iris$Petal.Width)
-boxplot(Petal.Width ~ Species, data = iris)
+boxplot(nhefs$sbp)
+boxplot(sbp ~ diabetes, data = nhefs)
 ```
 
 ### Density Plots
 
 ```{r base-r-density, out.width="75%"}
-plot(density(iris$Petal.Width))
+## use na.omit() to drop missing values in the `sbp` variable
+## R will throw an error otherwise
+plot(density(na.omit(nhefs$sbp)))
 ```
 
 ### Scatterplots
 
 ```{r base-r-scatter, out.width="75%"}
-plot(iris$Petal.Width)
-
-plot(Petal.Width ~ Petal.Length, data = iris)
+plot(nhefs$sbp)
+plot(nhefs$sbp ~ nhefs$age)
 ```
 
 ### Scatterplot Matrix
 
 ```{r base-r-scattermatrix, out.width="100%", fig.asp=1}
-pairs(iris)
+matrix_vars <- c("qsmk", "sbp", "dbp", "age", "smokeyrs", "wt71")
+pairs(nhefs[, matrix_vars])
 ```
 
 ### Histograms
 
 ```{r base-r-hist, out.width="75%"}
-hist(iris$Petal.Width)
+hist(nhefs$smokeyrs)
 ```
 
 ### Linear Regression Diagnostics
@@ -77,7 +88,7 @@ Base R and some packages provide built-in plotting methods for certain types of 
 
 ```{r base-linear-reg-diag, out.width="85%"}
 ## run a regression on built-in dataset ChickWeight
-fit <- lm(weight ~ Diet, data = ChickWeight)
+fit <- lm(wt82_71 ~ smokeyrs, data = nhefs)
 class(fit)
 
 plot(fit)
@@ -121,22 +132,16 @@ Note that I've assigned names to each element for the sake of introduction, but 
 In the following examples I will focus on longform syntax with the `ggplot` function. Learning the ins and outs of `ggplot2` will give you more flexibility and control over your images, particularly when you need to produce publication-quality graphics. However, `ggplot2` provides the `qplot` function for quick visualizations, akin to the base R graphics depicted above. One nice thing about `qplot` the its default setting to choose a geometric mapping automatically (hereafter, "geom"). Below, the function automatically selects a scatterplot.
 
 ```{r ggplot-qplot}
-qplot(x = Petal.Width, y = Petal.Length, data = iris)
+qplot(x = age, y = sbp, data = nhefs)
 ```
 
 However, we can specify the geom explicitly. Here we get a smoothed line:
 
 ```{r ggplot-qplot-geomspec}
-qplot(x = Petal.Width, y = Petal.Length, data = iris, geom = "smooth")
+qplot(x = age, y = sbp, data = nhefs, geom = "smooth")
 ```
 
 The [`ggplot2` website](https://ggplot2.tidyverse.org/reference) contains extensive documentation on all of the package's functions, including many helpful worked examples.
-
-All the examples below use the in-built `iris` data set. Let's recall what it looks like:
-
-```{r iris-preview}
-head(iris, n = 10)
-```
 
 <span class="marginnote warning">
 **Strange Symbols**
@@ -146,61 +151,57 @@ Note the difference between the `magrittr` pipe `%>%`, which we use to feed our 
 ### Boxplots
 
 ```{r ggplot-boxplot, fig.asp = 1}
-iris %>%
-  ggplot(aes(x = Petal.Width)) +
+nhefs %>%
+  ggplot(aes(x = sbp)) +
   geom_boxplot()
 
-iris %>%
-  ggplot(aes(x = Species, y = Petal.Width)) +
+nhefs %>%
+  ggplot(aes(x = factor(diabetes), y = sbp)) +
   geom_boxplot()
 ```
 
 ### Density Plots
 
-```{r ggplot-density, fig.asp = 1, fig.width = 5}
-iris %>%
-  ggplot(aes(x = Petal.Width)) +
-  geom_density()
-```
-
-```{r ggplot-density-color, fig.asp = 0.75}
-iris %>%
-  ggplot(aes(x = Petal.Width, color = Species)) +
+```{r ggplot-density-color, fig.asp = 0.8}
+nhefs %>%
+  ggplot(aes(x = sbp, color = factor(diabetes))) +
   geom_density()
 ```
 
 ### Scatterplots
 
-If we want to see the relationship between a flower's petal length and its petal width, we can make a scatterplot.
+If we want to see the relationship between age and systolic blood pressure, we can make a scatterplot.
 
 ```{r ggplot-scatterplot-marginal, fig.asp = 1, fig.width = 5}
-iris %>%
-  ggplot(aes(x = Petal.Width, y = Petal.Length)) +
+nhefs %>%
+  ggplot(aes(x = age, y = sbp)) +
   geom_point()
 ```
 
-Perhaps this relationship varies by species. In that case we need to differentiate each point based on the `Species` variable. We have multiple options to do so. Two that make immediate sense would be to differentiate species by color or by shape.
+Perhaps this relationship varies by diabetes status. In that case we need to differentiate each point based on the `diabetes` variable. We have multiple options to do so. Two that make immediate sense would be to differentiate species by color or by shape.
 
 ```{r ggplot-scatterplot-grouped, fig.asp = 0.75, fig.width = 7}
 
-iris %>%
+nhefs %>%
   ggplot(
     aes(
-      x = Petal.Width,
-      y = Petal.Length,
-      color = Species
-    )) +
-  geom_point()
-
-iris %>%
-  ggplot(
-    aes(
-      x = Petal.Width,
-      y = Petal.Length,
-      shape = Species
+      x = age,
+      y = sbp,
+      color = factor(diabetes)
     )
   ) +
-  geom_point(size = 2)
+  geom_point(size = 3)
+
+nhefs %>%
+  ggplot(
+    aes(
+      x = age,
+      y = sbp,
+      shape = factor(diabetes)
+    )
+  ) +
+  geom_point(size = 3) +
+  scale_shape_manual(values = c(21, 22, 23)) # choose some shapes (optional)
 ```
 
 ### Faceted Plots
@@ -208,20 +209,46 @@ iris %>%
 Another option would have been to create a separate scatterplot for each species. In the plot below, each section of the grid is called a **facet**. We'll also save an initial (unfaceted) plot so we can play with the facet settings a bit.
 
 ```{r ggplot-scatter-facet, fig.asp = 0.5}
-petal_facet <- iris %>%
-  ggplot(aes(x = Petal.Width, y = Petal.Length)) +
-  geom_point()
 
-petal_facet +
-  facet_wrap(vars(Species))
+## labels to use for axis and facet plots
+dblabels <- c("0" = "No", "1" = "Yes", "2" = "Missing")
+sbplab <- "Systolic blood pressure"
+agelab <- "Age"
+
+sbp_facet <- nhefs %>%
+  ggplot(aes(x = age, y = sbp)) +
+  geom_point() +
+  labs(x = agelab, y = sbplab)
+
+sbp_facet +
+  facet_wrap(
+    vars(diabetes),
+    labeller = labeller(diabetes = dblabels)
+  )
 
 ```
 
 If we wanted a single column, we could have asked `facet_wrap()` for one.
 
 ```{r ggplot-scatter-facet-1col, fig.asp = 3, fig.width = 3}
-petal_facet +
-  facet_wrap(vars(Species), ncol = 1)
+sbp_facet +
+  facet_wrap(
+    vars(diabetes),
+    labeller = labeller(diabetes = dblabels),
+    ncol = 1
+  )
+```
+
+Finally, we also could have plotted the group-specific densities using facets instead of colors.
+
+```{r ggplot-density-facet, fig.height = 3}
+nhefs %>%
+  ggplot(aes(x = sbp)) +
+  geom_density() +
+  facet_wrap(
+    vars(diabetes),
+    labeller = labeller(diabetes = dblabels)
+  )
 ```
 
 In practice, you will choose particular plot designs to illuminate the aspects of your data you want to highlight.
@@ -237,33 +264,35 @@ library(dplyr)
 
 ### make discrete categories for Petal.Length
 ### only to demonstrate geom_bar and geom_col
-iris_new <- iris %>%
+nhefs_new <- nhefs %>%
   mutate(
-    PL.group = case_when(
-      Petal.Length < 2 ~ "PL1",
-      Petal.Length >= 2 ~ "PL2",
+    sbp.group = case_when(
+      sbp >= 140 ~ "High",
+      sbp < 140 ~ "Low",
       TRUE ~ NA_character_
     )
   )
 
-head(iris_new)
+head(nhefs_new)
 ```
 
 The `geom_bar()` function will count up the number of members in each group. 
 
 ```{r ggplot-bar1, fig.asp = 1, fig.width = 5}
 
-iris_new %>%
-  ggplot(aes(x = PL.group)) +
+nhefs_new %>%
+  ggplot(aes(x = sbp.group)) +
   geom_bar()
 ```
 
 Let's make that a little prettier, shall we?
 
+<span class="marginnote">The `NA` you see represented in the plots indicates missing values of systolic blood pressure.</span>
+
 ```{r ggplot-bar2, fig.asp = 1, fig.width = 5}
 
-iris_new %>%
-  ggplot(aes(x = PL.group)) +
+nhefs_new %>%
+  ggplot(aes(x = sbp.group)) +
   geom_bar(
     fill = "lightgray",
     color = "black",
@@ -271,20 +300,20 @@ iris_new %>%
   )
 ```
 
-Often you'll find that you'll be summarizing your data to make certain types of plots. Let's say we had already counted the number of members per `PL.group` level ourselves, as so:
+Often you'll find that you'll be summarizing your data to make certain types of plots. Let's say we had already counted the number of members per `sbp.group` level ourselves, as so:
 
 ```{r ggplot-plgrp-counts}
 
-iris_sum <- iris_new %>% count(PL.group)
-iris_sum
+nhefs_sum <- nhefs_new %>% count(sbp.group)
+nhefs_sum
 ```
 
 To create the preceding plot, we would use `geom_col()` instead of `geom_bar()`:
 
 ```{r ggplot-geom-col, fig.asp = 1, fig.width = 5}
 
-iris_sum %>%
-  ggplot(aes(x = PL.group, y = n)) +
+nhefs_sum %>%
+  ggplot(aes(x = sbp.group, y = n)) +
   geom_col(
     fill = "lightgray",
     color = "black",
@@ -292,7 +321,7 @@ iris_sum %>%
   )
 ```
 
-In most cases, you'll find more than one viable route to your chosen graphic.
+In many cases, you'll find more than one viable route to your chosen graphic.
 
 
 ### Scatterplot Matrix
@@ -300,11 +329,62 @@ In most cases, you'll find more than one viable route to your chosen graphic.
 Base R has a nice function to create scatterplot matrices. To do so with `ggplot2` we need to install another package called `GGally`. 
 
 <span class="marginnote idea">
-One wonderful think about `ggplot2` is that it boasts a universe of extensions written by R users to achieve specific plotting goals. While learning the ins and outs of `ggplot2` is fun (for me, anyway), you may find [extensions](https://exts.ggplot2.tidyverse.org) useful.
+One wonderful thing about `ggplot2` is that it boasts a universe of extensions written by R users to achieve specific plotting goals. While learning the ins and outs of `ggplot2` is fun (for me, anyway), you may find [extensions](https://exts.ggplot2.tidyverse.org) useful.
 </span>
 
 ```{r ggplot-ggallymatrix, message = F, warning = F, fig.asp = 1}
-GGally::ggpairs(iris)
+GGally::ggpairs(nhefs[, matrix_vars])
 ```
 
+<span class="marginnote warning">
+**Missing Data**
+Note that I've suppressed a number of warnings produced by this `ggpairs` example. These warnings highlight that some of the variables used in the plot have varying numbers of missing values.
+</span>
+
 This visualization is nice because it gives you a lot of information in a small space. The bottom row even contains embedded facets!
+
+
+## Special Topics
+### Publication-quality Graphics
+### Animated Graphics
+### Interactive Graphics
+
+Most of the time you'll probably focus on creating static graphics for publication. However, you may find dynamic graphics fitting when sharing HTML notebooks or other web-based resources.
+
+Luckily, the [`plotly` package](https://plotly.com/r/getting-started/#rendering-charts) makes creating dynamic graphics from `ggplot2` plots trivial.
+
+Lets make an interactive graphic out of our static `sbp_facet` plot from earlier in this chapter. It's literally this simple!
+
+```{r ggplotly-example, fig.asp = 0.5}
+sbp_facet_plotly <- sbp_facet +
+  facet_wrap(
+    vars(diabetes),
+    labeller = labeller(diabetes = dblabels)
+  ) +
+  ggtitle("Systolic blood pressure, by age and diabetes status") +
+  theme_few()
+
+plotly::ggplotly(sbp_facet_plotly)
+
+```
+
+If you mouse over the points, you should see information about each observation (_i.e._, x and y variable values).
+
+You could also use the `plot_ly()` function to make the plotly figure directly. 
+
+```{r ggplotly-plot_ly, warning = FALSE, fig.fullwidth = TRUE}
+plotly::plot_ly(
+          data = nhefs,
+          x = ~ age,
+          y = ~ sbp,
+          color = ~ factor(diabetes),
+          type = "scatter",
+          mode = "markers"
+        )
+```
+
+If interactive graphics is an avenue you'd like to pursue further, look into the [`r2d3` library](https://rstudio.github.io/r2d3/index.html), which allows you to create beautiful visualizations using the powerful [`d3` Javascript library](https://d3js.org). 
+
+<span class="marginnote">Plotly is actually [powered by d3](https://www.freecodecamp.org/news/how-and-why-i-used-plotly-instead-of-d3-to-visualize-my-lollapalooza-data-d48345e2ca68/#:~:text=To%20be%20fair,%20Plotly%20is,to%20know%20how%20Plotly%20works.).</span>
+
+For R users, however, the `plotly` package provides a more immediate means to translate your data into interactive graphics. As we saw above, we can create a nice plot in `ggplot2` and export it for the web with `plotly::ggplotly`!
