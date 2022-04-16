@@ -96,7 +96,7 @@ Resource repository
 
 <span class="marginnote warning">
 **Under Construction**
-Most of these secondary objectives are still pending or in progress.
+<span style="font-weight:normal;">Most of these secondary objectives are still pending or in progress.</span>
 </span>
 
 Get a feel for how to conduct more advanced analysis 
