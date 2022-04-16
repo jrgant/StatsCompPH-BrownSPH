@@ -94,7 +94,11 @@ Resource repository
 
 ## Secondary objectives
 
-Get a feel for how to conduct more advanced analysis
+<span class="marginnote warning">
+Most of these secondary objectives are still pending or in progress.
+</span>
+
+Get a feel for how to conduct more advanced analysis 
 
   - Propensity scoring
   - Inverse probability weighting
