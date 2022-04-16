@@ -81,8 +81,7 @@ faceted-plots
 bar-plots
 scatterplot-matrix-1
 special-topics
-publication-quality-graphics
-animated-graphics
+image-formats
 interactive-graphics
 programming-concepts
 resources

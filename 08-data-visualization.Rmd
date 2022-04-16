@@ -345,8 +345,163 @@ This visualization is nice because it gives you a lot of information in a small 
 
 
 ## Special Topics
-### Publication-quality Graphics
-### Animated Graphics
+### Image Formats
+
+Whether you're writing a manuscript, submitting final materials for publication, compiling internal reports, or developing materials for the web, you will need to pick an appropriate image format for your output.
+
+The table below summarizes some of the more common image formats you'll come across and when they may be useful. Perhaps the most important distinction between formats is between **raster** and **vector** images. Raster formats represent images using pixels, while vector formats represent image components using paths. For practical purposes, the most important thing to remember is that vector formats are scalable without loss of resolution, while raster images aren't.
+
+<span class="marginnote idea">
+**Images in this Book**
+The majority of images in this book are in SVG format, which means you can zoom in on them to your heart's content without the image becoming blurry! Right-click on any of the prior images on this page, open it in a new tab, and zoom in to see what I mean.
+</span>
+
+I try to use vector formats whenever possible, as **it is easy to convert a vector format to a raster format---_i.e.,_ to rasterize---but not the other way around**. Therefore, I usually find myself saving images in PDF or SVG format, depending on the type of document I'm working on. In some cases, particularly for the web, using a raster format such as PNG may be the best choice to reduce file size and increase page load speeds.
+
+```{r image-format-table, echo = F}
+
+pacman::p_load(data.table, magrittr, knitr, kableExtra)
+
+rast <- data.table(
+  Type = "Raster",
+  Format = c("JPG", "PNG", "GIF", "TIFF"),
+  Web = c("Yes", "Yes", "Yes", "No"),
+  PDF = c("Yes", "Yes", "Yes", "Yes"),
+  Word = c("Yes", "Yes", "Yes", "Yes"),
+  Publication = c("No", "No", "No", "Yes")
+)
+
+vect <- data.table(
+  Type = "Vector",
+  Format = c("EPS", "PDF", "WMF", "SVG"),
+  Web = c("No", "No", "No", "Yes"),
+  PDF = c("Yes", "Yes", "No", "No"),
+  Word = c("No", "No", "Yes", "No"),
+  Publication = c("Yes", "Yes", "No", "No")
+)
+
+imgfmt <- rbind(rast, vect)
+
+imgfmt[, -c("Type")] %>%
+  kable(format = "html") %>%
+  kable_paper(
+    lightable_options = "hover",
+    position = "left",
+    full_width = F
+  ) %>%
+  add_header_above(
+    header = c(" " = 1, "Suitable for" = 4),
+    bold = T
+  ) %>%
+  pack_rows("Raster", 1, 4, italic = T) %>%
+  pack_rows("Vector", 5, 8, italic = T)
+
+```
+
+Let's take a look at some examples to get an idea of the pros and cons of several formats.
+
+First, let's make a plot to use in the following examples.
+
+```{r fmt-base}
+imgfmt_plot <- nhefs %>%
+  ggplot(aes(x = sbp)) +
+  geom_density(
+    aes(color = factor(diabetes),
+        fill = factor(diabetes)),
+    alpha = 0.1
+  ) +
+  scale_color_viridis_d(name = "Diabetes", labels = dblabels) +
+  scale_fill_viridis_d(name = "Diabetes", labels = dblabels) +
+  guides(
+    color = guide_legend(override.aes = list(linetype = 0))
+  ) +
+  labs(x = "\nSystolic blood pressure", y = "Density\n") +
+  theme_few()
+```
+
+We'll proceed to save this plot in a few different formats and at different resolutions using the `ggsave()` function. You can open the images in a new tab to view them at their true size and resolution. After presenting to code to produce each one, I'll provide a table so you can easily download the relevant files. One nice thing about `ggsave()` is that it will automatically detect the export format based on the file extension we specify.
+
+<span class="marginnote definition">
+**Resolution**
+Resolution refers either to print or screen resolution. DPI stands for "dots per inch", the measure journals will use to request publication-quality graphics for their print editions. PPI stands for "pixels per inch", a measure of the image's resolution on screen.
+</span>
+
+```{r png-72dpi, warning = F}
+ggsave(
+  filename = "images/fmt-example-png-72dpi.png",
+  plot = imgfmt_plot,
+  width = 6,
+  height = 4,
+  units = "in",
+  dpi = 72
+)
+
+```
+
+```{r png-300dpi, warning = F, fig.cap = "PNG, 6 x 4 inches, 300 dots per inch"}
+ggsave(
+  filename = "images/fmt-example-png-300dpi.png",
+  plot = imgfmt_plot,
+  width = 6,
+  height = 4,
+  units = "in",
+  dpi = 300
+)
+
+```
+
+```{r tif-1200dpi, warning = F}
+ggsave(
+  filename = "images/fmt-example-tiff-1200dpi.tiff",
+  plot = imgfmt_plot,
+  width = 6,
+  height = 4,
+  units = "in",
+  dpi = 1200
+)
+```
+
+For the PDF, EPS, and SVG formats, we do not need to specify the image resolution (`dpi`) because these are vector formats.
+
+```{r pdf-fmt, warning = F}
+ggsave(
+  filename = "images/fmt-example-pdf.pdf",
+  plot = imgfmt_plot,
+  width = 6,
+  height = 4,
+  units = "in"
+)
+```
+
+```{r eps-fmt, warning = F}
+ggsave(
+  filename = "images/fmt-example-eps.eps",
+  plot = imgfmt_plot,
+  width = 6,
+  height = 4,
+  units = "in"
+)
+```
+
+```{r svg-fmt, warning = F}
+ggsave(
+  filename = "images/fmt-example-svg.svg",
+  plot = imgfmt_plot,
+  width = 6,
+  height = 4,
+  units = "in"
+)
+```
+
+| Format | Resolution (dpi)               | Download                                             | Accepted by journals? |
+|:-------|:-------------------------------|:-----------------------------------------------------|:----------------------|
+| PNG    | 72 (web standard)              | [PNG 72dpi](images/fmt-example-png-72dpi.png)        | No                    |
+| PNG    | 300                            | [PNG 300dpi](images/fmt-example-png-300dpi.png)      | No                    |
+| TIFF   | 1200 (print quality for plots) | [TIFF 1200dpi](images/fmt-example-tiff-1200dpi.tiff) | Yes                   |
+| PDF    | N/A                            | [PDF](images/fmt-example-pdf.pdf)                    | Yes (usually)         |
+| EPS    | N/A                            | [EPS](images/fmt-example-eps.eps)                    | Yes                   |
+| SVG    | N/A                            | [SVG](images/fmt-example-svg.svg)                    | No                    |
+
 ### Interactive Graphics
 
 Most of the time you'll probably focus on creating static graphics for publication. However, you may find dynamic graphics fitting when sharing HTML notebooks or other web-based resources.
@@ -362,7 +517,10 @@ sbp_facet_plotly <- sbp_facet +
     labeller = labeller(diabetes = dblabels)
   ) +
   ggtitle("Systolic blood pressure, by age and diabetes status") +
-  theme_few()
+  theme_few() +
+  theme(axis.title.x = element_text(margin = margin(t = 15)),
+        axis.title.y = element_text(margin = margin(r = 15)),
+        plot.margin = margin(t = 10, r = 10, b = 10, l = 20))
 
 plotly::ggplotly(sbp_facet_plotly)
 
@@ -373,14 +531,25 @@ If you mouse over the points, you should see information about each observation 
 You could also use the `plot_ly()` function to make the plotly figure directly. 
 
 ```{r ggplotly-plot_ly, warning = FALSE, fig.fullwidth = TRUE}
+
 plotly::plot_ly(
-          data = nhefs,
-          x = ~ age,
-          y = ~ sbp,
-          color = ~ factor(diabetes),
-          type = "scatter",
-          mode = "markers"
-        )
+    data = nhefs,
+    x = ~ age,
+    y = ~ sbp,
+    color = ~ factor(diabetes),
+    type = "scatter",
+    mode = "markers",
+    colors = viridisLite::cividis(n = length(unique(nhefs$diabetes))),
+    marker = list(colorscale = "Viridis"),
+    width = 700
+  ) %>%
+  plotly::layout(
+    xaxis = list(title = agelab),
+    yaxis = list(title = sbplab),
+    legend = list(title = list(text = "<b>Diabetes</b>")),
+    margin = list(b = 75)
+  )
+
 ```
 
 If interactive graphics is an avenue you'd like to pursue further, look into the [`r2d3` library](https://rstudio.github.io/r2d3/index.html), which allows you to create beautiful visualizations using the powerful [`d3` Javascript library](https://d3js.org). 
