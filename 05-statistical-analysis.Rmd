@@ -491,7 +491,7 @@ Compare this modified standard error to that of the log-binomial model. We've ac
 
 For more complex models, the log-binomial and modified Poisson models may provide slightly different answers. Each has other benefits and drawbacks that you will learn about if and when you take a class that introduces these methods.
 
-
+<!--
 ### Poisson regression
 
 I thought we just did Poisson regression!
@@ -502,3 +502,4 @@ We did, sort of. However, we can also use Poisson regression for its standard pu
 ### Survival analysis
 
 ### Overdispersion
+-->

@@ -42,9 +42,6 @@ linear-regression
 logistic-regression
 log-binomial-regression
 modified-poisson-regression
-poisson-regression
-survival-analysis
-overdispersion
 getting-comfortable-with-loops-and-logic
 whats-a-loop
 why-loop
