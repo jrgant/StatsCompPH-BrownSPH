@@ -13,7 +13,7 @@ description: "Resources and tutorials for R and SAS analysis geared toward publi
 ---
 
 ```{r book_setup, include = FALSE}
-pacman::p_load(tidyverse, data.table, SASMarkdown)
+pacman::p_load(tidyverse, data.table, SASmarkdown)
 
 # Windows path
 # saspath <- "C:/Program Files/SASHome/SASFoundation/9.4/sas.exe"
