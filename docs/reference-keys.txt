@@ -7,7 +7,6 @@ fig:matryoshka-doll
 fig:dag
 learning-objectives
 main-objectives
-secondary-objectives
 acknowledgements
 startup
 getting-started-with-r

@@ -36,7 +36,7 @@ knitr::opts_chunk$set(
 
 Statistical computing underlies much of the work we do as researchers. However, students tend to be left to their own devices to develop their programming abilities.
 
-While teaching oneself is an indispensable part of the process, new researchers may be better equipped to do so provided a base from which to develop their computing skills. This book is intended to serve as such an introductory resource, targeted at incoming graduate students at the Brown University School of Public Health. 
+While teaching oneself is an indispensable part of the process, new researchers may be better equipped to do so provided a base from which to develop their computing skills. This website is intended to serve as such an introductory resource, targeted at incoming graduate students at the Brown University School of Public Health. 
 
 While the content focuses on coding in R, some examples of SAS code appear to provide a frame of reference for students having completed their degree program's required SAS training modules (if applicable).
 
@@ -70,10 +70,7 @@ Be able to conduct the following tasks in R:
       - Implement basic regression analyses
           - Linear
           - Logistic
-          - Relative risk (log-binomial, Poisson, quasi-Poisson)
-          - Proportional hazards
-          <!-- - Complex survey methods -->
-          <!-- - Generalized estimating equations -->
+          - Relative risk (log-binomial, Poisson)
   - Simulate data
   - Write simple loops
   - Write simple functions/macros
@@ -91,39 +88,6 @@ Consider ways to make your analyses reproducible
 Resource repository
 
   - Excellent, mostly free resources on programming and data visualization
-
-## Secondary objectives
-
-<span class="marginnote warning">
-**Under Construction**
-<span style="font-weight:normal;">Most of these secondary objectives are still pending or in progress.</span>
-</span>
-
-Get a feel for how to conduct more advanced analysis 
-
-  - Propensity scoring
-  - Inverse probability weighting
-  - Parameteric *g*-formula
-  - Multiple imputation (don't have experience with this myself)
-  - Propensity score matching (don't have experience with this myself)
-
-Get comfortable with implementing multiple strategies for the same task
-
-  - R: `base` vs. `data.table` vs. `tidyverse`
-
-Understand the benefits of competing strategies in prior bulletpoint
-
-  - Working with large datasets
-      - Processing speed
-      - Memory management
-
-  - Code readability vs. parsimony
-      - Documentation and reproducibility
-      - Literate programming
-      - Macros and functions
-      - Code maintenance
-      - Don't Repeat Yourself (DRY Principle)
-
 
 ## Acknowledgements
 
