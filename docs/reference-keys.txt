@@ -79,7 +79,6 @@ scatterplot-matrix-1
 special-topics
 image-formats
 interactive-graphics
-programming-concepts
 resources
 r
 core-documentation
