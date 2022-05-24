@@ -1,5 +1,8 @@
-# Data Visualization
+```{r eval = FALSE, include = FALSE}
+source("setup.r")
+```
 
+# Data Visualization
 
 ```{r dataviz_setup, include=F}
 knitr::opts_chunk$set(dev = "svg",

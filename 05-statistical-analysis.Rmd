@@ -1,3 +1,7 @@
+```{r eval = FALSE, include = FALSE}
+source("setup.r")
+```
+
 # Statistical Analysis
 
 ```{r, include = FALSE}

@@ -1,8 +1,6 @@
-```{r page-librarys, include=FALSE}
-# Load page libraries to enable preview_chapter()
-library(magrittr)
+```{r eval = FALSE, include = FALSE}
+source("setup.r")
 ```
-
 
 # Working with Data
 

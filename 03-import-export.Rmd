@@ -1,3 +1,7 @@
+```{r eval = FALSE, include = FALSE}
+source("setup.r")
+```
+
 # Importing and Exporting Data
 
 Data come in many formats. Some formats are universal and easily imported into most statistical programs, while others are proprietary and tailored to a specific program.

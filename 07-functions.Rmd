@@ -1,8 +1,8 @@
-# Functionalizing Code
-
-```{r setup, include = FALSE}
-pacman::p_load(tibble, broom, purrr)
+```{r eval = FALSE, include = FALSE}
+source("setup.r")
 ```
+
+# Functionalizing Code
 
 Functions are extremely useful tools in R. They power the packages we rely on and the statistical analyses we run.
 
