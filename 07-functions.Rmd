@@ -175,7 +175,7 @@ The code below provides a SAS approximation of "A New Way, Part 1".
 
 ### Simulate Data
 
-```{r, include = F}
+```{r, eval = F, include = F}
 SASmarkdown::sas_collectcode()
 ```
 
