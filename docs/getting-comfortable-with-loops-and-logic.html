@@ -908,7 +908,7 @@ marital        &quot;numeric&quot;</code></pre>
 <p>With each variable class established, we might decide we need to complete the following list of tasks:</p>
 <ol style="list-style-type: decimal">
 <li><p>Inspect each variable and calculate the appropriate descriptive statistics. For the current example, we’ll just say we want a frequency table for categorical variables and a five-number summary for continuous variables.</p></li>
-<li><p>Label each variable according to how we treated it. As an arbitrary rule, we’ll consider variables with more than 6 unique values to be categorical and all others to be continuous.</p></li>
+<li><p>Label each variable according to how we treated it. As an arbitrary rule, we’ll consider variables with fewer than 6 unique values to be categorical and all others to be continuous.</p></li>
 <li><p>Store the results.</p></li>
 </ol>
 <p>Considering this problem will allow us to introduce a couple of looping approaches we might consider. The first is a self-written loop similar to the one we already wrote. The next couple of approaches will used <em>vectorized</em> loops, either with functions provided as part of the standard R installation or with some newer functions provided via the <code>purrr</code> package.</p>
