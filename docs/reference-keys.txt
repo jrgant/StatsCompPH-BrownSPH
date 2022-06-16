@@ -4,6 +4,8 @@ tab:object-class-table
 tab:dataset-format-table
 tab:list-access-table
 fig:matryoshka-doll
+tab:arithmetic-operators
+tab:logical-operators
 fig:dag
 learning-objectives
 main-objectives

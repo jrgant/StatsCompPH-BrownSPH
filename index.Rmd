@@ -22,7 +22,7 @@ Statistical computing underlies much of the work we do as researchers. However, 
 
 While teaching oneself is an indispensable part of the process, new researchers may be better equipped to do so provided a base from which to develop their computing skills. This website is intended to serve as such an introductory resource, targeted at incoming graduate students at the Brown University School of Public Health. 
 
-While the content focuses on coding in R, some examples of SAS code appear to provide a frame of reference for students having completed their degree program's required SAS training modules (if applicable).
+While the content in some sections focuses on R so as not to repeat material covered in detail by the SAS modules you're required to complete upon entry into your program, we provide SAS code for statistical analyses, programming techniques such as loops or functions, and data visualization.
 
 
 ## Main objectives
@@ -31,7 +31,7 @@ Install R (and RStudio)
 
   - Include R packages that will be helpful to download as the tutorials progress
 
-Understand some basic data types in both SAS and R
+Understand some basic data types in R
 
 Understand how each language handles:
 
@@ -41,7 +41,7 @@ Understand how each language handles:
   - Objects
   - Environments (as applicable)
 
-Be able to conduct the following tasks in R:
+Be able to conduct the following tasks in R and SAS:
 
   - Import/export data to and from common filetypes
       - Use common machine-readable filetypes

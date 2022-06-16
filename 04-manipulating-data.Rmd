@@ -585,7 +585,7 @@ For instance, we can do some quick scratch calculations and print them directly 
 8 %/% 3
 ```
 
-```{r arithmetic.operators, echo = FALSE}
+```{r arithmetic-operators, echo = FALSE}
 tibble::tribble(
   ~Operator,
   ~Function,
@@ -623,7 +623,7 @@ For more information, refer to [R's documentation on arithmetic operators](https
 
 We already saw one example of a logical operation, when we checked to see if `x1` was equal to 10. Statistical and epidemiologic analysis relies heavily on implementing logical operations and checks for truth, and so it is a good idea to master these operators early---and to use them often.
 
-```{r logical.operators, echo = FALSE}
+```{r logical-operators, echo = FALSE}
 tibble::tribble(
   ~Operator,
   ~Function,

@@ -253,12 +253,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">6</span> Statistical Analysis</h1>
 <div id="setup" class="section level2">
 <h2><span class="header-section-number">6.1</span> Setup</h2>
-<p>In this section, we’ll provide some examples of basic statistical analyses you might be called upon to do at some point.</p>
-<p>Note that the analyses you conduct as part of real research will almost certainly be more complicated than the code shown here. However, the hope is that you’ll get enough of a feel to begin putting the pieces together as demanded by a given project.</p>
+<p>In this section, we’ll provide some examples of basic statistical analyses you might need to implement at some point.</p>
+<p>Note that the analyses you conduct as part of real research will almost certainly be more complicated than the code shown here. However, the hope is that you’ll get enough of a feel for the mechanics of each programming language to begin putting the pieces together as demanded by a given project.</p>
 <div id="data" class="section level3">
 <h3><span class="header-section-number">6.1.1</span> Data</h3>
 <p>If you’d like to try any of these examples on your own, we’re using the <a href="https://wwwn.cdc.gov/nchs/nhanes/nhefs/default.aspx/">NHANES I Epidemiologic Followup Study</a> (NHEFS) data set freely available at the <a href="https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/">website</a> for <em>Causal Inference: What If</em> by Miguel A. Hernán and James M. Robins.</p>
-<p>For examples based in R, we’ll use the CSV file they provide, and the sas7bdat data set for our SAS examples.</p>
+<p>For both SAS and R, we’ll use the CSV file they provide.</p>
 <p>The website itself contains extensive code examples in SAS, Stata, R, and Python—everything you could want!—so those who will be taking advanced epidemiologic or causal inference coursework should refer to those resources for guidance on how to implement relevant analyses. We’ll cover a little bit here, but only briefly.</p>
 </div>
 <div id="nhefs-codebook" class="section level3">
@@ -1056,9 +1056,30 @@ FALSE  TRUE
                16                92                92                92 
             tax71             tax82        price71_82          tax71_82 
                92                92                92                92 </code></pre>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1">nhefs[<span class="kw">complete.cases</span>(nhefs), ]</a></code></pre></div>
+<pre><code># A tibble: 44 × 64
+    seqn  qsmk death yrdth modth dadth   sbp   dbp   sex   age  race income
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+ 1  1096     1     1    84    10    17   127    56     1    72     0     12
+ 2  1539     0     1    92     3    23   125    70     1    56     0     19
+ 3  1762     0     1    87     8    29   176   108     1    64     0     19
+ 4  1776     0     1    90    11    24   155    70     1    32     1     15
+ 5  2286     0     1    87     8    24   132    88     1    45     1     12
+ 6  4556     1     1    86     9     5   109    85     1    54     0     19
+ 7  5415     0     1    84     7    28   123    81     1    32     1     11
+ 8  6222     0     1    84     1    18   168    92     1    46     0     13
+ 9  6933     0     1    92     4    25   168    88     1    62     0     19
+10  6944     1     1    88     7    15   138    75     1    56     0     19
+# … with 34 more rows, and 52 more variables: marital &lt;dbl&gt;, school &lt;dbl&gt;,
+#   education &lt;dbl&gt;, ht &lt;dbl&gt;, wt71 &lt;dbl&gt;, wt82 &lt;dbl&gt;, wt82_71 &lt;dbl&gt;,
+#   birthplace &lt;dbl&gt;, smokeintensity &lt;dbl&gt;, smkintensity82_71 &lt;dbl&gt;,
+#   smokeyrs &lt;dbl&gt;, asthma &lt;dbl&gt;, bronch &lt;dbl&gt;, tb &lt;dbl&gt;, hf &lt;dbl&gt;, hbp &lt;dbl&gt;,
+#   pepticulcer &lt;dbl&gt;, colitis &lt;dbl&gt;, hepatitis &lt;dbl&gt;, chroniccough &lt;dbl&gt;,
+#   hayfever &lt;dbl&gt;, diabetes &lt;dbl&gt;, polio &lt;dbl&gt;, tumor &lt;dbl&gt;,
+#   nervousbreak &lt;dbl&gt;, alcoholpy &lt;dbl&gt;, alcoholfreq &lt;dbl&gt;, …</code></pre>
 <p>Let’s drop every row with a missing value for any variable</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1">nhefs2 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(nhefs)</a>
-<a class="sourceLine" id="cb179-2" title="2">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs2)</a></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" title="1">nhefs2 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(nhefs)</a>
+<a class="sourceLine" id="cb181-2" title="2">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs2)</a></code></pre></div>
 <pre><code>Rows: 44
 Columns: 64
 $ seqn              &lt;dbl&gt; 1096, 1539, 1762, 1776, 2286, 4556, 5415, 6222, 6933…
@@ -1125,53 +1146,56 @@ $ tax71             &lt;dbl&gt; 1.2597656, 0.9974365, 1.0498047, 0.5249023, 0.99
 $ tax82             &lt;dbl&gt; 0.6379395, 0.6379395, 0.4399414, 0.2199707, 0.637939…
 $ price71_82        &lt;dbl&gt; 0.46356201, 0.17059326, 0.40594482, 0.05479431, 0.17…
 $ tax71_82          &lt;dbl&gt; 0.6219482, 0.3594971, 0.6099854, 0.3049927, 0.359497…</code></pre>
-<p>Oops, we have only 44 rows left in the data set! Perhaps we should reconsider, and pick several variables that will be of interest to us for our current purposes.</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" title="1">selectvars &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
-<a class="sourceLine" id="cb181-2" title="2">  <span class="st">&quot;age&quot;</span>, <span class="st">&quot;alcoholfreq&quot;</span>, <span class="st">&quot;asthma&quot;</span>, <span class="st">&quot;wt71&quot;</span>,</a>
-<a class="sourceLine" id="cb181-3" title="3">  <span class="st">&quot;smokeintensity&quot;</span>, <span class="st">&quot;sbp&quot;</span>, <span class="st">&quot;allergies&quot;</span></a>
-<a class="sourceLine" id="cb181-4" title="4">)</a>
-<a class="sourceLine" id="cb181-5" title="5"></a>
-<a class="sourceLine" id="cb181-6" title="6">nhefs3 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(nhefs[, selectvars])</a>
-<a class="sourceLine" id="cb181-7" title="7">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs3)</a></code></pre></div>
+<p>Oops, we have only 44 rows left in the data set! Perhaps we should reconsider and pick several variables that will be of interest to us for our current purposes.</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" title="1">selectvars &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb183-2" title="2">  <span class="st">&quot;age&quot;</span>, <span class="st">&quot;alcoholfreq&quot;</span>, <span class="st">&quot;asthma&quot;</span>, <span class="st">&quot;wt71&quot;</span>,</a>
+<a class="sourceLine" id="cb183-3" title="3">  <span class="st">&quot;smokeintensity&quot;</span>, <span class="st">&quot;sbp&quot;</span>, <span class="st">&quot;allergies&quot;</span>,</a>
+<a class="sourceLine" id="cb183-4" title="4">  <span class="st">&quot;weakheart&quot;</span></a>
+<a class="sourceLine" id="cb183-5" title="5">)</a>
+<a class="sourceLine" id="cb183-6" title="6"></a>
+<a class="sourceLine" id="cb183-7" title="7">nhefs3 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(nhefs[, selectvars])</a>
+<a class="sourceLine" id="cb183-8" title="8">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs3)</a></code></pre></div>
 <pre><code>Rows: 1,552
-Columns: 7
+Columns: 8
 $ age            &lt;dbl&gt; 42, 36, 56, 68, 40, 43, 56, 29, 51, 43, 43, 34, 54, 51,…
 $ alcoholfreq    &lt;dbl&gt; 1, 0, 3, 2, 2, 3, 1, 0, 1, 0, 3, 0, 0, 4, 4, 3, 2, 1, 0…
 $ asthma         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
 $ wt71           &lt;dbl&gt; 79.04, 58.63, 56.81, 59.42, 87.09, 99.00, 63.05, 58.74,…
 $ smokeintensity &lt;dbl&gt; 30, 20, 20, 3, 20, 10, 20, 2, 25, 20, 30, 40, 20, 10, 4…
 $ sbp            &lt;dbl&gt; 175, 123, 115, 148, 118, 141, 132, 100, 163, 184, 135, …
-$ allergies      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0…</code></pre>
+$ allergies      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0…
+$ weakheart      &lt;dbl&gt; 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</code></pre>
 <p>That’s better. We’ve discarded 77 rows and focused on a subset of variables of interest.</p>
 <p>Look back at the output we got from <code>glimpse()</code>. Are the variables in the formats we expect/need? I see one that we may need to update, depending on how we plan to use it. (Hint: Look back at the codebook for the variable summaries)</p>
 <p>It seems that <code>alcoholfreq</code> is current being treated as a numeric variables, but really, it’s a factor with 5 discrete levels. Furthermore, level 5 is Unknown, which we should probably treat as missing. We’ll also use a factor format for <code>alcoholfreq</code>.</p>
 <p><span class="marginnote">We could leave <code>alcoholfreq</code> as a numeric variable and wrap it in the <code>factor()</code> function only when we needed to. In some cases, that approach might be preferable, in some cases not.</span></p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" title="1">nhefs3<span class="op">$</span>alcfreq &lt;-<span class="st"> </span><span class="kw">as.factor</span>(nhefs3<span class="op">$</span>alcoholfreq)</a>
-<a class="sourceLine" id="cb183-2" title="2"><span class="kw">table</span>(nhefs3<span class="op">$</span>alcfreq)</a></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" title="1">nhefs3<span class="op">$</span>alcfreq &lt;-<span class="st"> </span><span class="kw">as.factor</span>(nhefs3<span class="op">$</span>alcoholfreq)</a>
+<a class="sourceLine" id="cb185-2" title="2"><span class="kw">table</span>(nhefs3<span class="op">$</span>alcfreq)</a></code></pre></div>
 <pre><code>
   0   1   2   3   4   5 
 320 217 489 329 192   5 </code></pre>
 <p>Let’s replace those 5 missing values with NA’s, too, and drop the corresponding rows from our data set. Let’s also get rid of the original <code>alcoholfreq</code> variable and just hang on to the factor variable we made.</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" title="1"><span class="co"># In words: where alcfreq in nhefs3 equals 5, assign NA</span></a>
-<a class="sourceLine" id="cb185-2" title="2">nhefs3<span class="op">$</span>alcfreq[nhefs3<span class="op">$</span>alcfreq <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb185-3" title="3"></a>
-<a class="sourceLine" id="cb185-4" title="4">nhefs4 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(nhefs3)</a>
-<a class="sourceLine" id="cb185-5" title="5">nhefs4<span class="op">$</span>alcoholfreq &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb185-6" title="6"></a>
-<a class="sourceLine" id="cb185-7" title="7">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs4)</a></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" title="1"><span class="co"># In words: where alcfreq in nhefs3 equals 5, assign NA</span></a>
+<a class="sourceLine" id="cb187-2" title="2">nhefs3<span class="op">$</span>alcfreq[nhefs3<span class="op">$</span>alcfreq <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb187-3" title="3"></a>
+<a class="sourceLine" id="cb187-4" title="4">nhefs4 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(nhefs3)</a>
+<a class="sourceLine" id="cb187-5" title="5">nhefs4<span class="op">$</span>alcoholfreq &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb187-6" title="6"></a>
+<a class="sourceLine" id="cb187-7" title="7">tibble<span class="op">::</span><span class="kw">glimpse</span>(nhefs4)</a></code></pre></div>
 <pre><code>Rows: 1,547
-Columns: 7
+Columns: 8
 $ age            &lt;dbl&gt; 42, 36, 56, 68, 40, 43, 56, 29, 51, 43, 43, 34, 54, 51,…
 $ asthma         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
 $ wt71           &lt;dbl&gt; 79.04, 58.63, 56.81, 59.42, 87.09, 99.00, 63.05, 58.74,…
 $ smokeintensity &lt;dbl&gt; 30, 20, 20, 3, 20, 10, 20, 2, 25, 20, 30, 40, 20, 10, 4…
 $ sbp            &lt;dbl&gt; 175, 123, 115, 148, 118, 141, 132, 100, 163, 184, 135, …
 $ allergies      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0…
+$ weakheart      &lt;dbl&gt; 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
 $ alcfreq        &lt;fct&gt; 1, 0, 3, 2, 2, 3, 1, 0, 1, 0, 3, 0, 0, 4, 4, 3, 2, 1, 0…</code></pre>
 <p>Let’s summarize our dataset:</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" title="1"><span class="co"># Continuous variables</span></a>
-<a class="sourceLine" id="cb187-2" title="2">contvars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;wt71&quot;</span>, <span class="st">&quot;smokeintensity&quot;</span>, <span class="st">&quot;sbp&quot;</span>)</a>
-<a class="sourceLine" id="cb187-3" title="3"><span class="kw">summary</span>(nhefs4[, contvars])</a></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" title="1"><span class="co"># Continuous variables</span></a>
+<a class="sourceLine" id="cb189-2" title="2">contvars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;wt71&quot;</span>, <span class="st">&quot;smokeintensity&quot;</span>, <span class="st">&quot;sbp&quot;</span>)</a>
+<a class="sourceLine" id="cb189-3" title="3"><span class="kw">summary</span>(nhefs4[, contvars])</a></code></pre></div>
 <pre><code>      age             wt71        smokeintensity       sbp       
  Min.   :25.00   Min.   : 39.58   Min.   : 1.00   Min.   : 87.0  
  1st Qu.:33.00   1st Qu.: 59.65   1st Qu.:10.00   1st Qu.:116.0  
@@ -1179,13 +1203,13 @@ $ alcfreq        &lt;fct&gt; 1, 0, 3, 2, 2, 3, 1, 0, 1, 0, 3, 0, 0, 4, 4, 3, 2, 
  Mean   :43.65   Mean   : 70.90   Mean   :20.54   Mean   :128.7  
  3rd Qu.:53.00   3rd Qu.: 79.95   3rd Qu.:30.00   3rd Qu.:139.5  
  Max.   :74.00   Max.   :151.73   Max.   :80.00   Max.   :229.0  </code></pre>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" title="1"><span class="co"># Categorical variables</span></a>
-<a class="sourceLine" id="cb189-2" title="2">catvars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;asthma&quot;</span>, <span class="st">&quot;allergies&quot;</span>, <span class="st">&quot;alcfreq&quot;</span>)</a>
-<a class="sourceLine" id="cb189-3" title="3"><span class="kw">lapply</span>(</a>
-<a class="sourceLine" id="cb189-4" title="4">  <span class="dt">X =</span> catvars,</a>
-<a class="sourceLine" id="cb189-5" title="5">  <span class="dt">FUN =</span> <span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb189-6" title="6">    summarytools<span class="op">::</span><span class="kw">freq</span>(nhefs4[x])</a>
-<a class="sourceLine" id="cb189-7" title="7">  })</a></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1"><span class="co"># Categorical variables</span></a>
+<a class="sourceLine" id="cb191-2" title="2">catvars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;asthma&quot;</span>, <span class="st">&quot;allergies&quot;</span>, <span class="st">&quot;alcfreq&quot;</span>, <span class="st">&quot;weakheart&quot;</span>)</a>
+<a class="sourceLine" id="cb191-3" title="3"><span class="kw">lapply</span>(</a>
+<a class="sourceLine" id="cb191-4" title="4">  <span class="dt">X =</span> catvars,</a>
+<a class="sourceLine" id="cb191-5" title="5">  <span class="dt">FUN =</span> <span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb191-6" title="6">    summarytools<span class="op">::</span><span class="kw">freq</span>(nhefs4[x])</a>
+<a class="sourceLine" id="cb191-7" title="7">  })</a></code></pre></div>
 <pre><code>Frequencies  
 asthma  
 Type: Numeric  
@@ -1219,27 +1243,37 @@ Type: Factor
           4    192     12.41         100.00     12.41         100.00
           5      0      0.00         100.00      0.00         100.00
        &lt;NA&gt;      0                               0.00         100.00
+      Total   1547    100.00         100.00    100.00         100.00
+
+weakheart  
+Type: Numeric  
+
+              Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+----------- ------ --------- -------------- --------- --------------
+          0   1512     97.74          97.74     97.74          97.74
+          1     35      2.26         100.00      2.26         100.00
+       &lt;NA&gt;      0                               0.00         100.00
       Total   1547    100.00         100.00    100.00         100.00</code></pre>
 <p><span class="marginnote">Based on this <a href="https://www.r-bloggers.com/quick-plot-of-all-variables/">tidy example</a>.</span></p>
 <p>A few plots may help us, too:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb191-2" title="2"><span class="kw">library</span>(ggthemes)</a>
-<a class="sourceLine" id="cb191-3" title="3"></a>
-<a class="sourceLine" id="cb191-4" title="4">nhefs4 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb191-5" title="5"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="kw">all_of</span>(contvars)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb191-6" title="6"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb191-7" title="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb191-8" title="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>key, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb191-9" title="9"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb191-10" title="10"><span class="st">  </span><span class="kw">theme_tufte</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" title="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb193-2" title="2"><span class="kw">library</span>(ggthemes)</a>
+<a class="sourceLine" id="cb193-3" title="3"></a>
+<a class="sourceLine" id="cb193-4" title="4">nhefs4 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb193-5" title="5"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="kw">all_of</span>(contvars)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb193-6" title="6"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb193-7" title="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb193-8" title="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>key, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb193-9" title="9"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb193-10" title="10"><span class="st">  </span><span class="kw">theme_tufte</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/eda-density-1.svg" width="672"  /></p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1">nhefs4 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb192-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="kw">all_of</span>(catvars)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb192-3" title="3"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb192-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb192-5" title="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>key, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb192-6" title="6"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">width =</span> <span class="fl">0.5</span>, <span class="dt">fill =</span> <span class="st">&quot;lightgray&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb192-7" title="7"><span class="st">  </span><span class="kw">theme_tufte</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" title="1">nhefs4 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb194-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="kw">all_of</span>(catvars)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb194-3" title="3"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb194-4" title="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb194-5" title="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>key, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb194-6" title="6"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>, <span class="dt">width =</span> <span class="fl">0.5</span>, <span class="dt">fill =</span> <span class="st">&quot;lightgray&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb194-7" title="7"><span class="st">  </span><span class="kw">theme_tufte</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/eda-bars-1.svg" width="672"  /></p>
 <p>Don’t worry just now about the plot code. We’ll be looking in some detail at the ggplot2 package later.</p>
 </div>
@@ -1248,30 +1282,30 @@ Type: Factor
 <p>Soon you will be no stranger to two-by-two tables and contingency tables. Introductory statistics and epidemiologic methods courses will require you to analyze such tables, either to measure the strength of an exposure’s effect on some outcome or to establish a statistical association between two variables.</p>
 <p>Going back to our NHEFS data, let’s say we’re interested in a possible association between quitting smoking and weight loss. The <code>qsmk</code> variable is a binary indicator of whether or not an individual quit smoking between 1971 and 1982, while the <code>wt82_71</code> variable measures an individual’s change in weight (kilograms) between 1971 and 1982.</p>
 <p>Typically, we would not want to dichotomize a continuous variable like <code>wt82_71</code>, but for the sake of this example, let’s begin by creating a binary indicator of whether a subject gained weight during this timeframe.</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" title="1"><span class="co"># check whether any values of wt82_71 are missing</span></a>
-<a class="sourceLine" id="cb193-2" title="2"><span class="kw">any</span>(<span class="kw">is.na</span>(nhefs<span class="op">$</span>wt82_<span class="dv">71</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" title="1"><span class="co"># check whether any values of wt82_71 are missing</span></a>
+<a class="sourceLine" id="cb195-2" title="2"><span class="kw">any</span>(<span class="kw">is.na</span>(nhefs<span class="op">$</span>wt82_<span class="dv">71</span>))</a></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" title="1"><span class="co"># count the number of missing observations</span></a>
-<a class="sourceLine" id="cb195-2" title="2"><span class="co"># is.na() will return TRUE if an observation is missing and FALSE if it is not</span></a>
-<a class="sourceLine" id="cb195-3" title="3"><span class="co"># we can use sum() to add up the number of TRUE values because R will treat a</span></a>
-<a class="sourceLine" id="cb195-4" title="4"><span class="co"># logical variable as numeric for this purpose, where TRUE = 1 and FALSE = 0</span></a>
-<a class="sourceLine" id="cb195-5" title="5"><span class="kw">sum</span>(<span class="kw">is.na</span>(nhefs<span class="op">$</span>wt82_<span class="dv">71</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" title="1"><span class="co"># count the number of missing observations</span></a>
+<a class="sourceLine" id="cb197-2" title="2"><span class="co"># is.na() will return TRUE if an observation is missing and FALSE if it is not</span></a>
+<a class="sourceLine" id="cb197-3" title="3"><span class="co"># we can use sum() to add up the number of TRUE values because R will treat a</span></a>
+<a class="sourceLine" id="cb197-4" title="4"><span class="co"># logical variable as numeric for this purpose, where TRUE = 1 and FALSE = 0</span></a>
+<a class="sourceLine" id="cb197-5" title="5"><span class="kw">sum</span>(<span class="kw">is.na</span>(nhefs<span class="op">$</span>wt82_<span class="dv">71</span>))</a></code></pre></div>
 <pre><code>[1] 63</code></pre>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" title="1"><span class="co"># create the new variable, called wt82_71_gain</span></a>
-<a class="sourceLine" id="cb197-2" title="2">nhefs<span class="op">$</span>wt82_<span class="dv">71</span>_gain &lt;-<span class="st"> </span><span class="ot">NA</span> <span class="co">#initialize with NA</span></a>
-<a class="sourceLine" id="cb197-3" title="3">nhefs<span class="op">$</span>wt82_<span class="dv">71</span>_gain[nhefs<span class="op">$</span>wt82_<span class="dv">71</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb197-4" title="4">nhefs<span class="op">$</span>wt82_<span class="dv">71</span>_gain[nhefs<span class="op">$</span>wt82_<span class="dv">71</span> <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb197-5" title="5"></a>
-<a class="sourceLine" id="cb197-6" title="6"><span class="co"># make sure we coded the new variable correctly</span></a>
-<a class="sourceLine" id="cb197-7" title="7"><span class="kw">summary</span>(nhefs<span class="op">$</span>wt82_<span class="dv">71</span>[nhefs<span class="op">$</span>wt82_<span class="dv">71</span>_gain <span class="op">==</span><span class="st"> </span><span class="dv">1</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" title="1"><span class="co"># create the new variable, called wt82_71_gain</span></a>
+<a class="sourceLine" id="cb199-2" title="2">nhefs<span class="op">$</span>wt82_<span class="dv">71</span>_gain &lt;-<span class="st"> </span><span class="ot">NA</span> <span class="co">#initialize with NA</span></a>
+<a class="sourceLine" id="cb199-3" title="3">nhefs<span class="op">$</span>wt82_<span class="dv">71</span>_gain[nhefs<span class="op">$</span>wt82_<span class="dv">71</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb199-4" title="4">nhefs<span class="op">$</span>wt82_<span class="dv">71</span>_gain[nhefs<span class="op">$</span>wt82_<span class="dv">71</span> <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb199-5" title="5"></a>
+<a class="sourceLine" id="cb199-6" title="6"><span class="co"># make sure we coded the new variable correctly</span></a>
+<a class="sourceLine" id="cb199-7" title="7"><span class="kw">summary</span>(nhefs<span class="op">$</span>wt82_<span class="dv">71</span>[nhefs<span class="op">$</span>wt82_<span class="dv">71</span>_gain <span class="op">==</span><span class="st"> </span><span class="dv">1</span>])</a></code></pre></div>
 <pre><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA&#39;s 
  0.00108  2.49426  5.10182  6.46419  8.64786 48.53839       63 </code></pre>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" title="1"><span class="kw">summary</span>(nhefs<span class="op">$</span>wt82_<span class="dv">71</span>[nhefs<span class="op">$</span>wt82_<span class="dv">71</span>_gain <span class="op">==</span><span class="st"> </span><span class="dv">0</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" title="1"><span class="kw">summary</span>(nhefs<span class="op">$</span>wt82_<span class="dv">71</span>[nhefs<span class="op">$</span>wt82_<span class="dv">71</span>_gain <span class="op">==</span><span class="st"> </span><span class="dv">0</span>])</a></code></pre></div>
 <pre><code>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA&#39;s 
 -41.28047  -7.33938  -3.62566  -5.28355  -1.69944  -0.00037        63 </code></pre>
 <p>The summary statistics we generated above should comply with our expectations: those we marked as having gained weight all have positive values of <code>wt82_71</code>, while those we marked as not having gained weight all have negative values of <code>wt82_71</code>.</p>
 <p>Note, too, that we have 63 missing values in our new variable, just as we saw in the original outcome.</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" title="1"><span class="kw">with</span>(nhefs, <span class="kw">table</span>(wt82_<span class="dv">71</span>_gain, qsmk, <span class="dt">exclude =</span> <span class="ot">NULL</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" title="1"><span class="kw">with</span>(nhefs, <span class="kw">table</span>(wt82_<span class="dv">71</span>_gain, qsmk, <span class="dt">exclude =</span> <span class="ot">NULL</span>))</a></code></pre></div>
 <pre><code>            qsmk
 wt82_71_gain   0   1
         0    406 104
@@ -1279,15 +1313,15 @@ wt82_71_gain   0   1
         &lt;NA&gt;  38  25</code></pre>
 <p>The option <code>exclude = NULL</code> above includes missing values in the table output. We’ll ignore them for simplicity.</p>
 <p>After doing so, we’re left with the following two-by-two table for analysis.</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" title="1">nhefs <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb203-2" title="2"><span class="st">  </span><span class="kw">count</span>(qsmk, wt82_<span class="dv">71</span>_gain) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb203-3" title="3"><span class="st">  </span><span class="kw">na.omit</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb203-4" title="4"><span class="st">  </span><span class="kw">pivot_wider</span>(</a>
-<a class="sourceLine" id="cb203-5" title="5">    <span class="dt">names_from =</span> wt82_<span class="dv">71</span>_gain,</a>
-<a class="sourceLine" id="cb203-6" title="6">    <span class="dt">values_from =</span> n,</a>
-<a class="sourceLine" id="cb203-7" title="7">    <span class="dt">names_pref =</span> <span class="st">&quot;wtgain&quot;</span></a>
-<a class="sourceLine" id="cb203-8" title="8">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb203-9" title="9"><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" title="1">nhefs <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb205-2" title="2"><span class="st">  </span><span class="kw">count</span>(qsmk, wt82_<span class="dv">71</span>_gain) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb205-3" title="3"><span class="st">  </span><span class="kw">na.omit</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb205-4" title="4"><span class="st">  </span><span class="kw">pivot_wider</span>(</a>
+<a class="sourceLine" id="cb205-5" title="5">    <span class="dt">names_from =</span> wt82_<span class="dv">71</span>_gain,</a>
+<a class="sourceLine" id="cb205-6" title="6">    <span class="dt">values_from =</span> n,</a>
+<a class="sourceLine" id="cb205-7" title="7">    <span class="dt">names_pref =</span> <span class="st">&quot;wtgain&quot;</span></a>
+<a class="sourceLine" id="cb205-8" title="8">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb205-9" title="9"><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1310,8 +1344,8 @@ wt82_71_gain   0   1
 </tbody>
 </table>
 <p>A natural choice here would be to conduct a two-sample test for the equality of proportions, where we compare the proportion of subjects in the quit smoking group (0.742) who gained weight versus the proportion in the non-quit smoking group (0.651).</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" title="1">ptest &lt;-<span class="st"> </span><span class="kw">prop.test</span>(<span class="kw">c</span>(<span class="dv">299</span>, <span class="dv">757</span>), <span class="kw">c</span>(<span class="dv">299</span> <span class="op">+</span><span class="st"> </span><span class="dv">104</span>, <span class="dv">757</span> <span class="op">+</span><span class="st"> </span><span class="dv">406</span>))</a>
-<a class="sourceLine" id="cb204-2" title="2">ptest</a></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" title="1">ptest &lt;-<span class="st"> </span><span class="kw">prop.test</span>(<span class="kw">c</span>(<span class="dv">299</span>, <span class="dv">757</span>), <span class="kw">c</span>(<span class="dv">299</span> <span class="op">+</span><span class="st"> </span><span class="dv">104</span>, <span class="dv">757</span> <span class="op">+</span><span class="st"> </span><span class="dv">406</span>))</a>
+<a class="sourceLine" id="cb206-2" title="2">ptest</a></code></pre></div>
 <pre><code>
     2-sample test for equality of proportions with continuity correction
 
@@ -1325,18 +1359,15 @@ sample estimates:
 0.7419355 0.6509028 </code></pre>
 <p>The output above shows us the group proportions, the <span class="math inline">\(\chi^2\)</span> test statistic, and the corresponding <em>p</em>-value. We also get a 95% confidence interval for the difference in proportions.</p>
 <p>To get a tidier output as a <code>tibble</code>, the <code>broom</code> package often proves useful:</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" title="1">broom<span class="op">::</span><span class="kw">tidy</span>(ptest)</a></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" title="1">broom<span class="op">::</span><span class="kw">tidy</span>(ptest)</a></code></pre></div>
 <pre><code># A tibble: 1 × 9
   estimate1 estimate2 statistic  p.value parameter conf.low conf.high method    
       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     
 1     0.742     0.651      10.9 0.000971         1   0.0386     0.143 2-sample …
 # … with 1 more variable: alternative &lt;chr&gt;</code></pre>
 <p>We also good have given the table directly to the <code>prop.test()</code> function:</p>
-<p><span class="marginnote warning">
-<strong>Know Your Output</strong>
-Notice that the proportions and, as a result, the confidence interval given by the second <code>prop.test()</code> are different than the first, even though the <span class="math inline">\(\chi^2\)</span> statistic and the <em>p</em>-value are the same. The statistical test we used applied to the distribution of cell counts in the table. However, if we needed to report the difference in proportions and its confidence interval, the second method would have given us an incorrect estimate. Always be sure you understand functions’ outputs!
-</span></p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" title="1"><span class="kw">with</span>(nhefs, <span class="kw">prop.test</span>(<span class="kw">table</span>(qsmk, wt82_<span class="dv">71</span>_gain)))</a></code></pre></div>
+<p><span class="marginnote warning"><strong>Know Your Output</strong> Notice that the proportions and, as a result, the confidence interval given by the second <code>prop.test()</code> are different than the first, even though the <span class="math inline">\(\chi^2\)</span> statistic and the <em>p</em>-value are the same. The statistical test we used applied to the distribution of cell counts in the table. However, if we needed to report the difference in proportions and its confidence interval, the second method would have given us an incorrect estimate. Always be sure you understand functions’ outputs!</span></p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" title="1"><span class="kw">with</span>(nhefs, <span class="kw">prop.test</span>(<span class="kw">table</span>(qsmk, wt82_<span class="dv">71</span>_gain)))</a></code></pre></div>
 <pre><code>
     2-sample test for equality of proportions with continuity correction
 
@@ -1353,16 +1384,13 @@ sample estimates:
 <h2><span class="header-section-number">6.4</span> Regression Models</h2>
 <p>In this section we will fit some regression models that you may encounter in classes or in your own research. We will leave the theoretical background to your statistics and methods courses but aim to provide enough information so that you understand the basic idea behind each approach and can refer back to this page in the future.</p>
 <p>All upcoming examples use variables from the NHEFS dataset that we’ve referred back to several times by now.</p>
-<p><span class="marginnote">
-Note that you can pass all of the fit objects below to <code>broom::tidy()</code> in order to retrieve a data frame containing the regression information. Doing so will often make exporting tables and results much easier for you. However, we will focus on the default summary output for now.
-</span></p>
+<p><span class="marginnote">Note that you can pass all of the fit objects below to <code>broom::tidy()</code> in order to retrieve a data frame containing the regression information. Doing so will often make exporting tables and results much easier for you. However, we will focus on the default summary output for now.</span></p>
 <div id="linear-regression" class="section level3">
 <h3><span class="header-section-number">6.4.1</span> Linear regression</h3>
-<p>Exposure of interest: quitting smoking between 1971 and 1982 (<code>qsmk</code>)
-Outcome: change in weight between 1971 and 1982 (continuous, <code>wt82_71</code>)</p>
+<p>Exposure of interest: quitting smoking between 1971 and 1982 (<code>qsmk</code>) Outcome: change in weight between 1971 and 1982 (continuous, <code>wt82_71</code>)</p>
 <p>First, we can run an unadjusted model with weight change as the outcome and quitting smoking as the predictor variable. The symbol <code>~</code> indicates that the statement <code>wt82_71 ~ qsmk</code> is a formula.</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" title="1">fitlm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(wt82_<span class="dv">71</span> <span class="op">~</span><span class="st"> </span>qsmk, <span class="dt">data =</span> nhefs)</a>
-<a class="sourceLine" id="cb210-2" title="2"><span class="kw">summary</span>(fitlm1)</a></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" title="1">fitlm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(wt82_<span class="dv">71</span> <span class="op">~</span><span class="st"> </span>qsmk, <span class="dt">data =</span> nhefs)</a>
+<a class="sourceLine" id="cb212-2" title="2"><span class="kw">summary</span>(fitlm1)</a></code></pre></div>
 <pre><code>
 Call:
 lm(formula = wt82_71 ~ qsmk, data = nhefs)
@@ -1383,21 +1411,21 @@ Residual standard error: 7.804 on 1564 degrees of freedom
 Multiple R-squared:  0.01988,   Adjusted R-squared:  0.01925 
 F-statistic: 31.72 on 1 and 1564 DF,  p-value: 2.106e-08</code></pre>
 <p>You can think of the <code>fitlm1</code> object that we saved as a list containing information about the model we fit:</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" title="1"><span class="kw">names</span>(fitlm1)</a></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" title="1"><span class="kw">names</span>(fitlm1)</a></code></pre></div>
 <pre><code> [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
  [9] &quot;na.action&quot;     &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;        
 [13] &quot;model&quot;        </code></pre>
 <p>We can output coefficients,</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" title="1">fitlm1<span class="op">$</span>coefficients</a></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" title="1">fitlm1<span class="op">$</span>coefficients</a></code></pre></div>
 <pre><code>(Intercept)        qsmk 
    1.984498    2.540581 </code></pre>
 <p>residuals,</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" title="1"><span class="kw">head</span>(fitlm1<span class="op">$</span>residuals)</a></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" title="1"><span class="kw">head</span>(fitlm1<span class="op">$</span>residuals)</a></code></pre></div>
 <pre><code>          1           2           3           4           5           6 
 -12.0784573   0.6204724   7.4299885   3.0056190   3.0047536   2.4345628 </code></pre>
 <p>and the data on which R fitted the model:</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" title="1"><span class="kw">head</span>(fitlm1<span class="op">$</span>model)</a></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1"><span class="kw">head</span>(fitlm1<span class="op">$</span>model)</a></code></pre></div>
 <pre><code>     wt82_71 qsmk
 1 -10.093960    0
 2   2.604970    0
@@ -1407,62 +1435,54 @@ F-statistic: 31.72 on 1 and 1564 DF,  p-value: 2.106e-08</code></pre>
 6   4.419060    0</code></pre>
 <div class="detour">
 <p style="text-align:center;">
-<strong>Detour</strong>
+<p><strong>Detour</strong></p>
 </p>
 <p>Why did we bother to note that the model object saves the “data on which R fitted the model”? Didn’t R fit the model on the data we told it to?</p>
 <p>To answer this question, let’s take a brief detour and check that the data frame saved in <code>fitlm1</code> has the same number of rows as the <code>nhefs</code> data frame we fed to the <code>lm()</code> function.</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1"><span class="kw">nrow</span>(fitlm1<span class="op">$</span>model)</a></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" title="1"><span class="kw">nrow</span>(fitlm1<span class="op">$</span>model)</a></code></pre></div>
 <pre><code>[1] 1566</code></pre>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" title="1"><span class="kw">nrow</span>(nhefs)</a></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" title="1"><span class="kw">nrow</span>(nhefs)</a></code></pre></div>
 <pre><code>[1] 1629</code></pre>
 <p>Interesting! The number of rows in each data set don’t match, but why?</p>
 <p>Recall that earlier on this page, we found 63 missing values of the outcome <code>wt82_71</code>, and if we subtract 1566 from 1629, we get 63. That’s because <em>R’s modeling methods omit rows with missing data for any variables included in the model formula</em>. The model object saves the row numbers of dropped observations in <code>fitlm1$na</code>, and we can verify by extracting these rows from the original <code>nhefs</code> data set:</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" title="1"><span class="co"># extract row numbers that were dropped from the fitlm1 model</span></a>
-<a class="sourceLine" id="cb224-2" title="2"><span class="co"># keep only wt82_71 column and see that they&#39;re all missing</span></a>
-<a class="sourceLine" id="cb224-3" title="3">nhefs[fitlm1<span class="op">$</span>na, <span class="kw">c</span>(<span class="st">&quot;wt82_71&quot;</span>)] <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb224-4" title="4"><span class="st">  </span><span class="kw">count</span>(wt82_<span class="dv">71</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" title="1"><span class="co"># extract row numbers that were dropped from the fitlm1 model</span></a>
+<a class="sourceLine" id="cb226-2" title="2"><span class="co"># keep only wt82_71 column and see that they&#39;re all missing</span></a>
+<a class="sourceLine" id="cb226-3" title="3">nhefs[fitlm1<span class="op">$</span>na, <span class="kw">c</span>(<span class="st">&quot;wt82_71&quot;</span>)] <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb226-4" title="4"><span class="st">  </span><span class="kw">count</span>(wt82_<span class="dv">71</span>)</a></code></pre></div>
 <pre><code># A tibble: 1 × 2
   wt82_71     n
     &lt;dbl&gt; &lt;int&gt;
 1      NA    63</code></pre>
 <p>Not to belabor the point, but let’s convince ourselves a bit more by identifying the rows with missing values for <code>wt82_71</code> and comparing this to the list R made:</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" title="1"><span class="co"># identify rows with missing values for wt82_71</span></a>
-<a class="sourceLine" id="cb226-2" title="2"><span class="co"># vector of numeric row indices</span></a>
-<a class="sourceLine" id="cb226-3" title="3">missindex &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">is.na</span>(nhefs<span class="op">$</span>wt82_<span class="dv">71</span>))  </a>
-<a class="sourceLine" id="cb226-4" title="4"></a>
-<a class="sourceLine" id="cb226-5" title="5"><span class="co">## sort vectors in numerical order, generate a cross table</span></a>
-<a class="sourceLine" id="cb226-6" title="6"><span class="co">## </span><span class="al">NOTE</span><span class="co"> sorting is unecessary in this case, but it&#39;s good</span></a>
-<a class="sourceLine" id="cb226-7" title="7"><span class="co">##      practice to ensure elements are ordered properly</span></a>
-<a class="sourceLine" id="cb226-8" title="8"><span class="kw">table</span>(<span class="kw">sort</span>(missindex) <span class="op">==</span><span class="st"> </span><span class="kw">sort</span>(fitlm1<span class="op">$</span>na))</a></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" title="1"><span class="co"># identify rows with missing values for wt82_71</span></a>
+<a class="sourceLine" id="cb228-2" title="2"><span class="co"># vector of numeric row indices</span></a>
+<a class="sourceLine" id="cb228-3" title="3">missindex &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">is.na</span>(nhefs<span class="op">$</span>wt82_<span class="dv">71</span>))  </a>
+<a class="sourceLine" id="cb228-4" title="4"></a>
+<a class="sourceLine" id="cb228-5" title="5"><span class="co">## sort vectors in numerical order, generate a cross table</span></a>
+<a class="sourceLine" id="cb228-6" title="6"><span class="co">## </span><span class="al">NOTE</span><span class="co"> sorting is unecessary in this case, but it&#39;s good</span></a>
+<a class="sourceLine" id="cb228-7" title="7"><span class="co">##      practice to ensure elements are ordered properly</span></a>
+<a class="sourceLine" id="cb228-8" title="8"><span class="kw">table</span>(<span class="kw">sort</span>(missindex) <span class="op">==</span><span class="st"> </span><span class="kw">sort</span>(fitlm1<span class="op">$</span>na))</a></code></pre></div>
 <pre><code>
 TRUE 
   63 </code></pre>
 <p>The index vector we created manually matches the one R created and saved to <code>fitlm1</code>.</p>
 </div>
 <p>R also provides functions designed to extract specific information from model fits, though we’ll suppress the output since we already printed out some of this information above:</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" title="1"><span class="co"># extract model coefficients</span></a>
-<a class="sourceLine" id="cb228-2" title="2"><span class="kw">coef</span>(fitlm1)</a>
-<a class="sourceLine" id="cb228-3" title="3"></a>
-<a class="sourceLine" id="cb228-4" title="4"><span class="co"># extract model residuals</span></a>
-<a class="sourceLine" id="cb228-5" title="5"><span class="kw">residuals</span>(fitlm1)</a></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" title="1"><span class="co"># extract model coefficients</span></a>
+<a class="sourceLine" id="cb230-2" title="2"><span class="kw">coef</span>(fitlm1)</a>
+<a class="sourceLine" id="cb230-3" title="3"></a>
+<a class="sourceLine" id="cb230-4" title="4"><span class="co"># extract model residuals</span></a>
+<a class="sourceLine" id="cb230-5" title="5"><span class="kw">residuals</span>(fitlm1)</a></code></pre></div>
 <p>Let’s look at some plot diagnostics to make sure our linear regression complies with the model’s assumptions:</p>
-<p><span class="marginnote">
-<code>par(mfrow = c(2, 2))</code> tells R that we want a 2x2 plot grid. If you ran <code>plot(fitlm1)</code> by itself, R would output four images in succession.
-</span></p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb229-2" title="2"><span class="kw">plot</span>(fitlm1)</a></code></pre></div>
+<p><span class="marginnote"><code>par(mfrow = c(2, 2))</code> tells R that we want a 2x2 plot grid. If you ran <code>plot(fitlm1)</code> by itself, R would output four images in succession.</span></p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb231-2" title="2"><span class="kw">plot</span>(fitlm1)</a></code></pre></div>
 <p><img src="stats-comp-ph_files/figure-html/regression-linear-unadj-diag-1.svg" width="672"  /></p>
 <p>Based on the Q-Q plot, we may have some violations of the normality assumption (<em>i.e.</em>, residuals are not normally distributed), as evidenced by the points’ departure from the diagonal line. In a real analysis we would need to address this issue, possibly by transforming the outcome. However, our focus here is on implementing models in code, so we will proceed, leaving issues of statistical practice to your relevant coursework.</p>
 <p>Our unadjusted estimate, therefore, suggests that quitting smoking was associated with an average 2.54 kg increase in weight between 1971 and 1982.</p>
 <p>The unadjusted linear regression we just ran is actually a special case of the two-sample <em>t</em>-test (assuming equal variances between smoking group), to which you’ll be introduced early on in your stats classes. Compare the output of the code below to that of the linear regression.</p>
-<p><span class="marginnote definition">
-<strong>Comparing Outputs</strong>
-What are the <em>t</em> statistics?<br /><br />
-What are the <em>p</em>-values for the difference in weight gain between quit smoking groups?<br /><br />
-What are the degrees of freedom?<br /><br />
-When you take the difference of “mean of x” and “mean of y” from the output of <code>t.test()</code>, do you find that value in the linear regression summary?
-</span></p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" title="1"><span class="kw">with</span>(nhefs, <span class="kw">t.test</span>(wt82_<span class="dv">71</span>[qsmk <span class="op">==</span><span class="st"> </span><span class="dv">1</span>], wt82_<span class="dv">71</span>[qsmk <span class="op">==</span><span class="st"> </span><span class="dv">0</span>], <span class="dt">var.equal =</span> T))</a></code></pre></div>
+<p><span class="marginnote definition"><strong>Comparing Outputs</strong> What are the <em>t</em> statistics?<br /><br /> What are the <em>p</em>-values for the difference in weight gain between quit smoking groups?<br /><br /> What are the degrees of freedom?<br /><br /> When you take the difference of “mean of x” and “mean of y” from the output of <code>t.test()</code>, do you find that value in the linear regression summary?</span></p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" title="1"><span class="kw">with</span>(nhefs, <span class="kw">t.test</span>(wt82_<span class="dv">71</span>[qsmk <span class="op">==</span><span class="st"> </span><span class="dv">1</span>], wt82_<span class="dv">71</span>[qsmk <span class="op">==</span><span class="st"> </span><span class="dv">0</span>], <span class="dt">var.equal =</span> T))</a></code></pre></div>
 <pre><code>
     Two Sample t-test
 
@@ -1475,12 +1495,12 @@ sample estimates:
 mean of x mean of y 
  4.525079  1.984498 </code></pre>
 <p>The code below fits a linear model for the effect of <code>qsmk</code> on <code>wt82_71</code> adjusted for years of smoking (<code>smokeyrs</code>), intensity of smoking (<code>smokeintensity</code>), diabetes, sex, and age. Note that we allow for an “interaction” between sex and age, denoted by <code>sex * age</code>.</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" title="1">fitlm2 &lt;-<span class="st"> </span><span class="kw">lm</span>(</a>
-<a class="sourceLine" id="cb232-2" title="2">  wt82_<span class="dv">71</span> <span class="op">~</span><span class="st"> </span>qsmk <span class="op">+</span><span class="st"> </span>smokeyrs <span class="op">+</span><span class="st"> </span>smokeintensity <span class="op">+</span><span class="st"> </span>diabetes <span class="op">+</span><span class="st"> </span>sex <span class="op">*</span><span class="st"> </span>age,</a>
-<a class="sourceLine" id="cb232-3" title="3">  <span class="dt">data =</span> nhefs</a>
-<a class="sourceLine" id="cb232-4" title="4">)</a>
-<a class="sourceLine" id="cb232-5" title="5"></a>
-<a class="sourceLine" id="cb232-6" title="6"><span class="kw">summary</span>(fitlm2)</a></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" title="1">fitlm2 &lt;-<span class="st"> </span><span class="kw">lm</span>(</a>
+<a class="sourceLine" id="cb234-2" title="2">  wt82_<span class="dv">71</span> <span class="op">~</span><span class="st"> </span>qsmk <span class="op">+</span><span class="st"> </span>smokeyrs <span class="op">+</span><span class="st"> </span>smokeintensity <span class="op">+</span><span class="st"> </span>diabetes <span class="op">+</span><span class="st"> </span>sex <span class="op">*</span><span class="st"> </span>age,</a>
+<a class="sourceLine" id="cb234-3" title="3">  <span class="dt">data =</span> nhefs</a>
+<a class="sourceLine" id="cb234-4" title="4">)</a>
+<a class="sourceLine" id="cb234-5" title="5"></a>
+<a class="sourceLine" id="cb234-6" title="6"><span class="kw">summary</span>(fitlm2)</a></code></pre></div>
 <pre><code>
 Call:
 lm(formula = wt82_71 ~ qsmk + smokeyrs + smokeintensity + diabetes + 
@@ -1509,24 +1529,24 @@ Multiple R-squared:  0.08418,   Adjusted R-squared:  0.08006
 F-statistic: 20.46 on 7 and 1558 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Our adjusted estimate suggests that quitting smoking was associated with an average 3.19 kg increase in weight between 1971 and 1982, conditional on the other variables we included in the second linear model.</p>
 <p>Almost always, we will want to report the standard error estimates and/or confidence intervals with our measures of effect. The <code>broom::tidy()</code> function makes extracting 95% confidence intervals from regression fit objects (<em>i.e.</em>, objects like <code>fitlm1</code> or <code>fitlm2</code>):</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" title="1">broom<span class="op">::</span><span class="kw">tidy</span>(fitlm2, <span class="dt">conf.int =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb234-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(term <span class="op">==</span><span class="st"> &quot;qsmk&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" title="1">broom<span class="op">::</span><span class="kw">tidy</span>(fitlm2, <span class="dt">conf.int =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb236-2" title="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(term <span class="op">==</span><span class="st"> &quot;qsmk&quot;</span>)</a></code></pre></div>
 <pre><code># A tibble: 1 × 7
   term  estimate std.error statistic  p.value conf.low conf.high
   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 1 qsmk      3.19     0.446      7.15 1.29e-12     2.31      4.06</code></pre>
 <p>Alternatively, we can calculate the same confidence interval manually:</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" title="1"><span class="co"># point estimate</span></a>
-<a class="sourceLine" id="cb236-2" title="2">est &lt;-<span class="st"> </span><span class="kw">unname</span>(<span class="kw">coef</span>(fitlm2)[<span class="st">&quot;qsmk&quot;</span>])</a>
-<a class="sourceLine" id="cb236-3" title="3"></a>
-<a class="sourceLine" id="cb236-4" title="4"><span class="co"># standard error of point estimate</span></a>
-<a class="sourceLine" id="cb236-5" title="5">se &lt;-<span class="st"> </span><span class="kw">unname</span>(<span class="kw">summary</span>(fitlm2)<span class="op">$</span>coefficients[, <span class="kw">c</span>(<span class="st">&quot;Std. Error&quot;</span>)][<span class="st">&quot;qsmk&quot;</span>])</a>
-<a class="sourceLine" id="cb236-6" title="6"></a>
-<a class="sourceLine" id="cb236-7" title="7"><span class="co"># lower and upper bounds of 95% confidence limits</span></a>
-<a class="sourceLine" id="cb236-8" title="8">ll &lt;-<span class="st"> </span>est <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>se</a>
-<a class="sourceLine" id="cb236-9" title="9">ul &lt;-<span class="st"> </span>est <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>se</a>
-<a class="sourceLine" id="cb236-10" title="10"></a>
-<a class="sourceLine" id="cb236-11" title="11"><span class="kw">c</span>(<span class="dt">estimate =</span> est, <span class="dt">ll95 =</span> ll, <span class="dt">ul95 =</span> ul)</a></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" title="1"><span class="co"># point estimate</span></a>
+<a class="sourceLine" id="cb238-2" title="2">est &lt;-<span class="st"> </span><span class="kw">unname</span>(<span class="kw">coef</span>(fitlm2)[<span class="st">&quot;qsmk&quot;</span>])</a>
+<a class="sourceLine" id="cb238-3" title="3"></a>
+<a class="sourceLine" id="cb238-4" title="4"><span class="co"># standard error of point estimate</span></a>
+<a class="sourceLine" id="cb238-5" title="5">se &lt;-<span class="st"> </span><span class="kw">unname</span>(<span class="kw">summary</span>(fitlm2)<span class="op">$</span>coefficients[, <span class="kw">c</span>(<span class="st">&quot;Std. Error&quot;</span>)][<span class="st">&quot;qsmk&quot;</span>])</a>
+<a class="sourceLine" id="cb238-6" title="6"></a>
+<a class="sourceLine" id="cb238-7" title="7"><span class="co"># lower and upper bounds of 95% confidence limits</span></a>
+<a class="sourceLine" id="cb238-8" title="8">ll &lt;-<span class="st"> </span>est <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>se</a>
+<a class="sourceLine" id="cb238-9" title="9">ul &lt;-<span class="st"> </span>est <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>se</a>
+<a class="sourceLine" id="cb238-10" title="10"></a>
+<a class="sourceLine" id="cb238-11" title="11"><span class="kw">c</span>(<span class="dt">estimate =</span> est, <span class="dt">ll95 =</span> ll, <span class="dt">ul95 =</span> ul)</a></code></pre></div>
 <pre><code>estimate     ll95     ul95 
 3.188466 2.314953 4.061979 </code></pre>
 </div>
@@ -1534,13 +1554,13 @@ F-statistic: 20.46 on 7 and 1558 DF,  p-value: &lt; 2.2e-16</code></pre>
 <h3><span class="header-section-number">6.4.2</span> Logistic regression</h3>
 <p>Let’s revisit our tabular analysis, in which we were interested in whether quitting smoking affected the likelihood of a subject’s gaining weight between 1971 and 1982.</p>
 <p>We can answer the same question with a logistic regression model, using the <code>glm()</code> function.</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" title="1">fitlog1 &lt;-<span class="st"> </span><span class="kw">glm</span>(</a>
-<a class="sourceLine" id="cb238-2" title="2">  wt82_<span class="dv">71</span>_gain <span class="op">~</span><span class="st"> </span>qsmk,</a>
-<a class="sourceLine" id="cb238-3" title="3">  <span class="dt">data =</span> nhefs,</a>
-<a class="sourceLine" id="cb238-4" title="4">  <span class="dt">family =</span> <span class="kw">binomial</span>()</a>
-<a class="sourceLine" id="cb238-5" title="5">)</a>
-<a class="sourceLine" id="cb238-6" title="6"></a>
-<a class="sourceLine" id="cb238-7" title="7"><span class="kw">summary</span>(fitlog1)</a></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" title="1">fitlog1 &lt;-<span class="st"> </span><span class="kw">glm</span>(</a>
+<a class="sourceLine" id="cb240-2" title="2">  wt82_<span class="dv">71</span>_gain <span class="op">~</span><span class="st"> </span>qsmk,</a>
+<a class="sourceLine" id="cb240-3" title="3">  <span class="dt">data =</span> nhefs,</a>
+<a class="sourceLine" id="cb240-4" title="4">  <span class="dt">family =</span> <span class="kw">binomial</span>()</a>
+<a class="sourceLine" id="cb240-5" title="5">)</a>
+<a class="sourceLine" id="cb240-6" title="6"></a>
+<a class="sourceLine" id="cb240-7" title="7"><span class="kw">summary</span>(fitlog1)</a></code></pre></div>
 <pre><code>
 Call:
 glm(formula = wt82_71_gain ~ qsmk, family = binomial(), data = nhefs)
@@ -1572,13 +1592,13 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <h3><span class="header-section-number">6.4.3</span> Log-binomial regression</h3>
 <p>While the logistic regression remains the most frequently used generalized linear model (GLM) for binary outcomes, epidemiologists are often interested in risk differences and risk ratios.</p>
 <p>Luckily, we can use the log-binomial model to estimate contrasts in risks.</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" title="1">fitlbin &lt;-<span class="st"> </span><span class="kw">glm</span>(</a>
-<a class="sourceLine" id="cb240-2" title="2">  wt82_<span class="dv">71</span>_gain <span class="op">~</span><span class="st"> </span>qsmk,</a>
-<a class="sourceLine" id="cb240-3" title="3">  <span class="dt">data =</span> nhefs,</a>
-<a class="sourceLine" id="cb240-4" title="4">  <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;log&quot;</span>)</a>
-<a class="sourceLine" id="cb240-5" title="5">)</a>
-<a class="sourceLine" id="cb240-6" title="6"></a>
-<a class="sourceLine" id="cb240-7" title="7"><span class="kw">summary</span>(fitlbin)</a></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" title="1">fitlbin &lt;-<span class="st"> </span><span class="kw">glm</span>(</a>
+<a class="sourceLine" id="cb242-2" title="2">  wt82_<span class="dv">71</span>_gain <span class="op">~</span><span class="st"> </span>qsmk,</a>
+<a class="sourceLine" id="cb242-3" title="3">  <span class="dt">data =</span> nhefs,</a>
+<a class="sourceLine" id="cb242-4" title="4">  <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;log&quot;</span>)</a>
+<a class="sourceLine" id="cb242-5" title="5">)</a>
+<a class="sourceLine" id="cb242-6" title="6"></a>
+<a class="sourceLine" id="cb242-7" title="7"><span class="kw">summary</span>(fitlbin)</a></code></pre></div>
 <pre><code>
 Call:
 glm(formula = wt82_71_gain ~ qsmk, family = binomial(link = &quot;log&quot;), 
@@ -1604,21 +1624,18 @@ AIC: 1968.9
 
 Number of Fisher Scoring iterations: 5</code></pre>
 <p>To get the risk ratio for the effect of quitting smoking on weight gain, we again exponentiate the beta coefficient of interest and, in doing so, estimate that those who quit smoking were 1.14 times as likely to gain weight versus non-smokers.</p>
-<p><span class="marginnote idea">
-<strong>Try this</strong>
-Calculate the risk ratio manually and convince yourself that the log-binomial model gave you the correct answer.
-</span></p>
+<p><span class="marginnote idea"><strong>Try this</strong> Calculate the risk ratio manually and convince yourself that the log-binomial model gave you the correct answer.</span></p>
 </div>
 <div id="modified-poisson-regression" class="section level3">
 <h3><span class="header-section-number">6.4.4</span> Modified Poisson regression</h3>
 <p>Another way to get a risk ratio using GLMs involves a procedure called modified Poisson regression. “Modified” here refers to a necessary modification of the standard error estimates when using a Poisson regression model to estimate a risk ratio. Again, save the statistical details for later. All we want to know for the moment are the nuts-and-bolts: how to fit the model and how to modify the standard errors.</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" title="1">fitmodpois &lt;-<span class="st"> </span><span class="kw">glm</span>(</a>
-<a class="sourceLine" id="cb242-2" title="2">  wt82_<span class="dv">71</span>_gain <span class="op">~</span><span class="st"> </span>qsmk,</a>
-<a class="sourceLine" id="cb242-3" title="3">  <span class="dt">data =</span> nhefs,</a>
-<a class="sourceLine" id="cb242-4" title="4">  <span class="dt">family =</span> <span class="kw">poisson</span>()</a>
-<a class="sourceLine" id="cb242-5" title="5">)</a>
-<a class="sourceLine" id="cb242-6" title="6"></a>
-<a class="sourceLine" id="cb242-7" title="7"><span class="kw">summary</span>(fitmodpois)</a></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" title="1">fitmodpois &lt;-<span class="st"> </span><span class="kw">glm</span>(</a>
+<a class="sourceLine" id="cb244-2" title="2">  wt82_<span class="dv">71</span>_gain <span class="op">~</span><span class="st"> </span>qsmk,</a>
+<a class="sourceLine" id="cb244-3" title="3">  <span class="dt">data =</span> nhefs,</a>
+<a class="sourceLine" id="cb244-4" title="4">  <span class="dt">family =</span> <span class="kw">poisson</span>()</a>
+<a class="sourceLine" id="cb244-5" title="5">)</a>
+<a class="sourceLine" id="cb244-6" title="6"></a>
+<a class="sourceLine" id="cb244-7" title="7"><span class="kw">summary</span>(fitmodpois)</a></code></pre></div>
 <pre><code>
 Call:
 glm(formula = wt82_71_gain ~ qsmk, family = poisson(), data = nhefs)
@@ -1643,15 +1660,15 @@ AIC: 2944.6
 
 Number of Fisher Scoring iterations: 5</code></pre>
 <p>Let’s compare the <code>qsmk</code> coefficient estimate to the one we got using the log-binomial model:</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" title="1">modcompare &lt;-<span class="st"> </span><span class="kw">rbind</span>(</a>
-<a class="sourceLine" id="cb244-2" title="2">  broom<span class="op">::</span><span class="kw">tidy</span>(fitlbin) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="st">&quot;Log-binomial&quot;</span>),</a>
-<a class="sourceLine" id="cb244-3" title="3">  broom<span class="op">::</span><span class="kw">tidy</span>(fitmodpois) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="st">&quot;Modified Poisson&quot;</span>)</a>
-<a class="sourceLine" id="cb244-4" title="4">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb244-5" title="5"><span class="st">  </span><span class="kw">filter</span>(term <span class="op">==</span><span class="st"> &quot;qsmk&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb244-6" title="6"><span class="st">  </span><span class="kw">select</span>(model, estimate, std.error)</a>
-<a class="sourceLine" id="cb244-7" title="7"></a>
-<a class="sourceLine" id="cb244-8" title="8">modcompare <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb244-9" title="9"><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" title="1">modcompare &lt;-<span class="st"> </span><span class="kw">rbind</span>(</a>
+<a class="sourceLine" id="cb246-2" title="2">  broom<span class="op">::</span><span class="kw">tidy</span>(fitlbin) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="st">&quot;Log-binomial&quot;</span>),</a>
+<a class="sourceLine" id="cb246-3" title="3">  broom<span class="op">::</span><span class="kw">tidy</span>(fitmodpois) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">model =</span> <span class="st">&quot;Modified Poisson&quot;</span>)</a>
+<a class="sourceLine" id="cb246-4" title="4">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb246-5" title="5"><span class="st">  </span><span class="kw">filter</span>(term <span class="op">==</span><span class="st"> &quot;qsmk&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb246-6" title="6"><span class="st">  </span><span class="kw">select</span>(model, estimate, std.error)</a>
+<a class="sourceLine" id="cb246-7" title="7"></a>
+<a class="sourceLine" id="cb246-8" title="8">modcompare <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb246-9" title="9"><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1675,28 +1692,16 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </table>
 <p>Almost exactly the same point estimate, but we can see that the standard error from the modified Poisson model is considerably larger than that of the log-binomial model’s.</p>
 <p>To get a correct standard error for the modified Poisson model, we need to use a “robust” estimate of this error, also called the sandwich estimator:</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" title="1"><span class="co"># sandwich() provided by the sandwich package</span></a>
-<a class="sourceLine" id="cb245-2" title="2"><span class="co"># first, get the variance-covariance matrix</span></a>
-<a class="sourceLine" id="cb245-3" title="3">swvar_modpois &lt;-<span class="st"> </span>sandwich<span class="op">::</span><span class="kw">sandwich</span>(fitmodpois)</a>
-<a class="sourceLine" id="cb245-4" title="4"></a>
-<a class="sourceLine" id="cb245-5" title="5"><span class="co"># extract the variance of the qsmk coefficient and</span></a>
-<a class="sourceLine" id="cb245-6" title="6"><span class="co"># take the square root to get the standard error</span></a>
-<a class="sourceLine" id="cb245-7" title="7"><span class="kw">sqrt</span>(swvar_modpois[<span class="dv">2</span>, <span class="dv">2</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb247-1" title="1"><span class="co"># sandwich() provided by the sandwich package</span></a>
+<a class="sourceLine" id="cb247-2" title="2"><span class="co"># first, get the variance-covariance matrix</span></a>
+<a class="sourceLine" id="cb247-3" title="3">swvar_modpois &lt;-<span class="st"> </span>sandwich<span class="op">::</span><span class="kw">sandwich</span>(fitmodpois)</a>
+<a class="sourceLine" id="cb247-4" title="4"></a>
+<a class="sourceLine" id="cb247-5" title="5"><span class="co"># extract the variance of the qsmk coefficient and</span></a>
+<a class="sourceLine" id="cb247-6" title="6"><span class="co"># take the square root to get the standard error</span></a>
+<a class="sourceLine" id="cb247-7" title="7"><span class="kw">sqrt</span>(swvar_modpois[<span class="dv">2</span>, <span class="dv">2</span>])</a></code></pre></div>
 <pre><code>[1] 0.03639026</code></pre>
 <p>Compare this modified standard error to that of the log-binomial model. We’ve accounted for the conservative estimate in the original modified Poisson model.</p>
 <p>For more complex models, the log-binomial and modified Poisson models may provide slightly different answers. Each has other benefits and drawbacks that you will learn about if and when you take a class that introduces these methods.</p>
-<!--
-### Poisson regression
-
-I thought we just did Poisson regression!
-
-We did, sort of. However, we can also use Poisson regression for its standard purpose: to model incidence rates.
-
-
-### Survival analysis
-
-### Overdispersion
--->
 
 </div>
 </div>
