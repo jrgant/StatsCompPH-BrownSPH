@@ -20,10 +20,10 @@ For simplicity, all variables (besides *i*) are binary, taking either 1 or 0 as 
 
 $$
 \begin{split}
-	L & \sim \text{Binomial}\big(0.3\big) \\
-	M & \sim \text{Binomial}\big(0.6\big) \\
-	X & \sim \text{Binomial}\big(0.3 + 0.2L + 0.2M\big) \\
-	Y & \sim \text{Binomial}\big(0.05 + 0.2L + 0.4M + 0.05X\big)
+	L & \sim \text{Bernoulli}\big(0.3\big) \\
+	M & \sim \text{Bernoulli}\big(0.6\big) \\
+	X & \sim \text{Bernoulli}\big(0.3 + 0.2L + 0.2M\big) \\
+	Y & \sim \text{Bernoulli}\big(0.05 + 0.2L + 0.4M + 0.05X\big)
 \end{split}
 $$
 
