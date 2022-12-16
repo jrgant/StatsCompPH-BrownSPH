@@ -1,0 +1,472 @@
+```{r eval = FALSE, include = FALSE}
+source("setup.r")
+```
+
+# Statistical Analysis
+
+## Setup
+
+In this section, we'll provide some examples in R of basic statistical analyses you might need to implement at some point.
+
+The analyses you conduct as part of real research will almost certainly be more complicated than the code shown here. However, the hope is that you'll get enough of a feel for the mechanics of R to begin putting the pieces together as demanded by a given project.
+
+### Data
+
+If you'd like to try any of these examples on your own, we're using the [NHANES I Epidemiologic Followup Study](https://wwwn.cdc.gov/nchs/nhanes/nhefs/default.aspx/) (NHEFS) data set freely available at the [website](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) for *Causal Inference: What If* by Miguel A. Hernán and James M. Robins.
+
+For both SAS and R, we'll use the CSV file they provide.
+
+The website itself contains extensive code examples in SAS, Stata, R, and Python---everything you could want!---so those who will be taking advanced epidemiologic or causal inference coursework should refer to those resources for guidance on how to implement relevant analyses. We'll cover a little bit here, but only briefly.
+
+### NHEFS Codebook
+
+```{r nhefs-codebook, echo = FALSE}
+readxl::read_excel("data/NHEFS_Codebook.xls") %>%
+  knitr::kable()
+```
+
+## Exploratory Data Analysis
+
+First, let's read in our data and glance at it using a couple of different views.
+
+```{r read-nhefs, message = F}
+nhefs <- readr::read_csv("data/nhefs.csv")
+head(nhefs)
+tibble::glimpse(nhefs)
+```
+
+For now, let's focus on observations (rows) that don't have any missing data. To do this, let's get a summary of how much missingness we have across the `r format(nrow(nhefs), big.mark = ",")` observations.
+
+```{r count-missing}
+allvars <- names(nhefs)
+
+df_miss <- data.frame(variable = allvars)
+
+df_miss <- df_miss %>%
+  dplyr::rowwise() %>%
+  dplyr::mutate(n_miss = sum(is.na(nhefs[[variable]])))
+
+print(df_miss, n = nrow(df_miss))
+```
+
+That looks a little hairy. Basically, all we did here was to create data.frame, save the NHEFS variable names to its first column, then look up each variable in the NHEFS data set and count the number of missing values.
+
+However, we could have gotten this summary in a number of different ways.
+
+```{r alt-missing-counts}
+lapply(nhefs, function(x) table(is.na(x)))
+sapply(nhefs, function(x) sum(is.na(x)))
+nhefs[complete.cases(nhefs), ]
+```
+
+Let's drop every row with a missing value for any variable
+
+```{r omit-too-many}
+nhefs2 <- na.omit(nhefs)
+tibble::glimpse(nhefs2)
+```
+
+Oops, we have only `r nrow(nhefs2)` rows left in the data set! Perhaps we should reconsider and pick several variables that will be of interest to us for our current purposes.
+
+```{r subset-variables}
+selectvars <- c(
+  "age", "alcoholfreq", "asthma", "wt71",
+  "smokeintensity", "sbp", "allergies",
+  "weakheart"
+)
+
+nhefs3 <- na.omit(nhefs[, selectvars])
+tibble::glimpse(nhefs3)
+```
+
+That's better. We've discarded `r nrow(nhefs) - nrow(nhefs3)` rows and focused on a subset of variables of interest.
+
+Look back at the output we got from `glimpse()`. Are the variables in the formats we expect/need? I see one that we may need to update, depending on how we plan to use it. (Hint: Look back at the codebook for the variable summaries)
+
+It seems that `alcoholfreq` is currently being treated as a numeric variables, but really, it's a factor with 5 discrete levels. Furthermore, level 5 is Unknown, which we should probably treat as missing. We'll also use a factor format for `alcoholfreq`.
+
+[We could leave `alcoholfreq` as a numeric variable and wrap it in the `factor()` function only when we needed to. In some cases, that approach might be preferable, in some cases not.]{.marginnote}
+
+```{r factor-check}
+nhefs3$alcfreq <- as.factor(nhefs3$alcoholfreq)
+table(nhefs3$alcfreq)
+```
+
+Let's replace those 5 missing values with NA's, too, and drop the corresponding rows from our data set. Let's also get rid of the original `alcoholfreq` variable and just hang on to the factor variable we made.
+
+```{r alcfreq}
+# In words: where alcfreq in nhefs3 equals 5, assign NA
+nhefs3$alcfreq[nhefs3$alcfreq == 5] <- NA
+
+nhefs4 <- na.omit(nhefs3)
+nhefs4$alcoholfreq <- NULL
+
+tibble::glimpse(nhefs4)
+```
+
+Let's summarize our dataset:
+
+```{r eda-stats}
+# Continuous variables
+contvars <- c("age", "wt71", "smokeintensity", "sbp")
+summary(nhefs4[, contvars])
+
+# Categorical variables
+catvars <- c("asthma", "allergies", "alcfreq", "weakheart")
+lapply(
+  X = catvars,
+  FUN = function(x) {
+    summarytools::freq(nhefs4[x])
+  })
+```
+
+[Based on this [tidy example](https://drsimonj.svbtle.com/quick-plot-of-all-variables).]{.marginnote}
+
+A few plots may help us, too:
+
+```{r eda-density, warning = FALSE, dev = "svg"}
+library(ggplot2)
+library(ggthemes)
+
+nhefs4 %>%
+  dplyr::select(all_of(contvars)) %>%
+  tidyr::gather() %>%
+  ggplot(aes(x = value)) +
+  facet_wrap(~key, scales = "free") +
+  geom_density() +
+  theme_tufte(base_size = 16)
+```
+
+```{r eda-bars, warning = FALSE, dev = "svg"}
+nhefs4 %>%
+  dplyr::select(all_of(catvars)) %>%
+  tidyr::gather() %>%
+  ggplot(aes(x = value)) +
+  facet_wrap(~key, nrow = 2, scales = "free") +
+  geom_bar(stat = "count", width = 0.5, fill = "lightgray") +
+  theme_tufte(base_size = 16)
+```
+
+Don't worry just now about the plot code. We'll be looking in some detail at the ggplot2 package later.
+
+## Tabular Analysis
+
+Soon you will be no stranger to two-by-two tables and contingency tables. Introductory statistics and epidemiologic methods courses will require you to analyze such tables, either to measure the strength of an exposure's effect on some outcome or to establish a statistical association between two variables.
+
+Going back to our NHEFS data, let's say we're interested in a possible association between quitting smoking and weight loss. The `qsmk` variable is a binary indicator of whether or not an individual quit smoking between 1971 and 1982, while the `sbp` variable measures an individual's systolic blood pressure in 1982.
+
+Typically, we would not want to dichotomize a continuous variable like `sbp`, but for the sake of this example, let's begin by creating a binary indicator of whether a subject had a high (SBP > 140) or low (SBP <= 140) systolic blood pressure in 1982.
+
+```{r tabanalysis-sbp}
+
+# check whether any values of sbp are missing
+any(is.na(nhefs$sbp))
+
+# count the number of missing observations
+# is.na() will return TRUE if an observation is missing and FALSE if it is not
+# we can use sum() to add up the number of TRUE values because R will treat a
+# logical variable as numeric for this purpose, where TRUE = 1 and FALSE = 0
+sum(is.na(nhefs$sbp))
+
+# create the new variable, called sbp_hi
+nhefs$sbp_hi <- NA #initialize with NA
+nhefs$sbp_hi[nhefs$sbp > 140] <- 1
+nhefs$sbp_hi[nhefs$sbp <= 140] <- 0
+
+# make sure we coded the new variable correctly
+summary(nhefs$sbp[nhefs$sbp_hi == 1])
+summary(nhefs$sbp[nhefs$sbp_hi == 0])
+```
+
+The summary statistics we generated above should comply with our expectations: those we marked as having gained weight all have positive values of `sbp_hi`, while those we marked as not having gained weight all have negative values of `sbp_hi`.
+
+Note, too, that we have `r sum(is.na(nhefs$sbp_hi))` missing values in our new variable, just as we saw in the original outcome.
+
+```{r tabanalysis-2x2}
+with(nhefs, table(sbp_hi, qsmk, exclude = NULL))
+```
+
+The option `exclude = NULL` above includes missing values in the table output. We'll ignore them for simplicity.
+
+After doing so, we're left with the following two-by-two table for analysis.
+
+```{r tabanalysis-pretty-2x2}
+
+nhefs %>%
+  count(qsmk, sbp_hi) %>%
+  na.omit() %>%
+  pivot_wider(
+    names_from = sbp_hi,
+    values_from = n,
+    names_pref = "sbp"
+  )
+```
+
+A natural choice here would be to conduct a two-sample test for the equality of proportions, where we compare the proportion of subjects in the quit smoking group (`r with(nhefs %>% select(qsmk, sbp_hi) %>% na.omit(), round(mean(sbp_hi[qsmk == 1]), 3))`) who had high systolic blood pressure in 1982 versus the proportion in the non-quit smoking group (`r with(nhefs %>% select(qsmk, sbp_hi) %>% na.omit(), round(mean(sbp_hi[qsmk == 0]), 3))`).
+
+```{r tabanalysis-proptest}
+
+ptest <- prop.test(c(109, 251), c(109 + 284, 251 + 908))
+ptest
+
+```
+
+The output above shows us the group proportions, the $\chi^2$ test statistic, and the corresponding *p*-value. We also get a 95% confidence interval for the difference in proportions.
+
+To get a tidier output as a `tibble`, the `broom` package often proves useful:
+
+```{r tabanalysis-broom-2x2}
+broom::tidy(ptest)
+```
+
+We also could have given the table directly to the `prop.test()` function:
+
+[**Know Your Output** Notice that the proportions and, as a result, the confidence interval given by the second `prop.test()` are different than the first, even though the $\chi^2$ statistic and the *p*-value are the same. The statistical test we used applied to the distribution of cell counts in the table. However, if we needed to report the difference in proportions and its confidence interval, the second method would have given us an incorrect estimate. Always be sure you understand functions' outputs!]{.marginnote .warning}
+
+```{r tabanalysis-tabinput-proptest}
+with(nhefs, prop.test(table(qsmk, sbp_hi)))
+```
+
+## Regression Models
+
+In this section we will fit some regression models that you may encounter in classes or in your own research. We will leave the theoretical background to your statistics and methods courses but aim to provide enough information so that you understand the basic idea behind each approach and can refer back to this page in the future.
+
+All upcoming examples use variables from the NHEFS dataset that we've referred back to several times by now.
+
+[Note that you can pass all of the fit objects below to `broom::tidy()` in order to retrieve a data frame containing the regression information. Doing so will often make exporting tables and results much easier for you. However, we will focus on the default summary output for now.]{.marginnote}
+
+### Linear regression
+
+Exposure of interest: quitting smoking between 1971 and 1982 (`qsmk`) Outcome: systolic blood pressure in 1982 (continuous, `sbp`)
+
+First, we can run an unadjusted model with weight change as the outcome and quitting smoking as the predictor variable. The symbol `~` indicates that the statement `sbp ~ qsmk` is a formula.
+
+```{r regression-linear-unadj}
+fitlm1 <- lm(sbp ~ qsmk, data = nhefs)
+summary(fitlm1)
+```
+
+You can think of the `fitlm1` object that we saved as a list containing information about the model we fit:
+
+```{r regression-linear-unadj-elements}
+names(fitlm1)
+```
+
+We can output coefficients,
+
+```{r regression-linear-unadj-elements-coef}
+fitlm1$coefficients
+```
+
+residuals,
+
+```{r regression-linear-unadj-elements-resid}
+head(fitlm1$residuals)
+```
+
+and the data on which R fitted the model:
+
+```{r regression-linear-unadj-elements-data}
+head(fitlm1$model)
+```
+
+::: detour
+<p style="text-align:center;">
+
+**Detour**
+
+</p>
+
+Why did we bother to note that the model object saves the "data on which R fitted the model"? Didn't R fit the model on the data we told it to?
+
+To answer this question, let's take a brief detour and check that the data frame saved in `fitlm1` has the same number of rows as the `nhefs` data frame we fed to the `lm()` function.
+
+```{r regression-linear-unadj-elements-datarows}
+nrow(fitlm1$model)
+nrow(nhefs)
+```
+
+Interesting! The number of rows in each data set don't match, but why?
+
+Recall that earlier on this page, we found `r sum(is.na(nhefs$sbp))` missing values of the outcome `sbp`, and if we subtract `r nrow(fitlm1$model)` from `r nrow(nhefs)`, we get `r nrow(nhefs) - nrow(fitlm1$model)`. That's because *R's modeling methods omit rows with missing data for any variables included in the model formula*. The model object saves the row numbers of dropped observations in `fitlm1$na`, and we can verify by extracting these rows from the original `nhefs` data set:
+
+```{r regression-linear-unadj-elements-na}
+
+# extract row numbers that were dropped from the fitlm1 model
+# keep only sbp column and see that they're all missing
+nhefs[fitlm1$na, c("sbp")] %>%
+  count(sbp)
+```
+
+Not to belabor the point, but let's convince ourselves a bit more by identifying the rows with missing values for `sbp` and comparing this to the list R made:
+
+```{r regression-linear-unadj-compare-drop-rows}
+# identify rows with missing values for sbp
+# vector of numeric row indices
+missindex <- which(is.na(nhefs$sbp))
+
+## sort vectors in numerical order, generate a cross table
+## NOTE sorting is unecessary in this case, but it's good
+##      practice to ensure elements are ordered properly
+table(sort(missindex) == sort(fitlm1$na))
+```
+
+The index vector we created manually matches the one R created and saved to `fitlm1`.
+:::
+
+R also provides functions designed to extract specific information from model fits, though we'll suppress the output since we already printed out some of this information above:
+
+```{r regression-linear-extraction-funs, eval = F}
+# extract model coefficients
+coef(fitlm1)
+
+# extract model residuals
+residuals(fitlm1)
+```
+
+Let's look at some plot diagnostics to make sure our linear regression complies with the model's assumptions:
+
+[`par(mfrow = c(2, 2))` tells R that we want a 2x2 plot grid. If you ran `plot(fitlm1)` by itself, R would output four images in succession.]{.marginnote}
+
+```{r regression-linear-unadj-diag, fig.asp = 1, dev = "svg"}
+par(mfrow = c(2, 2))
+plot(fitlm1)
+```
+
+Based on the Q-Q plot, we may have some violations of the normality assumption (*i.e.*, residuals are not normally distributed), as evidenced by the points' departure from the diagonal line. In a real analysis we would need to address this issue, possibly by transforming the outcome. However, our focus here is on implementing models in code, so we will proceed, leaving issues of statistical practice to your relevant coursework.
+
+Our unadjusted estimate, therefore, suggests that those who did not quit smoking between 1971 and 1982 had a `r round(coef(fitlm1)['qsmk'], 2)` mm/Hg higher systolic blood pressure in 1982, on average, versus those who did quit smoking during that timeframe.
+
+The unadjusted linear regression we just ran is actually a special case of the two-sample *t*-test (assuming equal variances between smoking group), to which you'll be introduced early on in your stats classes. Compare the output of the code below to that of the linear regression.
+
+[**Comparing Outputs** What are the *t* statistics?<br /><br /> What are the *p*-values for the difference in weight gain between quit smoking groups?<br /><br /> What are the degrees of freedom?<br /><br /> When you take the difference of "mean of x" and "mean of y" from the output of `t.test()`, do you find that value in the linear regression summary?]{.marginnote .definition}
+
+```{r}
+with(nhefs, t.test(sbp[qsmk == 1], sbp[qsmk == 0], var.equal = T))
+```
+
+The code below fits a linear model for the effect of `qsmk` on `sbp` adjusted for years of smoking (`smokeyrs`), intensity of smoking (`smokeintensity`), diabetes, sex, and age. Note that we allow for an "interaction" between sex and age, denoted by `sex * age`.
+
+```{r regression-linear-adj}
+fitlm2 <- lm(
+  sbp ~ qsmk + smokeyrs + smokeintensity + diabetes + sex * age,
+  data = nhefs
+)
+
+summary(fitlm2)
+```
+
+Our adjusted estimate suggests that quitting smoking was associated with an average `r round(coef(fitlm2)['qsmk'], 2)` kg increase in weight between 1971 and 1982, conditional on the other variables we included in the second linear model.
+
+Almost always, we will want to report the standard error estimates and/or confidence intervals with our measures of effect. The `broom::tidy()` function makes extracting 95% confidence intervals from regression fit objects (*i.e.*, objects like `fitlm1` or `fitlm2`):
+
+```{r regression-linear-adj-tidy-95ci}
+broom::tidy(fitlm2, conf.int = TRUE) %>%
+  dplyr::filter(term == "qsmk")
+```
+
+Alternatively, we can calculate the same confidence interval manually:
+
+```{r regression-linear-adj-manual-95ci}
+
+# point estimate
+est <- unname(coef(fitlm2)["qsmk"])
+
+# standard error of point estimate
+se <- unname(summary(fitlm2)$coefficients[, c("Std. Error")]["qsmk"])
+
+# lower and upper bounds of 95% confidence limits
+ll <- est - 1.96 * se
+ul <- est + 1.96 * se
+
+c(estimate = est, ll95 = ll, ul95 = ul)
+```
+
+### Logistic regression
+
+Let's revisit our tabular analysis, in which we were interested in whether quitting smoking affected the likelihood of a subject's gaining weight between 1971 and 1982.
+
+We can answer the same question with a logistic regression model, using the `glm()` function.
+
+```{r regression-logistic}
+
+fitlog1 <- glm(
+  sbp_hi ~ qsmk,
+  data = nhefs,
+  family = binomial()
+)
+
+summary(fitlog1)
+```
+
+From this regression, we see that smokers who quit had an average increase of `r round(coef(fitlog1)["qsmk"], 3)` in their log-odds of weight gain between 1971 and 1982.
+
+Usually, you will be asked to report associations from logistic regressions as odds ratios, in which case you would simply exponentiate the coefficient of interest. In this case we would run `exp(0.43304)` and get an odds ratio of `r round(exp(coef(fitlog1)["qsmk"]), 2)`. That is, those who quit smoking had `r round(exp(coef(fitlog1)["qsmk"]), 2)` times the odds of gaining weight between 1971 and 1982, compared to those who did not quit smoking.
+
+As in the linear regression example, you could run a model adjusting for other factors, in which case you would modify the model formula accordingly. We will forego running an adjusted model here to avoid redundancy.
+
+### Log-binomial regression
+
+While the logistic regression remains the most frequently used generalized linear model (GLM) for binary outcomes, epidemiologists are often interested in risk differences and risk ratios.
+
+Luckily, we can use the log-binomial model to estimate contrasts in risks.
+
+```{r regression-logbin}
+fitlbin <- glm(
+  sbp_hi ~ qsmk,
+  data = nhefs,
+  family = binomial(link = "log")
+)
+
+summary(fitlbin)
+```
+
+To get the risk ratio for the effect of quitting smoking on weight gain, we again exponentiate the beta coefficient of interest and, in doing so, estimate that those who quit smoking were `r round(exp(coef(fitlbin)["qsmk"]), 3)` times as likely to gain weight versus non-smokers.
+
+[**Try this** Calculate the risk ratio manually and convince yourself that the log-binomial model gave you the correct answer.]{.marginnote .idea}
+
+### Modified Poisson regression
+
+Another way to get a risk ratio using GLMs involves a procedure called modified Poisson regression. "Modified" here refers to a necessary modification of the standard error estimates when using a Poisson regression model to estimate a risk ratio. Again, save the statistical details for later. All we want to know for the moment are the nuts-and-bolts: how to fit the model and how to modify the standard errors.
+
+```{r regression-modpois}
+fitmodpois <- glm(
+  sbp_hi ~ qsmk,
+  data = nhefs,
+  family = poisson()
+)
+
+summary(fitmodpois)
+```
+
+Let's compare the `qsmk` coefficient estimate to the one we got using the log-binomial model:
+
+```{r regression-compare-lbin-modpois}
+modcompare <- rbind(
+  broom::tidy(fitlbin) %>% mutate(model = "Log-binomial"),
+  broom::tidy(fitmodpois) %>% mutate(model = "Modified Poisson")
+  ) %>%
+  filter(term == "qsmk") %>%
+  select(model, estimate, std.error)
+
+modcompare %>%
+  knitr::kable()
+```
+
+Almost exactly the same point estimate, but we can see that the standard error from the modified Poisson model is considerably larger than that of the log-binomial model's.
+
+To get a correct standard error for the modified Poisson model, we need to use a "robust" estimate of this error, also called the sandwich estimator:
+
+```{r sandwich}
+# sandwich() provided by the sandwich package
+# first, get the variance-covariance matrix
+swvar_modpois <- sandwich::sandwich(fitmodpois)
+
+# extract the variance of the qsmk coefficient and
+# take the square root to get the standard error
+sqrt(swvar_modpois[2, 2])
+```
+
+Compare this modified standard error to that of the log-binomial model. We've accounted for the conservative estimate in the original modified Poisson model.
+
+For more complex models, the log-binomial and modified Poisson models may provide slightly different answers. Each has other benefits and drawbacks that you will learn about if and when you take a class that introduces these methods.

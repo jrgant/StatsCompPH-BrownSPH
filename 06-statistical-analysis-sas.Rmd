@@ -1,0 +1,313 @@
+
+```{r echo = FALSE}
+#source("setup.r")
+knitr::opts_chunk$set(collectcode = TRUE)
+```
+
+# Statistical Analysis (SAS)
+
+## Setup
+
+In this section, we'll provide some examples in SAS of basic statistical analyses you might need to implement at some point.
+
+The analyses you conduct as part of real research will almost certainly be more complicated than the code shown here. However, the hope is that you'll get enough of a feel for the mechanics of SAS to begin putting the pieces together as demanded by a given project.
+
+### Data
+
+If you'd like to try any of these examples on your own, we're using the [NHANES I Epidemiologic Followup Study](https://wwwn.cdc.gov/nchs/nhanes/nhefs/default.aspx/) (NHEFS) data set freely available at the [website](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) for *Causal Inference: What If* by Miguel A. Hernán and James M. Robins.
+
+For both SAS and R, we'll use the CSV file they provide.
+
+The website itself contains extensive code examples in SAS, Stata, R, and Python---everything you could want!---so those who will be taking advanced epidemiologic or causal inference coursework should refer to those resources for guidance on how to implement relevant analyses. We'll cover a little bit here, but only briefly.
+
+### NHEFS Codebook
+
+```{r nhefs-codebook-sas, echo = FALSE, collectcode = FALSE}
+readxl::read_excel("data/NHEFS_Codebook.xls") %>%
+  knitr::kable()
+```
+
+## Exploratory Data Analysis
+
+First, let's read in our data and glance at it using a couple of different views.
+
+[SAS Documentation: [PROC IMPORT](https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/proc/n02nz0e7cykqhun14hcppfmd0558.htm)]{.marginnote}
+```{sashtml sas-read-nhefs-contents-out}
+proc import datafile="data/nhefs.csv"
+            out=nhefs
+            dbms=csv
+            replace;
+run;
+
+* information about the variables in NHEFS;
+proc contents data=nhefs; run;
+```
+
+```{sashtml sas-read-nhefs-print-out}
+* print first five rows of dataset;
+proc print data=nhefs(obs=5); run;
+```
+
+For now, let's focus on observations (rows) that don't have any missing data. To do this, let's get a summary of how much missingness we have across all observations.
+
+```{sashtml sas-count-missing-means-out}
+proc means data=nhefs nmiss STACKODSOUTPUT;
+    ods output summary=nhefs_miss;
+run;
+```
+
+```{sashtml sas-count-missing-print-out}
+proc print data=nhefs_miss; run;
+```
+
+Let's drop every row with a missing value for any variable:
+
+[Complete case code adapted from an [example](https://blogs.sas.com/content/iml/2015/02/23/complete-cases.html) on SAS blogs.]{.marginnote}
+
+```{sashtml sas-omit-too-many}
+/* h/t https://blogs.sas.com/content/iml/2015/02/23/complete-cases.html */
+
+data nhefs2;
+    set nhefs;
+    if cmiss(of _ALL_)=0;
+run;
+
+proc contents data=nhefs2; run;
+```
+
+Oops, we have only 44 rows left in the data set! Perhaps we should reconsider and pick several variables that will be of interest to us for our current purposes.
+
+```{sashtml sas-subset-variables}
+%let selectvars = age alcoholfreq asthma wt71 smokeintensity sbp allergies weakheart;
+
+data nhefs3;
+    set nhefs(keep=&selectvars);
+    if cmiss(of _ALL_)=0;
+run;
+
+proc contents data=nhefs3; run;
+```
+
+That's better. We've discarded `r 1629 - 1552` rows and focused on a subset of variables of interest.
+
+Before we do some exploratory data analysis, let's recall that category 5 for one of the variables we selected (`alcoholfreq`) indicated that alcohol frequency for that individual was unknown. This is missing data, and we should recode the `alcoholfreq` variable so that SAS recognizes these observations as such. 
+
+In addition, SAS currently believes that `alcoholfreq` is a numeric variable, though it is a categorical variable.
+
+We can add a new variable to our `nhefs3` data set that recodes `alcoholfreq` to meet our needs. We'll name our new variable `alcfreqcat`
+
+[**CHARACTER VARIABLES** How did we get `alcfreqcat` to be a character variable when we based it on the numeric variable `alcoholfreq`? Notice in the data step that we initialized `alcfreqcat` using `'.'` instead of `.`. Wrapping the dot in quotes indicated to SAS that we wanted it to treat `alfreqcat` as a character variable.]{.marginnote .warning}
+
+```{sashtml sas-factor-check-freq-out}
+data nhefs3;
+    set nhefs3;
+    if alcoholfreq = 5 then alcfreqcat = '.';
+    else alcfreqcat = alcoholfreq;
+run;
+
+proc freq data=nhefs3;
+    table alcfreqcat*alcoholfreq;
+run;
+```
+
+```{sashtml sas-factor-check-contents-out}
+proc contents data=nhefs3; run;
+```
+
+Although SAS will automatically throw out observations with missing data when running regressions and other procedures, it will do so based on which variables are included in model formulas. So that we conduct all the analyses below on the same subset of the NHEFS data, let's drop any rows from our data set with missing values of `alcfreqcat` and drop the original `alcoholfreq` variable.
+
+```{sashtml sas-alcfreq}
+data nhefs4;
+    set nhefs3(where=(alcfreqcat ne '.') drop=alcoholfreq);
+run;
+
+proc print data=nhefs4(obs=5); run;
+```
+
+Let's summarize our dataset:
+
+```{sashtml sas-eda-stats-cont}
+* save list of continuous variables and summarize;
+%let contvars = age wt71 smokeintensity sbp;
+proc means data=nhefs4;
+    var &contvars;
+run;
+```
+
+```{sashtml sas-eda-stats-cat}
+* save list of categorical variables and summarize;
+%let catvars = asthma allergies alcfreqcat weakheart;
+proc freq data=nhefs4;
+    tables &catvars;
+run;
+```
+
+<!-- A few plots may help us, too: -->
+
+<!-- ```{sashtml sas-eda-density, warning = FALSE, dev = "svg"} -->
+
+<!-- ``` -->
+
+<!-- ```{sashtml sas-eda-bars, warning = FALSE, dev = "svg"} -->
+
+<!-- ``` -->
+
+
+## Tabular Analysis
+
+Soon you will be no stranger to two-by-two tables and contingency tables. Introductory statistics and epidemiologic methods courses will require you to analyze such tables, either to measure the strength of an exposure's effect on some outcome or to establish a statistical association between two variables.
+
+Going back to our NHEFS data, let's say we're interested in a possible association between quitting smoking and weight loss. The `qsmk` variable is a binary indicator of whether or not an individual quit smoking between 1971 and 1982, while the `sbp` variable measures an individual's change in weight (kilograms) between 1971 and 1982.
+
+Typically, we would not want to dichotomize a continuous variable like `sbp`, but for the sake of this example, let's begin by creating a binary indicator of whether a subject gained weight during this timeframe.
+
+```{sashtml sas-tabanalysis-gain-sbp}
+data nhefs;
+    set nhefs;
+    if sbp > 140 then sbp_hi = 1;
+    else if sbp <= 140 then sbp_hi = 0;
+    if sbp = . then sbp_hi = .;
+run;
+
+proc freq data=nhefs;
+    table sbp_hi;
+run;
+```
+
+The summary statistics we generated above should comply with our expectations: those we marked as having a high systolic blood pressure have values of `sbp` above 140 mm/Hg, while those we marked as not having high systolic blood pressure all have values of `sbp` less than or equal to 140 mm/Hg.
+
+Note, too, that we have 63 missing values in our new variable, just as we saw in the original outcome.
+
+```{sashtml sas-tabanalysis-2x2}
+proc freq data=nhefs;
+    table sbp_hi * qsmk /chisq;
+run;
+```
+
+A natural choice here would be to conduct a two-sample test for the equality of proportions, where we compare the proportion of subjects in the quit smoking group with high systolic blood pressure versus the same proportion in the non-quit smoking group.
+
+The output above shows us the group proportions, the $\chi^2$ test statistic (elicited by specifying the `table` option `chisq`), and the corresponding *p*-value. We also get a 95% confidence interval for the difference in proportions.
+
+## Regression Models
+
+In this section we will fit some regression models that you may encounter in classes or in your own research. We will leave the theoretical background to your statistics and methods courses but aim to provide enough information so that you understand the basic idea behind each approach and can refer back to this page in the future.
+
+All upcoming examples use variables from the NHEFS dataset that we've referred back to several times by now.
+
+### Linear regression
+
+**Exposure of interest:** quitting smoking between 1971 and 1982 (`qsmk`) <br />
+**Outcome:** change in weight between 1971 and 1982 (continuous, `sbp`)
+
+First, we can run an unadjusted model with weight change as the outcome and quitting smoking as the predictor variable.
+
+```{sashtml sas-regression-linear-ols-unadj}
+ods graphics off;
+proc reg data=nhefs;
+    model sbp = qsmk /clb; * /clb adds confidence limits to output table;
+quit;
+```
+
+SAS's `PROC REG` does not handle product terms or [categorical variables](https://stats.oarc.ucla.edu/sas/webbooks/reg/chapter3/regression-with-saschapter-3-regression-with-categorical-predictors/) within the `model` statement itself. Let's say we wanted to fit an adjusted model and include a product term to test an "interaction" between `sex` and `age`. First, we have to add the interaction variable to our `nhefs` dataset, as shown below, and include the new variable the model formula.
+
+The code below fits a linear model for the effect of `qsmk` on `sbp` adjusted for years of smoking (`smokeyrs`), intensity of smoking (`smokeintensity`), diabetes, sex, age, and the "interaction" between sex and age (`sex_age`).
+
+```{sashtml sas-regression-linear-ols-adj}
+data nhefs;
+    set nhefs;
+    sex_age = sex * age;
+run;
+
+ods graphics off;
+proc reg data=nhefs;
+    model sbp = qsmk smokeyrs smokeintensity diabetes sex age sex_age /clb;
+quit;
+```
+
+<!-- Let's look at some plot diagnostics to make sure our linear regression complies with the model's assumptions: -->
+
+<!-- ```{sashtml sas-regression-linear-unadj-diag, fig.asp = 1, dev = "svg"} -->
+
+<!-- ``` -->
+
+<!-- Based on the Q-Q plot, we may have some violations of the normality assumption (*i.e.*, residuals are not normally distributed), as evidenced by the points' departure from the diagonal line. In a real analysis we would need to address this issue, possibly by transforming the outcome. However, our focus here is on implementing models in code, so we will proceed, leaving issues of statistical practice to your relevant coursework. -->
+
+<!-- The unadjusted linear regression we just ran is actually a special case of the two-sample *t*-test (assuming equal variances between smoking group), to which you'll be introduced early on in your stats classes. Compare the output of the code below to that of the linear regression. -->
+
+<!-- [**Comparing Outputs** What are the *t* statistics?<br /><br /> What are the *p*-values for the difference in weight gain between quit smoking groups?<br /><br /> What are the degrees of freedom?<br /><br /> When you take the difference of "mean of x" and "mean of y" from the output of `t.test()`, do you find that value in the linear regression summary?]{.marginnote .definition} -->
+
+<!-- ```{sashtml} -->
+
+<!-- ``` -->
+
+SAS offers two additional ways to fit a linear regression, both of which handle categorical variables and interaction terms directly, unlike `PROC REG`. These options are `PROC GLM` and `PROC GENMOD`. We'll focus on `PROC GENMOD` here.
+
+```{sashtml sas-regression-linear-glm-unadj}
+proc genmod data=nhefs;
+    model sbp = qsmk /link=identity dist=normal;
+run;
+```
+
+```{sashtml sas-regression-linear-glm-adj}
+proc genmod data=nhefs;
+    model sbp = qsmk smokeyrs smokeintensity diabetes sex:age /link=identity dist=normal;
+run;
+```
+
+### Logistic regression
+
+Let's revisit our tabular analysis, in which we were interested in whether quitting smoking affected the likelihood of a subject's gaining weight between 1971 and 1982.
+
+We can answer the same question using a logistic regression model, using the `glm()` function.
+
+```{sashtml sas-regression-logistic-proc-logistic}
+proc logistic data=nhefs;
+    model sbp_hi(event='1') = qsmk;
+    estimate 'qsmk (1 vs. 0)' qsmk 1 /exp;
+run;
+```
+
+<!-- From this regression, we see that smokers who quit had an average increase of `sas round(coef(fitlog1)["qsmk"], 3)` in their log-odds of weight gain between 1971 and 1982. -->
+
+<!-- Usually, you will be asked to report associations from logistic regressions as odds ratios, in which case you would simply exponentiate the coefficient of interest. In this case we would run `exp(0.43304)` and get an odds ratio of `sas round(exp(coef(fitlog1)["qsmk"]), 2)`. That is, those who quit smoking had `sas round(exp(coef(fitlog1)["qsmk"]), 2)` times the odds of gaining weight between 1971 and 1982, compared to those who did not quit smoking. -->
+
+```{sashtml sas-regression-logistic-proc-genmod}
+proc genmod data=nhefs;
+    model sbp_hi(ref='0') = qsmk /link=logit dist=bin;
+    estimate 'qsmk (1 vs. 0)' qsmk 1 /exp;
+run;
+```
+
+As in the linear regression example, you could run a model adjusting for other factors, in which case you would modify the model formula accordingly. We will forego running an adjusted model here to avoid redundancy.
+
+### Log-binomial regression
+
+While the logistic regression remains the most frequently used generalized linear model (GLM) for binary outcomes, epidemiologists are often interested in risk differences and risk ratios.
+
+Luckily, we can use the log-binomial model to estimate contrasts in risks.
+
+[**Try this** Calculate the risk ratio manually and convince yourself that the log-binomial model gave you the correct answer.]{.marginnote .idea}
+
+```{sashtml sas-regression-logbin}
+proc genmod data=nhefs;
+    model sbp_hi(ref='0') = qsmk /link=log dist=bin;
+    estimate 'qsmk (1 vs. 0)' qsmk 1 /exp;
+run;
+```
+
+To get the risk ratio for the effect of quitting smoking on weight gain, we again exponentiate the beta coefficient of interest: those who quit smoking were 1.28 times as likely to have high systolic blood pressure as those who did not quit smoking.
+
+### Modified Poisson regression
+
+Another way to get a risk ratio using GLMs involves a procedure called modified Poisson regression. "Modified" here refers to a necessary modification of the standard error estimates when using a Poisson regression model to estimate a risk ratio. Again, save the statistical details for later. All we want to know for the moment are the nuts-and-bolts: how to fit the model and how to modify the standard errors.
+
+```{sashtml sas-regression-modpois}
+proc genmod data=nhefs;
+    class seqn;
+    model sbp_hi(ref='0') = qsmk /link=log dist=poisson;
+    repeated subject=seqn;
+    estimate 'qsmk (1 vs. 0)' qsmk 1 /exp;
+run;
+```
+
+In the prior chapter, which showcased the log-binomial and modified Poisson model fitting procedures in R, we noted that the "modified" in modified Poisson refers to the adjusted of the standard error. In order to fit the modified Poisson model correctly in SAS, you _must_ specify the `repeated` option as above, where the argument passed to `subject` is the unique observation identifier.
