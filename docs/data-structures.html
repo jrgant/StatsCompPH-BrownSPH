@@ -19,7 +19,7 @@ MathJax.Hub.Config({
   TeX: { equationNumbers: { autoNumber: "AMS" } }
 });
 </script>
-  <script src="/usr/share/javascript/mathjax/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+  <script src="/usr/share/javascript/mathjax/tex-mml-chtml.js" type="text/javascript"></script>
 
 <meta name="description" content="Resources and tutorials for R and SAS analysis geared toward public health students.">
 
@@ -29,6 +29,7 @@ MathJax.Hub.Config({
 <link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte-italics.css" rel="stylesheet" />
 <link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
@@ -55,26 +56,27 @@ MathJax.Hub.Config({
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -83,9 +85,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -136,81 +138,100 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="col-sm-12">
 <div id="TOC">
 <ul>
-<li class="has-sub"><a href="index.html#learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a><ul>
+<li class="has-sub"><a href="index.html#learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a>
+<ul>
 <li><a href="index.html#main-objectives"><span class="toc-section-number">1.1</span> Main objectives</a></li>
 <li><a href="index.html#acknowledgements"><span class="toc-section-number">1.2</span> Acknowledgements</a></li>
 </ul></li>
-<li class="has-sub"><a href="startup.html#startup"><span class="toc-section-number">2</span> Getting Started</a><ul>
+<li class="has-sub"><a href="startup.html#startup"><span class="toc-section-number">2</span> Getting Started</a>
+<ul>
 <li><a href="startup.html#getting-started-with-r"><span class="toc-section-number">2.1</span> Getting Started with R</a></li>
 <li><a href="startup.html#getting-started-with-sas"><span class="toc-section-number">2.2</span> Getting Started with SAS</a></li>
 </ul></li>
-<li class="has-sub"><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a><ul>
+<li class="has-sub"><a href="data-structures.html#data-structures"><span class="toc-section-number">3</span> Data Structures</a>
+<ul>
 <li><a href="data-structures.html#major-differences-between-r-and-sas"><span class="toc-section-number">3.1</span> Major Differences Between R and SAS</a></li>
 <li><a href="data-structures.html#r-object-and-value-classes"><span class="toc-section-number">3.2</span> R: Object and Value Classes</a></li>
 </ul></li>
-<li class="has-sub"><a href="importing-and-exporting-data.html#importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a><ul>
-<li class="has-sub"><a href="importing-and-exporting-data.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a><ul>
+<li class="has-sub"><a href="importing-and-exporting-data.html#importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a>
+<ul>
+<li class="has-sub"><a href="importing-and-exporting-data.html#r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a>
+<ul>
 <li><a href="importing-and-exporting-data.html#reading-data"><span class="toc-section-number">4.1.1</span> Reading Data</a></li>
 <li><a href="importing-and-exporting-data.html#writing-data"><span class="toc-section-number">4.1.2</span> Writing Data</a></li>
 </ul></li>
 </ul></li>
-<li class="has-sub"><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a><ul>
+<li class="has-sub"><a href="working-with-data.html#working-with-data"><span class="toc-section-number">5</span> Working with Data</a>
+<ul>
 <li><a href="working-with-data.html#objects-in-r"><span class="toc-section-number">5.1</span> Objects in R</a></li>
-<li class="has-sub"><a href="working-with-data.html#more-complex-objects"><span class="toc-section-number">5.2</span> More Complex Objects</a><ul>
+<li class="has-sub"><a href="working-with-data.html#more-complex-objects"><span class="toc-section-number">5.2</span> More Complex Objects</a>
+<ul>
 <li><a href="working-with-data.html#vectors"><span class="toc-section-number">5.2.1</span> Vectors</a></li>
 <li><a href="working-with-data.html#matrices"><span class="toc-section-number">5.2.2</span> Matrices</a></li>
 <li><a href="working-with-data.html#lists"><span class="toc-section-number">5.2.3</span> Lists</a></li>
 <li><a href="working-with-data.html#data-frames"><span class="toc-section-number">5.2.4</span> Data Frames</a></li>
 <li><a href="working-with-data.html#other-object-classes"><span class="toc-section-number">5.2.5</span> Other Object Classes</a></li>
 </ul></li>
-<li class="has-sub"><a href="working-with-data.html#conducting-operations-on-objects"><span class="toc-section-number">5.3</span> Conducting Operations on Objects</a><ul>
+<li class="has-sub"><a href="working-with-data.html#conducting-operations-on-objects"><span class="toc-section-number">5.3</span> Conducting Operations on Objects</a>
+<ul>
 <li><a href="working-with-data.html#arithmetic-operations"><span class="toc-section-number">5.3.1</span> Arithmetic Operations</a></li>
 <li><a href="working-with-data.html#logical-operations"><span class="toc-section-number">5.3.2</span> Logical Operations</a></li>
 <li><a href="working-with-data.html#recycling"><span class="toc-section-number">5.3.3</span> Recycling</a></li>
 </ul></li>
 </ul></li>
-<li class="has-sub"><a href="statistical-analysis.html#statistical-analysis"><span class="toc-section-number">6</span> Statistical Analysis</a><ul>
-<li class="has-sub"><a href="statistical-analysis.html#setup"><span class="toc-section-number">6.1</span> Setup</a><ul>
+<li class="has-sub"><a href="statistical-analysis.html#statistical-analysis"><span class="toc-section-number">6</span> Statistical Analysis</a>
+<ul>
+<li class="has-sub"><a href="statistical-analysis.html#setup"><span class="toc-section-number">6.1</span> Setup</a>
+<ul>
 <li><a href="statistical-analysis.html#data"><span class="toc-section-number">6.1.1</span> Data</a></li>
 <li><a href="statistical-analysis.html#nhefs-codebook"><span class="toc-section-number">6.1.2</span> NHEFS Codebook</a></li>
 </ul></li>
 <li><a href="statistical-analysis.html#exploratory-data-analysis"><span class="toc-section-number">6.2</span> Exploratory Data Analysis</a></li>
 <li><a href="statistical-analysis.html#tabular-analysis"><span class="toc-section-number">6.3</span> Tabular Analysis</a></li>
-<li class="has-sub"><a href="statistical-analysis.html#regression-models"><span class="toc-section-number">6.4</span> Regression Models</a><ul>
+<li class="has-sub"><a href="statistical-analysis.html#regression-models"><span class="toc-section-number">6.4</span> Regression Models</a>
+<ul>
 <li><a href="statistical-analysis.html#linear-regression"><span class="toc-section-number">6.4.1</span> Linear regression</a></li>
 <li><a href="statistical-analysis.html#logistic-regression"><span class="toc-section-number">6.4.2</span> Logistic regression</a></li>
 <li><a href="statistical-analysis.html#log-binomial-regression"><span class="toc-section-number">6.4.3</span> Log-binomial regression</a></li>
 <li><a href="statistical-analysis.html#modified-poisson-regression"><span class="toc-section-number">6.4.4</span> Modified Poisson regression</a></li>
 </ul></li>
 </ul></li>
-<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a><ul>
-<li><a href="getting-comfortable-with-loops-and-logic.html#whats-a-loop"><span class="toc-section-number">7.1</span> What’s a Loop?</a></li>
-<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#why-loop"><span class="toc-section-number">7.2</span> Why Loop?</a><ul>
-<li><a href="getting-comfortable-with-loops-and-logic.html#curly-braces"><span class="toc-section-number">7.2.1</span> Curly Braces</a></li>
+<li class="has-sub"><a href="statistical-analysis-sas.html#statistical-analysis-sas"><span class="toc-section-number">7</span> Statistical Analysis (SAS)</a>
+<ul>
+<li class="has-sub"><a href="statistical-analysis-sas.html#setup-1"><span class="toc-section-number">7.1</span> Setup</a>
+<ul>
+<li><a href="statistical-analysis-sas.html#data-1"><span class="toc-section-number">7.1.1</span> Data</a></li>
+<li><a href="statistical-analysis-sas.html#nhefs-codebook-1"><span class="toc-section-number">7.1.2</span> NHEFS Codebook</a></li>
 </ul></li>
-<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">7.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a><ul>
-<li><a href="getting-comfortable-with-loops-and-logic.html#standard-loop"><span class="toc-section-number">7.3.1</span> Standard Loop</a></li>
-<li><a href="getting-comfortable-with-loops-and-logic.html#vectorized-loops"><span class="toc-section-number">7.3.2</span> Vectorized Loops</a></li>
-<li><a href="getting-comfortable-with-loops-and-logic.html#nested-loops"><span class="toc-section-number">7.3.3</span> Nested Loops</a></li>
-</ul></li>
-</ul></li>
-<li class="has-sub"><a href="functionalizing-code.html#functionalizing-code"><span class="toc-section-number">8</span> Functionalizing Code</a><ul>
-<li><a href="functionalizing-code.html#simulate-data"><span class="toc-section-number">8.1</span> Simulate Data</a></li>
-<li><a href="functionalizing-code.html#the-old-way"><span class="toc-section-number">8.2</span> The Old Way</a></li>
-<li><a href="functionalizing-code.html#a-new-way-part-1"><span class="toc-section-number">8.3</span> A New Way, Part 1</a></li>
-<li class="has-sub"><a href="functionalizing-code.html#a-new-way-part-2"><span class="toc-section-number">8.4</span> A New Way, Part 2</a><ul>
-<li><a href="functionalizing-code.html#loop-method-1"><span class="toc-section-number">8.4.1</span> Loop Method 1</a></li>
-<li><a href="functionalizing-code.html#loop-method-2"><span class="toc-section-number">8.4.2</span> Loop Method 2</a></li>
-<li><a href="functionalizing-code.html#add-a-new-analysis"><span class="toc-section-number">8.4.3</span> Add a New Analysis</a></li>
-</ul></li>
-<li><a href="functionalizing-code.html#a-new-way-part-3"><span class="toc-section-number">8.5</span> A New Way, Part 3</a></li>
-<li class="has-sub"><a href="functionalizing-code.html#approximate-in-sas"><span class="toc-section-number">8.6</span> Approximate in SAS</a><ul>
-<li><a href="functionalizing-code.html#simulate-data-1"><span class="toc-section-number">8.6.1</span> Simulate Data</a></li>
+<li><a href="statistical-analysis-sas.html#exploratory-data-analysis-1"><span class="toc-section-number">7.2</span> Exploratory Data Analysis</a></li>
+<li><a href="statistical-analysis-sas.html#tabular-analysis-1"><span class="toc-section-number">7.3</span> Tabular Analysis</a></li>
+<li class="has-sub"><a href="statistical-analysis-sas.html#regression-models-1"><span class="toc-section-number">7.4</span> Regression Models</a>
+<ul>
+<li><a href="statistical-analysis-sas.html#linear-regression-1"><span class="toc-section-number">7.4.1</span> Linear regression</a></li>
+<li><a href="statistical-analysis-sas.html#logistic-regression-1"><span class="toc-section-number">7.4.2</span> Logistic regression</a></li>
+<li><a href="statistical-analysis-sas.html#log-binomial-regression-1"><span class="toc-section-number">7.4.3</span> Log-binomial regression</a></li>
+<li><a href="statistical-analysis-sas.html#modified-poisson-regression-1"><span class="toc-section-number">7.4.4</span> Modified Poisson regression</a></li>
 </ul></li>
 </ul></li>
-<li class="has-sub"><a href="data-visualization.html#data-visualization"><span class="toc-section-number">9</span> Data Visualization</a><ul>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic"><span class="toc-section-number">8</span> Getting Comfortable with Loops and Logic</a>
+<ul>
+<li><a href="getting-comfortable-with-loops-and-logic.html#whats-a-loop"><span class="toc-section-number">8.1</span> What’s a Loop?</a></li>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#why-loop"><span class="toc-section-number">8.2</span> Why Loop?</a>
+<ul>
+<li><a href="getting-comfortable-with-loops-and-logic.html#curly-braces"><span class="toc-section-number">8.2.1</span> Curly Braces</a></li>
+</ul></li>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">8.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a>
+<ul>
+<li><a href="getting-comfortable-with-loops-and-logic.html#standard-loop"><span class="toc-section-number">8.3.1</span> Standard Loop</a></li>
+<li><a href="getting-comfortable-with-loops-and-logic.html#vectorized-loops"><span class="toc-section-number">8.3.2</span> Vectorized Loops</a></li>
+<li><a href="getting-comfortable-with-loops-and-logic.html#nested-loops"><span class="toc-section-number">8.3.3</span> Nested Loops</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="data-visualization.html#data-visualization"><span class="toc-section-number">9</span> Data Visualization</a>
+<ul>
 <li><a href="data-visualization.html#data-set"><span class="toc-section-number">9.1</span> Data set</a></li>
-<li class="has-sub"><a href="data-visualization.html#base-r-examples"><span class="toc-section-number">9.2</span> Base R examples</a><ul>
+<li class="has-sub"><a href="data-visualization.html#base-r-examples"><span class="toc-section-number">9.2</span> Base R examples</a>
+<ul>
 <li><a href="data-visualization.html#boxplots"><span class="toc-section-number">9.2.1</span> Boxplots</a></li>
 <li><a href="data-visualization.html#density-plots"><span class="toc-section-number">9.2.2</span> Density Plots</a></li>
 <li><a href="data-visualization.html#scatterplots"><span class="toc-section-number">9.2.3</span> Scatterplots</a></li>
@@ -218,7 +239,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="data-visualization.html#histograms"><span class="toc-section-number">9.2.5</span> Histograms</a></li>
 <li><a href="data-visualization.html#linear-regression-diagnostics"><span class="toc-section-number">9.2.6</span> Linear Regression Diagnostics</a></li>
 </ul></li>
-<li class="has-sub"><a href="data-visualization.html#ggplot2-examples"><span class="toc-section-number">9.3</span> ggplot2 Examples</a><ul>
+<li class="has-sub"><a href="data-visualization.html#ggplot2-examples"><span class="toc-section-number">9.3</span> ggplot2 Examples</a>
+<ul>
 <li><a href="data-visualization.html#boxplots-1"><span class="toc-section-number">9.3.1</span> Boxplots</a></li>
 <li><a href="data-visualization.html#density-plots-1"><span class="toc-section-number">9.3.2</span> Density Plots</a></li>
 <li><a href="data-visualization.html#scatterplots-1"><span class="toc-section-number">9.3.3</span> Scatterplots</a></li>
@@ -226,21 +248,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="data-visualization.html#bar-plots"><span class="toc-section-number">9.3.5</span> Bar Plots</a></li>
 <li><a href="data-visualization.html#scatterplot-matrix-1"><span class="toc-section-number">9.3.6</span> Scatterplot Matrix</a></li>
 </ul></li>
-<li class="has-sub"><a href="data-visualization.html#special-topics"><span class="toc-section-number">9.4</span> Special Topics</a><ul>
+<li class="has-sub"><a href="data-visualization.html#special-topics"><span class="toc-section-number">9.4</span> Special Topics</a>
+<ul>
 <li><a href="data-visualization.html#image-formats"><span class="toc-section-number">9.4.1</span> Image Formats</a></li>
 <li><a href="data-visualization.html#interactive-graphics"><span class="toc-section-number">9.4.2</span> Interactive Graphics</a></li>
 </ul></li>
 </ul></li>
-<li class="has-sub"><a href="resources.html#resources"><span class="toc-section-number">10</span> Resources</a><ul>
-<li class="has-sub"><a href="resources.html#r"><span class="toc-section-number">10.1</span> R</a><ul>
-<li><a href="resources.html#core-documentation"><span class="toc-section-number">10.1.1</span> Core Documentation</a></li>
-<li><a href="resources.html#programming"><span class="toc-section-number">10.1.2</span> Programming</a></li>
-<li><a href="resources.html#data-visualization-1"><span class="toc-section-number">10.1.3</span> Data Visualization</a></li>
-<li><a href="resources.html#reproducible-research-and-version-control"><span class="toc-section-number">10.1.4</span> Reproducible Research and Version Control</a></li>
+<li class="has-sub"><a href="functionalizing-code.html#functionalizing-code"><span class="toc-section-number">10</span> Functionalizing Code</a>
+<ul>
+<li><a href="functionalizing-code.html#simulate-data"><span class="toc-section-number">10.1</span> Simulate Data</a></li>
+<li><a href="functionalizing-code.html#the-old-way"><span class="toc-section-number">10.2</span> The Old Way</a></li>
+<li><a href="functionalizing-code.html#a-new-way-part-1"><span class="toc-section-number">10.3</span> A New Way, Part 1</a></li>
+<li class="has-sub"><a href="functionalizing-code.html#a-new-way-part-2"><span class="toc-section-number">10.4</span> A New Way, Part 2</a>
+<ul>
+<li><a href="functionalizing-code.html#loop-method-1"><span class="toc-section-number">10.4.1</span> Loop Method 1</a></li>
+<li><a href="functionalizing-code.html#loop-method-2"><span class="toc-section-number">10.4.2</span> Loop Method 2</a></li>
+<li><a href="functionalizing-code.html#add-a-new-analysis"><span class="toc-section-number">10.4.3</span> Add a New Analysis</a></li>
 </ul></li>
-<li class="has-sub"><a href="resources.html#sas"><span class="toc-section-number">10.2</span> SAS</a><ul>
-<li><a href="resources.html#programming-and-core-documentation"><span class="toc-section-number">10.2.1</span> Programming and Core Documentation</a></li>
-<li><a href="resources.html#reproducible-research"><span class="toc-section-number">10.2.2</span> Reproducible Research</a></li>
+<li><a href="functionalizing-code.html#a-new-way-part-3"><span class="toc-section-number">10.5</span> A New Way, Part 3</a></li>
+<li class="has-sub"><a href="functionalizing-code.html#approximate-in-sas"><span class="toc-section-number">10.6</span> Approximate in SAS</a>
+<ul>
+<li><a href="functionalizing-code.html#simulate-data-1"><span class="toc-section-number">10.6.1</span> Simulate Data</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="resources.html#resources"><span class="toc-section-number">11</span> Resources</a>
+<ul>
+<li class="has-sub"><a href="resources.html#r"><span class="toc-section-number">11.1</span> R</a>
+<ul>
+<li><a href="resources.html#core-documentation"><span class="toc-section-number">11.1.1</span> Core Documentation</a></li>
+<li><a href="resources.html#programming"><span class="toc-section-number">11.1.2</span> Programming</a></li>
+<li><a href="resources.html#data-visualization-1"><span class="toc-section-number">11.1.3</span> Data Visualization</a></li>
+<li><a href="resources.html#reproducible-research-and-version-control"><span class="toc-section-number">11.1.4</span> Reproducible Research and Version Control</a></li>
+</ul></li>
+<li class="has-sub"><a href="resources.html#sas"><span class="toc-section-number">11.2</span> SAS</a>
+<ul>
+<li><a href="resources.html#programming-and-core-documentation"><span class="toc-section-number">11.2.1</span> Programming and Core Documentation</a></li>
+<li><a href="resources.html#reproducible-research"><span class="toc-section-number">11.2.2</span> Reproducible Research</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -249,11 +292,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="row">
 <div class="col-sm-12">
-<div id="data-structures" class="section level1">
+<div id="data-structures" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Data Structures</h1>
 <p>Using any programming language effectively requires that the user learn how the language handles and stores data. For our purposes, we will be most interested in getting comfortable with the major value, variable, and dataset formats offered by R and, to a lesser extent, SAS.</p>
 <p>This guide will make a special effort to describe common pitfalls peculiar to each language. These pitfalls can be unintuitive and have been known to cause new programmers plenty of headaches. With a bit of luck, we’ll learn how to avoid them so we can concentrate on what matters most: conducting a sound analysis.</p>
-<div id="major-differences-between-r-and-sas" class="section level2">
+<div id="major-differences-between-r-and-sas" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Major Differences Between R and SAS</h2>
 <p>R and SAS are very different beasts.</p>
 <p>R is what’s known as a functional language, meaning it is built around the general principle that we create <strong>objects</strong> (e.g., a dataset) and “feed” them to <strong>functions</strong> that perform particular operations on the input object and return some sort of output.</p>
@@ -266,7 +309,7 @@ Any entity stored in an R environment. Can be a variety of types, including vect
 A particular type of object that takes other objects and arguments as inputs, performs a set of procedures, and returns an output.
 </span></p>
 <p>As a simple example, let’s take the object <code>iris</code>, a dataset provided by default in every R installation. Below, we feed it to a function, <code>head()</code> that inspects the <code>iris</code> dataset and returns the first 6 rows:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">head</span>(datasets<span class="op">::</span>iris)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="data-structures.html#cb1-1" aria-hidden="true"></a><span class="kw">head</span>(datasets<span class="op">::</span>iris)</span></code></pre></div>
 <pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1          5.1         3.5          1.4         0.2  setosa
 2          4.9         3.0          1.4         0.2  setosa
@@ -279,7 +322,7 @@ A particular type of object that takes other objects and arguments as inputs, pe
 <strong>Argument</strong>
 A component of a function that allows the user to set a variety of options governing the function’s behavior or output.
 </span></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">head</span>(datasets<span class="op">::</span>iris, <span class="dt">n =</span> <span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="data-structures.html#cb3-1" aria-hidden="true"></a><span class="kw">head</span>(datasets<span class="op">::</span>iris, <span class="dt">n =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1           5.1         3.5          1.4         0.2  setosa
 2           4.9         3.0          1.4         0.2  setosa
@@ -292,17 +335,2554 @@ A component of a function that allows the user to set a variety of options gover
 9           4.4         2.9          1.4         0.2  setosa
 10          4.9         3.1          1.5         0.1  setosa</code></pre>
 <p>We’ll talk about some other ways to work with various objects, but for now, it suffices to understand this general principle about functional programming.</p>
-<p>SAS’s syntax is very different.</p>
+<p>SAS’s syntax is quite different.</p>
 <p>An example should suffice to illustrate. Let’s take a look at the <code>iris</code> dataset again, performing the same two operations as we did in R:</p>
 <pre class="sas"><code>proc import datafile=&quot;data/iris.csv&quot;
   out=iris
   dbms=csv
-  replace;
-run;
+  replace;run;
 
 proc print data=iris(obs=6); run;
 proc print data=iris(obs=10); run;</code></pre>
-<pre><code>Obs   Sepal_Length    Sepal_Width   Petal_Length    Petal_Width   Species
+<pre><code>                              The SAS System                              1
+                                          20:38 Thursday, December 15, 2022
+
+Obs   Sepal_Length    Sepal_Width   Petal_Length    Petal_Width   Species
+
+  1            5.1            3.5            1.4            0.2   setosa  
+  2            4.9              3            1.4            0.2   setosa  
+  3            4.7            3.2            1.3            0.2   setosa  
+  4            4.6            3.1            1.5            0.2   setosa  
+  5              5            3.6            1.4            0.2   setosa  
+  6            5.4            3.9            1.7            0.4   setosa  
+                              The SAS System                              2
+                                          20:38 Thursday, December 15, 2022
+
+Obs   Sepal_Length    Sepal_Width   Petal_Length    Petal_Width   Species
+
+  1            5.1            3.5            1.4            0.2   setosa  
+  2            4.9              3            1.4            0.2   setosa  
+  3            4.7            3.2            1.3            0.2   setosa  
+  4            4.6            3.1            1.5            0.2   setosa  
+  5              5            3.6            1.4            0.2   setosa  
+  6            5.4            3.9            1.7            0.4   setosa  
+  7            4.6            3.4            1.4            0.3   setosa  
+  8              5            3.4            1.5            0.2   setosa  
+  9            4.4            2.9            1.4            0.2   setosa  
+ 10            4.9            3.1            1.5            0.1   setosa  
+                              The SAS System                              3
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+Data Set Name        WORK.NHEFS                  Observations          1629
+Member Type          DATA                        Variables             64  
+Engine               V9                          Indexes               0   
+Created              12/15/2022 20:38:40         Observation Length    512 
+Last Modified        12/15/2022 20:38:40         Deleted Observations  0   
+Protection                                       Compressed            NO  
+Data Set Type                                    Sorted                NO  
+Label                                                                      
+Data Representation  SOLARIS_X86_64,                                       
+                     LINUX_X86_64, ALPHA_TRU64,                            
+                     LINUX_IA64                                            
+Encoding             latin1  Western (ISO)                                 
+
+                     Engine/Host Dependent Information
+
+Data Set Page Size          65536                                          
+Number of Data Set Pages    13                                             
+First Data Page             1                                              
+Max Obs per Page            127                                            
+Obs in First Data Page      107                                            
+Number of Data Set Repairs  0                                              
+Filename                    /tmp/SAS_workDFED00005A61_                     
+                            jrgant-AW/nhefs.sas7bdat                       
+Release Created             9.0401M7                                       
+Host Created                Linux                                          
+Inode Number                7998377                                        
+Access Permission           rw-rw-r--                                      
+Owner Name                  jrgant                                         
+File Size                   896KB                                          
+File Size (bytes)           917504                                         
+
+                Alphabetic List of Variables and Attributes
+ 
+        #    Variable             Type    Len    Format     Informat
+
+       53    active               Num       8    BEST12.    BEST32. 
+       10    age                  Num       8    BEST12.    BEST32. 
+       39    alcoholfreq          Num       8    BEST12.    BEST32. 
+       41    alcoholhowmuch       Num       8    BEST12.    BEST32. 
+       38    alcoholpy            Num       8    BEST12.    BEST32. 
+       40    alcoholtype          Num       8    BEST12.    BEST32. 
+       46    allergies            Num       8    BEST12.    BEST32. 
+       24    asthma               Num       8    BEST12.    BEST32. 
+       55    birthcontrol         Num       8    BEST12.    BEST32. 
+       20    birthplace           Num       8    BEST12.    BEST32. 
+       50    boweltrouble         Num       8    BEST12.    BEST32. 
+       25    bronch               Num       8    BEST12.    BEST32. 
+       57    cholesterol          Num       8    BEST12.    BEST32. 
+       32    chroniccough         Num       8    BEST12.    BEST32. 
+       30    colitis              Num       8    BEST12.    BEST32. 
+        6    dadth                Num       8    BEST12.    BEST32. 
+        8    dbp                  Num       8    BEST12.    BEST32. 
+        3    death                Num       8    BEST12.    BEST32. 
+                              The SAS System                              4
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+                Alphabetic List of Variables and Attributes
+ 
+        #    Variable             Type    Len    Format     Informat
+
+       34    diabetes             Num       8    BEST12.    BEST32. 
+       15    education            Num       8    BEST12.    BEST32. 
+       54    exercise             Num       8    BEST12.    BEST32. 
+       33    hayfever             Num       8    BEST12.    BEST32. 
+       28    hbp                  Num       8    BEST12.    BEST32. 
+       49    hbpmed               Num       8    BEST12.    BEST32. 
+       43    headache             Num       8    BEST12.    BEST32. 
+       31    hepatitis            Num       8    BEST12.    BEST32. 
+       27    hf                   Num       8    BEST12.    BEST32. 
+       58    hightax82            Num       8    BEST12.    BEST32. 
+       16    ht                   Num       8    BEST12.    BEST32. 
+       12    income               Num       8    BEST12.    BEST32. 
+       52    infection            Num       8    BEST12.    BEST32. 
+       48    lackpep              Num       8    BEST12.    BEST32. 
+       13    marital              Num       8    BEST12.    BEST32. 
+        5    modth                Num       8    BEST12.    BEST32. 
+       47    nerves               Num       8    BEST12.    BEST32. 
+       37    nervousbreak         Num       8    BEST12.    BEST32. 
+       44    otherpain            Num       8    BEST12.    BEST32. 
+       29    pepticulcer          Num       8    BEST12.    BEST32. 
+       42    pica                 Num       8    BEST12.    BEST32. 
+       35    polio                Num       8    BEST12.    BEST32. 
+       56    pregnancies          Num       8    BEST12.    BEST32. 
+       59    price71              Num       8    BEST12.    BEST32. 
+       60    price82              Num       8    BEST12.    BEST32. 
+       63    price71_82           Num       8    BEST12.    BEST32. 
+        2    qsmk                 Num       8    BEST12.    BEST32. 
+       11    race                 Num       8    BEST12.    BEST32. 
+        7    sbp                  Num       8    BEST12.    BEST32. 
+       14    school               Num       8    BEST12.    BEST32. 
+        1    seqn                 Num       8    BEST12.    BEST32. 
+        9    sex                  Num       8    BEST12.    BEST32. 
+       22    smkintensity82_71    Num       8    BEST12.    BEST32. 
+       21    smokeintensity       Num       8    BEST12.    BEST32. 
+       23    smokeyrs             Num       8    BEST12.    BEST32. 
+       61    tax71                Num       8    BEST12.    BEST32. 
+       62    tax82                Num       8    BEST12.    BEST32. 
+       64    tax71_82             Num       8    BEST12.    BEST32. 
+       26    tb                   Num       8    BEST12.    BEST32. 
+       36    tumor                Num       8    BEST12.    BEST32. 
+       45    weakheart            Num       8    BEST12.    BEST32. 
+       17    wt71                 Num       8    BEST12.    BEST32. 
+       18    wt82                 Num       8    BEST12.    BEST32. 
+       19    wt82_71              Num       8    BEST12.    BEST32. 
+       51    wtloss               Num       8    BEST12.    BEST32. 
+        4    yrdth                Num       8    BEST12.    BEST32. 
+                              The SAS System                              5
+                                          20:38 Thursday, December 15, 2022
+
+ 
+ Obs         seqn          qsmk         death         yrdth         modth
+
+   1          233             0             0             .             .
+   2          235             0             0             .             .
+   3          244             0             0             .             .
+   4          245             0             1            85             2
+   5          252             0             0             .             .
+
+ 
+ Obs        dadth           sbp           dbp           sex           age
+
+   1            .           175            96             0            42
+   2            .           123            80             0            36
+   3            .           115            75             1            56
+   4           14           148            78             0            68
+   5            .           118            77             0            40
+
+ 
+ Obs         race        income       marital        school     education
+
+   1            1            19             2             7             1
+   2            0            18             2             9             2
+   3            1            15             3            11             2
+   4            1            15             3             5             1
+   5            0            18             2            11             2
+
+ 
+ Obs           ht          wt71          wt82       wt82_71    birthplace
+
+   1     174.1875         79.04   68.94604024  -10.09395976            47
+   2      159.375         58.63   61.23496995    2.60496995            42
+   3        168.5         56.81   66.22448602    9.41448602            51
+   4     170.1875         59.42   64.41011654    4.99011654            37
+   5      181.875         87.09   92.07925111    4.98925111            42
+
+                    smkintensity82_
+ Obs smokeintensity       71            smokeyrs       asthma       bronch
+
+   1            30            -10             29            0            0
+   2            20            -10             24            0            0
+   3            20            -14             26            0            0
+   4             3              4             53            0            0
+   5            20              0             19            0            0
+                              The SAS System                              6
+                                          20:38 Thursday, December 15, 2022
+
+ 
+ Obs           tb            hf           hbp   pepticulcer       colitis
+
+   1            0             0             1             1             0
+   2            0             0             0             0             0
+   3            0             0             0             0             0
+   4            0             0             1             0             0
+   5            0             0             0             0             0
+
+ 
+ Obs    hepatitis  chroniccough      hayfever      diabetes         polio
+
+   1            0             0             0             1             0
+   2            0             0             0             0             0
+   3            0             0             1             0             0
+   4            0             0             0             0             0
+   5            0             0             0             0             0
+
+ 
+ Obs        tumor  nervousbreak     alcoholpy   alcoholfreq   alcoholtype
+
+   1            0             0             1             1             3
+   2            0             0             1             0             1
+   3            1             0             1             3             4
+   4            0             0             1             2             3
+   5            0             0             1             2             1
+
+ 
+ Obs alcoholhowmuch         pica     headache    otherpain    weakheart
+
+   1             7             0            1            0            0
+   2             4             0            1            0            0
+   3             .             0            1            1            0
+   4             4             0            0            1            1
+   5             2             0            1            0            0
+
+ 
+ Obs    allergies        nerves       lackpep        hbpmed  boweltrouble
+
+   1            0             0             0             1             0
+   2            0             0             0             0             0
+   3            0             1             0             0             0
+   4            0             0             0             0             0
+   5            0             0             0             0             1
+                              The SAS System                              7
+                                          20:38 Thursday, December 15, 2022
+
+ 
+ Obs       wtloss     infection        active      exercise  birthcontrol
+
+   1            0             0             0             2             2
+   2            0             1             0             0             2
+   3            0             0             0             2             0
+   4            0             0             1             2             2
+   5            0             0             1             1             2
+
+ 
+ Obs  pregnancies   cholesterol     hightax82       price71       price82
+
+   1            .           197             0    2.18359375  1.7399902344
+   2            .           301             0  2.3466796875  1.7973632813
+   3            2           157             0  1.5695800781  1.5134277344
+   4            .           174             0  1.5065917969  1.4519042969
+   5            .           216             0  2.3466796875  1.7973632813
+
+ 
+ Obs        tax71           tax82      price71_82        tax71_82
+
+   1 1.1022949219    0.4619750977    0.4437866211    0.6403808594
+   2 1.3649902344    0.5718994141    0.5493164063      0.79296875
+   3 0.5512695313    0.2309875488    0.0561981201    0.3202514648
+   4 0.5249023438    0.2199707031    0.0547943115    0.3049926758
+   5 1.3649902344    0.5718994141    0.5493164063      0.79296875
+                              The SAS System                              8
+                                          20:38 Thursday, December 15, 2022
+
+                            The MEANS Procedure
+
+                                                 N
+                         Variable             Miss
+                         -------------------------
+                         seqn                    0
+                         qsmk                    0
+                         death                   0
+                         yrdth                1311
+                         modth                1307
+                         dadth                1307
+                         sbp                    77
+                         dbp                    81
+                         sex                     0
+                         age                     0
+                         race                    0
+                         income                 62
+                         marital                 0
+                         school                  0
+                         education               0
+                         ht                      0
+                         wt71                    0
+                         wt82                   63
+                         wt82_71                63
+                         birthplace             92
+                         smokeintensity          0
+                         smkintensity82_71       0
+                         smokeyrs                0
+                         asthma                  0
+                         bronch                  0
+                         tb                      0
+                         hf                      0
+                         hbp                     0
+                         pepticulcer             0
+                         colitis                 0
+                         hepatitis               0
+                         chroniccough            0
+                         hayfever                0
+                         diabetes                0
+                         polio                   0
+                         tumor                   0
+                         nervousbreak            0
+                         alcoholpy               0
+                         alcoholfreq             0
+                         alcoholtype             0
+                         alcoholhowmuch        417
+                         pica                    0
+                         headache                0
+                         otherpain               0
+                         weakheart               0
+                         allergies               0
+                         nerves                  0
+                         lackpep                 0
+                         hbpmed                  0
+                         boweltrouble            0
+                         wtloss                  0
+                         -------------------------
+                              The SAS System                              9
+                                          20:38 Thursday, December 15, 2022
+
+                            The MEANS Procedure
+
+                                                 N
+                         Variable             Miss
+                         -------------------------
+                         infection               0
+                         active                  0
+                         exercise                0
+                         birthcontrol            0
+                         pregnancies           903
+                         cholesterol            16
+                         hightax82              92
+                         price71                92
+                         price82                92
+                         tax71                  92
+                         tax82                  92
+                         price71_82             92
+                         tax71_82               92
+                         -------------------------
+                              The SAS System                             10
+                                          20:38 Thursday, December 15, 2022
+
+                     Obs    Variable             NMiss
+
+                       1    seqn                    0 
+                       2    qsmk                    0 
+                       3    death                   0 
+                       4    yrdth                1311 
+                       5    modth                1307 
+                       6    dadth                1307 
+                       7    sbp                    77 
+                       8    dbp                    81 
+                       9    sex                     0 
+                      10    age                     0 
+                      11    race                    0 
+                      12    income                 62 
+                      13    marital                 0 
+                      14    school                  0 
+                      15    education               0 
+                      16    ht                      0 
+                      17    wt71                    0 
+                      18    wt82                   63 
+                      19    wt82_71                63 
+                      20    birthplace             92 
+                      21    smokeintensity          0 
+                      22    smkintensity82_71       0 
+                      23    smokeyrs                0 
+                      24    asthma                  0 
+                      25    bronch                  0 
+                      26    tb                      0 
+                      27    hf                      0 
+                      28    hbp                     0 
+                      29    pepticulcer             0 
+                      30    colitis                 0 
+                      31    hepatitis               0 
+                      32    chroniccough            0 
+                      33    hayfever                0 
+                      34    diabetes                0 
+                      35    polio                   0 
+                      36    tumor                   0 
+                      37    nervousbreak            0 
+                      38    alcoholpy               0 
+                      39    alcoholfreq             0 
+                      40    alcoholtype             0 
+                      41    alcoholhowmuch        417 
+                      42    pica                    0 
+                      43    headache                0 
+                      44    otherpain               0 
+                      45    weakheart               0 
+                      46    allergies               0 
+                      47    nerves                  0 
+                      48    lackpep                 0 
+                      49    hbpmed                  0 
+                      50    boweltrouble            0 
+                      51    wtloss                  0 
+                      52    infection               0 
+                      53    active                  0 
+                      54    exercise                0 
+                      55    birthcontrol            0 
+                              The SAS System                             11
+                                          20:38 Thursday, December 15, 2022
+
+                        Obs    Variable       NMiss
+
+                         56    pregnancies     903 
+                         57    cholesterol      16 
+                         58    hightax82        92 
+                         59    price71          92 
+                         60    price82          92 
+                         61    tax71            92 
+                         62    tax82            92 
+                         63    price71_82       92 
+                         64    tax71_82         92 
+                              The SAS System                             12
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+Data Set Name        WORK.NHEFS2                  Observations          44 
+Member Type          DATA                         Variables             64 
+Engine               V9                           Indexes               0  
+Created              12/15/2022 20:38:40          Observation Length    512
+Last Modified        12/15/2022 20:38:40          Deleted Observations  0  
+Protection                                        Compressed            NO 
+Data Set Type                                     Sorted                NO 
+Label                                                                      
+Data Representation  SOLARIS_X86_64,                                       
+                     LINUX_X86_64, ALPHA_TRU64,                            
+                     LINUX_IA64                                            
+Encoding             latin1  Western (ISO)                                 
+
+                     Engine/Host Dependent Information
+
+Data Set Page Size          65536                                          
+Number of Data Set Pages    1                                              
+First Data Page             1                                              
+Max Obs per Page            127                                            
+Obs in First Data Page      44                                             
+Number of Data Set Repairs  0                                              
+Filename                    /tmp/SAS_workDFED00005A61_                     
+                            jrgant-AW/nhefs2.sas7bdat                      
+Release Created             9.0401M7                                       
+Host Created                Linux                                          
+Inode Number                7998379                                        
+Access Permission           rw-rw-r--                                      
+Owner Name                  jrgant                                         
+File Size                   128KB                                          
+File Size (bytes)           131072                                         
+
+                Alphabetic List of Variables and Attributes
+ 
+        #    Variable             Type    Len    Format     Informat
+
+       53    active               Num       8    BEST12.    BEST32. 
+       10    age                  Num       8    BEST12.    BEST32. 
+       39    alcoholfreq          Num       8    BEST12.    BEST32. 
+       41    alcoholhowmuch       Num       8    BEST12.    BEST32. 
+       38    alcoholpy            Num       8    BEST12.    BEST32. 
+       40    alcoholtype          Num       8    BEST12.    BEST32. 
+       46    allergies            Num       8    BEST12.    BEST32. 
+       24    asthma               Num       8    BEST12.    BEST32. 
+       55    birthcontrol         Num       8    BEST12.    BEST32. 
+       20    birthplace           Num       8    BEST12.    BEST32. 
+       50    boweltrouble         Num       8    BEST12.    BEST32. 
+       25    bronch               Num       8    BEST12.    BEST32. 
+       57    cholesterol          Num       8    BEST12.    BEST32. 
+       32    chroniccough         Num       8    BEST12.    BEST32. 
+       30    colitis              Num       8    BEST12.    BEST32. 
+        6    dadth                Num       8    BEST12.    BEST32. 
+        8    dbp                  Num       8    BEST12.    BEST32. 
+        3    death                Num       8    BEST12.    BEST32. 
+                              The SAS System                             13
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+                Alphabetic List of Variables and Attributes
+ 
+        #    Variable             Type    Len    Format     Informat
+
+       34    diabetes             Num       8    BEST12.    BEST32. 
+       15    education            Num       8    BEST12.    BEST32. 
+       54    exercise             Num       8    BEST12.    BEST32. 
+       33    hayfever             Num       8    BEST12.    BEST32. 
+       28    hbp                  Num       8    BEST12.    BEST32. 
+       49    hbpmed               Num       8    BEST12.    BEST32. 
+       43    headache             Num       8    BEST12.    BEST32. 
+       31    hepatitis            Num       8    BEST12.    BEST32. 
+       27    hf                   Num       8    BEST12.    BEST32. 
+       58    hightax82            Num       8    BEST12.    BEST32. 
+       16    ht                   Num       8    BEST12.    BEST32. 
+       12    income               Num       8    BEST12.    BEST32. 
+       52    infection            Num       8    BEST12.    BEST32. 
+       48    lackpep              Num       8    BEST12.    BEST32. 
+       13    marital              Num       8    BEST12.    BEST32. 
+        5    modth                Num       8    BEST12.    BEST32. 
+       47    nerves               Num       8    BEST12.    BEST32. 
+       37    nervousbreak         Num       8    BEST12.    BEST32. 
+       44    otherpain            Num       8    BEST12.    BEST32. 
+       29    pepticulcer          Num       8    BEST12.    BEST32. 
+       42    pica                 Num       8    BEST12.    BEST32. 
+       35    polio                Num       8    BEST12.    BEST32. 
+       56    pregnancies          Num       8    BEST12.    BEST32. 
+       59    price71              Num       8    BEST12.    BEST32. 
+       60    price82              Num       8    BEST12.    BEST32. 
+       63    price71_82           Num       8    BEST12.    BEST32. 
+        2    qsmk                 Num       8    BEST12.    BEST32. 
+       11    race                 Num       8    BEST12.    BEST32. 
+        7    sbp                  Num       8    BEST12.    BEST32. 
+       14    school               Num       8    BEST12.    BEST32. 
+        1    seqn                 Num       8    BEST12.    BEST32. 
+        9    sex                  Num       8    BEST12.    BEST32. 
+       22    smkintensity82_71    Num       8    BEST12.    BEST32. 
+       21    smokeintensity       Num       8    BEST12.    BEST32. 
+       23    smokeyrs             Num       8    BEST12.    BEST32. 
+       61    tax71                Num       8    BEST12.    BEST32. 
+       62    tax82                Num       8    BEST12.    BEST32. 
+       64    tax71_82             Num       8    BEST12.    BEST32. 
+       26    tb                   Num       8    BEST12.    BEST32. 
+       36    tumor                Num       8    BEST12.    BEST32. 
+       45    weakheart            Num       8    BEST12.    BEST32. 
+       17    wt71                 Num       8    BEST12.    BEST32. 
+       18    wt82                 Num       8    BEST12.    BEST32. 
+       19    wt82_71              Num       8    BEST12.    BEST32. 
+       51    wtloss               Num       8    BEST12.    BEST32. 
+        4    yrdth                Num       8    BEST12.    BEST32. 
+                              The SAS System                             14
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+Data Set Name        WORK.NHEFS3                 Observations          1552
+Member Type          DATA                        Variables             8   
+Engine               V9                          Indexes               0   
+Created              12/15/2022 20:38:40         Observation Length    64  
+Last Modified        12/15/2022 20:38:40         Deleted Observations  0   
+Protection                                       Compressed            NO  
+Data Set Type                                    Sorted                NO  
+Label                                                                      
+Data Representation  SOLARIS_X86_64,                                       
+                     LINUX_X86_64, ALPHA_TRU64,                            
+                     LINUX_IA64                                            
+Encoding             latin1  Western (ISO)                                 
+
+                     Engine/Host Dependent Information
+
+Data Set Page Size          65536                                          
+Number of Data Set Pages    2                                              
+First Data Page             1                                              
+Max Obs per Page            1021                                           
+Obs in First Data Page      977                                            
+Number of Data Set Repairs  0                                              
+Filename                    /tmp/SAS_workDFED00005A61_                     
+                            jrgant-AW/nhefs3.sas7bdat                      
+Release Created             9.0401M7                                       
+Host Created                Linux                                          
+Inode Number                7998380                                        
+Access Permission           rw-rw-r--                                      
+Owner Name                  jrgant                                         
+File Size                   192KB                                          
+File Size (bytes)           196608                                         
+
+                Alphabetic List of Variables and Attributes
+ 
+         #    Variable          Type    Len    Format     Informat
+
+         2    age               Num       8    BEST12.    BEST32. 
+         6    alcoholfreq       Num       8    BEST12.    BEST32. 
+         8    allergies         Num       8    BEST12.    BEST32. 
+         5    asthma            Num       8    BEST12.    BEST32. 
+         1    sbp               Num       8    BEST12.    BEST32. 
+         4    smokeintensity    Num       8    BEST12.    BEST32. 
+         7    weakheart         Num       8    BEST12.    BEST32. 
+         3    wt71              Num       8    BEST12.    BEST32. 
+                              The SAS System                             15
+                                          20:38 Thursday, December 15, 2022
+
+                            The FREQ Procedure
+
+                    Table of alcfreqcat by alcoholfreq
+
+  alcfreqcat     alcoholfreq
+
+  Frequency|
+  Percent  |
+  Row Pct  |
+  Col Pct  |       0|       1|       2|       3|       4|       5|  Total
+  ---------+--------+--------+--------+--------+--------+--------+
+  .        |      0 |      0 |      0 |      0 |      0 |      5 |      5
+           |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 |   0.32 |   0.32
+           |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 | 100.00 |
+           |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 | 100.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  0        |    320 |      0 |      0 |      0 |      0 |      0 |    320
+           |  20.62 |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 |  20.62
+           | 100.00 |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 |
+           | 100.00 |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  1        |      0 |    217 |      0 |      0 |      0 |      0 |    217
+           |   0.00 |  13.98 |   0.00 |   0.00 |   0.00 |   0.00 |  13.98
+           |   0.00 | 100.00 |   0.00 |   0.00 |   0.00 |   0.00 |
+           |   0.00 | 100.00 |   0.00 |   0.00 |   0.00 |   0.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  2        |      0 |      0 |    489 |      0 |      0 |      0 |    489
+           |   0.00 |   0.00 |  31.51 |   0.00 |   0.00 |   0.00 |  31.51
+           |   0.00 |   0.00 | 100.00 |   0.00 |   0.00 |   0.00 |
+           |   0.00 |   0.00 | 100.00 |   0.00 |   0.00 |   0.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  3        |      0 |      0 |      0 |    329 |      0 |      0 |    329
+           |   0.00 |   0.00 |   0.00 |  21.20 |   0.00 |   0.00 |  21.20
+           |   0.00 |   0.00 |   0.00 | 100.00 |   0.00 |   0.00 |
+           |   0.00 |   0.00 |   0.00 | 100.00 |   0.00 |   0.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  4        |      0 |      0 |      0 |      0 |    192 |      0 |    192
+           |   0.00 |   0.00 |   0.00 |   0.00 |  12.37 |   0.00 |  12.37
+           |   0.00 |   0.00 |   0.00 |   0.00 | 100.00 |   0.00 |
+           |   0.00 |   0.00 |   0.00 |   0.00 | 100.00 |   0.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  Total         320      217      489      329      192        5     1552
+              20.62    13.98    31.51    21.20    12.37     0.32   100.00
+                              The SAS System                             16
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+Data Set Name        WORK.NHEFS3                 Observations          1552
+Member Type          DATA                        Variables             9   
+Engine               V9                          Indexes               0   
+Created              12/15/2022 20:38:40         Observation Length    72  
+Last Modified        12/15/2022 20:38:40         Deleted Observations  0   
+Protection                                       Compressed            NO  
+Data Set Type                                    Sorted                NO  
+Label                                                                      
+Data Representation  SOLARIS_X86_64,                                       
+                     LINUX_X86_64, ALPHA_TRU64,                            
+                     LINUX_IA64                                            
+Encoding             latin1  Western (ISO)                                 
+
+                     Engine/Host Dependent Information
+
+Data Set Page Size          65536                                          
+Number of Data Set Pages    2                                              
+First Data Page             1                                              
+Max Obs per Page            908                                            
+Obs in First Data Page      866                                            
+Number of Data Set Repairs  0                                              
+Filename                    /tmp/SAS_workDFED00005A61_                     
+                            jrgant-AW/nhefs3.sas7bdat                      
+Release Created             9.0401M7                                       
+Host Created                Linux                                          
+Inode Number                7998381                                        
+Access Permission           rw-rw-r--                                      
+Owner Name                  jrgant                                         
+File Size                   192KB                                          
+File Size (bytes)           196608                                         
+
+                Alphabetic List of Variables and Attributes
+ 
+         #    Variable          Type    Len    Format     Informat
+
+         2    age               Num       8    BEST12.    BEST32. 
+         9    alcfreqcat        Char      1                       
+         6    alcoholfreq       Num       8    BEST12.    BEST32. 
+         8    allergies         Num       8    BEST12.    BEST32. 
+         5    asthma            Num       8    BEST12.    BEST32. 
+         1    sbp               Num       8    BEST12.    BEST32. 
+         4    smokeintensity    Num       8    BEST12.    BEST32. 
+         7    weakheart         Num       8    BEST12.    BEST32. 
+         3    wt71              Num       8    BEST12.    BEST32. 
+                              The SAS System                             17
+                                          20:38 Thursday, December 15, 2022
+
+   Obs             sbp             age            wt71    smokeintensity
+
+     1             175              42           79.04               30 
+     2             123              36           58.63               20 
+     3             115              56           56.81               20 
+     4             148              68           59.42                3 
+     5             118              40           87.09               20 
+
+   Obs          asthma       weakheart       allergies    alcfreqcat
+
+     1               0               0               0        1     
+     2               0               0               0        0     
+     3               0               0               0        3     
+     4               0               1               0        2     
+     5               0               0               0        2     
+                              The SAS System                             18
+                                          20:38 Thursday, December 15, 2022
+
+                            The MEANS Procedure
+
+  Variable             N            Mean         Std Dev         Minimum
+  ----------------------------------------------------------------------
+  age               1547      43.6528765      12.0298947      25.0000000
+  wt71              1547      70.9031157      15.3891998      39.5800000
+  smokeintensity    1547      20.5416936      11.7258480       1.0000000
+  sbp               1547     128.7039431      19.0608817      87.0000000
+  ----------------------------------------------------------------------
+
+                      Variable               Maximum
+                      ------------------------------
+                      age                 74.0000000
+                      wt71               151.7300000
+                      smokeintensity      80.0000000
+                      sbp                229.0000000
+                      ------------------------------
+                              The SAS System                             19
+                                          20:38 Thursday, December 15, 2022
+
+                            The FREQ Procedure
+
+                                           Cumulative    Cumulative
+        asthma    Frequency     Percent     Frequency      Percent
+        -----------------------------------------------------------
+             0        1474       95.28          1474        95.28  
+             1          73        4.72          1547       100.00  
+
+                                            Cumulative    Cumulative
+      allergies    Frequency     Percent     Frequency      Percent
+      --------------------------------------------------------------
+              0        1448       93.60          1448        93.60  
+              1          99        6.40          1547       100.00  
+
+                                             Cumulative    Cumulative
+      alcfreqcat    Frequency     Percent     Frequency      Percent
+      ---------------------------------------------------------------
+      0                  320       20.69           320        20.69  
+      1                  217       14.03           537        34.71  
+      2                  489       31.61          1026        66.32  
+      3                  329       21.27          1355        87.59  
+      4                  192       12.41          1547       100.00  
+
+                                            Cumulative    Cumulative
+      weakheart    Frequency     Percent     Frequency      Percent
+      --------------------------------------------------------------
+              0        1512       97.74          1512        97.74  
+              1          35        2.26          1547       100.00  
+                              The SAS System                             20
+                                          20:38 Thursday, December 15, 2022
+
+                            The FREQ Procedure
+
+                                           Cumulative    Cumulative
+        sbp_hi    Frequency     Percent     Frequency      Percent
+        -----------------------------------------------------------
+             0        1192       76.80          1192        76.80  
+             1         360       23.20          1552       100.00  
+
+                           Frequency Missing = 77
+                              The SAS System                             21
+                                          20:38 Thursday, December 15, 2022
+
+                            The FREQ Procedure
+
+                          Table of sbp_hi by qsmk
+
+                    sbp_hi     qsmk
+
+                    Frequency|
+                    Percent  |
+                    Row Pct  |
+                    Col Pct  |       0|       1|  Total
+                    ---------+--------+--------+
+                           0 |    908 |    284 |   1192
+                             |  58.51 |  18.30 |  76.80
+                             |  76.17 |  23.83 |
+                             |  78.34 |  72.26 |
+                    ---------+--------+--------+
+                           1 |    251 |    109 |    360
+                             |  16.17 |   7.02 |  23.20
+                             |  69.72 |  30.28 |
+                             |  21.66 |  27.74 |
+                    ---------+--------+--------+
+                    Total        1159      393     1552
+                                74.68    25.32   100.00
+
+                          Frequency Missing = 77
+
+                  Statistics for Table of sbp_hi by qsmk
+
+          Statistic                     DF       Value      Prob
+          ------------------------------------------------------
+          Chi-Square                     1      6.0872    0.0136
+          Likelihood Ratio Chi-Square    1      5.9256    0.0149
+          Continuity Adj. Chi-Square     1      5.7508    0.0165
+          Mantel-Haenszel Chi-Square     1      6.0833    0.0136
+          Phi Coefficient                       0.0626          
+          Contingency Coefficient               0.0625          
+          Cramer&#39;s V                            0.0626          
+
+                           Fisher&#39;s Exact Test
+                    ----------------------------------
+                    Cell (1,1) Frequency (F)       908
+                    Left-sided Pr &lt;= F          0.9939
+                    Right-sided Pr &gt;= F         0.0088
+                                                      
+                    Table Probability (P)       0.0028
+                    Two-sided Pr &lt;= P           0.0155
+
+                            Sample Size = 1552
+                          Frequency Missing = 77
+                              The SAS System                             22
+                                          20:38 Thursday, December 15, 2022
+
+                             The REG Procedure
+                               Model: MODEL1
+                         Dependent Variable: sbp 
+
+          Number of Observations Read                       1629
+          Number of Observations Used                       1552
+          Number of Observations with Missing Values          77
+
+                           Analysis of Variance
+ 
+                                   Sum of          Mean
+ Source                  DF       Squares        Square   F Value   Pr &gt; F
+
+ Model                    1    4673.90689    4673.90689     12.98   0.0003
+ Error                 1550        558280     360.18067                   
+ Corrected Total       1551        562954                                 
+
+           Root MSE             18.97843    R-Square     0.0083
+           Dependent Mean      128.70941    Adj R-Sq     0.0077
+           Coeff Var            14.74517                       
+
+                           Parameter Estimates
+ 
+                        Parameter       Standard
+   Variable     DF       Estimate          Error    t Value    Pr &gt; |t|
+
+   Intercept     1      127.69888        0.55747     229.07      &lt;.0001
+   qsmk          1        3.99069        1.10782       3.60      0.0003
+
+                            Parameter Estimates
+ 
+               Variable     DF       95% Confidence Limits
+
+               Intercept     1      126.60541      128.79235
+               qsmk          1        1.81771        6.16367
+                              The SAS System                             23
+                                          20:38 Thursday, December 15, 2022
+
+Obs   Sepal_Length    Sepal_Width   Petal_Length    Petal_Width   Species
+
+  1            5.1            3.5            1.4            0.2   setosa  
+  2            4.9              3            1.4            0.2   setosa  
+  3            4.7            3.2            1.3            0.2   setosa  
+  4            4.6            3.1            1.5            0.2   setosa  
+  5              5            3.6            1.4            0.2   setosa  
+  6            5.4            3.9            1.7            0.4   setosa  
+                              The SAS System                             24
+                                          20:38 Thursday, December 15, 2022
+
+Obs   Sepal_Length    Sepal_Width   Petal_Length    Petal_Width   Species
+
+  1            5.1            3.5            1.4            0.2   setosa  
+  2            4.9              3            1.4            0.2   setosa  
+  3            4.7            3.2            1.3            0.2   setosa  
+  4            4.6            3.1            1.5            0.2   setosa  
+  5              5            3.6            1.4            0.2   setosa  
+  6            5.4            3.9            1.7            0.4   setosa  
+  7            4.6            3.4            1.4            0.3   setosa  
+  8              5            3.4            1.5            0.2   setosa  
+  9            4.4            2.9            1.4            0.2   setosa  
+ 10            4.9            3.1            1.5            0.1   setosa  
+                              The SAS System                             25
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+Data Set Name        WORK.NHEFS                  Observations          1629
+Member Type          DATA                        Variables             64  
+Engine               V9                          Indexes               0   
+Created              12/15/2022 20:38:40         Observation Length    512 
+Last Modified        12/15/2022 20:38:40         Deleted Observations  0   
+Protection                                       Compressed            NO  
+Data Set Type                                    Sorted                NO  
+Label                                                                      
+Data Representation  SOLARIS_X86_64,                                       
+                     LINUX_X86_64, ALPHA_TRU64,                            
+                     LINUX_IA64                                            
+Encoding             latin1  Western (ISO)                                 
+
+                     Engine/Host Dependent Information
+
+Data Set Page Size          65536                                          
+Number of Data Set Pages    13                                             
+First Data Page             1                                              
+Max Obs per Page            127                                            
+Obs in First Data Page      107                                            
+Number of Data Set Repairs  0                                              
+Filename                    /tmp/SAS_workDFED00005A61_                     
+                            jrgant-AW/nhefs.sas7bdat                       
+Release Created             9.0401M7                                       
+Host Created                Linux                                          
+Inode Number                7998377                                        
+Access Permission           rw-rw-r--                                      
+Owner Name                  jrgant                                         
+File Size                   896KB                                          
+File Size (bytes)           917504                                         
+
+                Alphabetic List of Variables and Attributes
+ 
+        #    Variable             Type    Len    Format     Informat
+
+       53    active               Num       8    BEST12.    BEST32. 
+       10    age                  Num       8    BEST12.    BEST32. 
+       39    alcoholfreq          Num       8    BEST12.    BEST32. 
+       41    alcoholhowmuch       Num       8    BEST12.    BEST32. 
+       38    alcoholpy            Num       8    BEST12.    BEST32. 
+       40    alcoholtype          Num       8    BEST12.    BEST32. 
+       46    allergies            Num       8    BEST12.    BEST32. 
+       24    asthma               Num       8    BEST12.    BEST32. 
+       55    birthcontrol         Num       8    BEST12.    BEST32. 
+       20    birthplace           Num       8    BEST12.    BEST32. 
+       50    boweltrouble         Num       8    BEST12.    BEST32. 
+       25    bronch               Num       8    BEST12.    BEST32. 
+       57    cholesterol          Num       8    BEST12.    BEST32. 
+       32    chroniccough         Num       8    BEST12.    BEST32. 
+       30    colitis              Num       8    BEST12.    BEST32. 
+        6    dadth                Num       8    BEST12.    BEST32. 
+        8    dbp                  Num       8    BEST12.    BEST32. 
+        3    death                Num       8    BEST12.    BEST32. 
+                              The SAS System                             26
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+                Alphabetic List of Variables and Attributes
+ 
+        #    Variable             Type    Len    Format     Informat
+
+       34    diabetes             Num       8    BEST12.    BEST32. 
+       15    education            Num       8    BEST12.    BEST32. 
+       54    exercise             Num       8    BEST12.    BEST32. 
+       33    hayfever             Num       8    BEST12.    BEST32. 
+       28    hbp                  Num       8    BEST12.    BEST32. 
+       49    hbpmed               Num       8    BEST12.    BEST32. 
+       43    headache             Num       8    BEST12.    BEST32. 
+       31    hepatitis            Num       8    BEST12.    BEST32. 
+       27    hf                   Num       8    BEST12.    BEST32. 
+       58    hightax82            Num       8    BEST12.    BEST32. 
+       16    ht                   Num       8    BEST12.    BEST32. 
+       12    income               Num       8    BEST12.    BEST32. 
+       52    infection            Num       8    BEST12.    BEST32. 
+       48    lackpep              Num       8    BEST12.    BEST32. 
+       13    marital              Num       8    BEST12.    BEST32. 
+        5    modth                Num       8    BEST12.    BEST32. 
+       47    nerves               Num       8    BEST12.    BEST32. 
+       37    nervousbreak         Num       8    BEST12.    BEST32. 
+       44    otherpain            Num       8    BEST12.    BEST32. 
+       29    pepticulcer          Num       8    BEST12.    BEST32. 
+       42    pica                 Num       8    BEST12.    BEST32. 
+       35    polio                Num       8    BEST12.    BEST32. 
+       56    pregnancies          Num       8    BEST12.    BEST32. 
+       59    price71              Num       8    BEST12.    BEST32. 
+       60    price82              Num       8    BEST12.    BEST32. 
+       63    price71_82           Num       8    BEST12.    BEST32. 
+        2    qsmk                 Num       8    BEST12.    BEST32. 
+       11    race                 Num       8    BEST12.    BEST32. 
+        7    sbp                  Num       8    BEST12.    BEST32. 
+       14    school               Num       8    BEST12.    BEST32. 
+        1    seqn                 Num       8    BEST12.    BEST32. 
+        9    sex                  Num       8    BEST12.    BEST32. 
+       22    smkintensity82_71    Num       8    BEST12.    BEST32. 
+       21    smokeintensity       Num       8    BEST12.    BEST32. 
+       23    smokeyrs             Num       8    BEST12.    BEST32. 
+       61    tax71                Num       8    BEST12.    BEST32. 
+       62    tax82                Num       8    BEST12.    BEST32. 
+       64    tax71_82             Num       8    BEST12.    BEST32. 
+       26    tb                   Num       8    BEST12.    BEST32. 
+       36    tumor                Num       8    BEST12.    BEST32. 
+       45    weakheart            Num       8    BEST12.    BEST32. 
+       17    wt71                 Num       8    BEST12.    BEST32. 
+       18    wt82                 Num       8    BEST12.    BEST32. 
+       19    wt82_71              Num       8    BEST12.    BEST32. 
+       51    wtloss               Num       8    BEST12.    BEST32. 
+        4    yrdth                Num       8    BEST12.    BEST32. 
+                              The SAS System                             27
+                                          20:38 Thursday, December 15, 2022
+
+ 
+ Obs         seqn          qsmk         death         yrdth         modth
+
+   1          233             0             0             .             .
+   2          235             0             0             .             .
+   3          244             0             0             .             .
+   4          245             0             1            85             2
+   5          252             0             0             .             .
+
+ 
+ Obs        dadth           sbp           dbp           sex           age
+
+   1            .           175            96             0            42
+   2            .           123            80             0            36
+   3            .           115            75             1            56
+   4           14           148            78             0            68
+   5            .           118            77             0            40
+
+ 
+ Obs         race        income       marital        school     education
+
+   1            1            19             2             7             1
+   2            0            18             2             9             2
+   3            1            15             3            11             2
+   4            1            15             3             5             1
+   5            0            18             2            11             2
+
+ 
+ Obs           ht          wt71          wt82       wt82_71    birthplace
+
+   1     174.1875         79.04   68.94604024  -10.09395976            47
+   2      159.375         58.63   61.23496995    2.60496995            42
+   3        168.5         56.81   66.22448602    9.41448602            51
+   4     170.1875         59.42   64.41011654    4.99011654            37
+   5      181.875         87.09   92.07925111    4.98925111            42
+
+                    smkintensity82_
+ Obs smokeintensity       71            smokeyrs       asthma       bronch
+
+   1            30            -10             29            0            0
+   2            20            -10             24            0            0
+   3            20            -14             26            0            0
+   4             3              4             53            0            0
+   5            20              0             19            0            0
+                              The SAS System                             28
+                                          20:38 Thursday, December 15, 2022
+
+ 
+ Obs           tb            hf           hbp   pepticulcer       colitis
+
+   1            0             0             1             1             0
+   2            0             0             0             0             0
+   3            0             0             0             0             0
+   4            0             0             1             0             0
+   5            0             0             0             0             0
+
+ 
+ Obs    hepatitis  chroniccough      hayfever      diabetes         polio
+
+   1            0             0             0             1             0
+   2            0             0             0             0             0
+   3            0             0             1             0             0
+   4            0             0             0             0             0
+   5            0             0             0             0             0
+
+ 
+ Obs        tumor  nervousbreak     alcoholpy   alcoholfreq   alcoholtype
+
+   1            0             0             1             1             3
+   2            0             0             1             0             1
+   3            1             0             1             3             4
+   4            0             0             1             2             3
+   5            0             0             1             2             1
+
+ 
+ Obs alcoholhowmuch         pica     headache    otherpain    weakheart
+
+   1             7             0            1            0            0
+   2             4             0            1            0            0
+   3             .             0            1            1            0
+   4             4             0            0            1            1
+   5             2             0            1            0            0
+
+ 
+ Obs    allergies        nerves       lackpep        hbpmed  boweltrouble
+
+   1            0             0             0             1             0
+   2            0             0             0             0             0
+   3            0             1             0             0             0
+   4            0             0             0             0             0
+   5            0             0             0             0             1
+                              The SAS System                             29
+                                          20:38 Thursday, December 15, 2022
+
+ 
+ Obs       wtloss     infection        active      exercise  birthcontrol
+
+   1            0             0             0             2             2
+   2            0             1             0             0             2
+   3            0             0             0             2             0
+   4            0             0             1             2             2
+   5            0             0             1             1             2
+
+ 
+ Obs  pregnancies   cholesterol     hightax82       price71       price82
+
+   1            .           197             0    2.18359375  1.7399902344
+   2            .           301             0  2.3466796875  1.7973632813
+   3            2           157             0  1.5695800781  1.5134277344
+   4            .           174             0  1.5065917969  1.4519042969
+   5            .           216             0  2.3466796875  1.7973632813
+
+ 
+ Obs        tax71           tax82      price71_82        tax71_82
+
+   1 1.1022949219    0.4619750977    0.4437866211    0.6403808594
+   2 1.3649902344    0.5718994141    0.5493164063      0.79296875
+   3 0.5512695313    0.2309875488    0.0561981201    0.3202514648
+   4 0.5249023438    0.2199707031    0.0547943115    0.3049926758
+   5 1.3649902344    0.5718994141    0.5493164063      0.79296875
+                              The SAS System                             30
+                                          20:38 Thursday, December 15, 2022
+
+                            The MEANS Procedure
+
+                                                 N
+                         Variable             Miss
+                         -------------------------
+                         seqn                    0
+                         qsmk                    0
+                         death                   0
+                         yrdth                1311
+                         modth                1307
+                         dadth                1307
+                         sbp                    77
+                         dbp                    81
+                         sex                     0
+                         age                     0
+                         race                    0
+                         income                 62
+                         marital                 0
+                         school                  0
+                         education               0
+                         ht                      0
+                         wt71                    0
+                         wt82                   63
+                         wt82_71                63
+                         birthplace             92
+                         smokeintensity          0
+                         smkintensity82_71       0
+                         smokeyrs                0
+                         asthma                  0
+                         bronch                  0
+                         tb                      0
+                         hf                      0
+                         hbp                     0
+                         pepticulcer             0
+                         colitis                 0
+                         hepatitis               0
+                         chroniccough            0
+                         hayfever                0
+                         diabetes                0
+                         polio                   0
+                         tumor                   0
+                         nervousbreak            0
+                         alcoholpy               0
+                         alcoholfreq             0
+                         alcoholtype             0
+                         alcoholhowmuch        417
+                         pica                    0
+                         headache                0
+                         otherpain               0
+                         weakheart               0
+                         allergies               0
+                         nerves                  0
+                         lackpep                 0
+                         hbpmed                  0
+                         boweltrouble            0
+                         wtloss                  0
+                         -------------------------
+                              The SAS System                             31
+                                          20:38 Thursday, December 15, 2022
+
+                            The MEANS Procedure
+
+                                                 N
+                         Variable             Miss
+                         -------------------------
+                         infection               0
+                         active                  0
+                         exercise                0
+                         birthcontrol            0
+                         pregnancies           903
+                         cholesterol            16
+                         hightax82              92
+                         price71                92
+                         price82                92
+                         tax71                  92
+                         tax82                  92
+                         price71_82             92
+                         tax71_82               92
+                         -------------------------
+                              The SAS System                             32
+                                          20:38 Thursday, December 15, 2022
+
+                     Obs    Variable             NMiss
+
+                       1    seqn                    0 
+                       2    qsmk                    0 
+                       3    death                   0 
+                       4    yrdth                1311 
+                       5    modth                1307 
+                       6    dadth                1307 
+                       7    sbp                    77 
+                       8    dbp                    81 
+                       9    sex                     0 
+                      10    age                     0 
+                      11    race                    0 
+                      12    income                 62 
+                      13    marital                 0 
+                      14    school                  0 
+                      15    education               0 
+                      16    ht                      0 
+                      17    wt71                    0 
+                      18    wt82                   63 
+                      19    wt82_71                63 
+                      20    birthplace             92 
+                      21    smokeintensity          0 
+                      22    smkintensity82_71       0 
+                      23    smokeyrs                0 
+                      24    asthma                  0 
+                      25    bronch                  0 
+                      26    tb                      0 
+                      27    hf                      0 
+                      28    hbp                     0 
+                      29    pepticulcer             0 
+                      30    colitis                 0 
+                      31    hepatitis               0 
+                      32    chroniccough            0 
+                      33    hayfever                0 
+                      34    diabetes                0 
+                      35    polio                   0 
+                      36    tumor                   0 
+                      37    nervousbreak            0 
+                      38    alcoholpy               0 
+                      39    alcoholfreq             0 
+                      40    alcoholtype             0 
+                      41    alcoholhowmuch        417 
+                      42    pica                    0 
+                      43    headache                0 
+                      44    otherpain               0 
+                      45    weakheart               0 
+                      46    allergies               0 
+                      47    nerves                  0 
+                      48    lackpep                 0 
+                      49    hbpmed                  0 
+                      50    boweltrouble            0 
+                      51    wtloss                  0 
+                      52    infection               0 
+                      53    active                  0 
+                      54    exercise                0 
+                      55    birthcontrol            0 
+                              The SAS System                             33
+                                          20:38 Thursday, December 15, 2022
+
+                        Obs    Variable       NMiss
+
+                         56    pregnancies     903 
+                         57    cholesterol      16 
+                         58    hightax82        92 
+                         59    price71          92 
+                         60    price82          92 
+                         61    tax71            92 
+                         62    tax82            92 
+                         63    price71_82       92 
+                         64    tax71_82         92 
+                              The SAS System                             34
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+Data Set Name        WORK.NHEFS2                  Observations          44 
+Member Type          DATA                         Variables             64 
+Engine               V9                           Indexes               0  
+Created              12/15/2022 20:38:40          Observation Length    512
+Last Modified        12/15/2022 20:38:40          Deleted Observations  0  
+Protection                                        Compressed            NO 
+Data Set Type                                     Sorted                NO 
+Label                                                                      
+Data Representation  SOLARIS_X86_64,                                       
+                     LINUX_X86_64, ALPHA_TRU64,                            
+                     LINUX_IA64                                            
+Encoding             latin1  Western (ISO)                                 
+
+                     Engine/Host Dependent Information
+
+Data Set Page Size          65536                                          
+Number of Data Set Pages    1                                              
+First Data Page             1                                              
+Max Obs per Page            127                                            
+Obs in First Data Page      44                                             
+Number of Data Set Repairs  0                                              
+Filename                    /tmp/SAS_workDFED00005A61_                     
+                            jrgant-AW/nhefs2.sas7bdat                      
+Release Created             9.0401M7                                       
+Host Created                Linux                                          
+Inode Number                7998378                                        
+Access Permission           rw-rw-r--                                      
+Owner Name                  jrgant                                         
+File Size                   128KB                                          
+File Size (bytes)           131072                                         
+
+                Alphabetic List of Variables and Attributes
+ 
+        #    Variable             Type    Len    Format     Informat
+
+       53    active               Num       8    BEST12.    BEST32. 
+       10    age                  Num       8    BEST12.    BEST32. 
+       39    alcoholfreq          Num       8    BEST12.    BEST32. 
+       41    alcoholhowmuch       Num       8    BEST12.    BEST32. 
+       38    alcoholpy            Num       8    BEST12.    BEST32. 
+       40    alcoholtype          Num       8    BEST12.    BEST32. 
+       46    allergies            Num       8    BEST12.    BEST32. 
+       24    asthma               Num       8    BEST12.    BEST32. 
+       55    birthcontrol         Num       8    BEST12.    BEST32. 
+       20    birthplace           Num       8    BEST12.    BEST32. 
+       50    boweltrouble         Num       8    BEST12.    BEST32. 
+       25    bronch               Num       8    BEST12.    BEST32. 
+       57    cholesterol          Num       8    BEST12.    BEST32. 
+       32    chroniccough         Num       8    BEST12.    BEST32. 
+       30    colitis              Num       8    BEST12.    BEST32. 
+        6    dadth                Num       8    BEST12.    BEST32. 
+        8    dbp                  Num       8    BEST12.    BEST32. 
+        3    death                Num       8    BEST12.    BEST32. 
+                              The SAS System                             35
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+                Alphabetic List of Variables and Attributes
+ 
+        #    Variable             Type    Len    Format     Informat
+
+       34    diabetes             Num       8    BEST12.    BEST32. 
+       15    education            Num       8    BEST12.    BEST32. 
+       54    exercise             Num       8    BEST12.    BEST32. 
+       33    hayfever             Num       8    BEST12.    BEST32. 
+       28    hbp                  Num       8    BEST12.    BEST32. 
+       49    hbpmed               Num       8    BEST12.    BEST32. 
+       43    headache             Num       8    BEST12.    BEST32. 
+       31    hepatitis            Num       8    BEST12.    BEST32. 
+       27    hf                   Num       8    BEST12.    BEST32. 
+       58    hightax82            Num       8    BEST12.    BEST32. 
+       16    ht                   Num       8    BEST12.    BEST32. 
+       12    income               Num       8    BEST12.    BEST32. 
+       52    infection            Num       8    BEST12.    BEST32. 
+       48    lackpep              Num       8    BEST12.    BEST32. 
+       13    marital              Num       8    BEST12.    BEST32. 
+        5    modth                Num       8    BEST12.    BEST32. 
+       47    nerves               Num       8    BEST12.    BEST32. 
+       37    nervousbreak         Num       8    BEST12.    BEST32. 
+       44    otherpain            Num       8    BEST12.    BEST32. 
+       29    pepticulcer          Num       8    BEST12.    BEST32. 
+       42    pica                 Num       8    BEST12.    BEST32. 
+       35    polio                Num       8    BEST12.    BEST32. 
+       56    pregnancies          Num       8    BEST12.    BEST32. 
+       59    price71              Num       8    BEST12.    BEST32. 
+       60    price82              Num       8    BEST12.    BEST32. 
+       63    price71_82           Num       8    BEST12.    BEST32. 
+        2    qsmk                 Num       8    BEST12.    BEST32. 
+       11    race                 Num       8    BEST12.    BEST32. 
+        7    sbp                  Num       8    BEST12.    BEST32. 
+       14    school               Num       8    BEST12.    BEST32. 
+        1    seqn                 Num       8    BEST12.    BEST32. 
+        9    sex                  Num       8    BEST12.    BEST32. 
+       22    smkintensity82_71    Num       8    BEST12.    BEST32. 
+       21    smokeintensity       Num       8    BEST12.    BEST32. 
+       23    smokeyrs             Num       8    BEST12.    BEST32. 
+       61    tax71                Num       8    BEST12.    BEST32. 
+       62    tax82                Num       8    BEST12.    BEST32. 
+       64    tax71_82             Num       8    BEST12.    BEST32. 
+       26    tb                   Num       8    BEST12.    BEST32. 
+       36    tumor                Num       8    BEST12.    BEST32. 
+       45    weakheart            Num       8    BEST12.    BEST32. 
+       17    wt71                 Num       8    BEST12.    BEST32. 
+       18    wt82                 Num       8    BEST12.    BEST32. 
+       19    wt82_71              Num       8    BEST12.    BEST32. 
+       51    wtloss               Num       8    BEST12.    BEST32. 
+        4    yrdth                Num       8    BEST12.    BEST32. 
+                              The SAS System                             36
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+Data Set Name        WORK.NHEFS3                 Observations          1552
+Member Type          DATA                        Variables             8   
+Engine               V9                          Indexes               0   
+Created              12/15/2022 20:38:40         Observation Length    64  
+Last Modified        12/15/2022 20:38:40         Deleted Observations  0   
+Protection                                       Compressed            NO  
+Data Set Type                                    Sorted                NO  
+Label                                                                      
+Data Representation  SOLARIS_X86_64,                                       
+                     LINUX_X86_64, ALPHA_TRU64,                            
+                     LINUX_IA64                                            
+Encoding             latin1  Western (ISO)                                 
+
+                     Engine/Host Dependent Information
+
+Data Set Page Size          65536                                          
+Number of Data Set Pages    2                                              
+First Data Page             1                                              
+Max Obs per Page            1021                                           
+Obs in First Data Page      977                                            
+Number of Data Set Repairs  0                                              
+Filename                    /tmp/SAS_workDFED00005A61_                     
+                            jrgant-AW/nhefs3.sas7bdat                      
+Release Created             9.0401M7                                       
+Host Created                Linux                                          
+Inode Number                7998379                                        
+Access Permission           rw-rw-r--                                      
+Owner Name                  jrgant                                         
+File Size                   192KB                                          
+File Size (bytes)           196608                                         
+
+                Alphabetic List of Variables and Attributes
+ 
+         #    Variable          Type    Len    Format     Informat
+
+         2    age               Num       8    BEST12.    BEST32. 
+         6    alcoholfreq       Num       8    BEST12.    BEST32. 
+         8    allergies         Num       8    BEST12.    BEST32. 
+         5    asthma            Num       8    BEST12.    BEST32. 
+         1    sbp               Num       8    BEST12.    BEST32. 
+         4    smokeintensity    Num       8    BEST12.    BEST32. 
+         7    weakheart         Num       8    BEST12.    BEST32. 
+         3    wt71              Num       8    BEST12.    BEST32. 
+                              The SAS System                             37
+                                          20:38 Thursday, December 15, 2022
+
+                            The FREQ Procedure
+
+                    Table of alcfreqcat by alcoholfreq
+
+  alcfreqcat     alcoholfreq
+
+  Frequency|
+  Percent  |
+  Row Pct  |
+  Col Pct  |       0|       1|       2|       3|       4|       5|  Total
+  ---------+--------+--------+--------+--------+--------+--------+
+  .        |      0 |      0 |      0 |      0 |      0 |      5 |      5
+           |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 |   0.32 |   0.32
+           |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 | 100.00 |
+           |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 | 100.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  0        |    320 |      0 |      0 |      0 |      0 |      0 |    320
+           |  20.62 |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 |  20.62
+           | 100.00 |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 |
+           | 100.00 |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  1        |      0 |    217 |      0 |      0 |      0 |      0 |    217
+           |   0.00 |  13.98 |   0.00 |   0.00 |   0.00 |   0.00 |  13.98
+           |   0.00 | 100.00 |   0.00 |   0.00 |   0.00 |   0.00 |
+           |   0.00 | 100.00 |   0.00 |   0.00 |   0.00 |   0.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  2        |      0 |      0 |    489 |      0 |      0 |      0 |    489
+           |   0.00 |   0.00 |  31.51 |   0.00 |   0.00 |   0.00 |  31.51
+           |   0.00 |   0.00 | 100.00 |   0.00 |   0.00 |   0.00 |
+           |   0.00 |   0.00 | 100.00 |   0.00 |   0.00 |   0.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  3        |      0 |      0 |      0 |    329 |      0 |      0 |    329
+           |   0.00 |   0.00 |   0.00 |  21.20 |   0.00 |   0.00 |  21.20
+           |   0.00 |   0.00 |   0.00 | 100.00 |   0.00 |   0.00 |
+           |   0.00 |   0.00 |   0.00 | 100.00 |   0.00 |   0.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  4        |      0 |      0 |      0 |      0 |    192 |      0 |    192
+           |   0.00 |   0.00 |   0.00 |   0.00 |  12.37 |   0.00 |  12.37
+           |   0.00 |   0.00 |   0.00 |   0.00 | 100.00 |   0.00 |
+           |   0.00 |   0.00 |   0.00 |   0.00 | 100.00 |   0.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  Total         320      217      489      329      192        5     1552
+              20.62    13.98    31.51    21.20    12.37     0.32   100.00
+                              The SAS System                             38
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+Data Set Name        WORK.NHEFS3                 Observations          1552
+Member Type          DATA                        Variables             9   
+Engine               V9                          Indexes               0   
+Created              12/15/2022 20:38:40         Observation Length    72  
+Last Modified        12/15/2022 20:38:40         Deleted Observations  0   
+Protection                                       Compressed            NO  
+Data Set Type                                    Sorted                NO  
+Label                                                                      
+Data Representation  SOLARIS_X86_64,                                       
+                     LINUX_X86_64, ALPHA_TRU64,                            
+                     LINUX_IA64                                            
+Encoding             latin1  Western (ISO)                                 
+
+                     Engine/Host Dependent Information
+
+Data Set Page Size          65536                                          
+Number of Data Set Pages    2                                              
+First Data Page             1                                              
+Max Obs per Page            908                                            
+Obs in First Data Page      866                                            
+Number of Data Set Repairs  0                                              
+Filename                    /tmp/SAS_workDFED00005A61_                     
+                            jrgant-AW/nhefs3.sas7bdat                      
+Release Created             9.0401M7                                       
+Host Created                Linux                                          
+Inode Number                7998381                                        
+Access Permission           rw-rw-r--                                      
+Owner Name                  jrgant                                         
+File Size                   192KB                                          
+File Size (bytes)           196608                                         
+
+                Alphabetic List of Variables and Attributes
+ 
+         #    Variable          Type    Len    Format     Informat
+
+         2    age               Num       8    BEST12.    BEST32. 
+         9    alcfreqcat        Char      1                       
+         6    alcoholfreq       Num       8    BEST12.    BEST32. 
+         8    allergies         Num       8    BEST12.    BEST32. 
+         5    asthma            Num       8    BEST12.    BEST32. 
+         1    sbp               Num       8    BEST12.    BEST32. 
+         4    smokeintensity    Num       8    BEST12.    BEST32. 
+         7    weakheart         Num       8    BEST12.    BEST32. 
+         3    wt71              Num       8    BEST12.    BEST32. 
+                              The SAS System                             39
+                                          20:38 Thursday, December 15, 2022
+
+   Obs             sbp             age            wt71    smokeintensity
+
+     1             175              42           79.04               30 
+     2             123              36           58.63               20 
+     3             115              56           56.81               20 
+     4             148              68           59.42                3 
+     5             118              40           87.09               20 
+
+   Obs          asthma       weakheart       allergies    alcfreqcat
+
+     1               0               0               0        1     
+     2               0               0               0        0     
+     3               0               0               0        3     
+     4               0               1               0        2     
+     5               0               0               0        2     
+                              The SAS System                             40
+                                          20:38 Thursday, December 15, 2022
+
+                            The MEANS Procedure
+
+  Variable             N            Mean         Std Dev         Minimum
+  ----------------------------------------------------------------------
+  age               1547      43.6528765      12.0298947      25.0000000
+  wt71              1547      70.9031157      15.3891998      39.5800000
+  smokeintensity    1547      20.5416936      11.7258480       1.0000000
+  sbp               1547     128.7039431      19.0608817      87.0000000
+  ----------------------------------------------------------------------
+
+                      Variable               Maximum
+                      ------------------------------
+                      age                 74.0000000
+                      wt71               151.7300000
+                      smokeintensity      80.0000000
+                      sbp                229.0000000
+                      ------------------------------
+                              The SAS System                             41
+                                          20:38 Thursday, December 15, 2022
+
+                            The FREQ Procedure
+
+                                           Cumulative    Cumulative
+        asthma    Frequency     Percent     Frequency      Percent
+        -----------------------------------------------------------
+             0        1474       95.28          1474        95.28  
+             1          73        4.72          1547       100.00  
+
+                                            Cumulative    Cumulative
+      allergies    Frequency     Percent     Frequency      Percent
+      --------------------------------------------------------------
+              0        1448       93.60          1448        93.60  
+              1          99        6.40          1547       100.00  
+
+                                             Cumulative    Cumulative
+      alcfreqcat    Frequency     Percent     Frequency      Percent
+      ---------------------------------------------------------------
+      0                  320       20.69           320        20.69  
+      1                  217       14.03           537        34.71  
+      2                  489       31.61          1026        66.32  
+      3                  329       21.27          1355        87.59  
+      4                  192       12.41          1547       100.00  
+
+                                            Cumulative    Cumulative
+      weakheart    Frequency     Percent     Frequency      Percent
+      --------------------------------------------------------------
+              0        1512       97.74          1512        97.74  
+              1          35        2.26          1547       100.00  
+                              The SAS System                             42
+                                          20:38 Thursday, December 15, 2022
+
+                            The FREQ Procedure
+
+                                           Cumulative    Cumulative
+        sbp_hi    Frequency     Percent     Frequency      Percent
+        -----------------------------------------------------------
+             0        1192       76.80          1192        76.80  
+             1         360       23.20          1552       100.00  
+
+                           Frequency Missing = 77
+                              The SAS System                             43
+                                          20:38 Thursday, December 15, 2022
+
+                            The FREQ Procedure
+
+                          Table of sbp_hi by qsmk
+
+                    sbp_hi     qsmk
+
+                    Frequency|
+                    Percent  |
+                    Row Pct  |
+                    Col Pct  |       0|       1|  Total
+                    ---------+--------+--------+
+                           0 |    908 |    284 |   1192
+                             |  58.51 |  18.30 |  76.80
+                             |  76.17 |  23.83 |
+                             |  78.34 |  72.26 |
+                    ---------+--------+--------+
+                           1 |    251 |    109 |    360
+                             |  16.17 |   7.02 |  23.20
+                             |  69.72 |  30.28 |
+                             |  21.66 |  27.74 |
+                    ---------+--------+--------+
+                    Total        1159      393     1552
+                                74.68    25.32   100.00
+
+                          Frequency Missing = 77
+
+                  Statistics for Table of sbp_hi by qsmk
+
+          Statistic                     DF       Value      Prob
+          ------------------------------------------------------
+          Chi-Square                     1      6.0872    0.0136
+          Likelihood Ratio Chi-Square    1      5.9256    0.0149
+          Continuity Adj. Chi-Square     1      5.7508    0.0165
+          Mantel-Haenszel Chi-Square     1      6.0833    0.0136
+          Phi Coefficient                       0.0626          
+          Contingency Coefficient               0.0625          
+          Cramer&#39;s V                            0.0626          
+
+                           Fisher&#39;s Exact Test
+                    ----------------------------------
+                    Cell (1,1) Frequency (F)       908
+                    Left-sided Pr &lt;= F          0.9939
+                    Right-sided Pr &gt;= F         0.0088
+                                                      
+                    Table Probability (P)       0.0028
+                    Two-sided Pr &lt;= P           0.0155
+
+                            Sample Size = 1552
+                          Frequency Missing = 77
+                              The SAS System                             44
+                                          20:38 Thursday, December 15, 2022
+
+                             The REG Procedure
+                               Model: MODEL1
+                         Dependent Variable: sbp 
+
+          Number of Observations Read                       1629
+          Number of Observations Used                       1552
+          Number of Observations with Missing Values          77
+
+                           Analysis of Variance
+ 
+                                   Sum of          Mean
+ Source                  DF       Squares        Square   F Value   Pr &gt; F
+
+ Model                    1    4673.90689    4673.90689     12.98   0.0003
+ Error                 1550        558280     360.18067                   
+ Corrected Total       1551        562954                                 
+
+           Root MSE             18.97843    R-Square     0.0083
+           Dependent Mean      128.70941    Adj R-Sq     0.0077
+           Coeff Var            14.74517                       
+
+                           Parameter Estimates
+ 
+                        Parameter       Standard
+   Variable     DF       Estimate          Error    t Value    Pr &gt; |t|
+
+   Intercept     1      127.69888        0.55747     229.07      &lt;.0001
+   qsmk          1        3.99069        1.10782       3.60      0.0003
+
+                            Parameter Estimates
+ 
+               Variable     DF       95% Confidence Limits
+
+               Intercept     1      126.60541      128.79235
+               qsmk          1        1.81771        6.16367
+                              The SAS System                             45
+                                          20:38 Thursday, December 15, 2022
+
+Obs   Sepal_Length    Sepal_Width   Petal_Length    Petal_Width   Species
+
+  1            5.1            3.5            1.4            0.2   setosa  
+  2            4.9              3            1.4            0.2   setosa  
+  3            4.7            3.2            1.3            0.2   setosa  
+  4            4.6            3.1            1.5            0.2   setosa  
+  5              5            3.6            1.4            0.2   setosa  
+  6            5.4            3.9            1.7            0.4   setosa  
+                              The SAS System                             46
+                                          20:38 Thursday, December 15, 2022
+
+Obs   Sepal_Length    Sepal_Width   Petal_Length    Petal_Width   Species
+
+  1            5.1            3.5            1.4            0.2   setosa  
+  2            4.9              3            1.4            0.2   setosa  
+  3            4.7            3.2            1.3            0.2   setosa  
+  4            4.6            3.1            1.5            0.2   setosa  
+  5              5            3.6            1.4            0.2   setosa  
+  6            5.4            3.9            1.7            0.4   setosa  
+  7            4.6            3.4            1.4            0.3   setosa  
+  8              5            3.4            1.5            0.2   setosa  
+  9            4.4            2.9            1.4            0.2   setosa  
+ 10            4.9            3.1            1.5            0.1   setosa  
+                              The SAS System                             47
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+Data Set Name        WORK.NHEFS                  Observations          1629
+Member Type          DATA                        Variables             64  
+Engine               V9                          Indexes               0   
+Created              12/15/2022 20:38:40         Observation Length    512 
+Last Modified        12/15/2022 20:38:40         Deleted Observations  0   
+Protection                                       Compressed            NO  
+Data Set Type                                    Sorted                NO  
+Label                                                                      
+Data Representation  SOLARIS_X86_64,                                       
+                     LINUX_X86_64, ALPHA_TRU64,                            
+                     LINUX_IA64                                            
+Encoding             latin1  Western (ISO)                                 
+
+                     Engine/Host Dependent Information
+
+Data Set Page Size          65536                                          
+Number of Data Set Pages    13                                             
+First Data Page             1                                              
+Max Obs per Page            127                                            
+Obs in First Data Page      107                                            
+Number of Data Set Repairs  0                                              
+Filename                    /tmp/SAS_workDFED00005A61_                     
+                            jrgant-AW/nhefs.sas7bdat                       
+Release Created             9.0401M7                                       
+Host Created                Linux                                          
+Inode Number                7998377                                        
+Access Permission           rw-rw-r--                                      
+Owner Name                  jrgant                                         
+File Size                   896KB                                          
+File Size (bytes)           917504                                         
+
+                Alphabetic List of Variables and Attributes
+ 
+        #    Variable             Type    Len    Format     Informat
+
+       53    active               Num       8    BEST12.    BEST32. 
+       10    age                  Num       8    BEST12.    BEST32. 
+       39    alcoholfreq          Num       8    BEST12.    BEST32. 
+       41    alcoholhowmuch       Num       8    BEST12.    BEST32. 
+       38    alcoholpy            Num       8    BEST12.    BEST32. 
+       40    alcoholtype          Num       8    BEST12.    BEST32. 
+       46    allergies            Num       8    BEST12.    BEST32. 
+       24    asthma               Num       8    BEST12.    BEST32. 
+       55    birthcontrol         Num       8    BEST12.    BEST32. 
+       20    birthplace           Num       8    BEST12.    BEST32. 
+       50    boweltrouble         Num       8    BEST12.    BEST32. 
+       25    bronch               Num       8    BEST12.    BEST32. 
+       57    cholesterol          Num       8    BEST12.    BEST32. 
+       32    chroniccough         Num       8    BEST12.    BEST32. 
+       30    colitis              Num       8    BEST12.    BEST32. 
+        6    dadth                Num       8    BEST12.    BEST32. 
+        8    dbp                  Num       8    BEST12.    BEST32. 
+        3    death                Num       8    BEST12.    BEST32. 
+                              The SAS System                             48
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+                Alphabetic List of Variables and Attributes
+ 
+        #    Variable             Type    Len    Format     Informat
+
+       34    diabetes             Num       8    BEST12.    BEST32. 
+       15    education            Num       8    BEST12.    BEST32. 
+       54    exercise             Num       8    BEST12.    BEST32. 
+       33    hayfever             Num       8    BEST12.    BEST32. 
+       28    hbp                  Num       8    BEST12.    BEST32. 
+       49    hbpmed               Num       8    BEST12.    BEST32. 
+       43    headache             Num       8    BEST12.    BEST32. 
+       31    hepatitis            Num       8    BEST12.    BEST32. 
+       27    hf                   Num       8    BEST12.    BEST32. 
+       58    hightax82            Num       8    BEST12.    BEST32. 
+       16    ht                   Num       8    BEST12.    BEST32. 
+       12    income               Num       8    BEST12.    BEST32. 
+       52    infection            Num       8    BEST12.    BEST32. 
+       48    lackpep              Num       8    BEST12.    BEST32. 
+       13    marital              Num       8    BEST12.    BEST32. 
+        5    modth                Num       8    BEST12.    BEST32. 
+       47    nerves               Num       8    BEST12.    BEST32. 
+       37    nervousbreak         Num       8    BEST12.    BEST32. 
+       44    otherpain            Num       8    BEST12.    BEST32. 
+       29    pepticulcer          Num       8    BEST12.    BEST32. 
+       42    pica                 Num       8    BEST12.    BEST32. 
+       35    polio                Num       8    BEST12.    BEST32. 
+       56    pregnancies          Num       8    BEST12.    BEST32. 
+       59    price71              Num       8    BEST12.    BEST32. 
+       60    price82              Num       8    BEST12.    BEST32. 
+       63    price71_82           Num       8    BEST12.    BEST32. 
+        2    qsmk                 Num       8    BEST12.    BEST32. 
+       11    race                 Num       8    BEST12.    BEST32. 
+        7    sbp                  Num       8    BEST12.    BEST32. 
+       14    school               Num       8    BEST12.    BEST32. 
+        1    seqn                 Num       8    BEST12.    BEST32. 
+        9    sex                  Num       8    BEST12.    BEST32. 
+       22    smkintensity82_71    Num       8    BEST12.    BEST32. 
+       21    smokeintensity       Num       8    BEST12.    BEST32. 
+       23    smokeyrs             Num       8    BEST12.    BEST32. 
+       61    tax71                Num       8    BEST12.    BEST32. 
+       62    tax82                Num       8    BEST12.    BEST32. 
+       64    tax71_82             Num       8    BEST12.    BEST32. 
+       26    tb                   Num       8    BEST12.    BEST32. 
+       36    tumor                Num       8    BEST12.    BEST32. 
+       45    weakheart            Num       8    BEST12.    BEST32. 
+       17    wt71                 Num       8    BEST12.    BEST32. 
+       18    wt82                 Num       8    BEST12.    BEST32. 
+       19    wt82_71              Num       8    BEST12.    BEST32. 
+       51    wtloss               Num       8    BEST12.    BEST32. 
+        4    yrdth                Num       8    BEST12.    BEST32. 
+                              The SAS System                             49
+                                          20:38 Thursday, December 15, 2022
+
+ 
+ Obs         seqn          qsmk         death         yrdth         modth
+
+   1          233             0             0             .             .
+   2          235             0             0             .             .
+   3          244             0             0             .             .
+   4          245             0             1            85             2
+   5          252             0             0             .             .
+
+ 
+ Obs        dadth           sbp           dbp           sex           age
+
+   1            .           175            96             0            42
+   2            .           123            80             0            36
+   3            .           115            75             1            56
+   4           14           148            78             0            68
+   5            .           118            77             0            40
+
+ 
+ Obs         race        income       marital        school     education
+
+   1            1            19             2             7             1
+   2            0            18             2             9             2
+   3            1            15             3            11             2
+   4            1            15             3             5             1
+   5            0            18             2            11             2
+
+ 
+ Obs           ht          wt71          wt82       wt82_71    birthplace
+
+   1     174.1875         79.04   68.94604024  -10.09395976            47
+   2      159.375         58.63   61.23496995    2.60496995            42
+   3        168.5         56.81   66.22448602    9.41448602            51
+   4     170.1875         59.42   64.41011654    4.99011654            37
+   5      181.875         87.09   92.07925111    4.98925111            42
+
+                    smkintensity82_
+ Obs smokeintensity       71            smokeyrs       asthma       bronch
+
+   1            30            -10             29            0            0
+   2            20            -10             24            0            0
+   3            20            -14             26            0            0
+   4             3              4             53            0            0
+   5            20              0             19            0            0
+                              The SAS System                             50
+                                          20:38 Thursday, December 15, 2022
+
+ 
+ Obs           tb            hf           hbp   pepticulcer       colitis
+
+   1            0             0             1             1             0
+   2            0             0             0             0             0
+   3            0             0             0             0             0
+   4            0             0             1             0             0
+   5            0             0             0             0             0
+
+ 
+ Obs    hepatitis  chroniccough      hayfever      diabetes         polio
+
+   1            0             0             0             1             0
+   2            0             0             0             0             0
+   3            0             0             1             0             0
+   4            0             0             0             0             0
+   5            0             0             0             0             0
+
+ 
+ Obs        tumor  nervousbreak     alcoholpy   alcoholfreq   alcoholtype
+
+   1            0             0             1             1             3
+   2            0             0             1             0             1
+   3            1             0             1             3             4
+   4            0             0             1             2             3
+   5            0             0             1             2             1
+
+ 
+ Obs alcoholhowmuch         pica     headache    otherpain    weakheart
+
+   1             7             0            1            0            0
+   2             4             0            1            0            0
+   3             .             0            1            1            0
+   4             4             0            0            1            1
+   5             2             0            1            0            0
+
+ 
+ Obs    allergies        nerves       lackpep        hbpmed  boweltrouble
+
+   1            0             0             0             1             0
+   2            0             0             0             0             0
+   3            0             1             0             0             0
+   4            0             0             0             0             0
+   5            0             0             0             0             1
+                              The SAS System                             51
+                                          20:38 Thursday, December 15, 2022
+
+ 
+ Obs       wtloss     infection        active      exercise  birthcontrol
+
+   1            0             0             0             2             2
+   2            0             1             0             0             2
+   3            0             0             0             2             0
+   4            0             0             1             2             2
+   5            0             0             1             1             2
+
+ 
+ Obs  pregnancies   cholesterol     hightax82       price71       price82
+
+   1            .           197             0    2.18359375  1.7399902344
+   2            .           301             0  2.3466796875  1.7973632813
+   3            2           157             0  1.5695800781  1.5134277344
+   4            .           174             0  1.5065917969  1.4519042969
+   5            .           216             0  2.3466796875  1.7973632813
+
+ 
+ Obs        tax71           tax82      price71_82        tax71_82
+
+   1 1.1022949219    0.4619750977    0.4437866211    0.6403808594
+   2 1.3649902344    0.5718994141    0.5493164063      0.79296875
+   3 0.5512695313    0.2309875488    0.0561981201    0.3202514648
+   4 0.5249023438    0.2199707031    0.0547943115    0.3049926758
+   5 1.3649902344    0.5718994141    0.5493164063      0.79296875
+                              The SAS System                             52
+                                          20:38 Thursday, December 15, 2022
+
+                            The MEANS Procedure
+
+                                                 N
+                         Variable             Miss
+                         -------------------------
+                         seqn                    0
+                         qsmk                    0
+                         death                   0
+                         yrdth                1311
+                         modth                1307
+                         dadth                1307
+                         sbp                    77
+                         dbp                    81
+                         sex                     0
+                         age                     0
+                         race                    0
+                         income                 62
+                         marital                 0
+                         school                  0
+                         education               0
+                         ht                      0
+                         wt71                    0
+                         wt82                   63
+                         wt82_71                63
+                         birthplace             92
+                         smokeintensity          0
+                         smkintensity82_71       0
+                         smokeyrs                0
+                         asthma                  0
+                         bronch                  0
+                         tb                      0
+                         hf                      0
+                         hbp                     0
+                         pepticulcer             0
+                         colitis                 0
+                         hepatitis               0
+                         chroniccough            0
+                         hayfever                0
+                         diabetes                0
+                         polio                   0
+                         tumor                   0
+                         nervousbreak            0
+                         alcoholpy               0
+                         alcoholfreq             0
+                         alcoholtype             0
+                         alcoholhowmuch        417
+                         pica                    0
+                         headache                0
+                         otherpain               0
+                         weakheart               0
+                         allergies               0
+                         nerves                  0
+                         lackpep                 0
+                         hbpmed                  0
+                         boweltrouble            0
+                         wtloss                  0
+                         -------------------------
+                              The SAS System                             53
+                                          20:38 Thursday, December 15, 2022
+
+                            The MEANS Procedure
+
+                                                 N
+                         Variable             Miss
+                         -------------------------
+                         infection               0
+                         active                  0
+                         exercise                0
+                         birthcontrol            0
+                         pregnancies           903
+                         cholesterol            16
+                         hightax82              92
+                         price71                92
+                         price82                92
+                         tax71                  92
+                         tax82                  92
+                         price71_82             92
+                         tax71_82               92
+                         -------------------------
+                              The SAS System                             54
+                                          20:38 Thursday, December 15, 2022
+
+                     Obs    Variable             NMiss
+
+                       1    seqn                    0 
+                       2    qsmk                    0 
+                       3    death                   0 
+                       4    yrdth                1311 
+                       5    modth                1307 
+                       6    dadth                1307 
+                       7    sbp                    77 
+                       8    dbp                    81 
+                       9    sex                     0 
+                      10    age                     0 
+                      11    race                    0 
+                      12    income                 62 
+                      13    marital                 0 
+                      14    school                  0 
+                      15    education               0 
+                      16    ht                      0 
+                      17    wt71                    0 
+                      18    wt82                   63 
+                      19    wt82_71                63 
+                      20    birthplace             92 
+                      21    smokeintensity          0 
+                      22    smkintensity82_71       0 
+                      23    smokeyrs                0 
+                      24    asthma                  0 
+                      25    bronch                  0 
+                      26    tb                      0 
+                      27    hf                      0 
+                      28    hbp                     0 
+                      29    pepticulcer             0 
+                      30    colitis                 0 
+                      31    hepatitis               0 
+                      32    chroniccough            0 
+                      33    hayfever                0 
+                      34    diabetes                0 
+                      35    polio                   0 
+                      36    tumor                   0 
+                      37    nervousbreak            0 
+                      38    alcoholpy               0 
+                      39    alcoholfreq             0 
+                      40    alcoholtype             0 
+                      41    alcoholhowmuch        417 
+                      42    pica                    0 
+                      43    headache                0 
+                      44    otherpain               0 
+                      45    weakheart               0 
+                      46    allergies               0 
+                      47    nerves                  0 
+                      48    lackpep                 0 
+                      49    hbpmed                  0 
+                      50    boweltrouble            0 
+                      51    wtloss                  0 
+                      52    infection               0 
+                      53    active                  0 
+                      54    exercise                0 
+                      55    birthcontrol            0 
+                              The SAS System                             55
+                                          20:38 Thursday, December 15, 2022
+
+                        Obs    Variable       NMiss
+
+                         56    pregnancies     903 
+                         57    cholesterol      16 
+                         58    hightax82        92 
+                         59    price71          92 
+                         60    price82          92 
+                         61    tax71            92 
+                         62    tax82            92 
+                         63    price71_82       92 
+                         64    tax71_82         92 
+                              The SAS System                             56
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+Data Set Name        WORK.NHEFS2                  Observations          44 
+Member Type          DATA                         Variables             64 
+Engine               V9                           Indexes               0  
+Created              12/15/2022 20:38:40          Observation Length    512
+Last Modified        12/15/2022 20:38:40          Deleted Observations  0  
+Protection                                        Compressed            NO 
+Data Set Type                                     Sorted                NO 
+Label                                                                      
+Data Representation  SOLARIS_X86_64,                                       
+                     LINUX_X86_64, ALPHA_TRU64,                            
+                     LINUX_IA64                                            
+Encoding             latin1  Western (ISO)                                 
+
+                     Engine/Host Dependent Information
+
+Data Set Page Size          65536                                          
+Number of Data Set Pages    1                                              
+First Data Page             1                                              
+Max Obs per Page            127                                            
+Obs in First Data Page      44                                             
+Number of Data Set Repairs  0                                              
+Filename                    /tmp/SAS_workDFED00005A61_                     
+                            jrgant-AW/nhefs2.sas7bdat                      
+Release Created             9.0401M7                                       
+Host Created                Linux                                          
+Inode Number                7998382                                        
+Access Permission           rw-rw-r--                                      
+Owner Name                  jrgant                                         
+File Size                   128KB                                          
+File Size (bytes)           131072                                         
+
+                Alphabetic List of Variables and Attributes
+ 
+        #    Variable             Type    Len    Format     Informat
+
+       53    active               Num       8    BEST12.    BEST32. 
+       10    age                  Num       8    BEST12.    BEST32. 
+       39    alcoholfreq          Num       8    BEST12.    BEST32. 
+       41    alcoholhowmuch       Num       8    BEST12.    BEST32. 
+       38    alcoholpy            Num       8    BEST12.    BEST32. 
+       40    alcoholtype          Num       8    BEST12.    BEST32. 
+       46    allergies            Num       8    BEST12.    BEST32. 
+       24    asthma               Num       8    BEST12.    BEST32. 
+       55    birthcontrol         Num       8    BEST12.    BEST32. 
+       20    birthplace           Num       8    BEST12.    BEST32. 
+       50    boweltrouble         Num       8    BEST12.    BEST32. 
+       25    bronch               Num       8    BEST12.    BEST32. 
+       57    cholesterol          Num       8    BEST12.    BEST32. 
+       32    chroniccough         Num       8    BEST12.    BEST32. 
+       30    colitis              Num       8    BEST12.    BEST32. 
+        6    dadth                Num       8    BEST12.    BEST32. 
+        8    dbp                  Num       8    BEST12.    BEST32. 
+        3    death                Num       8    BEST12.    BEST32. 
+                              The SAS System                             57
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+                Alphabetic List of Variables and Attributes
+ 
+        #    Variable             Type    Len    Format     Informat
+
+       34    diabetes             Num       8    BEST12.    BEST32. 
+       15    education            Num       8    BEST12.    BEST32. 
+       54    exercise             Num       8    BEST12.    BEST32. 
+       33    hayfever             Num       8    BEST12.    BEST32. 
+       28    hbp                  Num       8    BEST12.    BEST32. 
+       49    hbpmed               Num       8    BEST12.    BEST32. 
+       43    headache             Num       8    BEST12.    BEST32. 
+       31    hepatitis            Num       8    BEST12.    BEST32. 
+       27    hf                   Num       8    BEST12.    BEST32. 
+       58    hightax82            Num       8    BEST12.    BEST32. 
+       16    ht                   Num       8    BEST12.    BEST32. 
+       12    income               Num       8    BEST12.    BEST32. 
+       52    infection            Num       8    BEST12.    BEST32. 
+       48    lackpep              Num       8    BEST12.    BEST32. 
+       13    marital              Num       8    BEST12.    BEST32. 
+        5    modth                Num       8    BEST12.    BEST32. 
+       47    nerves               Num       8    BEST12.    BEST32. 
+       37    nervousbreak         Num       8    BEST12.    BEST32. 
+       44    otherpain            Num       8    BEST12.    BEST32. 
+       29    pepticulcer          Num       8    BEST12.    BEST32. 
+       42    pica                 Num       8    BEST12.    BEST32. 
+       35    polio                Num       8    BEST12.    BEST32. 
+       56    pregnancies          Num       8    BEST12.    BEST32. 
+       59    price71              Num       8    BEST12.    BEST32. 
+       60    price82              Num       8    BEST12.    BEST32. 
+       63    price71_82           Num       8    BEST12.    BEST32. 
+        2    qsmk                 Num       8    BEST12.    BEST32. 
+       11    race                 Num       8    BEST12.    BEST32. 
+        7    sbp                  Num       8    BEST12.    BEST32. 
+       14    school               Num       8    BEST12.    BEST32. 
+        1    seqn                 Num       8    BEST12.    BEST32. 
+        9    sex                  Num       8    BEST12.    BEST32. 
+       22    smkintensity82_71    Num       8    BEST12.    BEST32. 
+       21    smokeintensity       Num       8    BEST12.    BEST32. 
+       23    smokeyrs             Num       8    BEST12.    BEST32. 
+       61    tax71                Num       8    BEST12.    BEST32. 
+       62    tax82                Num       8    BEST12.    BEST32. 
+       64    tax71_82             Num       8    BEST12.    BEST32. 
+       26    tb                   Num       8    BEST12.    BEST32. 
+       36    tumor                Num       8    BEST12.    BEST32. 
+       45    weakheart            Num       8    BEST12.    BEST32. 
+       17    wt71                 Num       8    BEST12.    BEST32. 
+       18    wt82                 Num       8    BEST12.    BEST32. 
+       19    wt82_71              Num       8    BEST12.    BEST32. 
+       51    wtloss               Num       8    BEST12.    BEST32. 
+        4    yrdth                Num       8    BEST12.    BEST32. 
+                              The SAS System                             58
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+Data Set Name        WORK.NHEFS3                 Observations          1552
+Member Type          DATA                        Variables             8   
+Engine               V9                          Indexes               0   
+Created              12/15/2022 20:38:40         Observation Length    64  
+Last Modified        12/15/2022 20:38:40         Deleted Observations  0   
+Protection                                       Compressed            NO  
+Data Set Type                                    Sorted                NO  
+Label                                                                      
+Data Representation  SOLARIS_X86_64,                                       
+                     LINUX_X86_64, ALPHA_TRU64,                            
+                     LINUX_IA64                                            
+Encoding             latin1  Western (ISO)                                 
+
+                     Engine/Host Dependent Information
+
+Data Set Page Size          65536                                          
+Number of Data Set Pages    2                                              
+First Data Page             1                                              
+Max Obs per Page            1021                                           
+Obs in First Data Page      977                                            
+Number of Data Set Repairs  0                                              
+Filename                    /tmp/SAS_workDFED00005A61_                     
+                            jrgant-AW/nhefs3.sas7bdat                      
+Release Created             9.0401M7                                       
+Host Created                Linux                                          
+Inode Number                7998378                                        
+Access Permission           rw-rw-r--                                      
+Owner Name                  jrgant                                         
+File Size                   192KB                                          
+File Size (bytes)           196608                                         
+
+                Alphabetic List of Variables and Attributes
+ 
+         #    Variable          Type    Len    Format     Informat
+
+         2    age               Num       8    BEST12.    BEST32. 
+         6    alcoholfreq       Num       8    BEST12.    BEST32. 
+         8    allergies         Num       8    BEST12.    BEST32. 
+         5    asthma            Num       8    BEST12.    BEST32. 
+         1    sbp               Num       8    BEST12.    BEST32. 
+         4    smokeintensity    Num       8    BEST12.    BEST32. 
+         7    weakheart         Num       8    BEST12.    BEST32. 
+         3    wt71              Num       8    BEST12.    BEST32. 
+                              The SAS System                             59
+                                          20:38 Thursday, December 15, 2022
+
+                            The FREQ Procedure
+
+                    Table of alcfreqcat by alcoholfreq
+
+  alcfreqcat     alcoholfreq
+
+  Frequency|
+  Percent  |
+  Row Pct  |
+  Col Pct  |       0|       1|       2|       3|       4|       5|  Total
+  ---------+--------+--------+--------+--------+--------+--------+
+  .        |      0 |      0 |      0 |      0 |      0 |      5 |      5
+           |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 |   0.32 |   0.32
+           |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 | 100.00 |
+           |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 | 100.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  0        |    320 |      0 |      0 |      0 |      0 |      0 |    320
+           |  20.62 |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 |  20.62
+           | 100.00 |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 |
+           | 100.00 |   0.00 |   0.00 |   0.00 |   0.00 |   0.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  1        |      0 |    217 |      0 |      0 |      0 |      0 |    217
+           |   0.00 |  13.98 |   0.00 |   0.00 |   0.00 |   0.00 |  13.98
+           |   0.00 | 100.00 |   0.00 |   0.00 |   0.00 |   0.00 |
+           |   0.00 | 100.00 |   0.00 |   0.00 |   0.00 |   0.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  2        |      0 |      0 |    489 |      0 |      0 |      0 |    489
+           |   0.00 |   0.00 |  31.51 |   0.00 |   0.00 |   0.00 |  31.51
+           |   0.00 |   0.00 | 100.00 |   0.00 |   0.00 |   0.00 |
+           |   0.00 |   0.00 | 100.00 |   0.00 |   0.00 |   0.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  3        |      0 |      0 |      0 |    329 |      0 |      0 |    329
+           |   0.00 |   0.00 |   0.00 |  21.20 |   0.00 |   0.00 |  21.20
+           |   0.00 |   0.00 |   0.00 | 100.00 |   0.00 |   0.00 |
+           |   0.00 |   0.00 |   0.00 | 100.00 |   0.00 |   0.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  4        |      0 |      0 |      0 |      0 |    192 |      0 |    192
+           |   0.00 |   0.00 |   0.00 |   0.00 |  12.37 |   0.00 |  12.37
+           |   0.00 |   0.00 |   0.00 |   0.00 | 100.00 |   0.00 |
+           |   0.00 |   0.00 |   0.00 |   0.00 | 100.00 |   0.00 |
+  ---------+--------+--------+--------+--------+--------+--------+
+  Total         320      217      489      329      192        5     1552
+              20.62    13.98    31.51    21.20    12.37     0.32   100.00
+                              The SAS System                             60
+                                          20:38 Thursday, December 15, 2022
+
+                          The CONTENTS Procedure
+
+Data Set Name        WORK.NHEFS3                 Observations          1552
+Member Type          DATA                        Variables             9   
+Engine               V9                          Indexes               0   
+Created              12/15/2022 20:38:40         Observation Length    72  
+Last Modified        12/15/2022 20:38:40         Deleted Observations  0   
+Protection                                       Compressed            NO  
+Data Set Type                                    Sorted                NO  
+Label                                                                      
+Data Representation  SOLARIS_X86_64,                                       
+                     LINUX_X86_64, ALPHA_TRU64,                            
+                     LINUX_IA64                                            
+Encoding             latin1  Western (ISO)                                 
+
+                     Engine/Host Dependent Information
+
+Data Set Page Size          65536                                          
+Number of Data Set Pages    2                                              
+First Data Page             1                                              
+Max Obs per Page            908                                            
+Obs in First Data Page      866                                            
+Number of Data Set Repairs  0                                              
+Filename                    /tmp/SAS_workDFED00005A61_                     
+                            jrgant-AW/nhefs3.sas7bdat                      
+Release Created             9.0401M7                                       
+Host Created                Linux                                          
+Inode Number                7998381                                        
+Access Permission           rw-rw-r--                                      
+Owner Name                  jrgant                                         
+File Size                   192KB                                          
+File Size (bytes)           196608                                         
+
+                Alphabetic List of Variables and Attributes
+ 
+         #    Variable          Type    Len    Format     Informat
+
+         2    age               Num       8    BEST12.    BEST32. 
+         9    alcfreqcat        Char      1                       
+         6    alcoholfreq       Num       8    BEST12.    BEST32. 
+         8    allergies         Num       8    BEST12.    BEST32. 
+         5    asthma            Num       8    BEST12.    BEST32. 
+         1    sbp               Num       8    BEST12.    BEST32. 
+         4    smokeintensity    Num       8    BEST12.    BEST32. 
+         7    weakheart         Num       8    BEST12.    BEST32. 
+         3    wt71              Num       8    BEST12.    BEST32. 
+                              The SAS System                             61
+                                          20:38 Thursday, December 15, 2022
+
+   Obs             sbp             age            wt71    smokeintensity
+
+     1             175              42           79.04               30 
+     2             123              36           58.63               20 
+     3             115              56           56.81               20 
+     4             148              68           59.42                3 
+     5             118              40           87.09               20 
+
+   Obs          asthma       weakheart       allergies    alcfreqcat
+
+     1               0               0               0        1     
+     2               0               0               0        0     
+     3               0               0               0        3     
+     4               0               1               0        2     
+     5               0               0               0        2     
+                              The SAS System                             62
+                                          20:38 Thursday, December 15, 2022
+
+                            The MEANS Procedure
+
+  Variable             N            Mean         Std Dev         Minimum
+  ----------------------------------------------------------------------
+  age               1547      43.6528765      12.0298947      25.0000000
+  wt71              1547      70.9031157      15.3891998      39.5800000
+  smokeintensity    1547      20.5416936      11.7258480       1.0000000
+  sbp               1547     128.7039431      19.0608817      87.0000000
+  ----------------------------------------------------------------------
+
+                      Variable               Maximum
+                      ------------------------------
+                      age                 74.0000000
+                      wt71               151.7300000
+                      smokeintensity      80.0000000
+                      sbp                229.0000000
+                      ------------------------------
+                              The SAS System                             63
+                                          20:38 Thursday, December 15, 2022
+
+                            The FREQ Procedure
+
+                                           Cumulative    Cumulative
+        asthma    Frequency     Percent     Frequency      Percent
+        -----------------------------------------------------------
+             0        1474       95.28          1474        95.28  
+             1          73        4.72          1547       100.00  
+
+                                            Cumulative    Cumulative
+      allergies    Frequency     Percent     Frequency      Percent
+      --------------------------------------------------------------
+              0        1448       93.60          1448        93.60  
+              1          99        6.40          1547       100.00  
+
+                                             Cumulative    Cumulative
+      alcfreqcat    Frequency     Percent     Frequency      Percent
+      ---------------------------------------------------------------
+      0                  320       20.69           320        20.69  
+      1                  217       14.03           537        34.71  
+      2                  489       31.61          1026        66.32  
+      3                  329       21.27          1355        87.59  
+      4                  192       12.41          1547       100.00  
+
+                                            Cumulative    Cumulative
+      weakheart    Frequency     Percent     Frequency      Percent
+      --------------------------------------------------------------
+              0        1512       97.74          1512        97.74  
+              1          35        2.26          1547       100.00  
+                              The SAS System                             64
+                                          20:38 Thursday, December 15, 2022
+
+                            The FREQ Procedure
+
+                                           Cumulative    Cumulative
+        sbp_hi    Frequency     Percent     Frequency      Percent
+        -----------------------------------------------------------
+             0        1192       76.80          1192        76.80  
+             1         360       23.20          1552       100.00  
+
+                           Frequency Missing = 77
+                              The SAS System                             65
+                                          20:38 Thursday, December 15, 2022
+
+                            The FREQ Procedure
+
+                          Table of sbp_hi by qsmk
+
+                    sbp_hi     qsmk
+
+                    Frequency|
+                    Percent  |
+                    Row Pct  |
+                    Col Pct  |       0|       1|  Total
+                    ---------+--------+--------+
+                           0 |    908 |    284 |   1192
+                             |  58.51 |  18.30 |  76.80
+                             |  76.17 |  23.83 |
+                             |  78.34 |  72.26 |
+                    ---------+--------+--------+
+                           1 |    251 |    109 |    360
+                             |  16.17 |   7.02 |  23.20
+                             |  69.72 |  30.28 |
+                             |  21.66 |  27.74 |
+                    ---------+--------+--------+
+                    Total        1159      393     1552
+                                74.68    25.32   100.00
+
+                          Frequency Missing = 77
+
+                  Statistics for Table of sbp_hi by qsmk
+
+          Statistic                     DF       Value      Prob
+          ------------------------------------------------------
+          Chi-Square                     1      6.0872    0.0136
+          Likelihood Ratio Chi-Square    1      5.9256    0.0149
+          Continuity Adj. Chi-Square     1      5.7508    0.0165
+          Mantel-Haenszel Chi-Square     1      6.0833    0.0136
+          Phi Coefficient                       0.0626          
+          Contingency Coefficient               0.0625          
+          Cramer&#39;s V                            0.0626          
+
+                           Fisher&#39;s Exact Test
+                    ----------------------------------
+                    Cell (1,1) Frequency (F)       908
+                    Left-sided Pr &lt;= F          0.9939
+                    Right-sided Pr &gt;= F         0.0088
+                                                      
+                    Table Probability (P)       0.0028
+                    Two-sided Pr &lt;= P           0.0155
+
+                            Sample Size = 1552
+                          Frequency Missing = 77
+                              The SAS System                             66
+                                          20:38 Thursday, December 15, 2022
+
+                             The REG Procedure
+                               Model: MODEL1
+                         Dependent Variable: sbp 
+
+          Number of Observations Read                       1629
+          Number of Observations Used                       1552
+          Number of Observations with Missing Values          77
+
+                           Analysis of Variance
+ 
+                                   Sum of          Mean
+ Source                  DF       Squares        Square   F Value   Pr &gt; F
+
+ Model                    1    4673.90689    4673.90689     12.98   0.0003
+ Error                 1550        558280     360.18067                   
+ Corrected Total       1551        562954                                 
+
+           Root MSE             18.97843    R-Square     0.0083
+           Dependent Mean      128.70941    Adj R-Sq     0.0077
+           Coeff Var            14.74517                       
+
+                           Parameter Estimates
+ 
+                        Parameter       Standard
+   Variable     DF       Estimate          Error    t Value    Pr &gt; |t|
+
+   Intercept     1      127.69888        0.55747     229.07      &lt;.0001
+   qsmk          1        3.99069        1.10782       3.60      0.0003
+
+                            Parameter Estimates
+ 
+               Variable     DF       95% Confidence Limits
+
+               Intercept     1      126.60541      128.79235
+               qsmk          1        1.81771        6.16367
+ 
+                                                                           
+ 
+Obs   Sepal_Length    Sepal_Width   Petal_Length    Petal_Width   Species
 
   1            5.1            3.5            1.4            0.2   setosa  
   2            4.9              3            1.4            0.2   setosa  
@@ -327,7 +2907,7 @@ Obs   Sepal_Length    Sepal_Width   Petal_Length    Petal_Width   Species
  10            4.9            3.1            1.5            0.1   setosa  </code></pre>
 <p>SAS is built around <strong>datasteps</strong> and <strong>procedures</strong> (the <code>proc</code> statements we wrote in the code above). As we continue on, we will see how different these languages are, and we’ll discuss some strengths and weaknesses of both.</p>
 </div>
-<div id="r-object-and-value-classes" class="section level2">
+<div id="r-object-and-value-classes" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> R: Object and Value Classes</h2>
 <p>As statistical programmers, we will need to have a good handle on the major classes (types), including which are appropriate based on the goals of our analyses. Here we will focus on two sets of entities—values and objects—and their respective classes.</p>
 <p><!--

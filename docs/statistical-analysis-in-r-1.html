@@ -1,0 +1,2044 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="8 Statistical Analysis in R | Computing Concepts for Public Health Researchers" />
+<meta property="og:type" content="book" />
+
+<meta property="og:description" content="Resources and tutorials for R and SAS analysis geared toward public health students." />
+<meta name="github-repo" content="jrgant/StatsCompPH-BrownSPH" />
+
+<meta name="author" content="Jason Gantenberg, PhD, MPH" />
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="description" content="Resources and tutorials for R and SAS analysis geared toward public health students.">
+
+<title>8 Statistical Analysis in R | Computing Concepts for Public Health Researchers</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-italics.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+<!-- Import LESS library -->
+<link rel="stylesheet/less" type="text/css" href="styles/switched-dev.less" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+
+<!-- Import custom element definitions -->
+<script src="styles/custom-elements.js"></script>
+
+<!-- <link rel="stylesheet" href="styles/switched-dev.css" /> -->
+
+<!-- MathJax -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<span class="docinfo">
+    <img src="images/github-brands.svg" /> <br />
+    <a href="https://github.com/jrgant/StatsCompPH-BrownSPH" target="blank">View on GitHub</a> <br />
+    <a href="https://github.com/jrgant/StatsCompPH-BrownSPH/issues" target="blank">File an issue</a>
+</span>
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li class="has-sub"><a href="index.html#learning-objectives" id="toc-learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a>
+<ul>
+<li><a href="index.html#main-objectives" id="toc-main-objectives"><span class="toc-section-number">1.1</span> Main objectives</a></li>
+<li><a href="index.html#acknowledgements" id="toc-acknowledgements"><span class="toc-section-number">1.2</span> Acknowledgements</a></li>
+</ul></li>
+<li class="has-sub"><a href="startup.html#startup" id="toc-startup"><span class="toc-section-number">2</span> Getting Started</a>
+<ul>
+<li><a href="startup.html#getting-started-with-r" id="toc-getting-started-with-r"><span class="toc-section-number">2.1</span> Getting Started with R</a></li>
+<li><a href="startup.html#getting-started-with-sas" id="toc-getting-started-with-sas"><span class="toc-section-number">2.2</span> Getting Started with SAS</a></li>
+</ul></li>
+<li class="has-sub"><a href="data-structures.html#data-structures" id="toc-data-structures"><span class="toc-section-number">3</span> Data Structures</a>
+<ul>
+<li><a href="data-structures.html#major-differences-between-r-and-sas" id="toc-major-differences-between-r-and-sas"><span class="toc-section-number">3.1</span> Major Differences Between R and SAS</a></li>
+<li><a href="data-structures.html#r-object-and-value-classes" id="toc-r-object-and-value-classes"><span class="toc-section-number">3.2</span> R: Object and Value Classes</a></li>
+</ul></li>
+<li class="has-sub"><a href="importing-and-exporting-data.html#importing-and-exporting-data" id="toc-importing-and-exporting-data"><span class="toc-section-number">4</span> Importing and Exporting Data</a>
+<ul>
+<li class="has-sub"><a href="importing-and-exporting-data.html#r-reading-and-writing-data" id="toc-r-reading-and-writing-data"><span class="toc-section-number">4.1</span> R: Reading and Writing Data</a>
+<ul>
+<li><a href="importing-and-exporting-data.html#reading-data" id="toc-reading-data"><span class="toc-section-number">4.1.1</span> Reading Data</a></li>
+<li><a href="importing-and-exporting-data.html#writing-data" id="toc-writing-data"><span class="toc-section-number">4.1.2</span> Writing Data</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="working-with-data.html#working-with-data" id="toc-working-with-data"><span class="toc-section-number">5</span> Working with Data</a>
+<ul>
+<li><a href="working-with-data.html#objects-in-r" id="toc-objects-in-r"><span class="toc-section-number">5.1</span> Objects in R</a></li>
+<li class="has-sub"><a href="working-with-data.html#more-complex-objects" id="toc-more-complex-objects"><span class="toc-section-number">5.2</span> More Complex Objects</a>
+<ul>
+<li><a href="working-with-data.html#vectors" id="toc-vectors"><span class="toc-section-number">5.2.1</span> Vectors</a></li>
+<li><a href="working-with-data.html#matrices" id="toc-matrices"><span class="toc-section-number">5.2.2</span> Matrices</a></li>
+<li><a href="working-with-data.html#lists" id="toc-lists"><span class="toc-section-number">5.2.3</span> Lists</a></li>
+<li><a href="working-with-data.html#data-frames" id="toc-data-frames"><span class="toc-section-number">5.2.4</span> Data Frames</a></li>
+<li><a href="working-with-data.html#other-object-classes" id="toc-other-object-classes"><span class="toc-section-number">5.2.5</span> Other Object Classes</a></li>
+</ul></li>
+<li class="has-sub"><a href="working-with-data.html#conducting-operations-on-objects" id="toc-conducting-operations-on-objects"><span class="toc-section-number">5.3</span> Conducting Operations on Objects</a>
+<ul>
+<li><a href="working-with-data.html#arithmetic-operations" id="toc-arithmetic-operations"><span class="toc-section-number">5.3.1</span> Arithmetic Operations</a></li>
+<li><a href="working-with-data.html#logical-operations" id="toc-logical-operations"><span class="toc-section-number">5.3.2</span> Logical Operations</a></li>
+<li><a href="working-with-data.html#recycling" id="toc-recycling"><span class="toc-section-number">5.3.3</span> Recycling</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="statistical-analysis-in-r.html#statistical-analysis-in-r" id="toc-statistical-analysis-in-r"><span class="toc-section-number">6</span> Statistical Analysis in R</a>
+<ul>
+<li class="has-sub"><a href="statistical-analysis-in-r.html#setup" id="toc-setup"><span class="toc-section-number">6.1</span> Setup</a>
+<ul>
+<li><a href="statistical-analysis-in-r.html#data" id="toc-data"><span class="toc-section-number">6.1.1</span> Data</a></li>
+<li><a href="statistical-analysis-in-r.html#nhefs-codebook" id="toc-nhefs-codebook"><span class="toc-section-number">6.1.2</span> NHEFS Codebook</a></li>
+</ul></li>
+<li><a href="statistical-analysis-in-r.html#exploratory-data-analysis" id="toc-exploratory-data-analysis"><span class="toc-section-number">6.2</span> Exploratory Data Analysis</a></li>
+<li><a href="statistical-analysis-in-r.html#tabular-analysis" id="toc-tabular-analysis"><span class="toc-section-number">6.3</span> Tabular Analysis</a></li>
+<li class="has-sub"><a href="statistical-analysis-in-r.html#regression-models" id="toc-regression-models"><span class="toc-section-number">6.4</span> Regression Models</a>
+<ul>
+<li><a href="statistical-analysis-in-r.html#linear-regression" id="toc-linear-regression"><span class="toc-section-number">6.4.1</span> Linear regression</a></li>
+<li><a href="statistical-analysis-in-r.html#logistic-regression" id="toc-logistic-regression"><span class="toc-section-number">6.4.2</span> Logistic regression</a></li>
+<li><a href="statistical-analysis-in-r.html#log-binomial-regression" id="toc-log-binomial-regression"><span class="toc-section-number">6.4.3</span> Log-binomial regression</a></li>
+<li><a href="statistical-analysis-in-r.html#modified-poisson-regression" id="toc-modified-poisson-regression"><span class="toc-section-number">6.4.4</span> Modified Poisson regression</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#getting-comfortable-with-loops-and-logic" id="toc-getting-comfortable-with-loops-and-logic"><span class="toc-section-number">7</span> Getting Comfortable with Loops and Logic</a>
+<ul>
+<li><a href="getting-comfortable-with-loops-and-logic.html#whats-a-loop" id="toc-whats-a-loop"><span class="toc-section-number">7.1</span> What’s a Loop?</a></li>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#why-loop" id="toc-why-loop"><span class="toc-section-number">7.2</span> Why Loop?</a>
+<ul>
+<li><a href="getting-comfortable-with-loops-and-logic.html#curly-braces" id="toc-curly-braces"><span class="toc-section-number">7.2.1</span> Curly Braces</a></li>
+</ul></li>
+<li class="has-sub"><a href="getting-comfortable-with-loops-and-logic.html#nested-loops-conditional-logic-and-reinventing-wheels" id="toc-nested-loops-conditional-logic-and-reinventing-wheels"><span class="toc-section-number">7.3</span> Nested Loops, Conditional Logic, and Reinventing Wheels</a>
+<ul>
+<li><a href="getting-comfortable-with-loops-and-logic.html#standard-loop" id="toc-standard-loop"><span class="toc-section-number">7.3.1</span> Standard Loop</a></li>
+<li><a href="getting-comfortable-with-loops-and-logic.html#vectorized-loops" id="toc-vectorized-loops"><span class="toc-section-number">7.3.2</span> Vectorized Loops</a></li>
+<li><a href="getting-comfortable-with-loops-and-logic.html#nested-loops" id="toc-nested-loops"><span class="toc-section-number">7.3.3</span> Nested Loops</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="statistical-analysis-in-r-1.html#statistical-analysis-in-r-1" id="toc-statistical-analysis-in-r-1"><span class="toc-section-number">8</span> Statistical Analysis in R</a>
+<ul>
+<li class="has-sub"><a href="statistical-analysis-in-r-1.html#setup-1" id="toc-setup-1"><span class="toc-section-number">8.1</span> Setup</a>
+<ul>
+<li><a href="statistical-analysis-in-r-1.html#data-1" id="toc-data-1"><span class="toc-section-number">8.1.1</span> Data</a></li>
+<li><a href="statistical-analysis-in-r-1.html#nhefs-codebook-1" id="toc-nhefs-codebook-1"><span class="toc-section-number">8.1.2</span> NHEFS Codebook</a></li>
+</ul></li>
+<li><a href="statistical-analysis-in-r-1.html#exploratory-data-analysis-1" id="toc-exploratory-data-analysis-1"><span class="toc-section-number">8.2</span> Exploratory Data Analysis</a></li>
+<li><a href="statistical-analysis-in-r-1.html#tabular-analysis-1" id="toc-tabular-analysis-1"><span class="toc-section-number">8.3</span> Tabular Analysis</a></li>
+<li class="has-sub"><a href="statistical-analysis-in-r-1.html#regression-models-1" id="toc-regression-models-1"><span class="toc-section-number">8.4</span> Regression Models</a>
+<ul>
+<li><a href="statistical-analysis-in-r-1.html#linear-regression-1" id="toc-linear-regression-1"><span class="toc-section-number">8.4.1</span> Linear regression</a></li>
+<li><a href="statistical-analysis-in-r-1.html#logistic-regression-1" id="toc-logistic-regression-1"><span class="toc-section-number">8.4.2</span> Logistic regression</a></li>
+<li><a href="statistical-analysis-in-r-1.html#log-binomial-regression-1" id="toc-log-binomial-regression-1"><span class="toc-section-number">8.4.3</span> Log-binomial regression</a></li>
+<li><a href="statistical-analysis-in-r-1.html#modified-poisson-regression-1" id="toc-modified-poisson-regression-1"><span class="toc-section-number">8.4.4</span> Modified Poisson regression</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="functionalizing-code.html#functionalizing-code" id="toc-functionalizing-code"><span class="toc-section-number">9</span> Functionalizing Code</a>
+<ul>
+<li><a href="functionalizing-code.html#simulate-data" id="toc-simulate-data"><span class="toc-section-number">9.1</span> Simulate Data</a></li>
+<li><a href="functionalizing-code.html#the-old-way" id="toc-the-old-way"><span class="toc-section-number">9.2</span> The Old Way</a></li>
+<li><a href="functionalizing-code.html#a-new-way-part-1" id="toc-a-new-way-part-1"><span class="toc-section-number">9.3</span> A New Way, Part 1</a></li>
+<li class="has-sub"><a href="functionalizing-code.html#a-new-way-part-2" id="toc-a-new-way-part-2"><span class="toc-section-number">9.4</span> A New Way, Part 2</a>
+<ul>
+<li><a href="functionalizing-code.html#loop-method-1" id="toc-loop-method-1"><span class="toc-section-number">9.4.1</span> Loop Method 1</a></li>
+<li><a href="functionalizing-code.html#loop-method-2" id="toc-loop-method-2"><span class="toc-section-number">9.4.2</span> Loop Method 2</a></li>
+<li><a href="functionalizing-code.html#add-a-new-analysis" id="toc-add-a-new-analysis"><span class="toc-section-number">9.4.3</span> Add a New Analysis</a></li>
+</ul></li>
+<li><a href="functionalizing-code.html#a-new-way-part-3" id="toc-a-new-way-part-3"><span class="toc-section-number">9.5</span> A New Way, Part 3</a></li>
+<li class="has-sub"><a href="functionalizing-code.html#approximate-in-sas" id="toc-approximate-in-sas"><span class="toc-section-number">9.6</span> Approximate in SAS</a>
+<ul>
+<li><a href="functionalizing-code.html#simulate-data-1" id="toc-simulate-data-1"><span class="toc-section-number">9.6.1</span> Simulate Data</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="data-visualization.html#data-visualization" id="toc-data-visualization"><span class="toc-section-number">10</span> Data Visualization</a>
+<ul>
+<li><a href="data-visualization.html#data-set" id="toc-data-set"><span class="toc-section-number">10.1</span> Data set</a></li>
+<li class="has-sub"><a href="data-visualization.html#base-r-examples" id="toc-base-r-examples"><span class="toc-section-number">10.2</span> Base R examples</a>
+<ul>
+<li><a href="data-visualization.html#boxplots" id="toc-boxplots"><span class="toc-section-number">10.2.1</span> Boxplots</a></li>
+<li><a href="data-visualization.html#density-plots" id="toc-density-plots"><span class="toc-section-number">10.2.2</span> Density Plots</a></li>
+<li><a href="data-visualization.html#scatterplots" id="toc-scatterplots"><span class="toc-section-number">10.2.3</span> Scatterplots</a></li>
+<li><a href="data-visualization.html#scatterplot-matrix" id="toc-scatterplot-matrix"><span class="toc-section-number">10.2.4</span> Scatterplot Matrix</a></li>
+<li><a href="data-visualization.html#histograms" id="toc-histograms"><span class="toc-section-number">10.2.5</span> Histograms</a></li>
+<li><a href="data-visualization.html#linear-regression-diagnostics" id="toc-linear-regression-diagnostics"><span class="toc-section-number">10.2.6</span> Linear Regression Diagnostics</a></li>
+</ul></li>
+<li class="has-sub"><a href="data-visualization.html#ggplot2-examples" id="toc-ggplot2-examples"><span class="toc-section-number">10.3</span> ggplot2 Examples</a>
+<ul>
+<li><a href="data-visualization.html#boxplots-1" id="toc-boxplots-1"><span class="toc-section-number">10.3.1</span> Boxplots</a></li>
+<li><a href="data-visualization.html#density-plots-1" id="toc-density-plots-1"><span class="toc-section-number">10.3.2</span> Density Plots</a></li>
+<li><a href="data-visualization.html#scatterplots-1" id="toc-scatterplots-1"><span class="toc-section-number">10.3.3</span> Scatterplots</a></li>
+<li><a href="data-visualization.html#faceted-plots" id="toc-faceted-plots"><span class="toc-section-number">10.3.4</span> Faceted Plots</a></li>
+<li><a href="data-visualization.html#bar-plots" id="toc-bar-plots"><span class="toc-section-number">10.3.5</span> Bar Plots</a></li>
+<li><a href="data-visualization.html#scatterplot-matrix-1" id="toc-scatterplot-matrix-1"><span class="toc-section-number">10.3.6</span> Scatterplot Matrix</a></li>
+</ul></li>
+<li class="has-sub"><a href="data-visualization.html#special-topics" id="toc-special-topics"><span class="toc-section-number">10.4</span> Special Topics</a>
+<ul>
+<li><a href="data-visualization.html#image-formats" id="toc-image-formats"><span class="toc-section-number">10.4.1</span> Image Formats</a></li>
+<li><a href="data-visualization.html#interactive-graphics" id="toc-interactive-graphics"><span class="toc-section-number">10.4.2</span> Interactive Graphics</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="resources.html#resources" id="toc-resources"><span class="toc-section-number">11</span> Resources</a>
+<ul>
+<li class="has-sub"><a href="resources.html#r" id="toc-r"><span class="toc-section-number">11.1</span> R</a>
+<ul>
+<li><a href="resources.html#core-documentation" id="toc-core-documentation"><span class="toc-section-number">11.1.1</span> Core Documentation</a></li>
+<li><a href="resources.html#programming" id="toc-programming"><span class="toc-section-number">11.1.2</span> Programming</a></li>
+<li><a href="resources.html#data-visualization-1" id="toc-data-visualization-1"><span class="toc-section-number">11.1.3</span> Data Visualization</a></li>
+<li><a href="resources.html#reproducible-research-and-version-control" id="toc-reproducible-research-and-version-control"><span class="toc-section-number">11.1.4</span> Reproducible Research and Version Control</a></li>
+</ul></li>
+<li class="has-sub"><a href="resources.html#sas" id="toc-sas"><span class="toc-section-number">11.2</span> SAS</a>
+<ul>
+<li><a href="resources.html#programming-and-core-documentation" id="toc-programming-and-core-documentation"><span class="toc-section-number">11.2.1</span> Programming and Core Documentation</a></li>
+<li><a href="resources.html#reproducible-research" id="toc-reproducible-research"><span class="toc-section-number">11.2.2</span> Reproducible Research</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="statistical-analysis-in-r-1" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> Statistical Analysis in R</h1>
+<div id="setup-1" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Setup</h2>
+<p>In this section, we’ll provide some examples in R of basic statistical analyses you might need to implement at some point.</p>
+<p>The analyses you conduct as part of real research will almost certainly be more complicated than the code shown here. However, the hope is that you’ll get enough of a feel for the mechanics of R to begin putting the pieces together as demanded by a given project.</p>
+<div id="data-1" class="section level3" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Data</h3>
+<p>If you’d like to try any of these examples on your own, we’re using the <a href="https://wwwn.cdc.gov/nchs/nhanes/nhefs/default.aspx/">NHANES I Epidemiologic Followup Study</a> (NHEFS) data set freely available at the <a href="https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/">website</a> for <em>Causal Inference: What If</em> by Miguel A. Hernán and James M. Robins.</p>
+<p>For both SAS and R, we’ll use the CSV file they provide.</p>
+<p>The website itself contains extensive code examples in SAS, Stata, R, and Python—everything you could want!—so those who will be taking advanced epidemiologic or causal inference coursework should refer to those resources for guidance on how to implement relevant analyses. We’ll cover a little bit here, but only briefly.</p>
+</div>
+<div id="nhefs-codebook-1" class="section level3" number="8.1.2">
+<h3><span class="header-section-number">8.1.2</span> NHEFS Codebook</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable name
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+active
+</td>
+<td style="text-align:left;">
+IN YOUR USUAL DAY, HOW ACTIVE ARE YOU? IN 1971, 0:very active, 1:moderately active, 2:inactive
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age
+</td>
+<td style="text-align:left;">
+AGE IN 1971
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+alcoholfreq
+</td>
+<td style="text-align:left;">
+HOW OFTEN DO YOU DRINK? IN 1971 0: Almost every day, 1: 2-3 times/week, 2: 1-4 times/month, 3: &lt; 12 times/year, 4: No alcohol last year, 5: Unknown
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+alcoholhowmuch
+</td>
+<td style="text-align:left;">
+WHEN YOU DRINK, HOW MUCH DO YOU DRINK? IN 1971
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+alcoholpy
+</td>
+<td style="text-align:left;">
+HAVE YOU HAD 1 DRINK PAST YEAR? IN 1971, 1:EVER, 0:NEVER; 2:MISSING
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+alcoholtype
+</td>
+<td style="text-align:left;">
+WHICH DO YOU MOST FREQUENTLY DRINK? IN 1971 1: BEER, 2: WINE, 3: LIQUOR, 4: OTHER/UNKNOWN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+allergies
+</td>
+<td style="text-align:left;">
+USE ALLERGIES MEDICATION IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+asthma
+</td>
+<td style="text-align:left;">
+DX ASTHMA IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bithcontrol
+</td>
+<td style="text-align:left;">
+BIRTH CONTROL PILLS PAST 6 MONTHS? IN 1971 1:YES, 0:NO, 2:MISSING
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+birthplace
+</td>
+<td style="text-align:left;">
+CHECK STATE CODE - SECOND PAGE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+boweltrouble
+</td>
+<td style="text-align:left;">
+USE BOWEL TROUBLE MEDICATION IN 1971, 1:EVER, 0:NEVER, ; 2:MISSING
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bronch
+</td>
+<td style="text-align:left;">
+DX CHRONIC BRONCHITIS/EMPHYSEMA IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cholesterol
+</td>
+<td style="text-align:left;">
+SERUM CHOLESTEROL (MG/100ML) IN 1971
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+chroniccough
+</td>
+<td style="text-align:left;">
+DX CHRONIC COUGH IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+colitis
+</td>
+<td style="text-align:left;">
+DX COLITIS IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dadth
+</td>
+<td style="text-align:left;">
+DAY OF DEATH
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dbp
+</td>
+<td style="text-align:left;">
+DIASTOLIC BLOOD PRESSURE IN 1982
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+death
+</td>
+<td style="text-align:left;">
+DEATH BY 1992, 1:YES, 0:NO
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+diabetes
+</td>
+<td style="text-align:left;">
+DX DIABETES IN 1971, 1:EVER, 0:NEVER, 2:MISSING
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+education
+</td>
+<td style="text-align:left;">
+AMOUNT OF EDUCATION BY 1971: 1: 8TH GRADE OR LESS, 2: HS DROPOUT, 3: HS, 4:COLLEGE DROPOUT, 5: COLLEGE OR MORE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+exercise
+</td>
+<td style="text-align:left;">
+IN RECREATION, HOW MUCH EXERCISE? IN 1971, 0:much exercise,1:moderate exercise,2:little or no exercise
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hayfever
+</td>
+<td style="text-align:left;">
+DX HAY FEVER IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hbp
+</td>
+<td style="text-align:left;">
+DX HIGH BLOOD PRESSURE IN 1971, 1:EVER, 0:NEVER, 2:MISSING
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hbpmed
+</td>
+<td style="text-align:left;">
+USE HIGH BLOOD PRESSURE MEDICATION IN 1971, 1:EVER, 0:NEVER, ; 2:MISSING
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+headache
+</td>
+<td style="text-align:left;">
+USE HEADACHE MEDICATION IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hepatitis
+</td>
+<td style="text-align:left;">
+DX HEPATITIS IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hf
+</td>
+<td style="text-align:left;">
+DX HEART FAILURE IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hightax82
+</td>
+<td style="text-align:left;">
+LIVING IN A HIGHLY TAXED STATE IN 1982, High taxed state of residence=1, 0 otherwise
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ht
+</td>
+<td style="text-align:left;">
+HEIGHT IN CENTIMETERS IN 1971
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+income
+</td>
+<td style="text-align:left;">
+TOTAL FAMILY INCOME IN 1971 11:&lt;$1000, 12: 1000-1999, 13: 2000-2999, 14: 3000-3999, 15: 4000-4999, 16: 5000-5999, 17: 6000-6999, 18: 7000-9999, 19: 10000-14999, 20: 15000-19999, 21: 20000-24999, 22: 25000+
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+infection
+</td>
+<td style="text-align:left;">
+USE INFECTION MEDICATION IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lackpep
+</td>
+<td style="text-align:left;">
+USELACK OF PEP MEDICATION IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+marital
+</td>
+<td style="text-align:left;">
+MARITAL STATUS IN 1971 1: Under 17, 2: Married, 3: Widowed, 4: Never married, 5: Divorced, 6: Separated, 8: Unknown
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+modth
+</td>
+<td style="text-align:left;">
+MONTH OF DEATH
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nerves
+</td>
+<td style="text-align:left;">
+USE NERVES MEDICATION IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nervousbreak
+</td>
+<td style="text-align:left;">
+DX NERVOUS BREAKDOWN IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+otherpain
+</td>
+<td style="text-align:left;">
+USE OTHER PAINS MEDICATION IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pepticulcer
+</td>
+<td style="text-align:left;">
+DX PEPTIC ULCER IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pica
+</td>
+<td style="text-align:left;">
+DO YOU EAT DIRT OR CLAY, STARCH OR OTHER NON STANDARD FOOD? IN 1971 1:EVER, 0:NEVER; 2:MISSING
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+polio
+</td>
+<td style="text-align:left;">
+DX POLIO IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pregnancies
+</td>
+<td style="text-align:left;">
+TOTAL NUMBER OF PREGNANCIES? IN 1971
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+price71
+</td>
+<td style="text-align:left;">
+AVG TOBACCO PRICE IN STATE OF RESIDENCE 1971 (US$2008)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+price71_82
+</td>
+<td style="text-align:left;">
+DIFFERENCE IN AVG TOBACCO PRICE IN STATE OF RESIDENCE 1971-1982 (US$2008)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+price82
+</td>
+<td style="text-align:left;">
+AVG TOBACCO PRICE IN STATE OF RESIDENCE 1982 (US$2008)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+qsmk
+</td>
+<td style="text-align:left;">
+QUIT SMOKING BETWEEN 1ST QUESTIONNAIRE AND 1982, 1:YES, 0:NO
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+race
+</td>
+<td style="text-align:left;">
+0: WHITE 1: BLACK OR OTHER IN 1971
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sbp
+</td>
+<td style="text-align:left;">
+SYSTOLIC BLOOD PRESSURE IN 1982
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+school
+</td>
+<td style="text-align:left;">
+HIGHEST GRADE OF REGULAR SCHOOL EVER IN 1971
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+seqn
+</td>
+<td style="text-align:left;">
+UNIQUE PERSONAL IDENTIFIER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sex
+</td>
+<td style="text-align:left;">
+0: MALE 1: FEMALE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+smokeintensity
+</td>
+<td style="text-align:left;">
+NUMBER OF CIGARETTES SMOKED PER DAY IN 1971
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+smkintensity 82_71
+</td>
+<td style="text-align:left;">
+INCREASE IN NUMBER OF CIGARETTES/DAY BETWEEN 1971 and 1982
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+smokeyrs
+</td>
+<td style="text-align:left;">
+YEARS OF SMOKING
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tax71
+</td>
+<td style="text-align:left;">
+TOBACCO TAX IN STATE OF RESIDENCE 1971 (US$2008)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tax71_82
+</td>
+<td style="text-align:left;">
+DIFFERENCE IN TOBACCO TAX IN STATE OF RESIDENCE 1971-1982 (US$2008)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tax82
+</td>
+<td style="text-align:left;">
+TOBACCO TAX IN STATE OF RESIDENCE 1971 (US$2008)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tb
+</td>
+<td style="text-align:left;">
+DX TUBERCULOSIS IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tumor
+</td>
+<td style="text-align:left;">
+DX MALIGNANT TUMOR/GROWTH IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+weakheart
+</td>
+<td style="text-align:left;">
+USE WEAK HEART MEDICATION IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+wt71
+</td>
+<td style="text-align:left;">
+WEIGHT IN KILOGRAMS IN 1971
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+wt82
+</td>
+<td style="text-align:left;">
+WEIGHT IN KILOGRAMS IN 1982
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+wt82_71
+</td>
+<td style="text-align:left;">
+WEIGHT CHANGE IN KILOGRAMS
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+wtloss
+</td>
+<td style="text-align:left;">
+USE WEIGHT LOSS MEDICATION IN 1971, 1:EVER, 0:NEVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+yrdth
+</td>
+<td style="text-align:left;">
+YEAR OF DEATH
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="exploratory-data-analysis-1" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Exploratory Data Analysis</h2>
+<p>First, let’s read in our data and glance at it using a couple of different views.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="statistical-analysis-in-r-1.html#cb1-1" aria-hidden="true" tabindex="-1"></a>nhefs <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;data/nhefs.csv&quot;</span>)</span>
+<span id="cb1-2"><a href="statistical-analysis-in-r-1.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(nhefs)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 64
+##    seqn  qsmk death yrdth modth dadth   sbp   dbp   sex   age  race income
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1   233     0     0    NA    NA    NA   175    96     0    42     1     19
+## 2   235     0     0    NA    NA    NA   123    80     0    36     0     18
+## 3   244     0     0    NA    NA    NA   115    75     1    56     1     15
+## 4   245     0     1    85     2    14   148    78     0    68     1     15
+## 5   252     0     0    NA    NA    NA   118    77     0    40     0     18
+## 6   257     0     0    NA    NA    NA   141    83     1    43     1     11
+## # … with 52 more variables: marital &lt;dbl&gt;, school &lt;dbl&gt;, education &lt;dbl&gt;,
+## #   ht &lt;dbl&gt;, wt71 &lt;dbl&gt;, wt82 &lt;dbl&gt;, wt82_71 &lt;dbl&gt;, birthplace &lt;dbl&gt;,
+## #   smokeintensity &lt;dbl&gt;, smkintensity82_71 &lt;dbl&gt;, smokeyrs &lt;dbl&gt;,
+## #   asthma &lt;dbl&gt;, bronch &lt;dbl&gt;, tb &lt;dbl&gt;, hf &lt;dbl&gt;, hbp &lt;dbl&gt;,
+## #   pepticulcer &lt;dbl&gt;, colitis &lt;dbl&gt;, hepatitis &lt;dbl&gt;, chroniccough &lt;dbl&gt;,
+## #   hayfever &lt;dbl&gt;, diabetes &lt;dbl&gt;, polio &lt;dbl&gt;, tumor &lt;dbl&gt;,
+## #   nervousbreak &lt;dbl&gt;, alcoholpy &lt;dbl&gt;, alcoholfreq &lt;dbl&gt;, …</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="statistical-analysis-in-r-1.html#cb3-1" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(nhefs)</span></code></pre></div>
+<pre><code>## Rows: 1,629
+## Columns: 64
+## $ seqn              &lt;dbl&gt; 233, 235, 244, 245, 252, 257, 262, 266, 419, 420, 42…
+## $ qsmk              &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1…
+## $ death             &lt;dbl&gt; 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0…
+## $ yrdth             &lt;dbl&gt; NA, NA, NA, 85, NA, NA, NA, NA, 84, 86, NA, 92, NA, …
+## $ modth             &lt;dbl&gt; NA, NA, NA, 2, NA, NA, NA, NA, 10, 10, NA, 11, NA, N…
+## $ dadth             &lt;dbl&gt; NA, NA, NA, 14, NA, NA, NA, NA, 13, 17, NA, 28, NA, …
+## $ sbp               &lt;dbl&gt; 175, 123, 115, 148, 118, 141, 132, 100, 163, 184, 13…
+## $ dbp               &lt;dbl&gt; 96, 80, 75, 78, 77, 83, 69, 53, 79, 106, 89, 69, 80,…
+## $ sex               &lt;dbl&gt; 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1…
+## $ age               &lt;dbl&gt; 42, 36, 56, 68, 40, 43, 56, 29, 51, 43, 43, 34, 54, …
+## $ race              &lt;dbl&gt; 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0…
+## $ income            &lt;dbl&gt; 19, 18, 15, 15, 18, 11, 19, 22, 18, 16, 19, 18, 16, …
+## $ marital           &lt;dbl&gt; 2, 2, 3, 3, 2, 4, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2…
+## $ school            &lt;dbl&gt; 7, 9, 11, 5, 11, 9, 12, 12, 10, 11, 12, 12, 8, 12, 0…
+## $ education         &lt;dbl&gt; 1, 2, 2, 1, 2, 2, 3, 3, 2, 2, 3, 3, 1, 3, 1, 3, 3, 3…
+## $ ht                &lt;dbl&gt; 174.1875, 159.3750, 168.5000, 170.1875, 181.8750, 16…
+## $ wt71              &lt;dbl&gt; 79.04, 58.63, 56.81, 59.42, 87.09, 99.00, 63.05, 58.…
+## $ wt82              &lt;dbl&gt; 68.94604, 61.23497, 66.22449, 64.41012, 92.07925, 10…
+## $ wt82_71           &lt;dbl&gt; -10.0939598, 2.6049700, 9.4144860, 4.9901165, 4.9892…
+## $ birthplace        &lt;dbl&gt; 47, 42, 51, 37, 42, 34, NA, NA, 42, 42, 42, 42, NA, …
+## $ smokeintensity    &lt;dbl&gt; 30, 20, 20, 3, 20, 10, 20, 2, 25, 20, 30, 40, 20, 10…
+## $ smkintensity82_71 &lt;dbl&gt; -10, -10, -14, 4, 0, 10, 0, 1, -10, -20, -30, -10, -…
+## $ smokeyrs          &lt;dbl&gt; 29, 24, 26, 53, 19, 21, 39, 9, 37, 25, 24, 20, 19, 3…
+## $ asthma            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ bronch            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0…
+## $ tb                &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1…
+## $ hf                &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ hbp               &lt;dbl&gt; 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0…
+## $ pepticulcer       &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0…
+## $ colitis           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ hepatitis         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ chroniccough      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0…
+## $ hayfever          &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ diabetes          &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0…
+## $ polio             &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ tumor             &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ nervousbreak      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ alcoholpy         &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1…
+## $ alcoholfreq       &lt;dbl&gt; 1, 0, 3, 2, 2, 3, 1, 0, 1, 0, 3, 0, 0, 4, 4, 3, 2, 1…
+## $ alcoholtype       &lt;dbl&gt; 3, 1, 4, 3, 1, 2, 3, 2, 3, 1, 3, 1, 1, 4, 4, 3, 3, 2…
+## $ alcoholhowmuch    &lt;dbl&gt; 7, 4, NA, 4, 2, 1, 4, 1, 2, 6, 2, 6, 1, NA, NA, 3, 2…
+## $ pica              &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ headache          &lt;dbl&gt; 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1…
+## $ otherpain         &lt;dbl&gt; 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0…
+## $ weakheart         &lt;dbl&gt; 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ allergies         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0…
+## $ nerves            &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ lackpep           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ hbpmed            &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ boweltrouble      &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0…
+## $ wtloss            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ infection         &lt;dbl&gt; 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ active            &lt;dbl&gt; 0, 0, 0, 1, 1, 1, 0, 0, 2, 1, 1, 0, 1, 1, 1, 0, 0, 1…
+## $ exercise          &lt;dbl&gt; 2, 0, 2, 2, 1, 1, 1, 2, 2, 2, 1, 2, 2, 1, 1, 0, 2, 1…
+## $ birthcontrol      &lt;dbl&gt; 2, 2, 0, 2, 2, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 2, 0…
+## $ pregnancies       &lt;dbl&gt; NA, NA, 2, NA, NA, 1, 1, 2, NA, NA, NA, NA, 2, NA, 1…
+## $ cholesterol       &lt;dbl&gt; 197, 301, 157, 174, 216, 212, 205, 166, 337, 279, 17…
+## $ hightax82         &lt;dbl&gt; 0, 0, 0, 0, 0, 1, NA, NA, 0, 0, 0, 0, NA, 0, NA, 0, …
+## $ price71           &lt;dbl&gt; 2.183594, 2.346680, 1.569580, 1.506592, 2.346680, 2.…
+## $ price82           &lt;dbl&gt; 1.739990, 1.797363, 1.513428, 1.451904, 1.797363, 2.…
+## $ tax71             &lt;dbl&gt; 1.1022949, 1.3649902, 0.5512695, 0.5249023, 1.364990…
+## $ tax82             &lt;dbl&gt; 0.4619751, 0.5718994, 0.2309875, 0.2199707, 0.571899…
+## $ price71_82        &lt;dbl&gt; 0.44378662, 0.54931641, 0.05619812, 0.05479431, 0.54…
+## $ tax71_82          &lt;dbl&gt; 0.6403809, 0.7929688, 0.3202515, 0.3049927, 0.792968…</code></pre>
+<p>For now, let’s focus on observations (rows) that don’t have any missing data. To do this, let’s get a summary of how much missingness we have across the 1,629 observations.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="statistical-analysis-in-r-1.html#cb5-1" aria-hidden="true" tabindex="-1"></a>allvars <span class="ot">&lt;-</span> <span class="fu">names</span>(nhefs)</span>
+<span id="cb5-2"><a href="statistical-analysis-in-r-1.html#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="statistical-analysis-in-r-1.html#cb5-3" aria-hidden="true" tabindex="-1"></a>df_miss <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">variable =</span> allvars)</span>
+<span id="cb5-4"><a href="statistical-analysis-in-r-1.html#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="statistical-analysis-in-r-1.html#cb5-5" aria-hidden="true" tabindex="-1"></a>df_miss <span class="ot">&lt;-</span> df_miss <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="statistical-analysis-in-r-1.html#cb5-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-7"><a href="statistical-analysis-in-r-1.html#cb5-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">n_miss =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(nhefs[[variable]])))</span>
+<span id="cb5-8"><a href="statistical-analysis-in-r-1.html#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="statistical-analysis-in-r-1.html#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_miss, <span class="at">n =</span> <span class="fu">nrow</span>(df_miss))</span></code></pre></div>
+<pre><code>## # A tibble: 64 × 2
+## # Rowwise: 
+##    variable          n_miss
+##    &lt;chr&gt;              &lt;int&gt;
+##  1 seqn                   0
+##  2 qsmk                   0
+##  3 death                  0
+##  4 yrdth               1311
+##  5 modth               1307
+##  6 dadth               1307
+##  7 sbp                   77
+##  8 dbp                   81
+##  9 sex                    0
+## 10 age                    0
+## 11 race                   0
+## 12 income                62
+## 13 marital                0
+## 14 school                 0
+## 15 education              0
+## 16 ht                     0
+## 17 wt71                   0
+## 18 wt82                  63
+## 19 wt82_71               63
+## 20 birthplace            92
+## 21 smokeintensity         0
+## 22 smkintensity82_71      0
+## 23 smokeyrs               0
+## 24 asthma                 0
+## 25 bronch                 0
+## 26 tb                     0
+## 27 hf                     0
+## 28 hbp                    0
+## 29 pepticulcer            0
+## 30 colitis                0
+## 31 hepatitis              0
+## 32 chroniccough           0
+## 33 hayfever               0
+## 34 diabetes               0
+## 35 polio                  0
+## 36 tumor                  0
+## 37 nervousbreak           0
+## 38 alcoholpy              0
+## 39 alcoholfreq            0
+## 40 alcoholtype            0
+## 41 alcoholhowmuch       417
+## 42 pica                   0
+## 43 headache               0
+## 44 otherpain              0
+## 45 weakheart              0
+## 46 allergies              0
+## 47 nerves                 0
+## 48 lackpep                0
+## 49 hbpmed                 0
+## 50 boweltrouble           0
+## 51 wtloss                 0
+## 52 infection              0
+## 53 active                 0
+## 54 exercise               0
+## 55 birthcontrol           0
+## 56 pregnancies          903
+## 57 cholesterol           16
+## 58 hightax82             92
+## 59 price71               92
+## 60 price82               92
+## 61 tax71                 92
+## 62 tax82                 92
+## 63 price71_82            92
+## 64 tax71_82              92</code></pre>
+<p>That looks a little hairy. Basically, all we did here was to create data.frame, save the NHEFS variable names to its first column, then look up each variable in the NHEFS data set and count the number of missing values.</p>
+<p>However, we could have gotten this summary in a number of different ways.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="statistical-analysis-in-r-1.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(nhefs, <span class="cf">function</span>(x) <span class="fu">table</span>(<span class="fu">is.na</span>(x)))</span></code></pre></div>
+<pre><code>## $seqn
+## 
+## FALSE 
+##  1629 
+## 
+## $qsmk
+## 
+## FALSE 
+##  1629 
+## 
+## $death
+## 
+## FALSE 
+##  1629 
+## 
+## $yrdth
+## 
+## FALSE  TRUE 
+##   318  1311 
+## 
+## $modth
+## 
+## FALSE  TRUE 
+##   322  1307 
+## 
+## $dadth
+## 
+## FALSE  TRUE 
+##   322  1307 
+## 
+## $sbp
+## 
+## FALSE  TRUE 
+##  1552    77 
+## 
+## $dbp
+## 
+## FALSE  TRUE 
+##  1548    81 
+## 
+## $sex
+## 
+## FALSE 
+##  1629 
+## 
+## $age
+## 
+## FALSE 
+##  1629 
+## 
+## $race
+## 
+## FALSE 
+##  1629 
+## 
+## $income
+## 
+## FALSE  TRUE 
+##  1567    62 
+## 
+## $marital
+## 
+## FALSE 
+##  1629 
+## 
+## $school
+## 
+## FALSE 
+##  1629 
+## 
+## $education
+## 
+## FALSE 
+##  1629 
+## 
+## $ht
+## 
+## FALSE 
+##  1629 
+## 
+## $wt71
+## 
+## FALSE 
+##  1629 
+## 
+## $wt82
+## 
+## FALSE  TRUE 
+##  1566    63 
+## 
+## $wt82_71
+## 
+## FALSE  TRUE 
+##  1566    63 
+## 
+## $birthplace
+## 
+## FALSE  TRUE 
+##  1537    92 
+## 
+## $smokeintensity
+## 
+## FALSE 
+##  1629 
+## 
+## $smkintensity82_71
+## 
+## FALSE 
+##  1629 
+## 
+## $smokeyrs
+## 
+## FALSE 
+##  1629 
+## 
+## $asthma
+## 
+## FALSE 
+##  1629 
+## 
+## $bronch
+## 
+## FALSE 
+##  1629 
+## 
+## $tb
+## 
+## FALSE 
+##  1629 
+## 
+## $hf
+## 
+## FALSE 
+##  1629 
+## 
+## $hbp
+## 
+## FALSE 
+##  1629 
+## 
+## $pepticulcer
+## 
+## FALSE 
+##  1629 
+## 
+## $colitis
+## 
+## FALSE 
+##  1629 
+## 
+## $hepatitis
+## 
+## FALSE 
+##  1629 
+## 
+## $chroniccough
+## 
+## FALSE 
+##  1629 
+## 
+## $hayfever
+## 
+## FALSE 
+##  1629 
+## 
+## $diabetes
+## 
+## FALSE 
+##  1629 
+## 
+## $polio
+## 
+## FALSE 
+##  1629 
+## 
+## $tumor
+## 
+## FALSE 
+##  1629 
+## 
+## $nervousbreak
+## 
+## FALSE 
+##  1629 
+## 
+## $alcoholpy
+## 
+## FALSE 
+##  1629 
+## 
+## $alcoholfreq
+## 
+## FALSE 
+##  1629 
+## 
+## $alcoholtype
+## 
+## FALSE 
+##  1629 
+## 
+## $alcoholhowmuch
+## 
+## FALSE  TRUE 
+##  1212   417 
+## 
+## $pica
+## 
+## FALSE 
+##  1629 
+## 
+## $headache
+## 
+## FALSE 
+##  1629 
+## 
+## $otherpain
+## 
+## FALSE 
+##  1629 
+## 
+## $weakheart
+## 
+## FALSE 
+##  1629 
+## 
+## $allergies
+## 
+## FALSE 
+##  1629 
+## 
+## $nerves
+## 
+## FALSE 
+##  1629 
+## 
+## $lackpep
+## 
+## FALSE 
+##  1629 
+## 
+## $hbpmed
+## 
+## FALSE 
+##  1629 
+## 
+## $boweltrouble
+## 
+## FALSE 
+##  1629 
+## 
+## $wtloss
+## 
+## FALSE 
+##  1629 
+## 
+## $infection
+## 
+## FALSE 
+##  1629 
+## 
+## $active
+## 
+## FALSE 
+##  1629 
+## 
+## $exercise
+## 
+## FALSE 
+##  1629 
+## 
+## $birthcontrol
+## 
+## FALSE 
+##  1629 
+## 
+## $pregnancies
+## 
+## FALSE  TRUE 
+##   726   903 
+## 
+## $cholesterol
+## 
+## FALSE  TRUE 
+##  1613    16 
+## 
+## $hightax82
+## 
+## FALSE  TRUE 
+##  1537    92 
+## 
+## $price71
+## 
+## FALSE  TRUE 
+##  1537    92 
+## 
+## $price82
+## 
+## FALSE  TRUE 
+##  1537    92 
+## 
+## $tax71
+## 
+## FALSE  TRUE 
+##  1537    92 
+## 
+## $tax82
+## 
+## FALSE  TRUE 
+##  1537    92 
+## 
+## $price71_82
+## 
+## FALSE  TRUE 
+##  1537    92 
+## 
+## $tax71_82
+## 
+## FALSE  TRUE 
+##  1537    92</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="statistical-analysis-in-r-1.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(nhefs, <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x)))</span></code></pre></div>
+<pre><code>##              seqn              qsmk             death             yrdth 
+##                 0                 0                 0              1311 
+##             modth             dadth               sbp               dbp 
+##              1307              1307                77                81 
+##               sex               age              race            income 
+##                 0                 0                 0                62 
+##           marital            school         education                ht 
+##                 0                 0                 0                 0 
+##              wt71              wt82           wt82_71        birthplace 
+##                 0                63                63                92 
+##    smokeintensity smkintensity82_71          smokeyrs            asthma 
+##                 0                 0                 0                 0 
+##            bronch                tb                hf               hbp 
+##                 0                 0                 0                 0 
+##       pepticulcer           colitis         hepatitis      chroniccough 
+##                 0                 0                 0                 0 
+##          hayfever          diabetes             polio             tumor 
+##                 0                 0                 0                 0 
+##      nervousbreak         alcoholpy       alcoholfreq       alcoholtype 
+##                 0                 0                 0                 0 
+##    alcoholhowmuch              pica          headache         otherpain 
+##               417                 0                 0                 0 
+##         weakheart         allergies            nerves           lackpep 
+##                 0                 0                 0                 0 
+##            hbpmed      boweltrouble            wtloss         infection 
+##                 0                 0                 0                 0 
+##            active          exercise      birthcontrol       pregnancies 
+##                 0                 0                 0               903 
+##       cholesterol         hightax82           price71           price82 
+##                16                92                92                92 
+##             tax71             tax82        price71_82          tax71_82 
+##                92                92                92                92</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="statistical-analysis-in-r-1.html#cb11-1" aria-hidden="true" tabindex="-1"></a>nhefs[<span class="fu">complete.cases</span>(nhefs), ]</span></code></pre></div>
+<pre><code>## # A tibble: 44 × 64
+##     seqn  qsmk death yrdth modth dadth   sbp   dbp   sex   age  race income
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+##  1  1096     1     1    84    10    17   127    56     1    72     0     12
+##  2  1539     0     1    92     3    23   125    70     1    56     0     19
+##  3  1762     0     1    87     8    29   176   108     1    64     0     19
+##  4  1776     0     1    90    11    24   155    70     1    32     1     15
+##  5  2286     0     1    87     8    24   132    88     1    45     1     12
+##  6  4556     1     1    86     9     5   109    85     1    54     0     19
+##  7  5415     0     1    84     7    28   123    81     1    32     1     11
+##  8  6222     0     1    84     1    18   168    92     1    46     0     13
+##  9  6933     0     1    92     4    25   168    88     1    62     0     19
+## 10  6944     1     1    88     7    15   138    75     1    56     0     19
+## # … with 34 more rows, and 52 more variables: marital &lt;dbl&gt;, school &lt;dbl&gt;,
+## #   education &lt;dbl&gt;, ht &lt;dbl&gt;, wt71 &lt;dbl&gt;, wt82 &lt;dbl&gt;, wt82_71 &lt;dbl&gt;,
+## #   birthplace &lt;dbl&gt;, smokeintensity &lt;dbl&gt;, smkintensity82_71 &lt;dbl&gt;,
+## #   smokeyrs &lt;dbl&gt;, asthma &lt;dbl&gt;, bronch &lt;dbl&gt;, tb &lt;dbl&gt;, hf &lt;dbl&gt;, hbp &lt;dbl&gt;,
+## #   pepticulcer &lt;dbl&gt;, colitis &lt;dbl&gt;, hepatitis &lt;dbl&gt;, chroniccough &lt;dbl&gt;,
+## #   hayfever &lt;dbl&gt;, diabetes &lt;dbl&gt;, polio &lt;dbl&gt;, tumor &lt;dbl&gt;,
+## #   nervousbreak &lt;dbl&gt;, alcoholpy &lt;dbl&gt;, alcoholfreq &lt;dbl&gt;, …</code></pre>
+<p>Let’s drop every row with a missing value for any variable</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="statistical-analysis-in-r-1.html#cb13-1" aria-hidden="true" tabindex="-1"></a>nhefs2 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(nhefs)</span>
+<span id="cb13-2"><a href="statistical-analysis-in-r-1.html#cb13-2" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(nhefs2)</span></code></pre></div>
+<pre><code>## Rows: 44
+## Columns: 64
+## $ seqn              &lt;dbl&gt; 1096, 1539, 1762, 1776, 2286, 4556, 5415, 6222, 6933…
+## $ qsmk              &lt;dbl&gt; 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1…
+## $ death             &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+## $ yrdth             &lt;dbl&gt; 84, 92, 87, 90, 87, 86, 84, 84, 92, 88, 90, 88, 88, …
+## $ modth             &lt;dbl&gt; 10, 3, 8, 11, 8, 9, 7, 1, 4, 7, 1, 3, 6, 8, 11, 7, 6…
+## $ dadth             &lt;dbl&gt; 17, 23, 29, 24, 24, 5, 28, 18, 25, 15, 20, 8, 3, 11,…
+## $ sbp               &lt;dbl&gt; 127, 125, 176, 155, 132, 109, 123, 168, 168, 138, 12…
+## $ dbp               &lt;dbl&gt; 56, 70, 108, 70, 88, 85, 81, 92, 88, 75, 64, 71, 71,…
+## $ sex               &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+## $ age               &lt;dbl&gt; 72, 56, 64, 32, 45, 54, 32, 46, 62, 56, 39, 72, 67, …
+## $ race              &lt;dbl&gt; 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0…
+## $ income            &lt;dbl&gt; 12, 19, 19, 15, 12, 19, 11, 13, 19, 19, 19, 19, 15, …
+## $ marital           &lt;dbl&gt; 3, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 3, 2, 2, 5, 3, 3…
+## $ school            &lt;dbl&gt; 10, 8, 15, 9, 12, 12, 6, 11, 15, 12, 12, 12, 8, 12, …
+## $ education         &lt;dbl&gt; 2, 1, 4, 2, 3, 3, 1, 2, 4, 3, 3, 3, 1, 3, 3, 1, 2, 1…
+## $ ht                &lt;dbl&gt; 165.5000, 153.8750, 155.0938, 164.7812, 161.5938, 16…
+## $ wt71              &lt;dbl&gt; 71.21, 49.90, 48.53, 77.00, 58.29, 66.56, 73.03, 61.…
+## $ wt82              &lt;dbl&gt; 66.67808, 58.96701, 43.09128, 92.53284, 58.51342, 74…
+## $ wt82_71           &lt;dbl&gt; -4.5319216, 9.0670081, -5.4387248, 15.5328435, 0.223…
+## $ birthplace        &lt;dbl&gt; 25, 26, 50, 37, 26, 19, 1, 22, 37, 6, 30, 29, 47, 17…
+## $ smokeintensity    &lt;dbl&gt; 20, 40, 10, 10, 8, 5, 20, 30, 20, 13, 20, 15, 3, 6, …
+## $ smkintensity82_71 &lt;dbl&gt; -20, 0, 2, 0, 2, -5, -2, -15, 5, -13, 0, 5, 3, -6, -…
+## $ smokeyrs          &lt;dbl&gt; 40, 34, 38, 14, 26, 8, 14, 26, 12, 40, 23, 41, 36, 3…
+## $ asthma            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ bronch            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1…
+## $ tb                &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ hf                &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ hbp               &lt;dbl&gt; 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0…
+## $ pepticulcer       &lt;dbl&gt; 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0…
+## $ colitis           &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ hepatitis         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ chroniccough      &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ hayfever          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ diabetes          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ polio             &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ tumor             &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0…
+## $ nervousbreak      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ alcoholpy         &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+## $ alcoholfreq       &lt;dbl&gt; 1, 0, 0, 2, 2, 1, 0, 3, 2, 0, 1, 0, 2, 1, 3, 1, 3, 3…
+## $ alcoholtype       &lt;dbl&gt; 3, 1, 3, 1, 1, 3, 1, 3, 3, 3, 1, 3, 1, 3, 3, 1, 2, 3…
+## $ alcoholhowmuch    &lt;dbl&gt; 2, 1, 1, 9, 2, 2, 1, 1, 2, 2, 3, 1, 1, 2, 1, 2, 1, 1…
+## $ pica              &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ headache          &lt;dbl&gt; 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1…
+## $ otherpain         &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1…
+## $ weakheart         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ allergies         &lt;dbl&gt; 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ nerves            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0…
+## $ lackpep           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0…
+## $ hbpmed            &lt;dbl&gt; 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0…
+## $ boweltrouble      &lt;dbl&gt; 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1…
+## $ wtloss            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ infection         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1…
+## $ active            &lt;dbl&gt; 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1…
+## $ exercise          &lt;dbl&gt; 2, 1, 1, 2, 0, 0, 2, 2, 1, 1, 0, 2, 2, 0, 1, 1, 1, 2…
+## $ birthcontrol      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ pregnancies       &lt;dbl&gt; 4, 3, 3, 3, 4, 3, 7, 3, 3, 1, 6, 4, 1, 3, 2, 5, 6, 7…
+## $ cholesterol       &lt;dbl&gt; 260, 181, 306, 126, 191, 377, 137, 258, 204, 200, 27…
+## $ hightax82         &lt;dbl&gt; 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ price71           &lt;dbl&gt; 2.414551, 2.099609, 2.099609, 1.506592, 2.099609, 2.…
+## $ price82           &lt;dbl&gt; 1.951172, 1.929199, 1.693848, 1.451904, 1.929199, 1.…
+## $ tax71             &lt;dbl&gt; 1.2597656, 0.9974365, 1.0498047, 0.5249023, 0.997436…
+## $ tax82             &lt;dbl&gt; 0.6379395, 0.6379395, 0.4399414, 0.2199707, 0.637939…
+## $ price71_82        &lt;dbl&gt; 0.46356201, 0.17059326, 0.40594482, 0.05479431, 0.17…
+## $ tax71_82          &lt;dbl&gt; 0.6219482, 0.3594971, 0.6099854, 0.3049927, 0.359497…</code></pre>
+<p>Oops, we have only 44 rows left in the data set! Perhaps we should reconsider and pick several variables that will be of interest to us for our current purposes.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="statistical-analysis-in-r-1.html#cb15-1" aria-hidden="true" tabindex="-1"></a>selectvars <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb15-2"><a href="statistical-analysis-in-r-1.html#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;age&quot;</span>, <span class="st">&quot;alcoholfreq&quot;</span>, <span class="st">&quot;asthma&quot;</span>, <span class="st">&quot;wt71&quot;</span>,</span>
+<span id="cb15-3"><a href="statistical-analysis-in-r-1.html#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;smokeintensity&quot;</span>, <span class="st">&quot;sbp&quot;</span>, <span class="st">&quot;allergies&quot;</span>,</span>
+<span id="cb15-4"><a href="statistical-analysis-in-r-1.html#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;weakheart&quot;</span></span>
+<span id="cb15-5"><a href="statistical-analysis-in-r-1.html#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-6"><a href="statistical-analysis-in-r-1.html#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="statistical-analysis-in-r-1.html#cb15-7" aria-hidden="true" tabindex="-1"></a>nhefs3 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(nhefs[, selectvars])</span>
+<span id="cb15-8"><a href="statistical-analysis-in-r-1.html#cb15-8" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(nhefs3)</span></code></pre></div>
+<pre><code>## Rows: 1,552
+## Columns: 8
+## $ age            &lt;dbl&gt; 42, 36, 56, 68, 40, 43, 56, 29, 51, 43, 43, 34, 54, 51,…
+## $ alcoholfreq    &lt;dbl&gt; 1, 0, 3, 2, 2, 3, 1, 0, 1, 0, 3, 0, 0, 4, 4, 3, 2, 1, 0…
+## $ asthma         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ wt71           &lt;dbl&gt; 79.04, 58.63, 56.81, 59.42, 87.09, 99.00, 63.05, 58.74,…
+## $ smokeintensity &lt;dbl&gt; 30, 20, 20, 3, 20, 10, 20, 2, 25, 20, 30, 40, 20, 10, 4…
+## $ sbp            &lt;dbl&gt; 175, 123, 115, 148, 118, 141, 132, 100, 163, 184, 135, …
+## $ allergies      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0…
+## $ weakheart      &lt;dbl&gt; 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</code></pre>
+<p>That’s better. We’ve discarded 77 rows and focused on a subset of variables of interest.</p>
+<p>Look back at the output we got from <code>glimpse()</code>. Are the variables in the formats we expect/need? I see one that we may need to update, depending on how we plan to use it. (Hint: Look back at the codebook for the variable summaries)</p>
+<p>It seems that <code>alcoholfreq</code> is current being treated as a numeric variables, but really, it’s a factor with 5 discrete levels. Furthermore, level 5 is Unknown, which we should probably treat as missing. We’ll also use a factor format for <code>alcoholfreq</code>.</p>
+<p><span class="marginnote">We could leave <code>alcoholfreq</code> as a numeric variable and wrap it in the <code>factor()</code> function only when we needed to. In some cases, that approach might be preferable, in some cases not.</span></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="statistical-analysis-in-r-1.html#cb17-1" aria-hidden="true" tabindex="-1"></a>nhefs3<span class="sc">$</span>alcfreq <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(nhefs3<span class="sc">$</span>alcoholfreq)</span>
+<span id="cb17-2"><a href="statistical-analysis-in-r-1.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nhefs3<span class="sc">$</span>alcfreq)</span></code></pre></div>
+<pre><code>## 
+##   0   1   2   3   4   5 
+## 320 217 489 329 192   5</code></pre>
+<p>Let’s replace those 5 missing values with NA’s, too, and drop the corresponding rows from our data set. Let’s also get rid of the original <code>alcoholfreq</code> variable and just hang on to the factor variable we made.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="statistical-analysis-in-r-1.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In words: where alcfreq in nhefs3 equals 5, assign NA</span></span>
+<span id="cb19-2"><a href="statistical-analysis-in-r-1.html#cb19-2" aria-hidden="true" tabindex="-1"></a>nhefs3<span class="sc">$</span>alcfreq[nhefs3<span class="sc">$</span>alcfreq <span class="sc">==</span> <span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb19-3"><a href="statistical-analysis-in-r-1.html#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="statistical-analysis-in-r-1.html#cb19-4" aria-hidden="true" tabindex="-1"></a>nhefs4 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(nhefs3)</span>
+<span id="cb19-5"><a href="statistical-analysis-in-r-1.html#cb19-5" aria-hidden="true" tabindex="-1"></a>nhefs4<span class="sc">$</span>alcoholfreq <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb19-6"><a href="statistical-analysis-in-r-1.html#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="statistical-analysis-in-r-1.html#cb19-7" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(nhefs4)</span></code></pre></div>
+<pre><code>## Rows: 1,547
+## Columns: 8
+## $ age            &lt;dbl&gt; 42, 36, 56, 68, 40, 43, 56, 29, 51, 43, 43, 34, 54, 51,…
+## $ asthma         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ wt71           &lt;dbl&gt; 79.04, 58.63, 56.81, 59.42, 87.09, 99.00, 63.05, 58.74,…
+## $ smokeintensity &lt;dbl&gt; 30, 20, 20, 3, 20, 10, 20, 2, 25, 20, 30, 40, 20, 10, 4…
+## $ sbp            &lt;dbl&gt; 175, 123, 115, 148, 118, 141, 132, 100, 163, 184, 135, …
+## $ allergies      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0…
+## $ weakheart      &lt;dbl&gt; 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ alcfreq        &lt;fct&gt; 1, 0, 3, 2, 2, 3, 1, 0, 1, 0, 3, 0, 0, 4, 4, 3, 2, 1, 0…</code></pre>
+<p>Let’s summarize our dataset:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="statistical-analysis-in-r-1.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Continuous variables</span></span>
+<span id="cb21-2"><a href="statistical-analysis-in-r-1.html#cb21-2" aria-hidden="true" tabindex="-1"></a>contvars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;wt71&quot;</span>, <span class="st">&quot;smokeintensity&quot;</span>, <span class="st">&quot;sbp&quot;</span>)</span>
+<span id="cb21-3"><a href="statistical-analysis-in-r-1.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nhefs4[, contvars])</span></code></pre></div>
+<pre><code>##       age             wt71        smokeintensity       sbp       
+##  Min.   :25.00   Min.   : 39.58   Min.   : 1.00   Min.   : 87.0  
+##  1st Qu.:33.00   1st Qu.: 59.65   1st Qu.:10.00   1st Qu.:116.0  
+##  Median :43.00   Median : 69.29   Median :20.00   Median :126.0  
+##  Mean   :43.65   Mean   : 70.90   Mean   :20.54   Mean   :128.7  
+##  3rd Qu.:53.00   3rd Qu.: 79.95   3rd Qu.:30.00   3rd Qu.:139.5  
+##  Max.   :74.00   Max.   :151.73   Max.   :80.00   Max.   :229.0</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="statistical-analysis-in-r-1.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Categorical variables</span></span>
+<span id="cb23-2"><a href="statistical-analysis-in-r-1.html#cb23-2" aria-hidden="true" tabindex="-1"></a>catvars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;asthma&quot;</span>, <span class="st">&quot;allergies&quot;</span>, <span class="st">&quot;alcfreq&quot;</span>, <span class="st">&quot;weakheart&quot;</span>)</span>
+<span id="cb23-3"><a href="statistical-analysis-in-r-1.html#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(</span>
+<span id="cb23-4"><a href="statistical-analysis-in-r-1.html#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">X =</span> catvars,</span>
+<span id="cb23-5"><a href="statistical-analysis-in-r-1.html#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">FUN =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb23-6"><a href="statistical-analysis-in-r-1.html#cb23-6" aria-hidden="true" tabindex="-1"></a>    summarytools<span class="sc">::</span><span class="fu">freq</span>(nhefs4[x])</span>
+<span id="cb23-7"><a href="statistical-analysis-in-r-1.html#cb23-7" aria-hidden="true" tabindex="-1"></a>  })</span></code></pre></div>
+<pre><code>## Frequencies  
+## asthma  
+## Type: Numeric  
+## 
+##               Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+## ----------- ------ --------- -------------- --------- --------------
+##           0   1474     95.28          95.28     95.28          95.28
+##           1     73      4.72         100.00      4.72         100.00
+##        &lt;NA&gt;      0                               0.00         100.00
+##       Total   1547    100.00         100.00    100.00         100.00
+## 
+## allergies  
+## Type: Numeric  
+## 
+##               Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+## ----------- ------ --------- -------------- --------- --------------
+##           0   1448     93.60          93.60     93.60          93.60
+##           1     99      6.40         100.00      6.40         100.00
+##        &lt;NA&gt;      0                               0.00         100.00
+##       Total   1547    100.00         100.00    100.00         100.00
+## 
+## alcfreq  
+## Type: Factor  
+## 
+##               Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+## ----------- ------ --------- -------------- --------- --------------
+##           0    320     20.69          20.69     20.69          20.69
+##           1    217     14.03          34.71     14.03          34.71
+##           2    489     31.61          66.32     31.61          66.32
+##           3    329     21.27          87.59     21.27          87.59
+##           4    192     12.41         100.00     12.41         100.00
+##           5      0      0.00         100.00      0.00         100.00
+##        &lt;NA&gt;      0                               0.00         100.00
+##       Total   1547    100.00         100.00    100.00         100.00
+## 
+## weakheart  
+## Type: Numeric  
+## 
+##               Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+## ----------- ------ --------- -------------- --------- --------------
+##           0   1512     97.74          97.74     97.74          97.74
+##           1     35      2.26         100.00      2.26         100.00
+##        &lt;NA&gt;      0                               0.00         100.00
+##       Total   1547    100.00         100.00    100.00         100.00</code></pre>
+<p><span class="marginnote">Based on this <a href="https://www.r-bloggers.com/quick-plot-of-all-variables/">tidy example</a>.</span></p>
+<p>A few plots may help us, too:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="statistical-analysis-in-r-1.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb25-2"><a href="statistical-analysis-in-r-1.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb25-3"><a href="statistical-analysis-in-r-1.html#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="statistical-analysis-in-r-1.html#cb25-4" aria-hidden="true" tabindex="-1"></a>nhefs4 <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="statistical-analysis-in-r-1.html#cb25-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">all_of</span>(contvars)) <span class="sc">%&gt;%</span></span>
+<span id="cb25-6"><a href="statistical-analysis-in-r-1.html#cb25-6" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">gather</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb25-7"><a href="statistical-analysis-in-r-1.html#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
+<span id="cb25-8"><a href="statistical-analysis-in-r-1.html#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>key, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb25-9"><a href="statistical-analysis-in-r-1.html#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb25-10"><a href="statistical-analysis-in-r-1.html#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_tufte</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
+<p><img src="stats-comp-ph_files/figure-html/eda-density-1.svg" width="672"  /></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="statistical-analysis-in-r-1.html#cb26-1" aria-hidden="true" tabindex="-1"></a>nhefs4 <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="statistical-analysis-in-r-1.html#cb26-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">all_of</span>(catvars)) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="statistical-analysis-in-r-1.html#cb26-3" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">gather</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="statistical-analysis-in-r-1.html#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="statistical-analysis-in-r-1.html#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>key, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb26-6"><a href="statistical-analysis-in-r-1.html#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;count&quot;</span>, <span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">fill =</span> <span class="st">&quot;lightgray&quot;</span>) <span class="sc">+</span></span>
+<span id="cb26-7"><a href="statistical-analysis-in-r-1.html#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_tufte</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
+<p><img src="stats-comp-ph_files/figure-html/eda-bars-1.svg" width="672"  /></p>
+<p>Don’t worry just now about the plot code. We’ll be looking in some detail at the ggplot2 package later.</p>
+</div>
+<div id="tabular-analysis-1" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Tabular Analysis</h2>
+<p>Soon you will be no stranger to two-by-two tables and contingency tables. Introductory statistics and epidemiologic methods courses will require you to analyze such tables, either to measure the strength of an exposure’s effect on some outcome or to establish a statistical association between two variables.</p>
+<p>Going back to our NHEFS data, let’s say we’re interested in a possible association between quitting smoking and weight loss. The <code>qsmk</code> variable is a binary indicator of whether or not an individual quit smoking between 1971 and 1982, while the <code>wt82_71</code> variable measures an individual’s change in weight (kilograms) between 1971 and 1982.</p>
+<p>Typically, we would not want to dichotomize a continuous variable like <code>wt82_71</code>, but for the sake of this example, let’s begin by creating a binary indicator of whether a subject gained weight during this timeframe.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="statistical-analysis-in-r-1.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check whether any values of wt82_71 are missing</span></span>
+<span id="cb27-2"><a href="statistical-analysis-in-r-1.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(nhefs<span class="sc">$</span>wt82_71))</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="statistical-analysis-in-r-1.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># count the number of missing observations</span></span>
+<span id="cb29-2"><a href="statistical-analysis-in-r-1.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># is.na() will return TRUE if an observation is missing and FALSE if it is not</span></span>
+<span id="cb29-3"><a href="statistical-analysis-in-r-1.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># we can use sum() to add up the number of TRUE values because R will treat a</span></span>
+<span id="cb29-4"><a href="statistical-analysis-in-r-1.html#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># logical variable as numeric for this purpose, where TRUE = 1 and FALSE = 0</span></span>
+<span id="cb29-5"><a href="statistical-analysis-in-r-1.html#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(nhefs<span class="sc">$</span>wt82_71))</span></code></pre></div>
+<pre><code>## [1] 63</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="statistical-analysis-in-r-1.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create the new variable, called wt82_71_gain</span></span>
+<span id="cb31-2"><a href="statistical-analysis-in-r-1.html#cb31-2" aria-hidden="true" tabindex="-1"></a>nhefs<span class="sc">$</span>wt82_71_gain <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co">#initialize with NA</span></span>
+<span id="cb31-3"><a href="statistical-analysis-in-r-1.html#cb31-3" aria-hidden="true" tabindex="-1"></a>nhefs<span class="sc">$</span>wt82_71_gain[nhefs<span class="sc">$</span>wt82_71 <span class="sc">&gt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb31-4"><a href="statistical-analysis-in-r-1.html#cb31-4" aria-hidden="true" tabindex="-1"></a>nhefs<span class="sc">$</span>wt82_71_gain[nhefs<span class="sc">$</span>wt82_71 <span class="sc">&lt;=</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb31-5"><a href="statistical-analysis-in-r-1.html#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="statistical-analysis-in-r-1.html#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure we coded the new variable correctly</span></span>
+<span id="cb31-7"><a href="statistical-analysis-in-r-1.html#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nhefs<span class="sc">$</span>wt82_71[nhefs<span class="sc">$</span>wt82_71_gain <span class="sc">==</span> <span class="dv">1</span>])</span></code></pre></div>
+<pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA&#39;s 
+##  0.00108  2.49426  5.10182  6.46419  8.64786 48.53839       63</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="statistical-analysis-in-r-1.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nhefs<span class="sc">$</span>wt82_71[nhefs<span class="sc">$</span>wt82_71_gain <span class="sc">==</span> <span class="dv">0</span>])</span></code></pre></div>
+<pre><code>##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA&#39;s 
+## -41.28047  -7.33938  -3.62566  -5.28355  -1.69944  -0.00037        63</code></pre>
+<p>The summary statistics we generated above should comply with our expectations: those we marked as having gained weight all have positive values of <code>wt82_71</code>, while those we marked as not having gained weight all have negative values of <code>wt82_71</code>.</p>
+<p>Note, too, that we have 63 missing values in our new variable, just as we saw in the original outcome.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="statistical-analysis-in-r-1.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(nhefs, <span class="fu">table</span>(wt82_71_gain, qsmk, <span class="at">exclude =</span> <span class="cn">NULL</span>))</span></code></pre></div>
+<pre><code>##             qsmk
+## wt82_71_gain   0   1
+##         0    406 104
+##         1    757 299
+##         &lt;NA&gt;  38  25</code></pre>
+<p>The option <code>exclude = NULL</code> above includes missing values in the table output. We’ll ignore them for simplicity.</p>
+<p>After doing so, we’re left with the following two-by-two table for analysis.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="statistical-analysis-in-r-1.html#cb37-1" aria-hidden="true" tabindex="-1"></a>nhefs <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="statistical-analysis-in-r-1.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(qsmk, wt82_71_gain) <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="statistical-analysis-in-r-1.html#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb37-4"><a href="statistical-analysis-in-r-1.html#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb37-5"><a href="statistical-analysis-in-r-1.html#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> wt82_71_gain,</span>
+<span id="cb37-6"><a href="statistical-analysis-in-r-1.html#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> n,</span>
+<span id="cb37-7"><a href="statistical-analysis-in-r-1.html#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_pref =</span> <span class="st">&quot;wtgain&quot;</span></span>
+<span id="cb37-8"><a href="statistical-analysis-in-r-1.html#cb37-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb37-9"><a href="statistical-analysis-in-r-1.html#cb37-9" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+qsmk
+</th>
+<th style="text-align:right;">
+wtgain0
+</th>
+<th style="text-align:right;">
+wtgain1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+406
+</td>
+<td style="text-align:right;">
+757
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+104
+</td>
+<td style="text-align:right;">
+299
+</td>
+</tr>
+</tbody>
+</table>
+<p>A natural choice here would be to conduct a two-sample test for the equality of proportions, where we compare the proportion of subjects in the quit smoking group (0.742) who gained weight versus the proportion in the non-quit smoking group (0.651).</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="statistical-analysis-in-r-1.html#cb38-1" aria-hidden="true" tabindex="-1"></a>ptest <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="fu">c</span>(<span class="dv">299</span>, <span class="dv">757</span>), <span class="fu">c</span>(<span class="dv">299</span> <span class="sc">+</span> <span class="dv">104</span>, <span class="dv">757</span> <span class="sc">+</span> <span class="dv">406</span>))</span>
+<span id="cb38-2"><a href="statistical-analysis-in-r-1.html#cb38-2" aria-hidden="true" tabindex="-1"></a>ptest</span></code></pre></div>
+<pre><code>## 
+##  2-sample test for equality of proportions with continuity correction
+## 
+## data:  c(299, 757) out of c(299 + 104, 757 + 406)
+## X-squared = 10.883, df = 1, p-value = 0.0009705
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  0.03861122 0.14345407
+## sample estimates:
+##    prop 1    prop 2 
+## 0.7419355 0.6509028</code></pre>
+<p>The output above shows us the group proportions, the <span class="math inline">\(\chi^2\)</span> test statistic, and the corresponding <em>p</em>-value. We also get a 95% confidence interval for the difference in proportions.</p>
+<p>To get a tidier output as a <code>tibble</code>, the <code>broom</code> package often proves useful:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="statistical-analysis-in-r-1.html#cb40-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(ptest)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 9
+##   estimate1 estimate2 statistic  p.value parameter conf.low conf.high method    
+##       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     
+## 1     0.742     0.651      10.9 0.000971         1   0.0386     0.143 2-sample …
+## # … with 1 more variable: alternative &lt;chr&gt;</code></pre>
+<p>We also good have given the table directly to the <code>prop.test()</code> function:</p>
+<p><span class="marginnote warning"><strong>Know Your Output</strong> Notice that the proportions and, as a result, the confidence interval given by the second <code>prop.test()</code> are different than the first, even though the <span class="math inline">\(\chi^2\)</span> statistic and the <em>p</em>-value are the same. The statistical test we used applied to the distribution of cell counts in the table. However, if we needed to report the difference in proportions and its confidence interval, the second method would have given us an incorrect estimate. Always be sure you understand functions’ outputs!</span></p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="statistical-analysis-in-r-1.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(nhefs, <span class="fu">prop.test</span>(<span class="fu">table</span>(qsmk, wt82_71_gain)))</span></code></pre></div>
+<pre><code>## 
+##  2-sample test for equality of proportions with continuity correction
+## 
+## data:  table(qsmk, wt82_71_gain)
+## X-squared = 10.883, df = 1, p-value = 0.0009705
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  0.03861122 0.14345407
+## sample estimates:
+##    prop 1    prop 2 
+## 0.3490972 0.2580645</code></pre>
+</div>
+<div id="regression-models-1" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> Regression Models</h2>
+<p>In this section we will fit some regression models that you may encounter in classes or in your own research. We will leave the theoretical background to your statistics and methods courses but aim to provide enough information so that you understand the basic idea behind each approach and can refer back to this page in the future.</p>
+<p>All upcoming examples use variables from the NHEFS dataset that we’ve referred back to several times by now.</p>
+<p><span class="marginnote">Note that you can pass all of the fit objects below to <code>broom::tidy()</code> in order to retrieve a data frame containing the regression information. Doing so will often make exporting tables and results much easier for you. However, we will focus on the default summary output for now.</span></p>
+<div id="linear-regression-1" class="section level3" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> Linear regression</h3>
+<p>Exposure of interest: quitting smoking between 1971 and 1982 (<code>qsmk</code>) Outcome: change in weight between 1971 and 1982 (continuous, <code>wt82_71</code>)</p>
+<p>First, we can run an unadjusted model with weight change as the outcome and quitting smoking as the predictor variable. The symbol <code>~</code> indicates that the statement <code>wt82_71 ~ qsmk</code> is a formula.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="statistical-analysis-in-r-1.html#cb44-1" aria-hidden="true" tabindex="-1"></a>fitlm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wt82_71 <span class="sc">~</span> qsmk, <span class="at">data =</span> nhefs)</span>
+<span id="cb44-2"><a href="statistical-analysis-in-r-1.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitlm1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = wt82_71 ~ qsmk, data = nhefs)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -43.265  -4.023   0.033   4.248  46.554 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   1.9845     0.2288   8.672  &lt; 2e-16 ***
+## qsmk          2.5406     0.4511   5.632 2.11e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 7.804 on 1564 degrees of freedom
+##   (63 observations deleted due to missingness)
+## Multiple R-squared:  0.01988,    Adjusted R-squared:  0.01925 
+## F-statistic: 31.72 on 1 and 1564 DF,  p-value: 2.106e-08</code></pre>
+<p>You can think of the <code>fitlm1</code> object that we saved as a list containing information about the model we fit:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="statistical-analysis-in-r-1.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(fitlm1)</span></code></pre></div>
+<pre><code>##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
+##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
+##  [9] &quot;na.action&quot;     &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;        
+## [13] &quot;model&quot;</code></pre>
+<p>We can output coefficients,</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="statistical-analysis-in-r-1.html#cb48-1" aria-hidden="true" tabindex="-1"></a>fitlm1<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>## (Intercept)        qsmk 
+##    1.984498    2.540581</code></pre>
+<p>residuals,</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="statistical-analysis-in-r-1.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(fitlm1<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>##           1           2           3           4           5           6 
+## -12.0784573   0.6204724   7.4299885   3.0056190   3.0047536   2.4345628</code></pre>
+<p>and the data on which R fitted the model:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="statistical-analysis-in-r-1.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(fitlm1<span class="sc">$</span>model)</span></code></pre></div>
+<pre><code>##      wt82_71 qsmk
+## 1 -10.093960    0
+## 2   2.604970    0
+## 3   9.414486    0
+## 4   4.990117    0
+## 5   4.989251    0
+## 6   4.419060    0</code></pre>
+<div class="detour">
+<p style="text-align:center;">
+<p><strong>Detour</strong></p>
+</p>
+<p>Why did we bother to note that the model object saves the “data on which R fitted the model”? Didn’t R fit the model on the data we told it to?</p>
+<p>To answer this question, let’s take a brief detour and check that the data frame saved in <code>fitlm1</code> has the same number of rows as the <code>nhefs</code> data frame we fed to the <code>lm()</code> function.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="statistical-analysis-in-r-1.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(fitlm1<span class="sc">$</span>model)</span></code></pre></div>
+<pre><code>## [1] 1566</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="statistical-analysis-in-r-1.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(nhefs)</span></code></pre></div>
+<pre><code>## [1] 1629</code></pre>
+<p>Interesting! The number of rows in each data set don’t match, but why?</p>
+<p>Recall that earlier on this page, we found 63 missing values of the outcome <code>wt82_71</code>, and if we subtract 1566 from 1629, we get 63. That’s because <em>R’s modeling methods omit rows with missing data for any variables included in the model formula</em>. The model object saves the row numbers of dropped observations in <code>fitlm1$na</code>, and we can verify by extracting these rows from the original <code>nhefs</code> data set:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="statistical-analysis-in-r-1.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract row numbers that were dropped from the fitlm1 model</span></span>
+<span id="cb58-2"><a href="statistical-analysis-in-r-1.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co"># keep only wt82_71 column and see that they&#39;re all missing</span></span>
+<span id="cb58-3"><a href="statistical-analysis-in-r-1.html#cb58-3" aria-hidden="true" tabindex="-1"></a>nhefs[fitlm1<span class="sc">$</span>na, <span class="fu">c</span>(<span class="st">&quot;wt82_71&quot;</span>)] <span class="sc">%&gt;%</span></span>
+<span id="cb58-4"><a href="statistical-analysis-in-r-1.html#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(wt82_71)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 2
+##   wt82_71     n
+##     &lt;dbl&gt; &lt;int&gt;
+## 1      NA    63</code></pre>
+<p>Not to belabor the point, but let’s convince ourselves a bit more by identifying the rows with missing values for <code>wt82_71</code> and comparing this to the list R made:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="statistical-analysis-in-r-1.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># identify rows with missing values for wt82_71</span></span>
+<span id="cb60-2"><a href="statistical-analysis-in-r-1.html#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="co"># vector of numeric row indices</span></span>
+<span id="cb60-3"><a href="statistical-analysis-in-r-1.html#cb60-3" aria-hidden="true" tabindex="-1"></a>missindex <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">is.na</span>(nhefs<span class="sc">$</span>wt82_71))  </span>
+<span id="cb60-4"><a href="statistical-analysis-in-r-1.html#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-5"><a href="statistical-analysis-in-r-1.html#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="do">## sort vectors in numerical order, generate a cross table</span></span>
+<span id="cb60-6"><a href="statistical-analysis-in-r-1.html#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="do">## </span><span class="al">NOTE</span><span class="do"> sorting is unecessary in this case, but it&#39;s good</span></span>
+<span id="cb60-7"><a href="statistical-analysis-in-r-1.html#cb60-7" aria-hidden="true" tabindex="-1"></a><span class="do">##      practice to ensure elements are ordered properly</span></span>
+<span id="cb60-8"><a href="statistical-analysis-in-r-1.html#cb60-8" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">sort</span>(missindex) <span class="sc">==</span> <span class="fu">sort</span>(fitlm1<span class="sc">$</span>na))</span></code></pre></div>
+<pre><code>## 
+## TRUE 
+##   63</code></pre>
+<p>The index vector we created manually matches the one R created and saved to <code>fitlm1</code>.</p>
+</div>
+<p>R also provides functions designed to extract specific information from model fits, though we’ll suppress the output since we already printed out some of this information above:</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="statistical-analysis-in-r-1.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract model coefficients</span></span>
+<span id="cb62-2"><a href="statistical-analysis-in-r-1.html#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fitlm1)</span>
+<span id="cb62-3"><a href="statistical-analysis-in-r-1.html#cb62-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-4"><a href="statistical-analysis-in-r-1.html#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="co"># extract model residuals</span></span>
+<span id="cb62-5"><a href="statistical-analysis-in-r-1.html#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(fitlm1)</span></code></pre></div>
+<p>Let’s look at some plot diagnostics to make sure our linear regression complies with the model’s assumptions:</p>
+<p><span class="marginnote"><code>par(mfrow = c(2, 2))</code> tells R that we want a 2x2 plot grid. If you ran <code>plot(fitlm1)</code> by itself, R would output four images in succession.</span></p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="statistical-analysis-in-r-1.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb63-2"><a href="statistical-analysis-in-r-1.html#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fitlm1)</span></code></pre></div>
+<p><img src="stats-comp-ph_files/figure-html/regression-linear-unadj-diag-1.svg" width="672"  /></p>
+<p>Based on the Q-Q plot, we may have some violations of the normality assumption (<em>i.e.</em>, residuals are not normally distributed), as evidenced by the points’ departure from the diagonal line. In a real analysis we would need to address this issue, possibly by transforming the outcome. However, our focus here is on implementing models in code, so we will proceed, leaving issues of statistical practice to your relevant coursework.</p>
+<p>Our unadjusted estimate, therefore, suggests that quitting smoking was associated with an average 2.54 kg increase in weight between 1971 and 1982.</p>
+<p>The unadjusted linear regression we just ran is actually a special case of the two-sample <em>t</em>-test (assuming equal variances between smoking group), to which you’ll be introduced early on in your stats classes. Compare the output of the code below to that of the linear regression.</p>
+<p><span class="marginnote definition"><strong>Comparing Outputs</strong> What are the <em>t</em> statistics?<br /><br /> What are the <em>p</em>-values for the difference in weight gain between quit smoking groups?<br /><br /> What are the degrees of freedom?<br /><br /> When you take the difference of “mean of x” and “mean of y” from the output of <code>t.test()</code>, do you find that value in the linear regression summary?</span></p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="statistical-analysis-in-r-1.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(nhefs, <span class="fu">t.test</span>(wt82_71[qsmk <span class="sc">==</span> <span class="dv">1</span>], wt82_71[qsmk <span class="sc">==</span> <span class="dv">0</span>], <span class="at">var.equal =</span> T))</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  wt82_71[qsmk == 1] and wt82_71[qsmk == 0]
+## t = 5.6322, df = 1564, p-value = 2.106e-08
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  1.655796 3.425367
+## sample estimates:
+## mean of x mean of y 
+##  4.525079  1.984498</code></pre>
+<p>The code below fits a linear model for the effect of <code>qsmk</code> on <code>wt82_71</code> adjusted for years of smoking (<code>smokeyrs</code>), intensity of smoking (<code>smokeintensity</code>), diabetes, sex, and age. Note that we allow for an “interaction” between sex and age, denoted by <code>sex * age</code>.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="statistical-analysis-in-r-1.html#cb66-1" aria-hidden="true" tabindex="-1"></a>fitlm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb66-2"><a href="statistical-analysis-in-r-1.html#cb66-2" aria-hidden="true" tabindex="-1"></a>  wt82_71 <span class="sc">~</span> qsmk <span class="sc">+</span> smokeyrs <span class="sc">+</span> smokeintensity <span class="sc">+</span> diabetes <span class="sc">+</span> sex <span class="sc">*</span> age,</span>
+<span id="cb66-3"><a href="statistical-analysis-in-r-1.html#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> nhefs</span>
+<span id="cb66-4"><a href="statistical-analysis-in-r-1.html#cb66-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb66-5"><a href="statistical-analysis-in-r-1.html#cb66-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-6"><a href="statistical-analysis-in-r-1.html#cb66-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitlm2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = wt82_71 ~ qsmk + smokeyrs + smokeintensity + diabetes + 
+##     sex * age, data = nhefs)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -43.224  -3.989  -0.020   4.122  46.099 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     9.216915   1.283794   7.179 1.08e-12 ***
+## qsmk            3.188466   0.445670   7.154 1.29e-12 ***
+## smokeyrs        0.059153   0.034673   1.706   0.0882 .  
+## smokeintensity  0.017379   0.016943   1.026   0.3052    
+## diabetes       -0.016252   0.193774  -0.084   0.9332    
+## sex             0.347490   1.463221   0.237   0.8123    
+## age            -0.209819   0.040721  -5.153 2.90e-07 ***
+## sex:age        -0.009605   0.032829  -0.293   0.7699    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 7.558 on 1558 degrees of freedom
+##   (63 observations deleted due to missingness)
+## Multiple R-squared:  0.08418,    Adjusted R-squared:  0.08006 
+## F-statistic: 20.46 on 7 and 1558 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Our adjusted estimate suggests that quitting smoking was associated with an average 3.19 kg increase in weight between 1971 and 1982, conditional on the other variables we included in the second linear model.</p>
+<p>Almost always, we will want to report the standard error estimates and/or confidence intervals with our measures of effect. The <code>broom::tidy()</code> function makes extracting 95% confidence intervals from regression fit objects (<em>i.e.</em>, objects like <code>fitlm1</code> or <code>fitlm2</code>):</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="statistical-analysis-in-r-1.html#cb68-1" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(fitlm2, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb68-2"><a href="statistical-analysis-in-r-1.html#cb68-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">&quot;qsmk&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 7
+##   term  estimate std.error statistic  p.value conf.low conf.high
+##   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+## 1 qsmk      3.19     0.446      7.15 1.29e-12     2.31      4.06</code></pre>
+<p>Alternatively, we can calculate the same confidence interval manually:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="statistical-analysis-in-r-1.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># point estimate</span></span>
+<span id="cb70-2"><a href="statistical-analysis-in-r-1.html#cb70-2" aria-hidden="true" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(fitlm2)[<span class="st">&quot;qsmk&quot;</span>])</span>
+<span id="cb70-3"><a href="statistical-analysis-in-r-1.html#cb70-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-4"><a href="statistical-analysis-in-r-1.html#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="co"># standard error of point estimate</span></span>
+<span id="cb70-5"><a href="statistical-analysis-in-r-1.html#cb70-5" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">summary</span>(fitlm2)<span class="sc">$</span>coefficients[, <span class="fu">c</span>(<span class="st">&quot;Std. Error&quot;</span>)][<span class="st">&quot;qsmk&quot;</span>])</span>
+<span id="cb70-6"><a href="statistical-analysis-in-r-1.html#cb70-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-7"><a href="statistical-analysis-in-r-1.html#cb70-7" aria-hidden="true" tabindex="-1"></a><span class="co"># lower and upper bounds of 95% confidence limits</span></span>
+<span id="cb70-8"><a href="statistical-analysis-in-r-1.html#cb70-8" aria-hidden="true" tabindex="-1"></a>ll <span class="ot">&lt;-</span> est <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
+<span id="cb70-9"><a href="statistical-analysis-in-r-1.html#cb70-9" aria-hidden="true" tabindex="-1"></a>ul <span class="ot">&lt;-</span> est <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
+<span id="cb70-10"><a href="statistical-analysis-in-r-1.html#cb70-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-11"><a href="statistical-analysis-in-r-1.html#cb70-11" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">estimate =</span> est, <span class="at">ll95 =</span> ll, <span class="at">ul95 =</span> ul)</span></code></pre></div>
+<pre><code>## estimate     ll95     ul95 
+## 3.188466 2.314953 4.061979</code></pre>
+</div>
+<div id="logistic-regression-1" class="section level3" number="8.4.2">
+<h3><span class="header-section-number">8.4.2</span> Logistic regression</h3>
+<p>Let’s revisit our tabular analysis, in which we were interested in whether quitting smoking affected the likelihood of a subject’s gaining weight between 1971 and 1982.</p>
+<p>We can answer the same question with a logistic regression model, using the <code>glm()</code> function.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="statistical-analysis-in-r-1.html#cb72-1" aria-hidden="true" tabindex="-1"></a>fitlog1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb72-2"><a href="statistical-analysis-in-r-1.html#cb72-2" aria-hidden="true" tabindex="-1"></a>  wt82_71_gain <span class="sc">~</span> qsmk,</span>
+<span id="cb72-3"><a href="statistical-analysis-in-r-1.html#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> nhefs,</span>
+<span id="cb72-4"><a href="statistical-analysis-in-r-1.html#cb72-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>()</span>
+<span id="cb72-5"><a href="statistical-analysis-in-r-1.html#cb72-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb72-6"><a href="statistical-analysis-in-r-1.html#cb72-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-7"><a href="statistical-analysis-in-r-1.html#cb72-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitlog1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = wt82_71_gain ~ qsmk, family = binomial(), data = nhefs)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.6459  -1.4508   0.7726   0.9267   0.9267  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  0.62301    0.06151  10.128  &lt; 2e-16 ***
+## qsmk         0.43304    0.12940   3.347 0.000818 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1976.5  on 1565  degrees of freedom
+## Residual deviance: 1964.9  on 1564  degrees of freedom
+##   (63 observations deleted due to missingness)
+## AIC: 1968.9
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>From this regression, we see that smokers who quit had an average increase of 0.433 in their log-odds of weight gain between 1971 and 1982.</p>
+<p>Usually, you will be asked to report associations from logistic regressions as odds ratios, in which case you would simply exponentiate the coefficient of interest. In this case we would run <code>exp(0.43304)</code> and get an odds ratio of 1.54. That is, those who quit smoking had 1.54 times the odds of gaining weight between 1971 and 1982, compared to those who did not quit smoking.</p>
+<p>As in the linear regression example, you could run a model adjusting for other factors, in which case you would modify the model formula accordingly. We will forego running an adjusted model here to avoid redundancy.</p>
+</div>
+<div id="log-binomial-regression-1" class="section level3" number="8.4.3">
+<h3><span class="header-section-number">8.4.3</span> Log-binomial regression</h3>
+<p>While the logistic regression remains the most frequently used generalized linear model (GLM) for binary outcomes, epidemiologists are often interested in risk differences and risk ratios.</p>
+<p>Luckily, we can use the log-binomial model to estimate contrasts in risks.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="statistical-analysis-in-r-1.html#cb74-1" aria-hidden="true" tabindex="-1"></a>fitlbin <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb74-2"><a href="statistical-analysis-in-r-1.html#cb74-2" aria-hidden="true" tabindex="-1"></a>  wt82_71_gain <span class="sc">~</span> qsmk,</span>
+<span id="cb74-3"><a href="statistical-analysis-in-r-1.html#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> nhefs,</span>
+<span id="cb74-4"><a href="statistical-analysis-in-r-1.html#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>)</span>
+<span id="cb74-5"><a href="statistical-analysis-in-r-1.html#cb74-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb74-6"><a href="statistical-analysis-in-r-1.html#cb74-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-7"><a href="statistical-analysis-in-r-1.html#cb74-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitlbin)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = wt82_71_gain ~ qsmk, family = binomial(link = &quot;log&quot;), 
+##     data = nhefs)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.6459  -1.4508   0.7726   0.9267   0.9267  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -0.42939    0.02147 -19.995  &lt; 2e-16 ***
+## qsmk         0.13090    0.03639   3.597 0.000322 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1976.5  on 1565  degrees of freedom
+## Residual deviance: 1964.9  on 1564  degrees of freedom
+##   (63 observations deleted due to missingness)
+## AIC: 1968.9
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>To get the risk ratio for the effect of quitting smoking on weight gain, we again exponentiate the beta coefficient of interest and, in doing so, estimate that those who quit smoking were 1.14 times as likely to gain weight versus non-smokers.</p>
+<p><span class="marginnote idea"><strong>Try this</strong> Calculate the risk ratio manually and convince yourself that the log-binomial model gave you the correct answer.</span></p>
+</div>
+<div id="modified-poisson-regression-1" class="section level3" number="8.4.4">
+<h3><span class="header-section-number">8.4.4</span> Modified Poisson regression</h3>
+<p>Another way to get a risk ratio using GLMs involves a procedure called modified Poisson regression. “Modified” here refers to a necessary modification of the standard error estimates when using a Poisson regression model to estimate a risk ratio. Again, save the statistical details for later. All we want to know for the moment are the nuts-and-bolts: how to fit the model and how to modify the standard errors.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="statistical-analysis-in-r-1.html#cb76-1" aria-hidden="true" tabindex="-1"></a>fitmodpois <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb76-2"><a href="statistical-analysis-in-r-1.html#cb76-2" aria-hidden="true" tabindex="-1"></a>  wt82_71_gain <span class="sc">~</span> qsmk,</span>
+<span id="cb76-3"><a href="statistical-analysis-in-r-1.html#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> nhefs,</span>
+<span id="cb76-4"><a href="statistical-analysis-in-r-1.html#cb76-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">poisson</span>()</span>
+<span id="cb76-5"><a href="statistical-analysis-in-r-1.html#cb76-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb76-6"><a href="statistical-analysis-in-r-1.html#cb76-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-7"><a href="statistical-analysis-in-r-1.html#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitmodpois)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = wt82_71_gain ~ qsmk, family = poisson(), data = nhefs)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.2181  -1.1410   0.2843   0.4007   0.4007  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -0.42939    0.03635 -11.814   &lt;2e-16 ***
+## qsmk         0.13090    0.06830   1.916   0.0553 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 832.2  on 1565  degrees of freedom
+## Residual deviance: 828.6  on 1564  degrees of freedom
+##   (63 observations deleted due to missingness)
+## AIC: 2944.6
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>Let’s compare the <code>qsmk</code> coefficient estimate to the one we got using the log-binomial model:</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="statistical-analysis-in-r-1.html#cb78-1" aria-hidden="true" tabindex="-1"></a>modcompare <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb78-2"><a href="statistical-analysis-in-r-1.html#cb78-2" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(fitlbin) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">&quot;Log-binomial&quot;</span>),</span>
+<span id="cb78-3"><a href="statistical-analysis-in-r-1.html#cb78-3" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(fitmodpois) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">&quot;Modified Poisson&quot;</span>)</span>
+<span id="cb78-4"><a href="statistical-analysis-in-r-1.html#cb78-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb78-5"><a href="statistical-analysis-in-r-1.html#cb78-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">&quot;qsmk&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb78-6"><a href="statistical-analysis-in-r-1.html#cb78-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, estimate, std.error)</span>
+<span id="cb78-7"><a href="statistical-analysis-in-r-1.html#cb78-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-8"><a href="statistical-analysis-in-r-1.html#cb78-8" aria-hidden="true" tabindex="-1"></a>modcompare <span class="sc">%&gt;%</span></span>
+<span id="cb78-9"><a href="statistical-analysis-in-r-1.html#cb78-9" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Log-binomial
+</td>
+<td style="text-align:right;">
+0.1309019
+</td>
+<td style="text-align:right;">
+0.0363902
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Modified Poisson
+</td>
+<td style="text-align:right;">
+0.1309019
+</td>
+<td style="text-align:right;">
+0.0683044
+</td>
+</tr>
+</tbody>
+</table>
+<p>Almost exactly the same point estimate, but we can see that the standard error from the modified Poisson model is considerably larger than that of the log-binomial model’s.</p>
+<p>To get a correct standard error for the modified Poisson model, we need to use a “robust” estimate of this error, also called the sandwich estimator:</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="statistical-analysis-in-r-1.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sandwich() provided by the sandwich package</span></span>
+<span id="cb79-2"><a href="statistical-analysis-in-r-1.html#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="co"># first, get the variance-covariance matrix</span></span>
+<span id="cb79-3"><a href="statistical-analysis-in-r-1.html#cb79-3" aria-hidden="true" tabindex="-1"></a>swvar_modpois <span class="ot">&lt;-</span> sandwich<span class="sc">::</span><span class="fu">sandwich</span>(fitmodpois)</span>
+<span id="cb79-4"><a href="statistical-analysis-in-r-1.html#cb79-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-5"><a href="statistical-analysis-in-r-1.html#cb79-5" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the variance of the qsmk coefficient and</span></span>
+<span id="cb79-6"><a href="statistical-analysis-in-r-1.html#cb79-6" aria-hidden="true" tabindex="-1"></a><span class="co"># take the square root to get the standard error</span></span>
+<span id="cb79-7"><a href="statistical-analysis-in-r-1.html#cb79-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(swvar_modpois[<span class="dv">2</span>, <span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## [1] 0.03639026</code></pre>
+<p>Compare this modified standard error to that of the log-binomial model. We’ve accounted for the conservative estimate in the original modified Poisson model.</p>
+<p>For more complex models, the log-binomial and modified Poisson models may provide slightly different answers. Each has other benefits and drawbacks that you will learn about if and when you take a class that introduces these methods.</p>
+
+</div>
+</div>
+</div>
+<p style="text-align: center;">
+<a href="getting-comfortable-with-loops-and-logic.html"><button class="btn btn-default">Previous</button></a>
+<a href="functionalizing-code.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>

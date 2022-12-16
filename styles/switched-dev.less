@@ -37,14 +37,15 @@ div.row {
   padding-left: 0px;
 }
 div.row:first-of-type {
-  width: 24%;
+  width: 20%;
 }
 div.row:first-of-type > .col-sm-12 {
   position: sticky;
   top: 0;
 }
-div.row:last-of-type {
-  width: 70%;
+div.row:nth-of-type(2) {
+  padding-left: 4em;
+  width: 80%;
 }
 p + .sourceCode, p + pre, pre + p {
   margin-top: 3em !important;
@@ -54,7 +55,7 @@ p + .sourceCode, p + pre, pre + p {
 /* DOCUMENT INFO -------------------------------------------------------------*/
 
 .docinfo {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   padding: 2.5em;
@@ -178,19 +179,15 @@ pre {
   background: @br-gray-t10;
   width: 65%;
 }
-pre.r, pre.sas, .sourceCode + pre, .sas + pre {
+pre.r, pre.sas, pre.sashtml, .sourceCode + pre, .sas + pre {
   border-radius: 5px;
 }
-.sourceCode + pre, .sas + pre {
+.sourceCode + pre, .sas + pre, .sashtml + pre {
   width: 55%;
   margin-left: 10%;
   max-height: 250px;
 }
-/* .sourceCode + pre:before, .sas + pre:before {
-  content: "OUTPUT";
-  background: @br-gray-t55;
-} */
-pre.r:before, pre.sas:before, .sourceCode + pre:before, .sas + pre:before {
+pre.r:before, pre.sas:before, pre.sashtml:before, .sourceCode + pre:before, .sas + pre:before, .sashtml + pre:before {
   display: inline-block;
   float: right;
   color: white;
@@ -211,10 +208,10 @@ pre.r:before {
   background: @br-gold;
   color: black;
 }
-pre.sas {
+pre.sas, pre.sashtml {
   background: @br-red-t10;
 }
-pre.sas:before {
+pre.sas:before, pre.sashtml:before {
   content: "SAS";
   background: @br-red;
 }
@@ -234,6 +231,23 @@ code.sourceCode span.co {
   color: @br-gray-a;
 }
 
+/* SAS HTML output class=branch */
+div.branch {
+  background: @br-gray-t10;
+  border-radius: 5px;
+  width: 66%;
+  max-height: 20em;
+  padding-top: 20px;
+  overflow-x: scroll;
+}
+div.branch table {
+  border-top: 0;
+  border-bottom: 0;
+  font-size: 0.8rem;
+}
+div.branch hr {
+
+}
 
 /* ## TABLES -----------------------------------------------------------------*/
 
