@@ -25,9 +25,10 @@ saspath <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_en"
 sasopts <- "-ls 75"
 
 # set default chunk options for RMarkdown
+# h/t: https://melindahiggins.netlify.app/post/create-rmarkdown-document-with-sas-code-and-output-sas-engine/;
 knitr::opts_chunk$set(
-  engine.path = list(sas = saspath, saslog = saspath),
-  engine.opts = list(sas = sasopts, saslog = sasopts),
+  engine.path = list(sas = saspath, sashtml = saspath, saslog = saspath),
+  engine.opts = list(sas = sasopts, sashtml = sasopts, saslog = sasopts),
   comment = NA,
   dev = "svg"
 )
